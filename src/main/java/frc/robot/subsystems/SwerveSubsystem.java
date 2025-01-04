@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.SHOULD_INVERT;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
-import com.ctre.phoenix6.sim.ChassisReference;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
@@ -171,7 +170,7 @@ public class SwerveSubsystem extends SubsystemBase {
         Dash.pairOf("Heading", -pidgey.getYaw().getValueAsDouble()),
         Dash.pairOf("Yaw", pidgey.getYaw().getValueAsDouble()),
         Dash.pairOf("Roll", pidgey.getRoll().getValueAsDouble()));
-        // TODO Make advantage scope work with Pose2D Dash.pairOf("Robot Pose", field.getRobotPose()));
+    // TODO Make advantage scope work with Pose2D Dash.pairOf("Robot Pose", field.getRobotPose()));
   }
 
   /**
