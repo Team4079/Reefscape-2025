@@ -26,7 +26,7 @@ module.exports = {
     {value: 'removal', name: 'removal:     Remove a feature or code section'},
   ],
 
-  scopes: [{name: 'paddrive'}, {name: 'photonvision'}, {name: 'swerve'}, {name: 'robotparams'}, {name: 'utils'}],
+  scopes: [{name: 'paddrive'}, {name: 'photonvision'}, {name: 'swerve'}, {name: 'robotparams'}, {name: 'utils'}, {name: 'project'}],
 
   usePreparedCommit: false, // to re-use commit from ./.git/COMMIT_EDITMSG
   allowTicketNumber: false,

@@ -186,12 +186,12 @@ public class SwerveSubsystem extends SubsystemBase {
     Dash.dash(
         Dash.pairOf("Forward speed", forwardSpeed),
         Dash.pairOf("Left speed", leftSpeed),
-        Dash.pairOf("Pidgey Heading", getHeading()));
+        Dash.pairOf("Pidgey Heading", getHeading())
+    );
 
-    ChassisSpeeds speeds = new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed);
-    if (!isFieldOriented) {
-      speeds.toRobotRelativeSpeeds(getPidgeyRotation());
-    }
+    ChassisSpeeds speeds = isFieldOriented ?
+            new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed) :
+            ChassisSpeeds.fromFieldRelativeSpeeds(forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation());
 
     SwerveModuleState[] states2 =
         SwerveParameters.PhysicalParameters.kinematics.toSwerveModuleStates(speeds);
