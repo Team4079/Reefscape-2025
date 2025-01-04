@@ -48,11 +48,7 @@ public class RobotParameters {
     // Limit Values
     public static final double DRIVE_SUPPLY_LIMIT = 45.0;
     public static final double DRIVE_STATOR_LIMIT = 80.0;
-    public static final double DRIVE_SUPPLY_THRESHOLD = 30.0;
-    public static final double DRIVE_TIME_THRESHOLD = 0.25;
     public static final double STEER_SUPPLY_LIMIT = 30.0;
-    public static final double STEER_SUPPLY_THRESHOLD = 30.0;
-    public static final double STEER_TIME_THRESHOLD = 0.25;
 
     // Motor Speed Manipulation Values
     public static boolean SLOW_MODE = false;
