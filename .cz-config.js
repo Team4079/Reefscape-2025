@@ -24,6 +24,7 @@ module.exports = {
     {value: 'WIP', name: 'WIP:      Work in progress'},
     {value: 'revert', name: 'revert:   Revert to a prior commit'},
     {value: 'removal', name: 'removal:     Remove a feature or code section'},
+    {value: 'removal', name: 'update:      Update a dependency or vendor dep'},
   ],
 
   scopes: [{name: 'paddrive'}, {name: 'photonvision'}, {name: 'swerve'}, {name: 'robotparams'}, {name: 'utils'}, {name: 'project'}],

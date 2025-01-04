@@ -32,7 +32,7 @@ jobs:
 
       - name: Build and Generate Docs
         run: |
-          ./gradlew dokkaHtml
+          ./gradlew dokkaGenerate
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
