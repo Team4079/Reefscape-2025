@@ -5,7 +5,7 @@ import groovy.json.JsonSlurper
 
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2025.1.1-beta-2"
+    id "edu.wpi.first.GradleRIO" version "2025.1.1"
     id 'org.jetbrains.kotlin.jvm'
     id 'com.diffplug.spotless' version "7.0.0.BETA4"
     id 'org.jetbrains.dokka' version '1.9.20'
