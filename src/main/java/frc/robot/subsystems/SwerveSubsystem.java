@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.SHOULD_INVERT;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
+import com.ctre.phoenix6.sim.ChassisReference;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
@@ -169,8 +170,8 @@ public class SwerveSubsystem extends SubsystemBase {
         Dash.pairOf("Pitch", pidgey.getPitch().getValueAsDouble()),
         Dash.pairOf("Heading", -pidgey.getYaw().getValueAsDouble()),
         Dash.pairOf("Yaw", pidgey.getYaw().getValueAsDouble()),
-        Dash.pairOf("Roll", pidgey.getRoll().getValueAsDouble()),
-        Dash.pairOf("Robot Pose", field));
+        Dash.pairOf("Roll", pidgey.getRoll().getValueAsDouble()));
+        // TODO Make advantage scope work with Pose2D Dash.pairOf("Robot Pose", field.getRobotPose()));
   }
 
   /**
@@ -186,14 +187,14 @@ public class SwerveSubsystem extends SubsystemBase {
     Dash.dash(
         Dash.pairOf("Forward speed", forwardSpeed),
         Dash.pairOf("Left speed", leftSpeed),
-        Dash.pairOf("Pidgey Heading", getHeading()));
+        Dash.pairOf("Pidgey Heading", getHeading()),
+        Dash.pairOf("Pidgey Rotation2D", getPidgeyRotation().getDegrees()));
 
     ChassisSpeeds speeds =
-        isFieldOriented
+        !isFieldOriented
             ? new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed)
             : ChassisSpeeds.fromFieldRelativeSpeeds(
                 forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation());
-
     SwerveModuleState[] states2 =
         SwerveParameters.PhysicalParameters.kinematics.toSwerveModuleStates(speeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(states2, MotorParameters.MAX_SPEED);

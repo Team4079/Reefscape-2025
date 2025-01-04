@@ -5,6 +5,7 @@ package frc.robot;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -53,7 +54,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // padA.onTrue(new InstantCommand(swerveSubsystem::addRotorPositionsforModules));
-    // padB.onTrue(new InstantCommand(swerveSubsystem::zeroHeading));
+    padB.onTrue(new InstantCommand(swerveSubsystem::resetPidgey));
     // padY.onTrue(new InstantCommand(swerveSubsystem::configAAcornMode));
     // padX.onTrue(new InstantCommand(swerveSubsystem::configSlowMode));
   }

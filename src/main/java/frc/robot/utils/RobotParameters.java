@@ -8,8 +8,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import java.io.IOException;
-import org.json.simple.parser.ParseException;
 
 /** Class containing global values for the robot. */
 @SuppressWarnings("unused")
@@ -73,12 +71,12 @@ public class RobotParameters {
               new PIDConstants(5.0, 0.00, 0.0), // translation
               new PIDConstants(5.0, 0.0, 0.0) // rotation
               );
-      public static RobotConfig config;
+      public static RobotConfig config = null;
 
       static {
         try {
           config = RobotConfig.fromGUISettings();
-        } catch (IOException | ParseException e) {
+        } catch (Exception e) {
           throw new RuntimeException("Failed to load robot config", e);
         }
       }
