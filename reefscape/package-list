@@ -55,7 +55,7 @@ $dokka.location:frc.robot.subsystems/SwerveSubsystem/zeroPose/#/PointingToDeclar
 $dokka.location:frc.robot.utils////PointingToDeclaration/reefscape/frc.robot.utils/index.html
 $dokka.location:frc.robot.utils/Dash///PointingToDeclaration/reefscape/frc.robot.utils/-dash/index.html
 $dokka.location:frc.robot.utils/Dash/Dash/#/PointingToDeclaration/reefscape/frc.robot.utils/-dash/-dash.html
-$dokka.location:frc.robot.utils/Dash/dash/#kotlin.Pair<java.lang.String,java.lang.Object>.../PointingToDeclaration/reefscape/frc.robot.utils/-dash/dash.html
+$dokka.location:frc.robot.utils/Dash/dash/#edu.wpi.first.math.Pair<java.lang.String,java.lang.Object>.../PointingToDeclaration/reefscape/frc.robot.utils/-dash/dash.html
 $dokka.location:frc.robot.utils/Dash/dashPID/#java.lang.String#frc.robot.utils.PID#double#java.util.function.DoubleConsumer/PointingToDeclaration/reefscape/frc.robot.utils/-dash/dash-p-i-d.html
 $dokka.location:frc.robot.utils/Dash/pairOf/#java.lang.String#java.lang.Object/PointingToDeclaration/reefscape/frc.robot.utils/-dash/pair-of.html
 $dokka.location:frc.robot.utils/Extensions///PointingToDeclaration/reefscape/frc.robot.utils/-extensions/index.html
