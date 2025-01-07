@@ -8,7 +8,6 @@ import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityVoltage;
@@ -17,9 +16,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
-import frc.robot.utils.RobotParameters.SwerveParameters.*;
 
 public class PivotSubsystem extends SubsystemBase {
   /** Creates a new Pivot. */
@@ -92,16 +89,16 @@ public class PivotSubsystem extends SubsystemBase {
 
     pivotConfigs.NeutralMode = NeutralModeValue.Brake;
 
-    pivotLeftConfigs.kP = PivotConstants.PIVOT_PID_LEFT_P;
-    pivotLeftConfigs.kI = PivotConstants.PIVOT_PID_LEFT_I;
-    pivotLeftConfigs.kD = PivotConstants.PIVOT_PID_LEFT_D;
-    pivotLeftConfigs.kV = PivotConstants.PIVOT_PID_LEFT_V;
+    pivotLeftConfigs.kP = PivotParameters.PIVOT_PID_LEFT_P;
+    pivotLeftConfigs.kI = PivotParameters.PIVOT_PID_LEFT_I;
+    pivotLeftConfigs.kD = PivotParameters.PIVOT_PID_LEFT_D;
+    pivotLeftConfigs.kV = PivotParameters.PIVOT_PID_LEFT_V;
     // pivotLeftConfigs.kF = PivotConstants.PIVOT_PID_LEFT_F;
 
-    pivotRightConfigs.kP = PivotConstants.PIVOT_PID_RIGHT_P;
-    pivotRightConfigs.kI = PivotConstants.PIVOT_PID_RIGHT_I;
-    pivotRightConfigs.kD = PivotConstants.PIVOT_PID_RIGHT_D;
-    pivotRightConfigs.kV = PivotConstants.PIVOT_PID_RIGHT_V;
+    pivotRightConfigs.kP = PivotParameters.PIVOT_PID_RIGHT_P;
+    pivotRightConfigs.kI = PivotParameters.PIVOT_PID_RIGHT_I;
+    pivotRightConfigs.kD = PivotParameters.PIVOT_PID_RIGHT_D;
+    pivotRightConfigs.kV = PivotParameters.PIVOT_PID_RIGHT_V;
     // pivotRightConfigs.kF = PivotConstants.PIVOT_PID_RIGHT_F;
 
     pivotMotorLeft.getConfigurator().apply(pivotLeftConfigs);
@@ -236,13 +233,13 @@ public class PivotSubsystem extends SubsystemBase {
   }
 
   public void toggleSoftStop() {
-    PivotConstants.SOFT_LIMIT_ENABLED = !PivotConstants.SOFT_LIMIT_ENABLED;
-    leftSoftLimitConfig.ReverseSoftLimitEnable = PivotConstants.SOFT_LIMIT_ENABLED;
+    PivotParameters.SOFT_LIMIT_ENABLED = !PivotParameters.SOFT_LIMIT_ENABLED;
+    leftSoftLimitConfig.ReverseSoftLimitEnable = PivotParameters.SOFT_LIMIT_ENABLED;
     // leftSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     leftSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
     // rightSoftLimitConfig.ForwardSoftLimitEnable = PivotGlobalValues.soft_limit_enabled;
-    rightSoftLimitConfig.ReverseSoftLimitEnable = PivotConstants.SOFT_LIMIT_ENABLED;
+    rightSoftLimitConfig.ReverseSoftLimitEnable = PivotParameters.SOFT_LIMIT_ENABLED;
     // rightSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     rightSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
@@ -282,7 +279,7 @@ public class PivotSubsystem extends SubsystemBase {
   }
 
   public void toggleLimit() {
-    PivotConstants.IS_SOFTLIMIT = !PivotConstants.IS_SOFTLIMIT;
+    PivotParameters.IS_SOFTLIMIT = !PivotParameters.IS_SOFTLIMIT;
   }
 
   // public void recalibrateEncoders() {
@@ -294,6 +291,6 @@ public class PivotSubsystem extends SubsystemBase {
   }
 
   public boolean getSoftLimit() {
-    return PivotConstants.IS_SOFTLIMIT;
+    return PivotParameters.IS_SOFTLIMIT;
   }
 }

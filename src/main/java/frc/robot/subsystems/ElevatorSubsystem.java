@@ -9,6 +9,7 @@ import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
+import frc.robot.utils.RobotParameters.SwerveParameters.*;
 
 public class ElevatorSubsystem extends SubsystemBase {
   private TalonFX elevatorMotorLeft;
@@ -41,9 +42,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private double deadband = 0.001;
 
-  private double absPos;
-
-  /**
+    /**
    * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
    * method to get the single instance (rather than trying to construct an instance of this class.)
    */
@@ -86,15 +85,15 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorLeftConfigurator.apply(elevatorConfigs);
     elevatorRightConfigurator.apply(elevatorConfigs);
 
-    elevatorLeftConfigs.kP = RobotParameters.ElevatorConstants.ELEVATOR_PID_LEFT_P;
-    elevatorLeftConfigs.kI = RobotParameters.ElevatorConstants.ELEVATOR_PID_LEFT_I;
-    elevatorLeftConfigs.kD = RobotParameters.ElevatorConstants.ELEVATOR_PID_LEFT_D;
-    elevatorLeftConfigs.kV = RobotParameters.ElevatorConstants.ELEVATOR_PID_LEFT_V;
+    elevatorLeftConfigs.kP = RobotParameters.ElevatorParameters.ELEVATOR_PID_LEFT_P;
+    elevatorLeftConfigs.kI = RobotParameters.ElevatorParameters.ELEVATOR_PID_LEFT_I;
+    elevatorLeftConfigs.kD = RobotParameters.ElevatorParameters.ELEVATOR_PID_LEFT_D;
+    elevatorLeftConfigs.kV = RobotParameters.ElevatorParameters.ELEVATOR_PID_LEFT_V;
 
-    elevatorRightConfigs.kP = RobotParameters.ElevatorConstants.ELEVATOR_PID_RIGHT_P;
-    elevatorRightConfigs.kI = RobotParameters.ElevatorConstants.ELEVATOR_PID_RIGHT_I;
-    elevatorRightConfigs.kD = RobotParameters.ElevatorConstants.ELEVATOR_PID_RIGHT_D;
-    elevatorRightConfigs.kV = RobotParameters.ElevatorConstants.ELEVATOR_PID_RIGHT_V;
+    elevatorRightConfigs.kP = RobotParameters.ElevatorParameters.ELEVATOR_PID_RIGHT_P;
+    elevatorRightConfigs.kI = RobotParameters.ElevatorParameters.ELEVATOR_PID_RIGHT_I;
+    elevatorRightConfigs.kD = RobotParameters.ElevatorParameters.ELEVATOR_PID_RIGHT_D;
+    elevatorRightConfigs.kV = RobotParameters.ElevatorParameters.ELEVATOR_PID_RIGHT_V;
 
     elevatorMotorLeft.getConfigurator().apply(elevatorLeftConfigs);
     elevatorMotorRight.getConfigurator().apply(elevatorRightConfigs);
@@ -156,18 +155,14 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     elevatorMotorLeft.setPosition(0);
     elevatorMotorRight.setPosition(0);
-
-    SmartDashboard.putNumber("Elevator Angle Value", 46);
   }
 
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    // 0.545533063638327 High limit before 2048 mulitplier = 1,117.251714331294
-    // 0.201015130025378 Low limit before 2048 multiplier = 411.6789862919741
     // absPos = absoluteEncoder.getPosition();
     // SmartDashboard.putNumber("Absolute Encoder Position", getAbsoluteEncoder());
-    if (RobotParameters.SwerveParameters.PIDParameters.TEST_MODE) {
+    if (Thresholds.TEST_MODE) {
       SmartDashboard.putNumber(
           "Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
       SmartDashboard.putNumber(
@@ -234,16 +229,16 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void toggleSoftStop() {
-    RobotParameters.ElevatorConstants.SOFT_LIMIT_ENABLED =
-        !RobotParameters.ElevatorConstants.SOFT_LIMIT_ENABLED;
+    RobotParameters.ElevatorParameters.SOFT_LIMIT_ENABLED =
+        !RobotParameters.ElevatorParameters.SOFT_LIMIT_ENABLED;
     leftSoftLimitConfig.ReverseSoftLimitEnable =
-        RobotParameters.ElevatorConstants.SOFT_LIMIT_ENABLED;
+        RobotParameters.ElevatorParameters.SOFT_LIMIT_ENABLED;
     // leftSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     leftSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
     // rightSoftLimitConfig.ForwardSoftLimitEnable = elevatorGlobalValues.soft_limit_enabled;
     rightSoftLimitConfig.ReverseSoftLimitEnable =
-        RobotParameters.ElevatorConstants.SOFT_LIMIT_ENABLED;
+        RobotParameters.ElevatorParameters.SOFT_LIMIT_ENABLED;
     // rightSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     rightSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
@@ -282,8 +277,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void toggleLimit() {
-    RobotParameters.ElevatorConstants.IS_SOFTLIMIT =
-        !RobotParameters.ElevatorConstants.IS_SOFTLIMIT;
+    RobotParameters.ElevatorParameters.IS_SOFTLIMIT =
+        !RobotParameters.ElevatorParameters.IS_SOFTLIMIT;
   }
 
   // public void recalibrateEncoders() {
@@ -292,6 +287,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   // }
 
   public boolean getSoftLimitBoolean() {
-    return RobotParameters.ElevatorConstants.IS_SOFTLIMIT;
+    return RobotParameters.ElevatorParameters.IS_SOFTLIMIT;
   }
 }

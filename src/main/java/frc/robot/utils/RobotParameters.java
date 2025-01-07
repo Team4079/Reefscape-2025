@@ -60,6 +60,8 @@ public class RobotParameters {
   /** Class containing global values related to the swerve drive system. */
   public static class SwerveParameters {
 
+    public static final String pathPlannerAutoName = "Straight Auto";
+
     /** Class containing PID constants for the swerve drive system. */
     public static class PIDParameters {
       public static final PID STEER_PID_TELE = new PID(13.0, 0.000, 0.1, 0.0);
@@ -70,9 +72,6 @@ public class RobotParameters {
       public static final double DRIVE_PID_V_TELE = 0.0;
       public static final PID ROTATIONAL_PID = new PID(0.2, 0.0, 0.0, 0.0);
       public static final PID PASS_ROTATIONAL_PID = new PID(0.1, 0.0, 0.0, 0.0);
-
-      // Testing boolean for SmartDashboard (to not slow down the robot)
-      public static final boolean TEST_MODE = false;
 
       public static PPHolonomicDriveController pathFollower =
           new PPHolonomicDriveController(
@@ -142,7 +141,7 @@ public class RobotParameters {
   }
 
   /** Class containing constants for the elevator subsystem. */
-  public static class ElevatorConstants {
+  public static class ElevatorParameters {
     public static final double ELEVATOR_PID_LEFT_P = 0.0;
     public static final double ELEVATOR_PID_LEFT_I = 0.0;
     public static final double ELEVATOR_PID_LEFT_D = 0.0;
@@ -158,7 +157,7 @@ public class RobotParameters {
   }
 
   /** Class containing constants for the pivot subsystem. */
-  public static class PivotConstants {
+  public static class PivotParameters {
     public static final double PIVOT_PID_LEFT_P = 0.0;
     public static final double PIVOT_PID_LEFT_I = 0.0;
     public static final double PIVOT_PID_LEFT_D = 0.0;

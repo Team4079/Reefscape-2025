@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.PadDrive;
 import frc.robot.subsystems.*;
-import frc.robot.utils.LogitechGamingPad;
+import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
+
+import static frc.robot.utils.RobotParameters.SwerveParameters.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -59,6 +61,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return new PathPlannerAuto("Straight Auto");
+    return new PathPlannerAuto(pathPlannerAutoName);
   }
 }
