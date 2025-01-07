@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.*;
 import frc.robot.utils.Dash;
 import frc.robot.utils.LogitechGamingPad;
 import frc.robot.utils.RobotParameters;
@@ -9,22 +9,19 @@ import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds;
 
 /** Command to control the robot's swerve drive using a Logitech gaming pad. */
 public class PadDrive extends Command {
-  private final SwerveSubsystem swerveSubsystem;
   private final LogitechGamingPad pad;
   private final boolean isFieldOriented;
 
   /**
    * Constructs a new PadDrive command.
    *
-   * @param swerveSubsystem The swerve subsystem used by this command.
    * @param pad The Logitech gaming pad used to control the robot.
    * @param isFieldOriented Whether the drive is field-oriented.
    */
-  public PadDrive(SwerveSubsystem swerveSubsystem, LogitechGamingPad pad, boolean isFieldOriented) {
-    this.swerveSubsystem = swerveSubsystem;
+  public PadDrive(LogitechGamingPad pad, boolean isFieldOriented) {
     this.pad = pad;
     this.isFieldOriented = isFieldOriented;
-    addRequirements(this.swerveSubsystem);
+    addRequirements(SwerveSubsystem.getInstance());
   }
 
   /**
@@ -47,7 +44,8 @@ public class PadDrive extends Command {
         Dash.pairOf("Y Joystick", position.y()),
         Dash.pairOf("Rotation", rotation));
 
-    swerveSubsystem.setDriveSpeeds(position.y(), position.x(), rotation * 0.8, isFieldOriented);
+    SwerveSubsystem.getInstance()
+        .setDriveSpeeds(position.y(), position.x(), rotation * 0.8, isFieldOriented);
   }
 
   /**

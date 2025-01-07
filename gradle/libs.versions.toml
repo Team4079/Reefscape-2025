@@ -1,10 +1,12 @@
 [versions]
 dokka = "2.0.0"
-spotless = "7.0.0.BETA4"
+spotless = "7.0.0"
 gradleRIO = "2025.1.1"
+junit = "5.11.4"
 
 [libraries]
 dokka-java = { group = "org.jetbrains.dokka", name = "kotlin-as-java-plugin", version.ref = "dokka"}
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit" }
 
 [plugins]
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }

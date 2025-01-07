@@ -10,7 +10,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 
 /** Class containing global values for the robot. */
-@SuppressWarnings("unused")
 public class RobotParameters {
   /** Class containing global values related to motors. */
   public static class MotorParameters {
@@ -27,7 +26,11 @@ public class RobotParameters {
     public static final int FRONT_RIGHT_CAN_CODER_ID = 10;
     public static final int BACK_LEFT_CAN_CODER_ID = 11;
     public static final int BACK_RIGHT_CAN_CODER_ID = 12;
+    public static final int ELEVATOR_MOTOR_LEFT_ID = 13;
+    public static final int ELEVATOR_MOTOR_RIGHT_ID = 14;
     public static final int PIDGEY_ID = 16;
+    public static final int PIVOT_MOTOR_LEFT_ID = 17;
+    public static final int PIVOT_MOTOR_RIGHT_ID = 18;
 
     // Motor Property Values
     public static final double MAX_SPEED = 5.76;
@@ -50,11 +53,11 @@ public class RobotParameters {
 
     // Motor Speed Manipulation Values
     public static boolean SLOW_MODE = false;
-    public static boolean AACORN_MODE = true;
   }
 
   /** Class containing global values related to the swerve drive system. */
   public static class SwerveParameters {
+    public static final String pathPlannerAutoName = "Straight Auto";
 
     /** Class containing PID constants for the swerve drive system. */
     public static class PIDParameters {
@@ -66,6 +69,7 @@ public class RobotParameters {
       public static final double DRIVE_PID_V_TELE = 0.0;
       public static final PID ROTATIONAL_PID = new PID(0.2, 0.0, 0.0, 0.0);
       public static final PID PASS_ROTATIONAL_PID = new PID(0.1, 0.0, 0.0, 0.0);
+
       public static PPHolonomicDriveController pathFollower =
           new PPHolonomicDriveController(
               new PIDConstants(5.0, 0.00, 0.0), // translation
@@ -91,7 +95,6 @@ public class RobotParameters {
       public static final Translation2d BACK_RIGHT = new Translation2d(-0.3048, -0.3048);
       public static final SwerveDriveKinematics kinematics =
           new SwerveDriveKinematics(FRONT_LEFT, FRONT_RIGHT, BACK_LEFT, BACK_RIGHT);
-      public static final double BASE_LENGTH_ERICK_TRAN = 0.3048 * 2;
     }
 
     /** Class containing various thresholds and constants for the swerve drive system. */
@@ -112,18 +115,22 @@ public class RobotParameters {
       public static final boolean SHOULD_INVERT = false;
       public static final double ENCODER_OFFSET = (0 / 360.0);
       public static Pose2d currentPose = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
-      public static final int[] GREEN_LED = {0, 255, 0};
-      public static final int[] ORANGE_LED = {255, 165, 0};
-      public static final int[] HIGHTIDE_LED = {0, 182, 174};
       public static final double X_DEADZONE = 0.15 * 5.76;
       public static final double Y_DEADZONE = 0.15 * 5.76;
       public static final double OFF_BALANCE_ANGLE_THRESHOLD = 10.0;
       public static final double ON_BALANCE_ANGLE_THRESHOLD = 5.0;
+
+      // Robot LED Constants
+      public static final int[] GREEN_LED = {0, 255, 0};
+      public static final int[] ORANGE_LED = {255, 165, 0};
+      public static final int[] HIGHTIDE_LED = {0, 182, 174};
+      
+      // Testing boolean for SmartDashboard (to not slow down the robot)
       public static boolean TEST_MODE = true;
     }
   }
 
-  /** Class containing constants for the PhotonVision system. */
+  /** Class containing constants for the PhotonVision subsystem. */
   public static class PhotonVisionConstants {
     public static final double CAMERA_ONE_HEIGHT_METER = 0.47;
     public static final double CAMERA_ONE_ANGLE_DEG = 33.0;
@@ -131,5 +138,37 @@ public class RobotParameters {
     public static final double CAMERA_TWO_HEIGHT_METER = 0.61;
     public static final double CAMERA_TWO_ANGLE_DEG = 37.5;
     public static final double OFFSET_TOWARD_MID_RIGHT = 15.0;
+  }
+
+  /** Class containing constants for the elevator subsystem. */
+  public static class ElevatorParameters {
+    public static final double ELEVATOR_PID_LEFT_P = 0.0;
+    public static final double ELEVATOR_PID_LEFT_I = 0.0;
+    public static final double ELEVATOR_PID_LEFT_D = 0.0;
+    public static final double ELEVATOR_PID_LEFT_V = 0.0;
+
+    public static final double ELEVATOR_PID_RIGHT_P = 0.0;
+    public static final double ELEVATOR_PID_RIGHT_I = 0.0;
+    public static final double ELEVATOR_PID_RIGHT_D = 0.0;
+    public static final double ELEVATOR_PID_RIGHT_V = 0.0;
+
+    public static boolean SOFT_LIMIT_ENABLED = false;
+    public static boolean IS_SOFTLIMIT = false;
+  }
+
+  /** Class containing constants for the pivot subsystem. */
+  public static class PivotParameters {
+    public static final double PIVOT_PID_LEFT_P = 0.0;
+    public static final double PIVOT_PID_LEFT_I = 0.0;
+    public static final double PIVOT_PID_LEFT_D = 0.0;
+    public static final double PIVOT_PID_LEFT_V = 0.0;
+
+    public static final double PIVOT_PID_RIGHT_P = 0.0;
+    public static final double PIVOT_PID_RIGHT_I = 0.0;
+    public static final double PIVOT_PID_RIGHT_D = 0.0;
+    public static final double PIVOT_PID_RIGHT_V = 0.0;
+
+    public static boolean SOFT_LIMIT_ENABLED = false;
+    public static boolean IS_SOFTLIMIT = false;
   }
 }

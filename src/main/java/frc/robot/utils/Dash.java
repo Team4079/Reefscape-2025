@@ -1,9 +1,9 @@
 package frc.robot.utils;
 
+import edu.wpi.first.math.Pair;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds;
-import kotlin.Pair;
 
 public class Dash {
   /**
