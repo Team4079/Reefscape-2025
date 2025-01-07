@@ -63,7 +63,6 @@ $dokka.location:frc.robot.subsystems/SwerveSubsystem/resetPidgey/#/PointingToDec
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/setAutoPID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/set-auto-p-i-d.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/setCustomDrivePID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/set-custom-drive-p-i-d.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/setDriveSpeeds/#double#double#double#boolean/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/set-drive-speeds.html
-$dokka.location:frc.robot.subsystems/SwerveSubsystem/setInitialHeading/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/set-initial-heading.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/setModuleStates/#edu.wpi.first.math.kinematics.SwerveModuleState[]/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/set-module-states.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/setTelePID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/set-tele-p-i-d.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/stop/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/stop.html
