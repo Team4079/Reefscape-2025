@@ -9,6 +9,15 @@ import java.util.*;
 import org.photonvision.*;
 import org.photonvision.targeting.*;
 
+/**
+ * The PhotonvisionSubsystem class is a subsystem that interfaces with the PhotonVision system to
+ * provide vision tracking and pose estimation capabilities. This subsystem is a Singleton, meaning
+ * that only one instance of this class is created and shared across the entire robot code.
+ *
+ * <p>This subsystem provides methods to get the estimated global pose of the robot, the distance to
+ * the subwoofer, and the yaw of the subwoofer. It also provides methods to check if a tag is
+ * visible, get the forward distance to the target, and get the pivot position.
+ */
 public class PhotonvisionSubsystem extends SubsystemBase {
   // PhotonVision cameras
   private final PhotonCamera camera = new PhotonCamera("Camera");
@@ -33,10 +42,9 @@ public class PhotonvisionSubsystem extends SubsystemBase {
               Math.toRadians(180.0)));
 
   private PhotonTrackedTarget target = null;
-  private boolean targetVisible = false;
+  private boolean isTargetVisible = false;
   private double yaw = -15.0;
   private double targetPoseAmbiguity = 7157.0;
-  private double range = 0.0;
   private double rangeToTarget = 0.0;
   private List<PhotonPipelineResult> result;
   private PhotonPipelineResult currentResult = null;

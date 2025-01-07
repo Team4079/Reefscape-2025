@@ -9,8 +9,14 @@ import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
+import frc.robot.utils.RobotParameters.ElevatorParameters;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 
+/**
+ * The ElevatorSubsystem class is a Singleton to control the elevator motors on the robot. The class
+ * sets the motor positions, gets the motor positions, stops the motors, and toggles the soft stop
+ * for the elevator motor.
+ */
 public class ElevatorSubsystem extends SubsystemBase {
   private TalonFX elevatorMotorLeft;
   private TalonFX elevatorMotorRight;
@@ -42,7 +48,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private double deadband = 0.001;
 
-    /**
+  /**
    * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
    * method to get the single instance (rather than trying to construct an instance of this class.)
    */
@@ -160,19 +166,17 @@ public class ElevatorSubsystem extends SubsystemBase {
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    // absPos = absoluteEncoder.getPosition();
-    // SmartDashboard.putNumber("Absolute Encoder Position", getAbsoluteEncoder());
     if (Thresholds.TEST_MODE) {
       SmartDashboard.putNumber(
           "Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
       SmartDashboard.putNumber(
           "Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
-      SmartDashboard.putBoolean("Elevator SoftLimit", getSoftLimitBoolean());
+      SmartDashboard.putBoolean("Elevator SoftLimit", getSoftLimit());
       // SmartDashboard.putBoolean("limit", limit);
       dash(
           pairOf("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble()),
           pairOf("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble()),
-          pairOf("Elevator SoftLimit", getSoftLimitBoolean()));
+          pairOf("Elevator SoftLimit", getSoftLimit()));
     }
 
     // TODO: wtf does this do, make it do something useful or remove it
@@ -201,44 +205,56 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorMotorRight.setControl(pos_reqest.withPosition(right));
   }
 
+  // TODO: Figure out what the .magnitude() method does and document it in the method signature
   /**
    * Get the position of the elevator motor
    *
-   * @param motor The motor to get the position of
+   * @param motor "left" or "right | The motor to get the position of
    * @return double, the position of the elevator motor
+   * @throws -1.0 if the motor is not "left" or "right"
    */
-  // TODO: Figure out what the .magnitude() method does and document it in this file
   public double getElevatorPosValue(String motor) {
-    if (motor.equals("left")) {
+    if (motor.toLowerCase().equals("left")) {
       return elevatorMotorLeft.getPosition().getValue().magnitude();
-    } else if (motor.equals("right")) {
+    } else if (motor.toLowerCase().equals("right")) {
       return elevatorMotorRight.getPosition().getValue().magnitude();
     } else {
-      // This only happens if the string is not "left" or "right"
-      return 0.0;
+      // This returns if the motor is not "left" or "right"
+      System.out.println("getElevatorPosValue: Invalid motor, motor type should only be 'left' or 'right'");
+      return -1.0;
     }
   }
 
+  /**
+   * Get the average position of the elevator motors
+   * @return double, the average position of the elevator motors
+   */
   public double getElevatorPosAvg() {
     return (getElevatorPosValue("left") + getElevatorPosValue("right")) / 2;
   }
 
+  /**
+   * Soft resets the encoders on the elevator motors
+   */
   public void resetEncoders() {
     elevatorMotorLeft.setPosition(0);
     elevatorMotorRight.setPosition(0);
   }
 
+  /**
+   * Toggles the soft stop for the elevator motor
+   */
   public void toggleSoftStop() {
-    RobotParameters.ElevatorParameters.SOFT_LIMIT_ENABLED =
-        !RobotParameters.ElevatorParameters.SOFT_LIMIT_ENABLED;
+    ElevatorParameters.SOFT_LIMIT_ENABLED =
+        !ElevatorParameters.SOFT_LIMIT_ENABLED;
     leftSoftLimitConfig.ReverseSoftLimitEnable =
-        RobotParameters.ElevatorParameters.SOFT_LIMIT_ENABLED;
+        ElevatorParameters.SOFT_LIMIT_ENABLED;
     // leftSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     leftSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
     // rightSoftLimitConfig.ForwardSoftLimitEnable = elevatorGlobalValues.soft_limit_enabled;
     rightSoftLimitConfig.ReverseSoftLimitEnable =
-        RobotParameters.ElevatorParameters.SOFT_LIMIT_ENABLED;
+        ElevatorParameters.SOFT_LIMIT_ENABLED;
     // rightSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     rightSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
@@ -247,18 +263,10 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   /**
-   * Get the absolute encoder position // @return double, the absolute encoder position of the
-   * elevator motor
+   * Move the elevator motor at a specific velocity
+   * @param velocity double, the velocity to move the elevator motor at
+   * @return void
    */
-  // public double getAbsoluteEncoder() {
-  //   // return actualAbsEnc.getAbsolutePosition() * 2048;
-  //   if (absoluteEncoder.getPosition() > 190) {
-  //     return 0;
-  //   } else {
-  //     return absoluteEncoder.getPosition();
-  //   }
-  // }
-
   public void moveElevator(double velocity) {
     if (Math.abs(velocity) >= deadband) {
       elevatorMotorLeft.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
@@ -271,11 +279,20 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
   }
 
+  /**
+   * Sets the elevator motor to a specific position
+   * @param pos double, the position to set the elevator motor to
+   * @return void
+   */
   public void setElevator(double pos) {
     elevatorMotorLeft.setControl(vel_voltage.withVelocity(pos));
     elevatorMotorRight.setControl(vel_voltage.withVelocity(pos));
   }
 
+  /**
+   * Toggles the soft limit for the elevator motor
+   * @return void
+   */
   public void toggleLimit() {
     RobotParameters.ElevatorParameters.IS_SOFTLIMIT =
         !RobotParameters.ElevatorParameters.IS_SOFTLIMIT;
@@ -286,7 +303,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   // getAbsoluteEncoder();
   // }
 
-  public boolean getSoftLimitBoolean() {
+  /**
+   * Get the soft limit for the elevator motor
+   * @return boolean, the soft limit state for the elevator motor
+   */
+  public boolean getSoftLimit() {
     return RobotParameters.ElevatorParameters.IS_SOFTLIMIT;
   }
 }

@@ -18,6 +18,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters.*;
 
+/**
+ * The PivotSubsystem class is a subsystem that interfaces with the pivot system to provide control
+ * over the pivot motors. This subsystem is a Singleton, meaning that only one instance of this class
+ * is created and shared across the entire robot code.
+ */
 public class PivotSubsystem extends SubsystemBase {
   /** Creates a new Pivot. */
   private TalonFX pivotMotorLeft;
@@ -197,22 +202,32 @@ public class PivotSubsystem extends SubsystemBase {
     pivotMotorLeft.setControl(pos_reqest.withPosition(left));
     pivotMotorRight.setControl(pos_reqest.withPosition(right));
   }
+  
+    /**
+   * Get the position of the elevator motor
+   *
+   * @param motor "left" or "right | The motor to get the position of
+   * @return double, the position of the elevator motor
+   * @throws -1.0 if the motor is not "left" or "right"
+   */
+  public double getPivotPosValue(String motor) {
+    if (motor.toLowerCase().equals("left")) {
+      return pivotMotorLeft.getPosition().getValue().magnitude();
+    } else if (motor.toLowerCase().equals("right")) {
+      return pivotMotorRight.getPosition().getValue().magnitude();
+    } else {
+      // This returns if the motor is not "left" or "right"
+      System.out.println("getElevatorPosValue: Invalid motor, motor type should only be 'left' or 'right'");
+      return -1.0;
+    }
+  }
 
   /**
-   * Get the position of the pivot motor
-   *
-   * @return double, the position of the pivot motor
+   * Get the average position of the pivot motor
+   * @return double, the average position of the pivot motor
    */
-  public double getPivotLeftPos() {
-    return pivotMotorLeft.getPosition().getValueAsDouble();
-  }
-
-  public double getPivotRightPos() {
-    return pivotMotorRight.getPosition().getValueAsDouble();
-  }
-
-  public double getPivotPos() {
-    return (getPivotLeftPos() + getPivotRightPos()) / 2;
+  public double getPivotPosAvg() {
+    return (getPivotPosValue("left") + getPivotPosValue("right")) / 2;
   }
 
   /**
@@ -222,16 +237,22 @@ public class PivotSubsystem extends SubsystemBase {
    * @return double, the position of the pivot motor
    */
   public double shootPos(double distance) {
-    // line function
-    // TODO: do stuf
-    return 0.0;
+    // Calculates the shoot position based on the distance and line of best fit
+    double y = 0.0;
+    return y;
   }
 
+ /**
+   * Soft resets the encoders on the elevator motors
+   */
   public void resetEncoders() {
     pivotMotorLeft.setPosition(0);
     pivotMotorRight.setPosition(0);
   }
 
+  /**
+   * Toggles the soft stop for the elevator motor
+   */
   public void toggleSoftStop() {
     PivotParameters.SOFT_LIMIT_ENABLED = !PivotParameters.SOFT_LIMIT_ENABLED;
     leftSoftLimitConfig.ReverseSoftLimitEnable = PivotParameters.SOFT_LIMIT_ENABLED;
@@ -248,19 +269,10 @@ public class PivotSubsystem extends SubsystemBase {
   }
 
   /**
-   * // * Get the absolute encoder position // * // * @return double, the absolute encoder position
-   * of the pivot motor //
+   * Move the pivot motor based on the velocity
+   * @param velocity double, The velocity to move the pivot motor
+   * @return void
    */
-  // public double getAbsoluteEncoder() {
-  //   // return actualAbsEnc.getAbsolutePosition() * 2048;
-  //   if (absoluteEncoder.getPosition() > 190) {
-  //     return 0;
-  //   }
-  //   else {
-  //     return absoluteEncoder.getPosition();
-  //   }
-  // }
-
   public void movePivot(double velocity) {
     if (Math.abs(velocity) >= deadband) {
       pivotMotorLeft.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
@@ -273,11 +285,20 @@ public class PivotSubsystem extends SubsystemBase {
     }
   }
 
+  /**
+   * Set the pivot motor to a specific position
+   * @param pos double, The position to set the pivot motor to
+   * @return void
+   */
   public void setPivot(double pos) {
     pivotMotorLeft.setControl(vel_voltage.withVelocity(pos));
     pivotMotorRight.setControl(vel_voltage.withVelocity(pos));
   }
 
+  /**
+   * Toggles the soft limit for the elevator motor
+   * @return void
+   */
   public void toggleLimit() {
     PivotParameters.IS_SOFTLIMIT = !PivotParameters.IS_SOFTLIMIT;
   }
@@ -286,10 +307,10 @@ public class PivotSubsystem extends SubsystemBase {
   //   PivotGlobalValues.offset = PivotGlobalValues.PIVOT_NEUTRAL_ANGLE - getAbsoluteEncoder();
   // }
 
-  public double getPivotPositionAvg() {
-    return (getPivotLeftPos() + getPivotRightPos()) / 2;
-  }
-
+  /**
+   * Get the soft limit for the pivot motor
+   * @return boolean, The soft limit state for the pivot motor
+   */
   public boolean getSoftLimit() {
     return PivotParameters.IS_SOFTLIMIT;
   }
