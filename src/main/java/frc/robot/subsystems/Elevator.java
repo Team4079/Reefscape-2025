@@ -56,8 +56,6 @@ public class Elevator extends SubsystemBase {
 
   private double deadband = 0.001;
 
-  private double absPos;
-
   public Elevator() {
     elevatorMotorLeft = new TalonFX(MotorParameters.ELEVATOR_MOTOR_LEFT_ID);
     elevatorMotorRight = new TalonFX(MotorParameters.ELEVATOR_MOTOR_RIGHT_ID);
@@ -150,15 +148,11 @@ public class Elevator extends SubsystemBase {
 
     elevatorMotorLeft.setPosition(0);
     elevatorMotorRight.setPosition(0);
-
-    SmartDashboard.putNumber("Elevator Angle Value", 46);
   }
 
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    // 0.545533063638327 High limit before 2048 mulitplier = 1,117.251714331294
-    // 0.201015130025378 Low limit before 2048 multiplier = 411.6789862919741
     // absPos = absoluteEncoder.getPosition();
     // SmartDashboard.putNumber("Absolute Encoder Position", getAbsoluteEncoder());
     if(Thresholds.TEST_MODE) {

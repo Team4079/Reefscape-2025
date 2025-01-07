@@ -51,7 +51,6 @@ public class RobotParameters {
 
     // Motor Speed Manipulation Values
     public static boolean SLOW_MODE = false;
-    public static boolean AACORN_MODE = true;
   }
 
   /** Class containing global values related to the swerve drive system. */
