@@ -35,7 +35,6 @@ public class SwerveSubsystem extends SubsystemBase {
   private final Pigeon2 pidgey = new Pigeon2(MotorParameters.PIDGEY_ID);
   private final SwerveModuleState[] states = new SwerveModuleState[4];
   private final SwerveModule[] modules;
-  private final Photonvision photonvision;
   private final PID pid;
   private double velocity = 0.0;
 
@@ -44,8 +43,7 @@ public class SwerveSubsystem extends SubsystemBase {
    *
    * @param photonvision The Photonvision instance used for vision processing.
    */
-  public SwerveSubsystem(Photonvision photonvision) {
-    this.photonvision = photonvision;
+  public SwerveSubsystem() {
     this.modules = initializeModules();
     this.pid = initializePID();
     this.pidgey.reset();
@@ -143,13 +141,13 @@ public class SwerveSubsystem extends SubsystemBase {
    */
   @Override
   public void periodic() {
-
     /*
      This method checks whether the bot is in Teleop, and adds it to poseEstimator based on VISION
     */
     if (DriverStation.isTeleop()) {
       EstimatedRobotPose estimatedPose =
-          photonvision.getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
+          PhotonvisionSubsystem.getInstance()
+              .getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
       if (estimatedPose != null) {
         double timestamp = estimatedPose.timestampSeconds;
         Pose2d visionMeasurement2d = estimatedPose.estimatedPose.toPose2d();
