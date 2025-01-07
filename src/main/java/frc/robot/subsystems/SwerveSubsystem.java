@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.*;
 import frc.robot.utils.Dash;
 import frc.robot.utils.PID;
 import frc.robot.utils.RobotParameters.*;
@@ -25,25 +26,36 @@ import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import java.util.Optional;
 import org.photonvision.EstimatedRobotPose;
 
-/**
- * The SwerveSubsystem class represents the swerve drive subsystem of the robot. It handles the
- * control and state estimation of the swerve drive modules.
- */
 public class SwerveSubsystem extends SubsystemBase {
   private final SwerveDrivePoseEstimator poseEstimator;
   private final Field2d field = new Field2d();
-  private final Pigeon2 pidgey = new Pigeon2(MotorParameters.PIDGEY_ID);
+  private final Pigeon2 pidgey = new Pigeon2(RobotParameters.MotorParameters.PIDGEY_ID);
   private final SwerveModuleState[] states = new SwerveModuleState[4];
   private final SwerveModule[] modules;
   private final PID pid;
   private double velocity = 0.0;
 
   /**
-   * Constructs a new SwerveSubsystem.
-   *
-   * @param photonvision The Photonvision instance used for vision processing.
+   * The Singleton instance of this SwerveSubsystem. Code should use the {@link #getInstance()}
+   * method to get the single instance (rather than trying to construct an instance of this class.)
    */
-  public SwerveSubsystem() {
+  private static final SwerveSubsystem INSTANCE = new SwerveSubsystem();
+
+  /**
+   * Returns the Singleton instance of this SwerveSubsystem. This static method should be used,
+   * rather than the constructor, to get the single instance of this class. For example: {@code
+   * SwerveSubsystem.getInstance();}
+   */
+  @SuppressWarnings("WeakerAccess")
+  public static SwerveSubsystem getInstance() {
+    return INSTANCE;
+  }
+
+  /**
+   * Creates a new instance of this SwerveSubsystem. This constructor is private since this class is
+   * a Singleton. Code should use the {@link #getInstance()} method to get the singleton instance.
+   */
+  private SwerveSubsystem() {
     this.modules = initializeModules();
     this.pid = initializePID();
     this.pidgey.reset();

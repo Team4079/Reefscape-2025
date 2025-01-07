@@ -21,8 +21,6 @@ import frc.robot.utils.RobotParameters.SwerveParameters.*;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  private final SwerveSubsystem swerveSubsystem;
-
   private final JoystickButton padA;
   private final JoystickButton padB;
   private final JoystickButton padX;
@@ -36,9 +34,8 @@ public class RobotContainer {
     padX = new JoystickButton(pad, 3);
     padY = new JoystickButton(pad, 4);
 
-    swerveSubsystem = new SwerveSubsystem();
-    swerveSubsystem.setDefaultCommand(
-        new PadDrive(swerveSubsystem, pad, Thresholds.IS_FIELD_ORIENTED));
+    SwerveSubsystem.getInstance()
+        .setDefaultCommand(new PadDrive(pad, Thresholds.IS_FIELD_ORIENTED));
 
     configureBindings();
   }
@@ -50,10 +47,10 @@ public class RobotContainer {
    * CommandXboxController}/{@link CommandPS4Controller} controllers or {@link CommandJoystick}.
    */
   private void configureBindings() {
-    // padA.onTrue(new InstantCommand(swerveSubsystem::addRotorPositionsforModules));
-    padB.onTrue(new InstantCommand(swerveSubsystem::resetPidgey));
-    // padY.onTrue(new InstantCommand(swerveSubsystem::configAAcornMode));
-    // padX.onTrue(new InstantCommand(swerveSubsystem::configSlowMode));
+    // padA.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::addRotorPositionsforModules));
+    padB.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::resetPidgey));
+    // padY.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::configAAcornMode));
+    // padX.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::configSlowMode));
   }
 
   /**
