@@ -27,7 +27,7 @@ module.exports = {
     {value: 'update', name: 'update:   Update a dependency or vendor dep'},
   ],
 
-  scopes: [{name: 'paddrive'}, {name: 'photonvision'}, {name: 'swerve'}, {name: 'robotparams'}, {name: 'utils'}, {name: 'project'}],
+  scopes: [{name: 'photonvision'}, {name: 'swerve'}, {name: 'elevator'}, {name: 'pivot'}, {name: 'robotparams'}, {name: 'paddrive'}, {name: 'utils'}, {name: 'project'}],
 
   usePreparedCommit: false, // to re-use commit from ./.git/COMMIT_EDITMSG
   allowTicketNumber: false,

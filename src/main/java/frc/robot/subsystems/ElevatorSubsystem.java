@@ -1,32 +1,16 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
-import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
-import com.ctre.phoenix6.configs.MotorOutputConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
-import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.configs.TalonFXConfigurator;
-import com.ctre.phoenix6.controls.PositionDutyCycle;
-import com.ctre.phoenix6.controls.PositionVoltage;
-import com.ctre.phoenix6.controls.VelocityVoltage;
-import com.ctre.phoenix6.controls.VoltageOut;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.InvertedValue;
-import com.ctre.phoenix6.signals.NeutralModeValue;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.RobotParameters;
-import frc.robot.utils.RobotParameters.ElevatorConstants;
-import frc.robot.utils.RobotParameters.MotorParameters;
-import frc.robot.utils.RobotParameters.SwerveParameters.PIDParameters;
+import static frc.robot.utils.Dash.*;
 
-public class Elevator extends SubsystemBase {
-  /** Creates a new elevator. */
+import com.ctre.phoenix6.configs.*;
+import com.ctre.phoenix6.controls.*;
+import com.ctre.phoenix6.hardware.*;
+import com.ctre.phoenix6.signals.*;
+import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.*;
+
+public class ElevatorSubsystem extends SubsystemBase {
   private TalonFX elevatorMotorLeft;
   private TalonFX elevatorMotorRight;
 
@@ -59,9 +43,30 @@ public class Elevator extends SubsystemBase {
 
   private double absPos;
 
-  public Elevator() {
-    elevatorMotorLeft = new TalonFX(MotorParameters.ELEVATOR_MOTOR_LEFT_ID);
-    elevatorMotorRight = new TalonFX(MotorParameters.ELEVATOR_MOTOR_RIGHT_ID);
+  /**
+   * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
+   * method to get the single instance (rather than trying to construct an instance of this class.)
+   */
+  private static final ElevatorSubsystem INSTANCE = new ElevatorSubsystem();
+
+  /**
+   * Returns the Singleton instance of this ElevatorSubsystem. This static method should be used,
+   * rather than the constructor, to get the single instance of this class. For example: {@code
+   * ElevatorSubsystem.getInstance();}
+   */
+  @SuppressWarnings("WeakerAccess")
+  public static ElevatorSubsystem getInstance() {
+    return INSTANCE;
+  }
+
+  /**
+   * Creates a new instance of this ElevatorSubsystem. This constructor is private since this class
+   * is a Singleton. Code should use the {@link #getInstance()} method to get the singleton
+   * instance.
+   */
+  private ElevatorSubsystem() {
+    elevatorMotorLeft = new TalonFX(RobotParameters.MotorParameters.ELEVATOR_MOTOR_LEFT_ID);
+    elevatorMotorRight = new TalonFX(RobotParameters.MotorParameters.ELEVATOR_MOTOR_RIGHT_ID);
 
     elevatorConfigs = new MotorOutputConfigs();
 
@@ -81,15 +86,15 @@ public class Elevator extends SubsystemBase {
     elevatorLeftConfigurator.apply(elevatorConfigs);
     elevatorRightConfigurator.apply(elevatorConfigs);
 
-    elevatorLeftConfigs.kP = ElevatorConstants.ELEVATOR_PID_LEFT_P;
-    elevatorLeftConfigs.kI = ElevatorConstants.ELEVATOR_PID_LEFT_I;
-    elevatorLeftConfigs.kD = ElevatorConstants.ELEVATOR_PID_LEFT_D;
-    elevatorLeftConfigs.kV = ElevatorConstants.ELEVATOR_PID_LEFT_V;
+    elevatorLeftConfigs.kP = RobotParameters.ElevatorConstants.ELEVATOR_PID_LEFT_P;
+    elevatorLeftConfigs.kI = RobotParameters.ElevatorConstants.ELEVATOR_PID_LEFT_I;
+    elevatorLeftConfigs.kD = RobotParameters.ElevatorConstants.ELEVATOR_PID_LEFT_D;
+    elevatorLeftConfigs.kV = RobotParameters.ElevatorConstants.ELEVATOR_PID_LEFT_V;
 
-    elevatorRightConfigs.kP = ElevatorConstants.ELEVATOR_PID_RIGHT_P;
-    elevatorRightConfigs.kI = ElevatorConstants.ELEVATOR_PID_RIGHT_I;
-    elevatorRightConfigs.kD = ElevatorConstants.ELEVATOR_PID_RIGHT_D;
-    elevatorRightConfigs.kV = ElevatorConstants.ELEVATOR_PID_RIGHT_V;
+    elevatorRightConfigs.kP = RobotParameters.ElevatorConstants.ELEVATOR_PID_RIGHT_P;
+    elevatorRightConfigs.kI = RobotParameters.ElevatorConstants.ELEVATOR_PID_RIGHT_I;
+    elevatorRightConfigs.kD = RobotParameters.ElevatorConstants.ELEVATOR_PID_RIGHT_D;
+    elevatorRightConfigs.kV = RobotParameters.ElevatorConstants.ELEVATOR_PID_RIGHT_V;
 
     elevatorMotorLeft.getConfigurator().apply(elevatorLeftConfigs);
     elevatorMotorRight.getConfigurator().apply(elevatorRightConfigs);
@@ -162,11 +167,17 @@ public class Elevator extends SubsystemBase {
     // 0.201015130025378 Low limit before 2048 multiplier = 411.6789862919741
     // absPos = absoluteEncoder.getPosition();
     // SmartDashboard.putNumber("Absolute Encoder Position", getAbsoluteEncoder());
-    if(PIDParameters.TEST_MODE) {
-      SmartDashboard.putNumber("Elevator Left Position", elevatorMotorLeft.getPosition().getValue().magnitude());
-      SmartDashboard.putNumber("Elevator Right Position", elevatorMotorRight.getPosition().getValue().magnitude());
+    if (RobotParameters.SwerveParameters.PIDParameters.TEST_MODE) {
+      SmartDashboard.putNumber(
+          "Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
+      SmartDashboard.putNumber(
+          "Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
       SmartDashboard.putBoolean("Elevator SoftLimit", getSoftLimitBoolean());
       // SmartDashboard.putBoolean("limit", limit);
+      dash(
+          pairOf("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble()),
+          pairOf("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble()),
+          pairOf("Elevator SoftLimit", getSoftLimitBoolean()));
     }
 
     // TODO: wtf does this do, make it do something useful or remove it
@@ -175,11 +186,7 @@ public class Elevator extends SubsystemBase {
     // }
   }
 
-  /**
-   * Stops the elevator motors
-   *
-   * @return void
-   */
+  /** Stops the elevator motors */
   public void stopMotors() {
     elevatorMotorLeft.stopMotor();
     elevatorMotorRight.stopMotor();
@@ -193,7 +200,6 @@ public class Elevator extends SubsystemBase {
    *
    * @param left Left motor position
    * @param right Right motor position
-   * @return void
    */
   public void setMotorPosition(double left, double right) {
     elevatorMotorLeft.setControl(pos_reqest.withPosition(left));
@@ -202,13 +208,10 @@ public class Elevator extends SubsystemBase {
 
   /**
    * Get the position of the elevator motor
-   *  
-   * 
-   * @param string The motor to get the position of
-   * 
+   *
+   * @param motor The motor to get the position of
    * @return double, the position of the elevator motor
    */
-  
   // TODO: Figure out what the .magnitude() method does and document it in this file
   public double getElevatorPosValue(String motor) {
     if (motor.equals("left")) {
@@ -231,13 +234,16 @@ public class Elevator extends SubsystemBase {
   }
 
   public void toggleSoftStop() {
-    ElevatorConstants.soft_limit_enabled = !ElevatorConstants.soft_limit_enabled;
-    leftSoftLimitConfig.ReverseSoftLimitEnable = ElevatorConstants.soft_limit_enabled;
+    RobotParameters.ElevatorConstants.SOFT_LIMIT_ENABLED =
+        !RobotParameters.ElevatorConstants.SOFT_LIMIT_ENABLED;
+    leftSoftLimitConfig.ReverseSoftLimitEnable =
+        RobotParameters.ElevatorConstants.SOFT_LIMIT_ENABLED;
     // leftSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     leftSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
     // rightSoftLimitConfig.ForwardSoftLimitEnable = elevatorGlobalValues.soft_limit_enabled;
-    rightSoftLimitConfig.ReverseSoftLimitEnable = ElevatorConstants.soft_limit_enabled;
+    rightSoftLimitConfig.ReverseSoftLimitEnable =
+        RobotParameters.ElevatorConstants.SOFT_LIMIT_ENABLED;
     // rightSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     rightSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
@@ -246,8 +252,8 @@ public class Elevator extends SubsystemBase {
   }
 
   /**
-   * // * Get the absolute encoder position // * // * @return double, the absolute encoder position
-   * of the elevator motor //
+   * Get the absolute encoder position // @return double, the absolute encoder position of the
+   * elevator motor
    */
   // public double getAbsoluteEncoder() {
   //   // return actualAbsEnc.getAbsolutePosition() * 2048;
@@ -276,14 +282,16 @@ public class Elevator extends SubsystemBase {
   }
 
   public void toggleLimit() {
-    ElevatorConstants.is_SOFTLIMIT = !ElevatorConstants.is_SOFTLIMIT;
+    RobotParameters.ElevatorConstants.IS_SOFTLIMIT =
+        !RobotParameters.ElevatorConstants.IS_SOFTLIMIT;
   }
 
   // public void recalibrateEncoders() {
-  //   ElevatorGlobalValues.offset = ElevatorGlobalValues.Elevator_NEUTRAL_ANGLE - getAbsoluteEncoder();
+  //   ElevatorGlobalValues.offset = ElevatorGlobalValues.Elevator_NEUTRAL_ANGLE -
+  // getAbsoluteEncoder();
   // }
 
   public boolean getSoftLimitBoolean() {
-    return ElevatorConstants.is_SOFTLIMIT;
+    return RobotParameters.ElevatorConstants.IS_SOFTLIMIT;
   }
 }

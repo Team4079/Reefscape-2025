@@ -30,6 +30,8 @@ public class RobotParameters {
     public static final int ELEVATOR_MOTOR_LEFT_ID = 13;
     public static final int ELEVATOR_MOTOR_RIGHT_ID = 14;
     public static final int PIDGEY_ID = 16;
+    public static final int PIVOT_MOTOR_LEFT_ID = 17;
+    public static final int PIVOT_MOTOR_RIGHT_ID = 18;
 
     // Motor Property Values
     public static final double MAX_SPEED = 5.76;
@@ -68,7 +70,7 @@ public class RobotParameters {
       public static final double DRIVE_PID_V_TELE = 0.0;
       public static final PID ROTATIONAL_PID = new PID(0.2, 0.0, 0.0, 0.0);
       public static final PID PASS_ROTATIONAL_PID = new PID(0.1, 0.0, 0.0, 0.0);
-      
+
       // Testing boolean for SmartDashboard (to not slow down the robot)
       public static final boolean TEST_MODE = false;
 
@@ -151,7 +153,23 @@ public class RobotParameters {
     public static final double ELEVATOR_PID_RIGHT_D = 0.0;
     public static final double ELEVATOR_PID_RIGHT_V = 0.0;
 
-    public static boolean soft_limit_enabled = false;
-    public static boolean is_SOFTLIMIT = false;
+    public static boolean SOFT_LIMIT_ENABLED = false;
+    public static boolean IS_SOFTLIMIT = false;
+  }
+
+  /** Class containing constants for the pivot subsystem. */
+  public static class PivotConstants {
+    public static final double PIVOT_PID_LEFT_P = 0.0;
+    public static final double PIVOT_PID_LEFT_I = 0.0;
+    public static final double PIVOT_PID_LEFT_D = 0.0;
+    public static final double PIVOT_PID_LEFT_V = 0.0;
+
+    public static final double PIVOT_PID_RIGHT_P = 0.0;
+    public static final double PIVOT_PID_RIGHT_I = 0.0;
+    public static final double PIVOT_PID_RIGHT_D = 0.0;
+    public static final double PIVOT_PID_RIGHT_V = 0.0;
+
+    public static boolean SOFT_LIMIT_ENABLED = false;
+    public static boolean IS_SOFTLIMIT = false;
   }
 }
