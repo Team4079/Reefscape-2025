@@ -1,23 +1,15 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.apriltag.*;
 import edu.wpi.first.math.geometry.*;
-import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.Dash;
-import frc.robot.utils.Extensions;
-import frc.robot.utils.RobotParameters.PhotonVisionConstants;
-import java.util.List;
-import org.photonvision.EstimatedRobotPose;
-import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonPoseEstimator;
-import org.photonvision.PhotonPoseEstimator.PoseStrategy;
-import org.photonvision.targeting.PhotonPipelineResult;
-import org.photonvision.targeting.PhotonTrackedTarget;
+import frc.robot.utils.*;
+import java.util.*;
+import org.photonvision.*;
+import org.photonvision.targeting.*;
 
-/** The PhotonVision subsystem handles vision processing using PhotonVision cameras. */
-public class Photonvision extends SubsystemBase {
+public class PhotonvisionSubsystem extends SubsystemBase {
   // PhotonVision cameras
   private final PhotonCamera camera = new PhotonCamera("Camera");
 
@@ -33,10 +25,11 @@ public class Photonvision extends SubsystemBase {
   // Transformation from the robot to the camera
   private Transform3d cameraPos =
       new Transform3d(
-          Extensions.dimensionIncrease(cameraTrans, PhotonVisionConstants.CAMERA_ONE_HEIGHT_METER),
+          Extensions.dimensionIncrease(
+              cameraTrans, RobotParameters.PhotonVisionConstants.CAMERA_ONE_HEIGHT_METER),
           new Rotation3d(
               0.0,
-              Math.toRadians(360 - PhotonVisionConstants.CAMERA_ONE_ANGLE_DEG),
+              Math.toRadians(360 - RobotParameters.PhotonVisionConstants.CAMERA_ONE_ANGLE_DEG),
               Math.toRadians(180.0)));
 
   private PhotonTrackedTarget target = null;
@@ -50,13 +43,35 @@ public class Photonvision extends SubsystemBase {
   private boolean camTag = false;
   private Translation3d currentPose = null;
 
-  /** Constructs a new PhotonVision subsystem. */
-  public Photonvision() {
-    // Initialize result
+  /**
+   * The Singleton instance of this PhotonvisionSubsystem. Code should use the {@link
+   * #getInstance()} method to get the single instance (rather than trying to construct an instance
+   * of this class.)
+   */
+  private static final PhotonvisionSubsystem INSTANCE = new PhotonvisionSubsystem();
+
+  /**
+   * Returns the Singleton instance of this PhotonvisionSubsystem. This static method should be
+   * used, rather than the constructor, to get the single instance of this class. For example:
+   * {@code PhotonvisionSubsystem.getInstance();}
+   */
+  @SuppressWarnings("WeakerAccess")
+  public static PhotonvisionSubsystem getInstance() {
+    return INSTANCE;
+  }
+
+  /**
+   * Creates a new instance of this PhotonvisionSubsystem. This constructor is private since this
+   * class is a Singleton. Code should use the {@link #getInstance()} method to get the singleton
+   * instance.
+   */
+  private PhotonvisionSubsystem() {
     result = camera.getAllUnreadResults();
     photonPoseEstimator =
         new PhotonPoseEstimator(
-            aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, cameraPos);
+            aprilTagFieldLayout,
+            PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
+            cameraPos);
   }
 
   /**
@@ -118,6 +133,7 @@ public class Photonvision extends SubsystemBase {
    *
    * @return The estimated global pose of the robot.
    */
+  @SuppressWarnings("java:S3655") // It does call Optional.isPresent :rolleyes:
   public Transform3d getEstimatedGlobalPose() {
     return currentResult != null && currentResult.getMultiTagResult().isPresent()
         ? currentResult.getMultiTagResult().get().estimatedPose.best
@@ -166,6 +182,7 @@ public class Photonvision extends SubsystemBase {
    * @return The calculated distance to the subwoofer, or {@code 687.0} if the current pose is
    *     unavailable.
    */
+  @SuppressWarnings("java:S3655") // It checks if it's empty first :rolleyes:
   public double getDistanceSubwoofer() {
     currentPose = getEstimatedGlobalPose().getTranslation();
     if (currentPose != null) {
