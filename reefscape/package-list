@@ -162,8 +162,8 @@ $dokka.location:frc.robot.utils/PID/setSetpoint/#double/PointingToDeclaration/r
 $dokka.location:frc.robot.utils/PID/updatePID/#double#double#double#double#int/PointingToDeclaration/reefscape/frc.robot.utils/-p-i-d/update-p-i-d.html
 $dokka.location:frc.robot.utils/PID/updatePID/#double#double#double#double/PointingToDeclaration/reefscape/frc.robot.utils/-p-i-d/update-p-i-d.html
 $dokka.location:frc.robot.utils/PID/updatePID/#double#double#double/PointingToDeclaration/reefscape/frc.robot.utils/-p-i-d/update-p-i-d.html
-$dokka.location:frc.robot.utils/RobotParameters.ElevatorConstants///PointingToDeclaration/reefscape/frc.robot.utils/-robot-parameters/-elevator-constants/index.html
-$dokka.location:frc.robot.utils/RobotParameters.ElevatorConstants/RobotParameters.ElevatorConstants/#/PointingToDeclaration/reefscape/frc.robot.utils/-robot-parameters/-elevator-constants/-robot-parameters.-elevator-constants.html
+$dokka.location:frc.robot.utils/RobotParameters.ElevatorParameters///PointingToDeclaration/reefscape/frc.robot.utils/-robot-parameters/-elevator-parameters/index.html
+$dokka.location:frc.robot.utils/RobotParameters.ElevatorParameters/RobotParameters.ElevatorParameters/#/PointingToDeclaration/reefscape/frc.robot.utils/-robot-parameters/-elevator-parameters/-robot-parameters.-elevator-parameters.html
 $dokka.location:frc.robot.utils/RobotParameters.MotorParameters///PointingToDeclaration/reefscape/frc.robot.utils/-robot-parameters/-motor-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.MotorParameters/RobotParameters.MotorParameters/#/PointingToDeclaration/reefscape/frc.robot.utils/-robot-parameters/-motor-parameters/-robot-parameters.-motor-parameters.html
 $dokka.location:frc.robot.utils/RobotParameters.PhotonVisionConstants///PointingToDeclaration/reefscape/frc.robot.utils/-robot-parameters/-photon-vision-constants/index.html
