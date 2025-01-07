@@ -7,11 +7,10 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.PadDrive;
 import frc.robot.subsystems.*;
 import frc.robot.utils.LogitechGamingPad;
+import frc.robot.utils.RobotParameters.SwerveParameters;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 
 /**
@@ -59,6 +58,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return new PathPlannerAuto("Straight Auto");
+    return new PathPlannerAuto(SwerveParameters.pathPlannerAutoName);
   }
 }

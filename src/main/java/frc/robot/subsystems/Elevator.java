@@ -20,10 +20,9 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.RobotParameters;
-import frc.robot.utils.RobotParameters.ElevatorConstants;
+import frc.robot.utils.RobotParameters.ElevatorParameters;
 import frc.robot.utils.RobotParameters.MotorParameters;
-import frc.robot.utils.RobotParameters.SwerveParameters.PIDParameters;
+import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new elevator. */
@@ -81,15 +80,15 @@ public class Elevator extends SubsystemBase {
     elevatorLeftConfigurator.apply(elevatorConfigs);
     elevatorRightConfigurator.apply(elevatorConfigs);
 
-    elevatorLeftConfigs.kP = ElevatorConstants.ELEVATOR_PID_LEFT_P;
-    elevatorLeftConfigs.kI = ElevatorConstants.ELEVATOR_PID_LEFT_I;
-    elevatorLeftConfigs.kD = ElevatorConstants.ELEVATOR_PID_LEFT_D;
-    elevatorLeftConfigs.kV = ElevatorConstants.ELEVATOR_PID_LEFT_V;
+    elevatorLeftConfigs.kP = ElevatorParameters.ELEVATOR_PID_LEFT_P;
+    elevatorLeftConfigs.kI = ElevatorParameters.ELEVATOR_PID_LEFT_I;
+    elevatorLeftConfigs.kD = ElevatorParameters.ELEVATOR_PID_LEFT_D;
+    elevatorLeftConfigs.kV = ElevatorParameters.ELEVATOR_PID_LEFT_V;
 
-    elevatorRightConfigs.kP = ElevatorConstants.ELEVATOR_PID_RIGHT_P;
-    elevatorRightConfigs.kI = ElevatorConstants.ELEVATOR_PID_RIGHT_I;
-    elevatorRightConfigs.kD = ElevatorConstants.ELEVATOR_PID_RIGHT_D;
-    elevatorRightConfigs.kV = ElevatorConstants.ELEVATOR_PID_RIGHT_V;
+    elevatorRightConfigs.kP = ElevatorParameters.ELEVATOR_PID_RIGHT_P;
+    elevatorRightConfigs.kI = ElevatorParameters.ELEVATOR_PID_RIGHT_I;
+    elevatorRightConfigs.kD = ElevatorParameters.ELEVATOR_PID_RIGHT_D;
+    elevatorRightConfigs.kV = ElevatorParameters.ELEVATOR_PID_RIGHT_V;
 
     elevatorMotorLeft.getConfigurator().apply(elevatorLeftConfigs);
     elevatorMotorRight.getConfigurator().apply(elevatorRightConfigs);
@@ -162,7 +161,7 @@ public class Elevator extends SubsystemBase {
     // 0.201015130025378 Low limit before 2048 multiplier = 411.6789862919741
     // absPos = absoluteEncoder.getPosition();
     // SmartDashboard.putNumber("Absolute Encoder Position", getAbsoluteEncoder());
-    if(PIDParameters.TEST_MODE) {
+    if(Thresholds.TEST_MODE) {
       SmartDashboard.putNumber("Elevator Left Position", elevatorMotorLeft.getPosition().getValue().magnitude());
       SmartDashboard.putNumber("Elevator Right Position", elevatorMotorRight.getPosition().getValue().magnitude());
       SmartDashboard.putBoolean("Elevator SoftLimit", getSoftLimitBoolean());
@@ -170,8 +169,8 @@ public class Elevator extends SubsystemBase {
     }
 
     // TODO: wtf does this do, make it do something useful or remove it
-    // if (absPos == ElevatorConstants.ELEVATOR_NEUTRAL_POS) {
-    //   ElevatorConstants.IS_NEUTRAL = true;
+    // if (absPos == ElevatorParameters.ELEVATOR_NEUTRAL_POS) {
+    //   ElevatorParameters.IS_NEUTRAL = true;
     // }
   }
 
@@ -231,13 +230,13 @@ public class Elevator extends SubsystemBase {
   }
 
   public void toggleSoftStop() {
-    ElevatorConstants.soft_limit_enabled = !ElevatorConstants.soft_limit_enabled;
-    leftSoftLimitConfig.ReverseSoftLimitEnable = ElevatorConstants.soft_limit_enabled;
+    ElevatorParameters.soft_limit_enabled = !ElevatorParameters.soft_limit_enabled;
+    leftSoftLimitConfig.ReverseSoftLimitEnable = ElevatorParameters.soft_limit_enabled;
     // leftSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     leftSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
     // rightSoftLimitConfig.ForwardSoftLimitEnable = elevatorGlobalValues.soft_limit_enabled;
-    rightSoftLimitConfig.ReverseSoftLimitEnable = ElevatorConstants.soft_limit_enabled;
+    rightSoftLimitConfig.ReverseSoftLimitEnable = ElevatorParameters.soft_limit_enabled;
     // rightSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     rightSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
@@ -276,7 +275,7 @@ public class Elevator extends SubsystemBase {
   }
 
   public void toggleLimit() {
-    ElevatorConstants.is_SOFTLIMIT = !ElevatorConstants.is_SOFTLIMIT;
+    ElevatorParameters.is_SOFTLIMIT = !ElevatorParameters.is_SOFTLIMIT;
   }
 
   // public void recalibrateEncoders() {
@@ -284,6 +283,6 @@ public class Elevator extends SubsystemBase {
   // }
 
   public boolean getSoftLimitBoolean() {
-    return ElevatorConstants.is_SOFTLIMIT;
+    return ElevatorParameters.is_SOFTLIMIT;
   }
 }
