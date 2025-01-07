@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.SHOULD_INVERT;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
-import com.ctre.phoenix6.sim.ChassisReference;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
@@ -171,7 +170,7 @@ public class SwerveSubsystem extends SubsystemBase {
         Dash.pairOf("Heading", -pidgey.getYaw().getValueAsDouble()),
         Dash.pairOf("Yaw", pidgey.getYaw().getValueAsDouble()),
         Dash.pairOf("Roll", pidgey.getRoll().getValueAsDouble()));
-        // TODO Make advantage scope work with Pose2D Dash.pairOf("Robot Pose", field.getRobotPose()));
+    // TODO Make advantage scope work with Pose2D Dash.pairOf("Robot Pose", field.getRobotPose()));
   }
 
   /**
@@ -226,20 +225,6 @@ public class SwerveSubsystem extends SubsystemBase {
    */
   public double getPidgeyYaw() {
     return pidgey.getYaw().getValueAsDouble();
-  }
-
-  /**
-   * Sets the initial heading of the robot based on the alliance color. Our attempt to set the
-   * intial heading based on our alliance color. Likely should be able to use vision to set this
-   * automaically.
-   */
-  public void setInitialHeading() {
-    Optional<Alliance> alliance = DriverStation.getAlliance();
-    if (alliance.isEmpty() || alliance.get() == Alliance.Red) {
-      pidgey.setYaw(27.4);
-    } else {
-      pidgey.setYaw(-27.4);
-    }
   }
 
   /** Resets the Pigeon2 IMU. */
