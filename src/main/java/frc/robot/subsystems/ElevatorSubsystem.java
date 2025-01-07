@@ -230,7 +230,7 @@ public class ElevatorSubsystem extends SubsystemBase {
    * @return double, the average position of the elevator motors
    */
   public double getElevatorPosAvg() {
-    return (getElevatorPosValue("left") + getElevatorPosValue("right")) / 2;
+    return (this.getElevatorPosValue("left") + this.getElevatorPosValue("right")) / 2;
   }
 
   /**
