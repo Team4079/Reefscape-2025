@@ -2,7 +2,7 @@
 <html class="no-js">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>getPivotPosition</title>
+    <title>getDistanceSubwoofer</title>
     <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
     <script>var pathToRoot = "../../../";</script>
     <script>document.documentElement.classList.replace("no-js","js");</script>
@@ -104,12 +104,12 @@
                 </div>
             </div>
             <div id="main">
-<div class="main-content" data-page-type="member" id="content" pageIds="reefscape::frc.robot.subsystems/Photonvision/getPivotPosition/#/PointingToDeclaration//-251573632">
-  <div class="breadcrumbs"><a href="../../../index.html">reefscape</a><span class="delimiter">/</span><a href="../index.html">frc.robot.subsystems</a><span class="delimiter">/</span><a href="index.html">Photonvision</a><span class="delimiter">/</span><span class="current">getPivotPosition</span></div>
+<div class="main-content" data-page-type="member" id="content" pageIds="reefscape::frc.robot.subsystems/PhotonvisionSubsystem/getDistanceSubwoofer/#/PointingToDeclaration//-251573632">
+  <div class="breadcrumbs"><a href="../../../index.html">reefscape</a><span class="delimiter">/</span><a href="../index.html">frc.robot.subsystems</a><span class="delimiter">/</span><a href="index.html">PhotonvisionSubsystem</a><span class="delimiter">/</span><span class="current">getDistanceSubwoofer</span></div>
   <div class="cover ">
-    <h1 class="cover"><span>get</span><wbr></wbr><span>Pivot</span><wbr></wbr><span><span>Position</span></span></h1>
+    <h1 class="cover"><span>get</span><wbr></wbr><span>Distance</span><wbr></wbr><span><span>Subwoofer</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>double <a href="get-pivot-position.html"><span class="token function">getPivotPosition</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><p class="paragraph">Gets the forward distance to the target.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The forward distance to the target.</p></span></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>double <a href="get-distance-subwoofer.html"><span class="token function">getDistanceSubwoofer</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><p class="paragraph">Calculates and returns the distance to the subwoofer for the 2024 Crescendo game. </p><p class="paragraph">This method computes the Euclidean distance (distance formula) from the robot's current position to the location of the subwoofer. The calculation varies based on the alliance: </p><ul><li>If the alliance is <code class="lang-kotlin">RED</code> or not specified, the subwoofer is assumed to be at coordinates (16.5, 5.5). </li><li>If the alliance is <code class="lang-kotlin">BLUE</code>, the subwoofer is assumed to be at (0, 5.5). </li></ul> If the current pose is not available, the method returns a default value of <code class="lang-kotlin">687.0</code>. This value reflects our team's tradition of thanking teams for their help to us. :D<span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The calculated distance to the subwoofer, or <code class="lang-kotlin">687.0</code> if the current pose is unavailable.</p></span></div></div>
 </div>
     <div class="footer">
         <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
