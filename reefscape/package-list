@@ -4,7 +4,7 @@ $dokka.location:frc.robot.commands////PointingToDeclaration/reefscape/frc.robot
 $dokka.location:frc.robot.commands/PadDrive.Coordinate///PointingToDeclaration/reefscape/frc.robot.commands/-pad-drive/-coordinate/index.html
 $dokka.location:frc.robot.commands/PadDrive.Coordinate/PadDrive.Coordinate/#/PointingToDeclaration/reefscape/frc.robot.commands/-pad-drive/-coordinate/-pad-drive.-coordinate.html
 $dokka.location:frc.robot.commands/PadDrive///PointingToDeclaration/reefscape/frc.robot.commands/-pad-drive/index.html
-$dokka.location:frc.robot.commands/PadDrive/PadDrive/#frc.robot.subsystems.SwerveSubsystem#frc.robot.utils.LogitechGamingPad#boolean/PointingToDeclaration/reefscape/frc.robot.commands/-pad-drive/-pad-drive.html
+$dokka.location:frc.robot.commands/PadDrive/PadDrive/#frc.robot.utils.LogitechGamingPad#boolean/PointingToDeclaration/reefscape/frc.robot.commands/-pad-drive/-pad-drive.html
 $dokka.location:frc.robot.commands/PadDrive/execute/#/PointingToDeclaration/reefscape/frc.robot.commands/-pad-drive/execute.html
 $dokka.location:frc.robot.commands/PadDrive/isFinished/#/PointingToDeclaration/reefscape/frc.robot.commands/-pad-drive/is-finished.html
 $dokka.location:frc.robot.commands/PadDrive/positionSet/#frc.robot.utils.LogitechGamingPad/PointingToDeclaration/reefscape/frc.robot.commands/-pad-drive/position-set.html
@@ -43,10 +43,10 @@ $dokka.location:frc.robot.subsystems/SwerveModule/setSteerPID/#frc.robot.utils.P
 $dokka.location:frc.robot.subsystems/SwerveModule/setTELEPID/#/PointingToDeclaration/reefscape/frc.robot.subsystems/-swerve-module/set-t-e-l-e-p-i-d.html
 $dokka.location:frc.robot.subsystems/SwerveModule/stop/#/PointingToDeclaration/reefscape/frc.robot.subsystems/-swerve-module/stop.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem///PointingToDeclaration/reefscape/frc.robot.subsystems/-swerve-subsystem/index.html
-$dokka.location:frc.robot.subsystems/SwerveSubsystem/SwerveSubsystem/#/PointingToDeclaration/reefscape/frc.robot.subsystems/-swerve-subsystem/-swerve-subsystem.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/chassisSpeedsDrive/#edu.wpi.first.math.kinematics.ChassisSpeeds/PointingToDeclaration/reefscape/frc.robot.subsystems/-swerve-subsystem/chassis-speeds-drive.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/getAutoSpeeds/#/PointingToDeclaration/reefscape/frc.robot.subsystems/-swerve-subsystem/get-auto-speeds.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/getHeading/#/PointingToDeclaration/reefscape/frc.robot.subsystems/-swerve-subsystem/get-heading.html
+$dokka.location:frc.robot.subsystems/SwerveSubsystem/getInstance/#/PointingToDeclaration/reefscape/frc.robot.subsystems/-swerve-subsystem/get-instance.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/getModulePositions/#/PointingToDeclaration/reefscape/frc.robot.subsystems/-swerve-subsystem/get-module-positions.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/getModuleStates/#/PointingToDeclaration/reefscape/frc.robot.subsystems/-swerve-subsystem/get-module-states.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/getPidgeyRotation/#/PointingToDeclaration/reefscape/frc.robot.subsystems/-swerve-subsystem/get-pidgey-rotation.html
