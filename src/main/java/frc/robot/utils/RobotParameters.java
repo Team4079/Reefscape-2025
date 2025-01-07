@@ -27,6 +27,8 @@ public class RobotParameters {
     public static final int FRONT_RIGHT_CAN_CODER_ID = 10;
     public static final int BACK_LEFT_CAN_CODER_ID = 11;
     public static final int BACK_RIGHT_CAN_CODER_ID = 12;
+    public static final int ELEVATOR_MOTOR_LEFT_ID = 13;
+    public static final int ELEVATOR_MOTOR_RIGHT_ID = 14;
     public static final int PIDGEY_ID = 16;
 
     // Motor Property Values
@@ -66,6 +68,10 @@ public class RobotParameters {
       public static final double DRIVE_PID_V_TELE = 0.0;
       public static final PID ROTATIONAL_PID = new PID(0.2, 0.0, 0.0, 0.0);
       public static final PID PASS_ROTATIONAL_PID = new PID(0.1, 0.0, 0.0, 0.0);
+      
+      // Testing boolean for SmartDashboard (to not slow down the robot)
+      public static final boolean TEST_MODE = false;
+
       public static PPHolonomicDriveController pathFollower =
           new PPHolonomicDriveController(
               new PIDConstants(5.0, 0.00, 0.0), // translation
@@ -131,5 +137,21 @@ public class RobotParameters {
     public static final double CAMERA_TWO_HEIGHT_METER = 0.61;
     public static final double CAMERA_TWO_ANGLE_DEG = 37.5;
     public static final double OFFSET_TOWARD_MID_RIGHT = 15.0;
+  }
+
+  /** Class containing constants for the elevator subsystem. */
+  public static class ElevatorConstants {
+    public static final double ELEVATOR_PID_LEFT_P = 0.0;
+    public static final double ELEVATOR_PID_LEFT_I = 0.0;
+    public static final double ELEVATOR_PID_LEFT_D = 0.0;
+    public static final double ELEVATOR_PID_LEFT_V = 0.0;
+
+    public static final double ELEVATOR_PID_RIGHT_P = 0.0;
+    public static final double ELEVATOR_PID_RIGHT_I = 0.0;
+    public static final double ELEVATOR_PID_RIGHT_D = 0.0;
+    public static final double ELEVATOR_PID_RIGHT_V = 0.0;
+
+    public static boolean soft_limit_enabled = false;
+    public static boolean is_SOFTLIMIT = false;
   }
 }
