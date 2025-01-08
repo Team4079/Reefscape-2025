@@ -150,6 +150,7 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * This method is called periodically by the scheduler. It updates the pose estimator and
    * dashboard values.
+   * @return void
    */
   @Override
   public void periodic() {
@@ -175,11 +176,14 @@ public class SwerveSubsystem extends SubsystemBase {
 
     field.setRobotPose(poseEstimator.getEstimatedPosition());
 
-    Dash.dash(
-        Dash.pairOf("Pitch", pidgey.getPitch().getValueAsDouble()),
-        Dash.pairOf("Heading", -pidgey.getYaw().getValueAsDouble()),
-        Dash.pairOf("Yaw", pidgey.getYaw().getValueAsDouble()),
-        Dash.pairOf("Roll", pidgey.getRoll().getValueAsDouble()));
+    if (Thresholds.TEST_MODE) {
+      Dash.dash(
+          Dash.pairOf("Pidgey Heading", getHeading()),
+          Dash.pairOf("Pidgey Rotation2D", getPidgeyRotation().getDegrees()),
+          Dash.pairOf("Robot Pose", field.getRobotPose()));
+    }
+
+    Dash.dash(Dash.pairOf("Test Mode Enabled", Thresholds.TEST_MODE));
     // TODO Make advantage scope work with Pose2D Dash.pairOf("Robot Pose", field.getRobotPose()));
   }
 
@@ -345,14 +349,14 @@ public class SwerveSubsystem extends SubsystemBase {
   /** Sets the PID constants for autonomous driving. */
   public void setAutoPID() {
     for (SwerveModule module : modules) {
-      module.setAUTOPID();
+      module.setAutoPID();
     }
   }
 
   /** Sets the PID constants for teleoperated driving. */
   public void setTelePID() {
     for (SwerveModule module : modules) {
-      module.setTELEPID();
+      module.setTelePID();
     }
   }
 

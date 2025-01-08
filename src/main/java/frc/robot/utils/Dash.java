@@ -7,7 +7,7 @@ import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds;
 
 public class Dash {
   /**
-   * Function to update values from the SmartDashboard.
+   * Method to update values from the SmartDashboard.
    *
    * @param pairs The pairs of keys and values to update.
    */
@@ -34,7 +34,7 @@ public class Dash {
   }
 
   /**
-   * Function to update PIDV values from the SmartDashboard.
+   * Method to update PIDV values from the SmartDashboard.
    *
    * @param pid The PID object to update.
    * @param velocity The velocity to update.

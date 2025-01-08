@@ -1,12 +1,9 @@
 package frc.robot.subsystems;
 
-import static frc.robot.utils.Dash.*;
-
 import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.*;
 import com.ctre.phoenix6.signals.*;
-import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.ElevatorParameters;
@@ -167,22 +164,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     if (Thresholds.TEST_MODE) {
-      SmartDashboard.putNumber(
-          "Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
-      SmartDashboard.putNumber(
-          "Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
-      SmartDashboard.putBoolean("Elevator SoftLimit", getSoftLimit());
-      // SmartDashboard.putBoolean("limit", limit);
-      dash(
-          pairOf("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble()),
-          pairOf("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble()),
-          pairOf("Elevator SoftLimit", getSoftLimit()));
+      Dash.dash(
+          Dash.pairOf("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble()),
+          Dash.pairOf("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble()),
+          Dash.pairOf("Elevator SoftLimit", this.getSoftLimit()));
     }
-
-    // TODO: wtf does this do, make it do something useful or remove it
-    // if (absPos == ElevatorConstants.ELEVATOR_NEUTRAL_POS) {
-    //   ElevatorConstants.IS_NEUTRAL = true;
-    // }
   }
 
   /** Stops the elevator motors */
@@ -272,8 +258,11 @@ public class ElevatorSubsystem extends SubsystemBase {
       elevatorMotorLeft.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
       elevatorMotorRight.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
 
-      SmartDashboard.putNumber("ElevatorLeft Velo Error", elevatorMotorLeft.get() - velocity);
-      SmartDashboard.putNumber("ElevatorRight Velo Error", elevatorMotorRight.get() - velocity);
+      if (Thresholds.TEST_MODE) {
+        Dash.dash(
+            Dash.pairOf("ElevatorLeft Velo", elevatorMotorLeft.get()),
+            Dash.pairOf("ElevatorRight Velo", elevatorMotorRight.get()));
+      }
     } else {
       stopMotors();
     }
@@ -294,20 +283,15 @@ public class ElevatorSubsystem extends SubsystemBase {
    * @return void
    */
   public void toggleLimit() {
-    RobotParameters.ElevatorParameters.IS_SOFTLIMIT =
-        !RobotParameters.ElevatorParameters.IS_SOFTLIMIT;
+    ElevatorParameters.IS_SOFTLIMIT =
+        !ElevatorParameters.IS_SOFTLIMIT;
   }
-
-  // public void recalibrateEncoders() {
-  //   ElevatorGlobalValues.offset = ElevatorGlobalValues.Elevator_NEUTRAL_ANGLE -
-  // getAbsoluteEncoder();
-  // }
 
   /**
    * Get the soft limit for the elevator motor
    * @return boolean, the soft limit state for the elevator motor
    */
   public boolean getSoftLimit() {
-    return RobotParameters.ElevatorParameters.IS_SOFTLIMIT;
+    return ElevatorParameters.IS_SOFTLIMIT;
   }
 }

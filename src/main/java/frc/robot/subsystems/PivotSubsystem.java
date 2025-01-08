@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import static frc.robot.utils.Dash.*;
-
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
@@ -15,7 +13,9 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.Dash;
 import frc.robot.utils.RobotParameters.*;
+import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds;
 
 /**
  * The PivotSubsystem class is a subsystem that interfaces with the pivot system to provide control
@@ -26,25 +26,20 @@ public class PivotSubsystem extends SubsystemBase {
   /** Creates a new Pivot. */
   private TalonFX pivotMotor;
 
+  // Configurations
   private TalonFXConfiguration pivotMotorConfiguration;
-
   private Slot0Configs pivotConfigs;
+  private MotorOutputConfigs pivotOutputConfigs;
+  private CurrentLimitsConfigs pivotMotorCurrentConfig;
+  private ClosedLoopRampsConfigs pivotMotorRampConfig;
+  private SoftwareLimitSwitchConfigs pivotMotorSoftLimitConfig;
 
   private PositionVoltage pos_reqest;
   private VelocityVoltage vel_voltage;
 
-  private MotorOutputConfigs pivotOutputConfigs;
-
-  private CurrentLimitsConfigs pivotMotorCurrentConfig;
-
-  private ClosedLoopRampsConfigs pivotMotorRampConfig;
-
-  private SoftwareLimitSwitchConfigs pivotMotorSoftLimitConfig;
-
   private VoltageOut voltageOut;
 
   private double deadband = 0.001;
-
   private double absPos;
 
   /**
@@ -90,9 +85,7 @@ public class PivotSubsystem extends SubsystemBase {
     pivotMotor.getConfigurator().apply(pivotConfigs);
 
     pivotMotorCurrentConfig = new CurrentLimitsConfigs();
-
     pivotMotorRampConfig = new ClosedLoopRampsConfigs();
-
     pivotMotorSoftLimitConfig = new SoftwareLimitSwitchConfigs();
 
     pivotMotorCurrentConfig.SupplyCurrentLimit = 100;
@@ -130,14 +123,11 @@ public class PivotSubsystem extends SubsystemBase {
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    dash(
-        pairOf("Pivot Motor Position", pivotMotor.getPosition().getValueAsDouble()),
-        pairOf("Pivot SoftLimit", getSoftLimit()));
-
-    // TODO: wtf does this do, make it do something useful or remove it
-    // if (absPos == PivotConstants.PIVOT_NEUTRAL_POS) {
-    //   PivotConstants.IS_NEUTRAL = true;
-    // }
+    if (Thresholds.TEST_MODE) {
+      Dash.dash(
+          Dash.pairOf("Pivot Motor Position", pivotMotor.getPosition().getValueAsDouble()),
+          Dash.pairOf("Pivot SoftLimit", this.getSoftLimit()));
+    }
   }
 
   /** Stops the pivot motor */
@@ -149,8 +139,8 @@ public class PivotSubsystem extends SubsystemBase {
 
   /**
    * Set the position of the left and right pivot motors
-   *
    * @param motorPos Motor position
+   * @return void
    */
   public void setMotorPosition(double motorPos) {
     pivotMotor.setControl(pos_reqest.withPosition(motorPos));
