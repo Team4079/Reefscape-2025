@@ -14,6 +14,16 @@ $dokka.location:frc.robot.commands/PadDrive/execute/#/PointingToDeclaration/-re
 $dokka.location:frc.robot.commands/PadDrive/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/is-finished.html
 $dokka.location:frc.robot.commands/PadDrive/positionSet/#frc.robot.utils.LogitechGamingPad/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/position-set.html
 $dokka.location:frc.robot.subsystems////PointingToDeclaration/-reefscape2025/frc.robot.subsystems/index.html
+$dokka.location:frc.robot.subsystems/ArmSubsystem///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-arm-subsystem/index.html
+$dokka.location:frc.robot.subsystems/ArmSubsystem/getArmPosValue/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-arm-subsystem/get-arm-pos-value.html
+$dokka.location:frc.robot.subsystems/ArmSubsystem/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-arm-subsystem/get-instance.html
+$dokka.location:frc.robot.subsystems/ArmSubsystem/getSoftLimit/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-arm-subsystem/get-soft-limit.html
+$dokka.location:frc.robot.subsystems/ArmSubsystem/moveArm/#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-arm-subsystem/move-arm.html
+$dokka.location:frc.robot.subsystems/ArmSubsystem/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-arm-subsystem/periodic.html
+$dokka.location:frc.robot.subsystems/ArmSubsystem/resetEncoders/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-arm-subsystem/reset-encoders.html
+$dokka.location:frc.robot.subsystems/ArmSubsystem/stopMotor/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-arm-subsystem/stop-motor.html
+$dokka.location:frc.robot.subsystems/ArmSubsystem/toggleLimit/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-arm-subsystem/toggle-limit.html
+$dokka.location:frc.robot.subsystems/ArmSubsystem/toggleSoftStop/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-arm-subsystem/toggle-soft-stop.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem.ElevatorState.L1///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.subsystems/-elevator-subsystem/-elevator-state/-l1/index.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem.ElevatorState.L2///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.subsystems/-elevator-subsystem/-elevator-state/-l2/index.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem.ElevatorState.L3///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.subsystems/-elevator-subsystem/-elevator-state/-l3/index.html
@@ -189,6 +199,8 @@ $dokka.location:frc.robot.utils/PID/setSetpoint/#double/PointingToDeclaration/-
 $dokka.location:frc.robot.utils/PID/updatePID/#double#double#double#double#int/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d/update-p-i-d.html
 $dokka.location:frc.robot.utils/PID/updatePID/#double#double#double#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d/update-p-i-d.html
 $dokka.location:frc.robot.utils/PID/updatePID/#double#double#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d/update-p-i-d.html
+$dokka.location:frc.robot.utils/RobotParameters.ArmParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-arm-parameters/index.html
+$dokka.location:frc.robot.utils/RobotParameters.ArmParameters/RobotParameters.ArmParameters/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-arm-parameters/-robot-parameters.-arm-parameters.html
 $dokka.location:frc.robot.utils/RobotParameters.ElevatorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-elevator-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.ElevatorParameters/RobotParameters.ElevatorParameters/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-elevator-parameters/-robot-parameters.-elevator-parameters.html
 $dokka.location:frc.robot.utils/RobotParameters.MotorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-motor-parameters/index.html
