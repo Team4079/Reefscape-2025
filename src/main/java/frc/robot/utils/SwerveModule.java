@@ -2,6 +2,8 @@ package frc.robot.utils;
 
 import static frc.robot.utils.Dash.*;
 
+import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
+
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TorqueCurrentConfigs;
@@ -9,12 +11,15 @@ import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.ConnectedMotorValue;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
@@ -35,6 +40,20 @@ public class SwerveModule {
   private final TalonFXConfiguration driveConfigs;
   private final TalonFXConfiguration steerConfigs;
   private final TorqueCurrentConfigs driveTorqueConfigs;
+
+  private LoggedNetworkNumber driveP;
+  private LoggedNetworkNumber driveI;
+  private LoggedNetworkNumber driveD;
+  private LoggedNetworkNumber driveV;
+
+  private LoggedNetworkNumber steerP;
+  private LoggedNetworkNumber steerI;
+  private LoggedNetworkNumber steerD;
+  private LoggedNetworkNumber steerV;
+
+  private Alert driveDisconnectedAlert;
+  private Alert turnDisconnectedAlert;
+  private Alert canCoderDisconnectedAlert;
 
   /**
    * Constructs a new SwerveModule.
@@ -113,7 +132,8 @@ public class SwerveModule {
     steerVelocity = steerMotor.getVelocity().getValueAsDouble();
     steerPosition = steerMotor.getPosition().getValueAsDouble();
 
-    // putSteerPIDNumbers();
+    initializeLoggedNetworkPID();
+    intializeAlarms(driveId, steerId, canCoderID);
   }
 
   /**
@@ -238,6 +258,33 @@ public class SwerveModule {
     driveMotor.setPosition(0.0);
   }
 
+  public void initializeLoggedNetworkPID() {
+    driveP = new LoggedNetworkNumber("Drive P", driveConfigs.Slot0.kP);
+    driveI = new LoggedNetworkNumber("Drive I", driveConfigs.Slot0.kI);
+    driveD = new LoggedNetworkNumber("Drive D", driveConfigs.Slot0.kD);
+    driveV = new LoggedNetworkNumber("Drive V", driveConfigs.Slot0.kV);
+
+    steerP = new LoggedNetworkNumber("Steer P", steerConfigs.Slot0.kP);
+    steerI = new LoggedNetworkNumber("Steer I", steerConfigs.Slot0.kI);
+    steerD = new LoggedNetworkNumber("Steer D", steerConfigs.Slot0.kD);
+    steerV = new LoggedNetworkNumber("Steer V", steerConfigs.Slot0.kV);
+  }
+
+  public void intializeAlarms(int driveID, int steerID, int canCoderID) {
+    driveDisconnectedAlert = new Alert(
+            "Disconnected drive motor " + Integer.toString(driveID) + ".",
+            AlertType.kError);
+    turnDisconnectedAlert = new Alert(
+            "Disconnected turn motor " + Integer.toString(steerID) + ".",
+            AlertType.kError);
+    canCoderDisconnectedAlert = new Alert(
+            "Disconnected CANCoder " + Integer.toString(canCoderID) + ".",
+            AlertType.kError);
+
+    driveDisconnectedAlert.set(driveMotor.isConnected());
+    turnDisconnectedAlert.set(steerMotor.isConnected());
+    canCoderDisconnectedAlert.set(canCoder.isConnected());
+  }
   public void updateSteerPID() {
 
     PIDParameters.STEER_PID_TELE.setP(
@@ -251,11 +298,4 @@ public class SwerveModule {
     System.out.println(SmartDashboard.getNumber("Steer P", PIDParameters.STEER_PID_TELE.getP()));
   }
 
-  public void putSteerPIDNumbers() {
-    if (canCoder.getDeviceID() == 9) {
-      SmartDashboard.putNumber("Steer P", PIDParameters.STEER_PID_TELE.getP());
-      SmartDashboard.putNumber("Steer I", PIDParameters.STEER_PID_TELE.getI());
-      SmartDashboard.putNumber("Steer D", PIDParameters.STEER_PID_TELE.getD());
-    }
-  }
 }
