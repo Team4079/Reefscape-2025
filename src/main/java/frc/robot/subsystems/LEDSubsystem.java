@@ -4,6 +4,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
+
 public class LEDSubsystem extends SubsystemBase {
     private final AddressableLED alignmentIndication1;
     private final AddressableLEDBuffer addressableLEDBuffer;
@@ -79,36 +81,34 @@ public class LEDSubsystem extends SubsystemBase {
 
     /** Sets the LED color to tan. */
     public void setTan() {
-        setRGB(255, 120, 20);
+        setRGB(TAN_LED[0], TAN_LED[1], TAN_LED[2]);
     }
 
     /** Sets the LED color to red. */
     public void setRed() {
-        setRGB(255, 0, 0);
+        setRGB(RED_LED[0], RED_LED[1], RED_LED[2]);
     }
 
     /** Sets the LED color to green. */
     public void setGreen() {
-        setRGB(0, 255, 0);
+        setRGB(GREEN_LED[0], GREEN_LED[1], GREEN_LED[2]);
     }
 
     /**
-     * Sets the LED color to green version 2.
-     *
-     * <p>(Colin says hi)
+     * Sets the LED color to orange. This is a specific shade of orange that is used for the LED strip.
      */
     public void setOrange() {
-        setRGB(255, 165, 0);
+        setRGB(ORANGE_LED[0], ORANGE_LED[1], ORANGE_LED[2]);
     }
 
     /** Sets the LED color to purple. */
     public void setPurpleColor() {
-        setRGB(160, 32, 240);
+        setRGB(PURPLE_LED[0], PURPLE_LED[1], PURPLE_LED[2]);
     }
 
     /** Sets the LED color to high tide (a specific shade of blue-green). */
     public void setHighTide() {
-        setRGB(0, 182, 174);
+        setRGB(HIGHTIDE_LED[0], HIGHTIDE_LED[1], HIGHTIDE_LED[2]);
     }
 
     /**
