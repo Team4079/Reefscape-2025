@@ -1,5 +1,10 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
+$dokka.location:frc.robot.commands.sequences////PointingToDeclaration/-reefscape2025/frc.robot.commands.sequences/index.html
+$dokka.location:frc.robot.commands.sequences/AlignScoreLeft///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequences/-align-score-left/index.html
+$dokka.location:frc.robot.commands.sequences/AlignScoreLeft/AlignScoreLeft/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequences/-align-score-left/-align-score-left.html
+$dokka.location:frc.robot.commands.sequences/AlignScoreRight///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequences/-align-score-right/index.html
+$dokka.location:frc.robot.commands.sequences/AlignScoreRight/AlignScoreRight/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequences/-align-score-right/-align-score-right.html
 $dokka.location:frc.robot.commands////PointingToDeclaration/-reefscape2025/frc.robot.commands/index.html
 $dokka.location:frc.robot.commands/PadDrive.Coordinate///PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/-coordinate/index.html
 $dokka.location:frc.robot.commands/PadDrive.Coordinate/PadDrive.Coordinate/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/-coordinate/-pad-drive.-coordinate.html
@@ -208,5 +213,6 @@ $dokka.location:frc.robot/RobotContainer/RobotContainer/#/PointingToDeclaration/
 $dokka.location:frc.robot/RobotContainer/getAutonomousCommand/#/PointingToDeclaration/-reefscape2025/frc.robot/-robot-container/get-autonomous-command.html
 frc.robot
 frc.robot.commands
+frc.robot.commands.sequences
 frc.robot.subsystems
 frc.robot.utils
