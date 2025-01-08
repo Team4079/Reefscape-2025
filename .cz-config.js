@@ -43,11 +43,12 @@ module.exports = {
       {name: 'dokka'},
       {name: 'cz'},
       {name: 'commitlint'},
+      {name: 'husky'}
     ],
     tune: [
       {name: 'swerve'},
       {name: 'pivot'},
-      {name: 'elevator'},
+      {name: 'elevator'}
     ],
     update: []
   },

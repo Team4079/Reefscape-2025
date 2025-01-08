@@ -225,6 +225,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   /**
    * Sets the state of the elevator
+   *
    * @param state
    */
   public void setElevatorState(ElevatorState state) {
