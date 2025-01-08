@@ -16,9 +16,12 @@ jobs:
         with:
           fetch-depth: 0
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18
+      - name: Clean Workspace
+        run: |
+          rm -rf node_modules package-lock.json
       - name: Install commitlint
         run: |
           npm install commitlint@latest conventional-changelog-conventionalcommits
