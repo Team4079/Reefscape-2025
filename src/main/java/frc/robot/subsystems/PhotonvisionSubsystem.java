@@ -43,13 +43,13 @@ public class PhotonvisionSubsystem extends SubsystemBase {
               Math.toRadians(180.0)));
 
   private PhotonTrackedTarget target = null;
-  private boolean isTargetVisible = false;
+  // private boolean isTargetVisible = false;
   private double yaw = -15.0;
   private double targetPoseAmbiguity = 7157.0;
   private double rangeToTarget = 0.0;
   private List<PhotonPipelineResult> result;
   private PhotonPipelineResult currentResult = null;
-  private boolean camTag = false;
+  // private boolean camTag = false;
   private Translation3d currentPose = null;
 
   /**

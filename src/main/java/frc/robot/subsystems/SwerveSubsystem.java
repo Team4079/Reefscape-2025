@@ -39,7 +39,7 @@ public class SwerveSubsystem extends SubsystemBase {
   private final SwerveModule[] modules;
   private final PID pid;
   private PathPlannerPath pathToScore =
-      null; // TODO JAYDEN PLS MAKE THE PATH PLANNER STUFF ALL READY!!!!!!! this is the path to go
+      null;
   // from feeder to the goal and align itself
   // The plan is for it to path towards it then we use a set path to align itself with the goal and
   // be more accurate

@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import static frc.robot.utils.Dash.*;
-
 import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.*;
@@ -54,8 +52,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   private VoltageOut voltageOut;
 
   private double deadband = 0.001;
-
-  private ElevatorState elevatorState = ElevatorState.NEUTRAL;
 
   /**
    * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
