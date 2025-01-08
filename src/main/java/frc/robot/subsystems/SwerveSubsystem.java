@@ -8,6 +8,9 @@ import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
+
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -15,12 +18,13 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
-import frc.robot.utils.PID;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import java.util.Optional;
@@ -36,6 +40,12 @@ public class SwerveSubsystem extends SubsystemBase {
   private final SwerveModuleState[] states = new SwerveModuleState[4];
   private final SwerveModule[] modules;
   private final PID pid;
+  private PathPlannerPath pathToScore = null; // TODO JAYDEN PLS MAKE THE PATH PLANNER STUFF ALL READY!!!!!!! this is the path to go from feeder to the goal and align itself 
+  // The plan is for it to path towards it then we use a set path to align itself with the goal and be more accurate 
+  // Use this https://pathplanner.dev/pplib-pathfinding.html#pathfind-then-follow-path
+  PathConstraints constraints = new PathConstraints(
+        2.0, 3.0,
+        Units.degreesToRadians(540), Units.degreesToRadians(720));
   private double velocity = 0.0;
 
   /**
@@ -388,5 +398,11 @@ public class SwerveSubsystem extends SubsystemBase {
     for (int i = 0; i < modules.length; i++) {
       modules[i].updateTelePID();
     }
+  }
+
+  public Command pathFindToGoal() {
+    return AutoBuilder.pathfindThenFollowPath(
+        pathToScore,
+        constraints);
   }
 }
