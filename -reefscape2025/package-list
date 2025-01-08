@@ -61,6 +61,7 @@ $dokka.location:frc.robot.subsystems/SwerveSubsystem/getPidgeyYaw/#/PointingToDe
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/getPose/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/get-pose.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/getRotationPidggy/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/get-rotation-pidggy.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/newPose/#edu.wpi.first.math.geometry.Pose2d/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/new-pose.html
+$dokka.location:frc.robot.subsystems/SwerveSubsystem/pathFindToGoal/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/path-find-to-goal.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/periodic.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/resetDrive/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/reset-drive.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/resetPidgey/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/reset-pidgey.html
