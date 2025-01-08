@@ -146,6 +146,13 @@ public class RobotParameters {
     public static final double ELEVATOR_PID_RIGHT_D = 0.0;
     public static final double ELEVATOR_PID_RIGHT_V = 0.0;
 
+    // Elevator Positions
+    public static final double NEUTRAL = 0.0;
+    public static final double L1 = 0.0;
+    public static final double L2 = 0.0;
+    public static final double L3 = 0.0;
+    public static final double L4 = 0.0;
+
     public static boolean SOFT_LIMIT_ENABLED = false;
     public static boolean IS_SOFTLIMIT = false;
   }

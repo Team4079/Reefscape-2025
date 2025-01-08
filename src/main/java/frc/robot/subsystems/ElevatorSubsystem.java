@@ -18,6 +18,14 @@ import frc.robot.utils.RobotParameters.ElevatorParameters;
  * for the elevator motor.
  */
 public class ElevatorSubsystem extends SubsystemBase {
+  public enum ElevatorState {
+    NEUTRAL,
+    L1,
+    L2,
+    L3,
+    L4,
+  }
+
   private TalonFX elevatorMotorLeft;
   private TalonFX elevatorMotorRight;
 
@@ -47,6 +55,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   private VoltageOut voltageOut;
 
   private double deadband = 0.001;
+
+  private ElevatorState elevatorState = ElevatorState.NEUTRAL;
 
   /**
    * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
@@ -143,8 +153,8 @@ public class ElevatorSubsystem extends SubsystemBase {
     rightSoftLimitConfig.ForwardSoftLimitThreshold = 40;
     rightSoftLimitConfig.ReverseSoftLimitThreshold = 0.2;
 
-    elevatorLeftConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-    elevatorRightConfiguration.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    elevatorLeftConfiguration.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    elevatorRightConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
     elevatorLeftConfiguration.SoftwareLimitSwitch = leftSoftLimitConfig;
     elevatorRightConfiguration.SoftwareLimitSwitch = rightSoftLimitConfig;
@@ -210,6 +220,10 @@ public class ElevatorSubsystem extends SubsystemBase {
           "getElevatorPosValue: Invalid motor, motor type should only be 'left' or 'right'");
       return -1.0;
     }
+  }
+
+  public void setElevatorState(ElevatorState state) {
+    elevatorState = state;
   }
 
   /**

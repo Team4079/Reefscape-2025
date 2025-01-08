@@ -192,3 +192,7 @@ compile_commands.json
 .env.local
 
 .qodo
+
+# Node
+node_modules/
+node_modules
