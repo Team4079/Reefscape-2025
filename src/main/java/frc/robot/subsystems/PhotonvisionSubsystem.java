@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import java.util.*;
+
+import org.littletonrobotics.junction.Logger;
 import org.photonvision.*;
 import org.photonvision.targeting.*;
 
@@ -103,14 +105,13 @@ public class PhotonvisionSubsystem extends SubsystemBase {
         yaw = tag.getYaw();
       }
     }
-
-    Dash.dash(
-        Dash.pairOf("yaw to target", yaw),
-        Dash.pairOf("range target", rangeToTarget),
-        Dash.pairOf("april tag distance", getDistanceSubwoofer()),
-        Dash.pairOf("april tag yaw", getSubwooferYaw()),
-        Dash.pairOf("cam ambiguity", targetPoseAmbiguity),
-        Dash.pairOf("_targets", currentResult.hasTargets()));
+    
+    Logger.recordOutput("yaw to target", yaw);
+    Logger.recordOutput("range target", rangeToTarget);
+    Logger.recordOutput("april tag distance", getDistanceSubwoofer());
+    Logger.recordOutput("april tag yaw", getSubwooferYaw());
+    Logger.recordOutput("cam ambiguity", targetPoseAmbiguity);
+    Logger.recordOutput("_targets", currentResult.hasTargets());
   }
 
   /**

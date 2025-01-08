@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import static frc.robot.utils.Dash.*;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.*;
@@ -164,10 +166,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    dash(
-        pairOf("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble()),
-        pairOf("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble()),
-        pairOf("Elevator SoftLimit", this.getSoftLimit()));
+    Logger.recordOutput("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
+    Logger.recordOutput("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
+    Logger.recordOutput("Elevator SoftLimit", this.getSoftLimit());
   }
 
   /** Stops the elevator motors */
@@ -253,9 +254,9 @@ public class ElevatorSubsystem extends SubsystemBase {
       elevatorMotorLeft.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
       elevatorMotorRight.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
 
-      dash(
-          pairOf("ElevatorLeft Velo", elevatorMotorLeft.get()),
-          pairOf("ElevatorRight Velo", elevatorMotorRight.get()));
+      Logger.recordOutput("ElevatorLeft Velo", elevatorMotorLeft.get());
+      Logger.recordOutput("ElevatorRight Velo", elevatorMotorRight.get());
+      
     } else {
       stopMotors();
     }

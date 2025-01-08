@@ -24,6 +24,8 @@ import frc.robot.utils.PID;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import java.util.Optional;
+
+import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 import org.photonvision.EstimatedRobotPose;
 
@@ -203,12 +205,12 @@ public class SwerveSubsystem extends SubsystemBase {
    */
   public void setDriveSpeeds(
       double forwardSpeed, double leftSpeed, double turnSpeed, boolean isFieldOriented) {
-    dash(
-        pairOf("Forward speed", forwardSpeed),
-        pairOf("Left speed", leftSpeed),
-        pairOf("Pidgey Heading", getHeading()),
-        pairOf("Pidgey Rotation2D", getPidgeyRotation().getDegrees()));
 
+    Logger.recordOutput("Forward speed", forwardSpeed);
+    Logger.recordOutput("Left speed", leftSpeed);
+    Logger.recordOutput("Pidgey Heading", getHeading());
+    Logger.recordOutput("Pidgey Rotation2D", getPidgeyRotation().getDegrees());
+    
     ChassisSpeeds speeds =
         !isFieldOriented
             ? new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed)

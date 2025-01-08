@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import static frc.robot.utils.Dash.*;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
@@ -124,9 +126,8 @@ public class PivotSubsystem extends SubsystemBase {
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    dash(
-        pairOf("Pivot Motor Position", pivotMotor.getPosition().getValueAsDouble()),
-        pairOf("Pivot SoftLimit", this.getSoftLimit()));
+    Logger.recordOutput("Pivot Motor Position", pivotMotor.getPosition().getValueAsDouble());
+    Logger.recordOutput("Pivot SoftLimit", this.getSoftLimit());
   }
 
   /** Stops the pivot motor */
