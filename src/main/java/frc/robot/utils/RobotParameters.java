@@ -61,7 +61,7 @@ public class RobotParameters {
 
     /** Class containing PID constants for the swerve drive system. */
     public static class PIDParameters {
-      public static final PID STEER_PID_TELE = new PID(13.0, 0.000, 0.1, 0.0);
+      public static final PID STEER_PID_TELE = new PID(15.0, 0.000, 0.1, 0.0);
       public static final PID STEER_PID_AUTO = new PID(15.0, 0.000, 0.1, 0.0);
       public static final PID DRIVE_PID_AUTO = new PID(7.0, 0.0, 0.00);
       public static final double DRIVE_PID_V_AUTO = 0.5;

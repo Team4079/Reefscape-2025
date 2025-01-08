@@ -48,7 +48,7 @@ public class RobotContainer {
   private void configureBindings() {
     // padA.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::addRotorPositionsforModules));
     padB.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::resetPidgey));
-    // padY.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::configAAcornMode));
+    padY.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::updateSteerPID));
     // padX.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::configSlowMode));
   }
 

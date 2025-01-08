@@ -370,4 +370,10 @@ public class SwerveSubsystem extends SubsystemBase {
       module.setDrivePID(pid, velocity);
     }
   }
+
+  public void updateSteerPID() {
+    for (int i = 0; i < modules.length; i++) {
+      modules[i].updateSteerPID();
+    }
+  }
 }

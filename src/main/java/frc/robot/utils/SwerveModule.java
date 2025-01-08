@@ -13,6 +13,7 @@ import com.ctre.phoenix6.signals.SensorDirectionValue;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 
@@ -109,6 +110,8 @@ public class SwerveModule {
     drivePosition = driveMotor.getPosition().getValueAsDouble();
     steerVelocity = steerMotor.getVelocity().getValueAsDouble();
     steerPosition = steerMotor.getPosition().getValueAsDouble();
+
+    putSteerPIDNumbers();
   }
 
   /**
@@ -232,5 +235,24 @@ public class SwerveModule {
   /** Resets the drive motor position to zero. */
   public void resetDrivePosition() {
     driveMotor.setPosition(0.0);
+  }
+
+  public void updateSteerPID() {
+
+    PIDParameters.STEER_PID_TELE.setP(SmartDashboard.getNumber("Steer P", PIDParameters.STEER_PID_TELE.getP()));
+    PIDParameters.STEER_PID_TELE.setI(SmartDashboard.getNumber("Steer I", PIDParameters.STEER_PID_TELE.getI()));
+    PIDParameters.STEER_PID_TELE.setD(SmartDashboard.getNumber("Steer D", PIDParameters.STEER_PID_TELE.getD()));
+
+    setSteerPID(PIDParameters.STEER_PID_TELE, 0.0);
+    System.out.println(SmartDashboard.getNumber("Steer P", PIDParameters.STEER_PID_TELE.getP()));
+  }
+
+
+  public void putSteerPIDNumbers() {
+    if(canCoder.getDeviceID() == 9){
+      SmartDashboard.putNumber("Steer P", PIDParameters.STEER_PID_TELE.getP());
+      SmartDashboard.putNumber("Steer I", PIDParameters.STEER_PID_TELE.getI());
+      SmartDashboard.putNumber("Steer D", PIDParameters.STEER_PID_TELE.getD());
+    }
   }
 }
