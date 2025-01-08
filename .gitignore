@@ -157,6 +157,7 @@ gradle-app.setting
 .settings/
 bin/
 .gradle/
+*.gradle
 
 # IntelliJ
 *.iml
@@ -185,3 +186,13 @@ compile_commands.json
 
 # Eclipse generated file for annotation processors
 .factorypath
+
+# ENV
+*.env
+*.env.local
+.env
+.env.local
+
+# IDEs
+.vscode/
+.idea/

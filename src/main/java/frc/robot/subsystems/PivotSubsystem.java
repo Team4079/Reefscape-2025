@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import static frc.robot.utils.Dash.*;
+
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
@@ -13,14 +15,12 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.Dash;
 import frc.robot.utils.RobotParameters.*;
-import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds;
 
 /**
  * The PivotSubsystem class is a subsystem that interfaces with the pivot system to provide control
- * over the pivot motors. This subsystem is a Singleton, meaning that only one instance of this class
- * is created and shared across the entire robot code.
+ * over the pivot motors. This subsystem is a Singleton, meaning that only one instance of this
+ * class is created and shared across the entire robot code.
  */
 public class PivotSubsystem extends SubsystemBase {
   /** Creates a new Pivot. */
@@ -40,7 +40,7 @@ public class PivotSubsystem extends SubsystemBase {
   private VoltageOut voltageOut;
 
   private double deadband = 0.001;
-  private double absPos;
+  // private double absPos = 0;
 
   /**
    * The Singleton instance of this PivotSubsystem. Code should use the {@link #getInstance()}
@@ -123,11 +123,10 @@ public class PivotSubsystem extends SubsystemBase {
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    if (Thresholds.TEST_MODE) {
-      Dash.dash(
-          Dash.pairOf("Pivot Motor Position", pivotMotor.getPosition().getValueAsDouble()),
-          Dash.pairOf("Pivot SoftLimit", this.getSoftLimit()));
-    }
+    dash(
+      pairOf("Pivot Motor Position", pivotMotor.getPosition().getValueAsDouble()),
+      pairOf("Pivot SoftLimit", this.getSoftLimit())
+    );
   }
 
   /** Stops the pivot motor */
@@ -139,15 +138,17 @@ public class PivotSubsystem extends SubsystemBase {
 
   /**
    * Set the position of the left and right pivot motors
+   *
    * @param motorPos Motor position
    * @return void
    */
   public void setMotorPosition(double motorPos) {
     pivotMotor.setControl(pos_reqest.withPosition(motorPos));
   }
-  
-    /**
+
+  /**
    * Get the position of the elevator motor
+   *
    * @return double, the position of the elevator motor
    */
   public double getPivotPosValue() {
@@ -168,6 +169,7 @@ public class PivotSubsystem extends SubsystemBase {
 
   /**
    * Soft resets the encoders on the elevator motors
+   *
    * @return void
    */
   public void resetEncoders() {
@@ -176,6 +178,7 @@ public class PivotSubsystem extends SubsystemBase {
 
   /**
    * Toggles the soft stop for the elevator motor
+   *
    * @return void
    */
   public void toggleSoftStop() {
@@ -189,6 +192,7 @@ public class PivotSubsystem extends SubsystemBase {
 
   /**
    * Move the pivot motor based on the velocity
+   *
    * @param velocity double, The velocity to move the pivot motor
    * @return void
    */
@@ -202,6 +206,7 @@ public class PivotSubsystem extends SubsystemBase {
 
   /**
    * Set the pivot motor to a specific position
+   *
    * @param pos double, The position to set the pivot motor to
    * @return void
    */
@@ -211,6 +216,7 @@ public class PivotSubsystem extends SubsystemBase {
 
   /**
    * Toggles the soft limit for the elevator motor
+   *
    * @return void
    */
   public void toggleLimit() {
@@ -223,6 +229,7 @@ public class PivotSubsystem extends SubsystemBase {
 
   /**
    * Get the soft limit for the pivot motor
+   *
    * @return boolean, The soft limit state for the pivot motor
    */
   public boolean getSoftLimit() {

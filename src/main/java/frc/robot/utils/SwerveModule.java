@@ -1,5 +1,7 @@
 package frc.robot.utils;
 
+import static frc.robot.utils.Dash.*;
+
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TorqueCurrentConfigs;
@@ -168,19 +170,14 @@ public class SwerveModule {
     driveMotor.setControl(velocitySetter.withVelocity(velocityToSet));
 
     // Log the actual and set values for debugging
-    if (Thresholds.TEST_MODE) {
-      Dash.dash(
-          Dash.pairOf(
-              "drive actual speed " + canCoder.getDeviceID(),
-              driveMotor.getVelocity().getValueAsDouble()),
-          Dash.pairOf("drive set speed " + canCoder.getDeviceID(), velocityToSet),
-          Dash.pairOf(
-              "steer actual angle " + canCoder.getDeviceID(),
-              steerMotor.getRotorPosition().getValueAsDouble()),
-          Dash.pairOf("steer set angle " + canCoder.getDeviceID(), angleToSet),
-          Dash.pairOf(
-              "desired state after optimize " + canCoder.getDeviceID(), state.angle.getRotations()));
-    }
+    // dash(
+    //   pairOf("drive actual speed " + canCoder.getDeviceID(), driveMotor.getVelocity().getValueAsDouble()),
+    //   pairOf("drive set speed " + canCoder.getDeviceID(), velocityToSet),
+    //   pairOf("steer actual angle " + canCoder.getDeviceID(), steerMotor.getRotorPosition().getValueAsDouble()),
+    //   pairOf("steer set angle " + canCoder.getDeviceID(), angleToSet),
+    //   pairOf("desired state after optimize " + canCoder.getDeviceID(), state.angle.getRotations())
+    // );
+    
     // Update the state
     state = value;
   }

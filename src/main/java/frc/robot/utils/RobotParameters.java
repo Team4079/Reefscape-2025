@@ -118,7 +118,7 @@ public class RobotParameters {
       public static final int[] GREEN_LED = {0, 255, 0};
       public static final int[] ORANGE_LED = {255, 165, 0};
       public static final int[] HIGHTIDE_LED = {0, 182, 174};
-      
+
       // Testing boolean for SmartDashboard (to not slow down the robot)
       public static boolean TEST_MODE = true;
     }
