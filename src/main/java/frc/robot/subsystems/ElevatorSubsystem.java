@@ -165,10 +165,9 @@ public class ElevatorSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     dash(
-      pairOf("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble()),
-      pairOf(
-              "Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble()),
-      pairOf("Elevator SoftLimit", this.getSoftLimit()));
+        pairOf("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble()),
+        pairOf("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble()),
+        pairOf("Elevator SoftLimit", this.getSoftLimit()));
   }
 
   /** Stops the elevator motors */
@@ -255,9 +254,8 @@ public class ElevatorSubsystem extends SubsystemBase {
       elevatorMotorRight.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
 
       dash(
-        pairOf("ElevatorLeft Velo", elevatorMotorLeft.get()),
-        pairOf("ElevatorRight Velo", elevatorMotorRight.get())
-      );
+          pairOf("ElevatorLeft Velo", elevatorMotorLeft.get()),
+          pairOf("ElevatorRight Velo", elevatorMotorRight.get()));
     } else {
       stopMotors();
     }
