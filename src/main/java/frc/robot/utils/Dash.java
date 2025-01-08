@@ -1,57 +1,11 @@
 package frc.robot.utils;
 
 import edu.wpi.first.math.Pair;
-import edu.wpi.first.util.sendable.Sendable;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds;
 import org.littletonrobotics.junction.Logger;
 
 public class Dash {
-  /**
-   * Method to update values from the SmartDashboard.
-   *
-   * @param pairs The pairs of keys and values to update.
-   */
-  @SafeVarargs
-  public static void dash(Pair<String, Object>... pairs) {
-    // if (Thresholds.TEST_MODE) {
-    //   for (Pair<String, Object> pair : pairs) {
-    //     String key = pair.getFirst();
-    //     Object value = pair.getSecond();
-    //     if (value instanceof Number numberValue) {
-    //       SmartDashboard.putNumber(key, numberValue.doubleValue());
-    //     } else if (value instanceof Boolean booleanValue) {
-    //       SmartDashboard.putBoolean(key, booleanValue);
-    //     } else if (value instanceof String stringValue) {
-    //       SmartDashboard.putString(key, stringValue);
-    //     } else if (value instanceof Sendable sendableValue) {
-    //       SmartDashboard.putData(key, sendableValue);
-    //     } else {
-    //       System.out.println("Oh great the dash function isn't working");
-    //       throw new IllegalArgumentException("Unsupported type: " + value.getClass());
-    //     }
-    //   }
-    // }
-    if (Thresholds.TEST_MODE) {
-      for (Pair<String, Object> pair : pairs) {
-        String key = pair.getFirst();
-        Object value = pair.getSecond();
-        if (value instanceof Number numberValue) {
-          SmartDashboard.putNumber(key, numberValue.doubleValue());
-        } else if (value instanceof Boolean booleanValue) {
-          SmartDashboard.putBoolean(key, booleanValue);
-        } else if (value instanceof String stringValue) {
-          SmartDashboard.putString(key, stringValue);
-        } else if (value instanceof Sendable sendableValue) {
-          SmartDashboard.putData(key, sendableValue);
-        } else {
-          System.out.println("Oh great the dash function isn't working");
-          throw new IllegalArgumentException("Unsupported type: " + value.getClass());
-        }
-      }
-    }
-  }
-
   /**
    * Method to update PIDV values from the SmartDashboard.
    *
@@ -79,6 +33,4 @@ public class Dash {
   public static void test() {
     Logger.recordOutput("TEST", 1);
   }
-
-  public static void doubleLogging(String key) {}
 }

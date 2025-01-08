@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 import frc.robot.utils.Dash;
@@ -39,10 +41,9 @@ public class PadDrive extends Command {
       rotation = 0.0;
     }
 
-    Dash.dash(
-        Dash.pairOf("X Joystick", position.x()),
-        Dash.pairOf("Y Joystick", position.y()),
-        Dash.pairOf("Rotation", rotation));
+    Logger.recordOutput("X Joystick", position.x());
+    Logger.recordOutput("Y Joystick", position.y());
+    Logger.recordOutput("Rotation", rotation);
 
     SwerveSubsystem.getInstance()
         .setDriveSpeeds(position.y(), position.x(), rotation * 0.8, isFieldOriented);
