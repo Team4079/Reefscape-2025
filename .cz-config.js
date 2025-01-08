@@ -42,6 +42,7 @@ module.exports = {
       {name: 'gradle'},
       {name: 'dokka'},
       {name: 'cz'},
+      {name: 'commitlint'},
     ],
     tune: [
       {name: 'swerve'},
