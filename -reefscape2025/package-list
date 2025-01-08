@@ -186,11 +186,11 @@ $dokka.location:frc.robot.utils/SwerveModule/SwerveModule/#int#int#int#double/Po
 $dokka.location:frc.robot.utils/SwerveModule/getPosition/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/get-position.html
 $dokka.location:frc.robot.utils/SwerveModule/getState/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/get-state.html
 $dokka.location:frc.robot.utils/SwerveModule/resetDrivePosition/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/reset-drive-position.html
-$dokka.location:frc.robot.utils/SwerveModule/setAUTOPID/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/set-a-u-t-o-p-i-d.html
+$dokka.location:frc.robot.utils/SwerveModule/setAutoPID/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/set-auto-p-i-d.html
 $dokka.location:frc.robot.utils/SwerveModule/setDrivePID/#frc.robot.utils.PID#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/set-drive-p-i-d.html
 $dokka.location:frc.robot.utils/SwerveModule/setState/#edu.wpi.first.math.kinematics.SwerveModuleState/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/set-state.html
 $dokka.location:frc.robot.utils/SwerveModule/setSteerPID/#frc.robot.utils.PID#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/set-steer-p-i-d.html
-$dokka.location:frc.robot.utils/SwerveModule/setTELEPID/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/set-t-e-l-e-p-i-d.html
+$dokka.location:frc.robot.utils/SwerveModule/setTelePID/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/set-tele-p-i-d.html
 $dokka.location:frc.robot.utils/SwerveModule/stop/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/stop.html
 $dokka.location:frc.robot////PointingToDeclaration/-reefscape2025/frc.robot/index.html
 $dokka.location:frc.robot/Main///PointingToDeclaration/-reefscape2025/frc.robot/-main/index.html
