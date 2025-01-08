@@ -191,6 +191,4 @@ compile_commands.json
 .env
 .env.local
 
-# IDEs
-.vscode/
-.idea/
+.qodo
