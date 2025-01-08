@@ -50,6 +50,7 @@ $dokka.location:frc.robot.subsystems/PivotSubsystem/stopMotor/#/PointingToDeclar
 $dokka.location:frc.robot.subsystems/PivotSubsystem/toggleLimit/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-pivot-subsystem/toggle-limit.html
 $dokka.location:frc.robot.subsystems/PivotSubsystem/toggleSoftStop/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-pivot-subsystem/toggle-soft-stop.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/index.html
+$dokka.location:frc.robot.subsystems/SwerveSubsystem/OmWillRemoveThis/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/-om-will-remove-this.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/chassisSpeedsDrive/#edu.wpi.first.math.kinematics.ChassisSpeeds/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/chassis-speeds-drive.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/getAutoSpeeds/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/get-auto-speeds.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/getHeading/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/get-heading.html
