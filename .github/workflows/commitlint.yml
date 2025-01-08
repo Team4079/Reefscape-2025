@@ -1,0 +1,33 @@
+name: Commit Message Linting
+
+on: [push, pull_request]
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-22.04
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Step 3: Install commitlint
+      - name: Install commitlint
+        run: npm install --save-dev @commitlint/{config-conventional,cli}
+
+      # Step 4: Validate last commit for push events
+      - name: Validate last commit on push
+        if: github.event_name == 'push'
+        run: npx commitlint --last --verbose
+
+      # Step 5: Validate all commits in pull requests
+      - name: Validate PR commits
+        if: github.event_name == 'pull_request'
+        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
