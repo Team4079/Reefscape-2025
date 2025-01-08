@@ -192,7 +192,8 @@ $dokka.location:frc.robot.utils/SwerveModule///PointingToDeclaration/-reefscape
 $dokka.location:frc.robot.utils/SwerveModule/SwerveModule/#int#int#int#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/-swerve-module.html
 $dokka.location:frc.robot.utils/SwerveModule/getPosition/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/get-position.html
 $dokka.location:frc.robot.utils/SwerveModule/getState/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/get-state.html
-$dokka.location:frc.robot.utils/SwerveModule/putSteerPIDNumbers/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/put-steer-p-i-d-numbers.html
+$dokka.location:frc.robot.utils/SwerveModule/initializeLoggedNetworkPID/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/initialize-logged-network-p-i-d.html
+$dokka.location:frc.robot.utils/SwerveModule/intializeAlarms/#int#int#int/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/intialize-alarms.html
 $dokka.location:frc.robot.utils/SwerveModule/resetDrivePosition/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/reset-drive-position.html
 $dokka.location:frc.robot.utils/SwerveModule/setAutoPID/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/set-auto-p-i-d.html
 $dokka.location:frc.robot.utils/SwerveModule/setDrivePID/#frc.robot.utils.PID#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/set-drive-p-i-d.html
