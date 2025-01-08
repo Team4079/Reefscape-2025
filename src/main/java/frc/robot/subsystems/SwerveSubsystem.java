@@ -383,9 +383,9 @@ public class SwerveSubsystem extends SubsystemBase {
     }
   }
 
-  public void updateSteerPID() {
+  public void updateModuleTelePIDValues() {
     for (int i = 0; i < modules.length; i++) {
-      modules[i].updateSteerPID();
+      modules[i].updateTelePID();
     }
   }
 }

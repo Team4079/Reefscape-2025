@@ -242,6 +242,19 @@ public class SwerveModule {
     steerMotor.getConfigurator().apply(steerConfigs);
   }
 
+  public void applyTelePIDValues() {
+    driveConfigs.Slot0.kP = driveP.get();
+    driveConfigs.Slot0.kI = driveI.get();
+    driveConfigs.Slot0.kD = driveD.get();
+
+    steerConfigs.Slot0.kP = steerP.get();
+    steerConfigs.Slot0.kI = steerI.get();
+    steerConfigs.Slot0.kD = steerD.get();
+
+    driveMotor.getConfigurator().apply(driveConfigs);
+    steerMotor.getConfigurator().apply(steerConfigs);
+  }
+
   /** Sets the PID values for teleoperation mode. */
   public void setTelePID() {
     setDrivePID(PIDParameters.DRIVE_PID_TELE, PIDParameters.DRIVE_PID_V_TELE);
@@ -285,7 +298,7 @@ public class SwerveModule {
     turnDisconnectedAlert.set(steerMotor.isConnected());
     canCoderDisconnectedAlert.set(canCoder.isConnected());
   }
-  public void updateSteerPID() {
+  public void updateTelePID() {
 
     PIDParameters.STEER_PID_TELE.setP(
         SmartDashboard.getNumber("Steer P", PIDParameters.STEER_PID_TELE.getP()));
@@ -294,7 +307,17 @@ public class SwerveModule {
     PIDParameters.STEER_PID_TELE.setD(
         SmartDashboard.getNumber("Steer D", PIDParameters.STEER_PID_TELE.getD()));
 
-    setSteerPID(PIDParameters.STEER_PID_TELE, 0.0);
+
+    PIDParameters.DRIVE_PID_TELE.setP(driveP.get());
+    PIDParameters.DRIVE_PID_TELE.setI(driveI.get());
+    PIDParameters.DRIVE_PID_TELE.setD(driveD.get());
+
+    PIDParameters.STEER_PID_TELE.setP(steerP.get());
+    PIDParameters.STEER_PID_TELE.setI(steerI.get());
+    PIDParameters.STEER_PID_TELE.setD(steerD.get());  
+
+    applyTelePIDValues();
+
     System.out.println(SmartDashboard.getNumber("Steer P", PIDParameters.STEER_PID_TELE.getP()));
   }
 
