@@ -113,7 +113,7 @@ public class SwerveModule {
     steerVelocity = steerMotor.getVelocity().getValueAsDouble();
     steerPosition = steerMotor.getPosition().getValueAsDouble();
 
-    putSteerPIDNumbers();
+    // putSteerPIDNumbers();
   }
 
   /**
@@ -174,13 +174,16 @@ public class SwerveModule {
 
     // Log the actual and set values for debugging
     // dash(
-    //   pairOf("drive actual speed " + canCoder.getDeviceID(), driveMotor.getVelocity().getValueAsDouble()),
+    //   pairOf("drive actual speed " + canCoder.getDeviceID(),
+    // driveMotor.getVelocity().getValueAsDouble()),
     //   pairOf("drive set speed " + canCoder.getDeviceID(), velocityToSet),
-    //   pairOf("steer actual angle " + canCoder.getDeviceID(), steerMotor.getRotorPosition().getValueAsDouble()),
+    //   pairOf("steer actual angle " + canCoder.getDeviceID(),
+    // steerMotor.getRotorPosition().getValueAsDouble()),
     //   pairOf("steer set angle " + canCoder.getDeviceID(), angleToSet),
-    //   pairOf("desired state after optimize " + canCoder.getDeviceID(), state.angle.getRotations())
+    //   pairOf("desired state after optimize " + canCoder.getDeviceID(),
+    // state.angle.getRotations())
     // );
-    
+
     // Update the state
     state = value;
   }
@@ -237,17 +240,19 @@ public class SwerveModule {
 
   public void updateSteerPID() {
 
-    PIDParameters.STEER_PID_TELE.setP(SmartDashboard.getNumber("Steer P", PIDParameters.STEER_PID_TELE.getP()));
-    PIDParameters.STEER_PID_TELE.setI(SmartDashboard.getNumber("Steer I", PIDParameters.STEER_PID_TELE.getI()));
-    PIDParameters.STEER_PID_TELE.setD(SmartDashboard.getNumber("Steer D", PIDParameters.STEER_PID_TELE.getD()));
+    PIDParameters.STEER_PID_TELE.setP(
+        SmartDashboard.getNumber("Steer P", PIDParameters.STEER_PID_TELE.getP()));
+    PIDParameters.STEER_PID_TELE.setI(
+        SmartDashboard.getNumber("Steer I", PIDParameters.STEER_PID_TELE.getI()));
+    PIDParameters.STEER_PID_TELE.setD(
+        SmartDashboard.getNumber("Steer D", PIDParameters.STEER_PID_TELE.getD()));
 
     setSteerPID(PIDParameters.STEER_PID_TELE, 0.0);
     System.out.println(SmartDashboard.getNumber("Steer P", PIDParameters.STEER_PID_TELE.getP()));
   }
 
-
   public void putSteerPIDNumbers() {
-    if(canCoder.getDeviceID() == 9){
+    if (canCoder.getDeviceID() == 9) {
       SmartDashboard.putNumber("Steer P", PIDParameters.STEER_PID_TELE.getP());
       SmartDashboard.putNumber("Steer I", PIDParameters.STEER_PID_TELE.getI());
       SmartDashboard.putNumber("Steer D", PIDParameters.STEER_PID_TELE.getD());

@@ -40,6 +40,7 @@ public class PivotSubsystem extends SubsystemBase {
   private VoltageOut voltageOut;
 
   private double deadband = 0.001;
+
   // private double absPos = 0;
 
   /**
@@ -124,9 +125,8 @@ public class PivotSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     dash(
-      pairOf("Pivot Motor Position", pivotMotor.getPosition().getValueAsDouble()),
-      pairOf("Pivot SoftLimit", this.getSoftLimit())
-    );
+        pairOf("Pivot Motor Position", pivotMotor.getPosition().getValueAsDouble()),
+        pairOf("Pivot SoftLimit", this.getSoftLimit()));
   }
 
   /** Stops the pivot motor */
