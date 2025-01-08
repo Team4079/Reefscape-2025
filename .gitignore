@@ -156,8 +156,6 @@ gradle-app.setting
 .project
 .settings/
 bin/
-.gradle/
-*.gradle
 
 # IntelliJ
 *.iml
