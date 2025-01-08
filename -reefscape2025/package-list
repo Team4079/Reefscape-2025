@@ -77,7 +77,10 @@ $dokka.location:frc.robot.utils/Dash///PointingToDeclaration/-reefscape2025/frc
 $dokka.location:frc.robot.utils/Dash/Dash/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/-dash.html
 $dokka.location:frc.robot.utils/Dash/dash/#edu.wpi.first.math.Pair<java.lang.String,java.lang.Object>.../PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/dash.html
 $dokka.location:frc.robot.utils/Dash/dashPID/#java.lang.String#frc.robot.utils.PID#double#java.util.function.DoubleConsumer/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/dash-p-i-d.html
+$dokka.location:frc.robot.utils/Dash/doubleLogging/#java.lang.String/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/double-logging.html
+$dokka.location:frc.robot.utils/Dash/getDoubleValue/#java.lang.String/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/get-double-value.html
 $dokka.location:frc.robot.utils/Dash/pairOf/#java.lang.String#java.lang.Object/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/pair-of.html
+$dokka.location:frc.robot.utils/Dash/test/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/test.html
 $dokka.location:frc.robot.utils/Extensions///PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions/index.html
 $dokka.location:frc.robot.utils/Extensions/Extensions/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions/-extensions.html
 $dokka.location:frc.robot.utils/Extensions/dimensionIncrease/#edu.wpi.first.math.geometry.Translation2d#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions/dimension-increase.html
