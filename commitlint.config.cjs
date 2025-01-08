@@ -1,16 +1,25 @@
+const fs = require('fs');
+const path = require('path');
+
+// Path to your .cz-config.js file
+const czConfigPath = path.resolve(__dirname, '.cz-config.js');
+
+// Read and parse the .cz-config.js file
+const czConfig = require(czConfigPath);
+
+// Extract the type values
+const typeValues = czConfig.types.map(type => type.value);
+
 module.exports = {
-  extends: ['@commitlint/config-conventional'], // Extend conventional commit types
+  extends: ['@commitlint/config-conventional'],
 
   rules: {
     'type-enum': [
       2,
       'always',
-      [
-        'feat', 'fix', 'docs', 'tune', 'style', 'refactor', 'perf', 'test',
-        'chore', 'WIP', 'revert', 'removal', 'update',
-      ],
+      typeValues, // Use the extracted type values
     ],
-    'scope-case': [2, 'always', 'lower-case'], // Ensures scope is lowercase
-    'type-case': [2, 'always', 'lower-case'], // Ensures type is lowercase
+    'scope-case': [2, 'always', 'lower-case'],
+    'type-case': [2, 'always', 'lower-case'],
   },
 };
