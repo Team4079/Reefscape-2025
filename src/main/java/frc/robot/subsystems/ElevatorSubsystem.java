@@ -222,8 +222,31 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
   }
 
+  /**
+   * Sets the state of the elevator
+   * @param state
+   */
   public void setElevatorState(ElevatorState state) {
-    elevatorState = state;
+    switch (state) {
+      case NEUTRAL:
+        setMotorPosition(ElevatorParameters.NEUTRAL, ElevatorParameters.NEUTRAL);
+        break;
+      case L1:
+        setMotorPosition(ElevatorParameters.L1, ElevatorParameters.L1);
+        break;
+      case L2:
+        setMotorPosition(ElevatorParameters.L2, ElevatorParameters.L2);
+        break;
+      case L3:
+        setMotorPosition(ElevatorParameters.L3, ElevatorParameters.L3);
+        break;
+      case L4:
+        setMotorPosition(ElevatorParameters.L4, ElevatorParameters.L4);
+        break;
+      default:
+        setMotorPosition(ElevatorParameters.NEUTRAL, ElevatorParameters.NEUTRAL);
+        break;
+    }
   }
 
   /**
@@ -282,7 +305,7 @@ public class ElevatorSubsystem extends SubsystemBase {
    * @param pos double, the position to set the elevator motor to
    * @return void
    */
-  public void setElevator(double pos) {
+  public void setElevatorPos(double pos) {
     elevatorMotorLeft.setControl(vel_voltage.withVelocity(pos));
     elevatorMotorRight.setControl(vel_voltage.withVelocity(pos));
   }

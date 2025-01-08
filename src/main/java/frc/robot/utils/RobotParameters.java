@@ -115,8 +115,11 @@ public class RobotParameters {
       public static final double ON_BALANCE_ANGLE_THRESHOLD = 5.0;
 
       // Robot LED Constants
+      public static final int[] TAN_LED = {255, 120, 20};
+      public static final int[] RED_LED = {255, 0, 0};
       public static final int[] GREEN_LED = {0, 255, 0};
       public static final int[] ORANGE_LED = {255, 165, 0};
+      public static final int[] PURPLE_LED = {160, 32, 240};
       public static final int[] HIGHTIDE_LED = {0, 182, 174};
 
       // Testing boolean for SmartDashboard (to not slow down the robot)
@@ -148,10 +151,10 @@ public class RobotParameters {
 
     // Elevator Positions
     public static final double NEUTRAL = 0.0;
-    public static final double L1 = 0.0;
-    public static final double L2 = 0.0;
-    public static final double L3 = 0.0;
-    public static final double L4 = 0.0;
+    public static final double L1 = 1.0;
+    public static final double L2 = 2.0;
+    public static final double L3 = 3.0;
+    public static final double L4 = 4.0;
 
     public static boolean SOFT_LIMIT_ENABLED = false;
     public static boolean IS_SOFTLIMIT = false;
