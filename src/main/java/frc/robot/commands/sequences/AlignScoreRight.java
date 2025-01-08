@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 /**
- * AlignScoreRight is a command group that aligns the robot with the right side of the reef to
- * score coral on the right branch.
+ * AlignScoreRight is a command group that aligns the robot with the right side of the reef to score
+ * coral on the right branch.
  */
 public class AlignScoreRight extends SequentialCommandGroup {
   /** Creates a new AlignScoreRight. */

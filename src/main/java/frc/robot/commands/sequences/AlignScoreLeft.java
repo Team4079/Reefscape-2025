@@ -19,10 +19,9 @@ public class AlignScoreLeft extends SequentialCommandGroup {
   public AlignScoreLeft() {
     /**
      * TASKS: 1. Align up with april tag 2. Offset to the left of the april tag, lining up with L4
-     * branch placement 3. Move up elevator to score 4. Reverse rollers to score
-     * 6. Do all that in reverse
+     * branch placement 3. Move up elevator to score 4. Reverse rollers to score 6. Do all that in
+     * reverse
      */
-    
     addCommands();
   }
 }

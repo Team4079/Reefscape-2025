@@ -1,11 +1,15 @@
 package frc.robot.utils;
 
-import edu.wpi.first.math.Pair;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.littletonrobotics.junction.Logger;
 
+/**
+ * Utility class for interacting with the SmartDashboard and logging. Provides methods to update PID
+ * values, retrieve double values, create pairs, and perform test logging.
+ */
 public class Dash {
+  private Dash() {}
+
   /**
    * Method to update PIDV values from the SmartDashboard.
    *
@@ -22,14 +26,10 @@ public class Dash {
     changeV.accept(SmartDashboard.getNumber(prefix + " Auto V", velocity));
   }
 
-  public static double getDoubleValue(String key) {
-    return SmartDashboard.getNumber(key, 0);
-  }
-
-  public static Pair<String, Object> pairOf(String s, Object o) {
-    return new Pair<>(s, o);
-  }
-
+  /**
+   * Logs a test output with a fixed value to the Logger. This method is used for testing purposes
+   * to ensure logging functionality.
+   */
   public static void test() {
     Logger.recordOutput("TEST", 1);
   }
