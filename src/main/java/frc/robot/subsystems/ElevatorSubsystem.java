@@ -2,8 +2,6 @@ package frc.robot.subsystems;
 
 import static frc.robot.utils.Dash.*;
 
-import org.littletonrobotics.junction.Logger;
-
 import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.*;
@@ -11,6 +9,7 @@ import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.ElevatorParameters;
+import org.littletonrobotics.junction.Logger;
 
 /**
  * The ElevatorSubsystem class is a Singleton to control the elevator motors on the robot. The class
@@ -176,8 +175,10 @@ public class ElevatorSubsystem extends SubsystemBase {
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    Logger.recordOutput("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
-    Logger.recordOutput("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
+    Logger.recordOutput(
+        "Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
+    Logger.recordOutput(
+        "Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
     Logger.recordOutput("Elevator SoftLimit", this.getSoftLimit());
   }
 
@@ -293,7 +294,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
       Logger.recordOutput("ElevatorLeft Velo", elevatorMotorLeft.get());
       Logger.recordOutput("ElevatorRight Velo", elevatorMotorRight.get());
-      
+
     } else {
       stopMotors();
     }

@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import java.util.*;
-
 import org.littletonrobotics.junction.Logger;
 import org.photonvision.*;
 import org.photonvision.targeting.*;
@@ -105,7 +104,7 @@ public class PhotonvisionSubsystem extends SubsystemBase {
         yaw = tag.getYaw();
       }
     }
-    
+
     Logger.recordOutput("yaw to target", yaw);
     Logger.recordOutput("range target", rangeToTarget);
     Logger.recordOutput("april tag distance", getDistanceSubwoofer());
