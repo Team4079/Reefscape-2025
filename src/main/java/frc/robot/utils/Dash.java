@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.littletonrobotics.junction.Logger;
 
 public class Dash {
-
   /**
    * Method to update PIDV values from the SmartDashboard.
    *
