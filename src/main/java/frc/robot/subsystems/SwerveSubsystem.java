@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.SHOULD_INVERT;
+import static frc.robot.utils.Dash.*;
+import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.*;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -16,10 +18,8 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
-import frc.robot.utils.Dash;
 import frc.robot.utils.PID;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
@@ -101,9 +101,9 @@ public class SwerveSubsystem extends SubsystemBase {
    */
   private PID initializePID() {
     return new PID(
-        SmartDashboard.getNumber("AUTO: P", PIDParameters.DRIVE_PID_AUTO.getP()),
-        SmartDashboard.getNumber("AUTO: I", PIDParameters.DRIVE_PID_AUTO.getI()),
-        SmartDashboard.getNumber("AUTO: D", PIDParameters.DRIVE_PID_AUTO.getD()));
+        getNumber("AUTO: P", PIDParameters.DRIVE_PID_AUTO.getP()),
+        getNumber("AUTO: I", PIDParameters.DRIVE_PID_AUTO.getI()),
+        getNumber("AUTO: D", PIDParameters.DRIVE_PID_AUTO.getD()));
   }
 
   /**
@@ -150,6 +150,8 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * This method is called periodically by the scheduler. It updates the pose estimator and
    * dashboard values.
+   *
+   * @return void
    */
   @Override
   public void periodic() {
@@ -175,11 +177,15 @@ public class SwerveSubsystem extends SubsystemBase {
 
     field.setRobotPose(poseEstimator.getEstimatedPosition());
 
-    Dash.dash(
-        Dash.pairOf("Pitch", pidgey.getPitch().getValueAsDouble()),
-        Dash.pairOf("Heading", -pidgey.getYaw().getValueAsDouble()),
-        Dash.pairOf("Yaw", pidgey.getYaw().getValueAsDouble()),
-        Dash.pairOf("Roll", pidgey.getRoll().getValueAsDouble()));
+    dash(
+      pairOf("Pidgey Heading", getHeading()),
+      pairOf("Pidgey Rotation2D", getPidgeyRotation().getDegrees()),
+      pairOf("Robot Pose", field.getRobotPose())
+    );
+
+    // Test mode toggle, replace later with Dash instance preferably instead of SmartDashboard
+    putBoolean("Test Mode Enabled", Thresholds.TEST_MODE);
+    
     // TODO Make advantage scope work with Pose2D Dash.pairOf("Robot Pose", field.getRobotPose()));
   }
 
@@ -193,11 +199,12 @@ public class SwerveSubsystem extends SubsystemBase {
    */
   public void setDriveSpeeds(
       double forwardSpeed, double leftSpeed, double turnSpeed, boolean isFieldOriented) {
-    Dash.dash(
-        Dash.pairOf("Forward speed", forwardSpeed),
-        Dash.pairOf("Left speed", leftSpeed),
-        Dash.pairOf("Pidgey Heading", getHeading()),
-        Dash.pairOf("Pidgey Rotation2D", getPidgeyRotation().getDegrees()));
+    dash(
+      pairOf("Forward speed", forwardSpeed),
+      pairOf("Left speed", leftSpeed),
+      pairOf("Pidgey Heading", getHeading()),
+      pairOf("Pidgey Rotation2D", getPidgeyRotation().getDegrees())
+    );
 
     ChassisSpeeds speeds =
         !isFieldOriented
@@ -345,14 +352,14 @@ public class SwerveSubsystem extends SubsystemBase {
   /** Sets the PID constants for autonomous driving. */
   public void setAutoPID() {
     for (SwerveModule module : modules) {
-      module.setAUTOPID();
+      module.setAutoPID();
     }
   }
 
   /** Sets the PID constants for teleoperated driving. */
   public void setTelePID() {
     for (SwerveModule module : modules) {
-      module.setTELEPID();
+      module.setTelePID();
     }
   }
 
@@ -365,7 +372,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
   /** Sets custom PID constants for the drive. */
   public void setCustomDrivePID() {
-    Dash.dashPID("Drive", pid, PIDParameters.DRIVE_PID_V_AUTO, v -> velocity = v);
+    dashPID("Drive", pid, PIDParameters.DRIVE_PID_V_AUTO, v -> velocity = v);
     for (SwerveModule module : modules) {
       module.setDrivePID(pid, velocity);
     }

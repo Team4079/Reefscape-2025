@@ -14,46 +14,33 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters.*;
 
 /**
  * The PivotSubsystem class is a subsystem that interfaces with the pivot system to provide control
- * over the pivot motors. This subsystem is a Singleton, meaning that only one instance of this class
- * is created and shared across the entire robot code.
+ * over the pivot motors. This subsystem is a Singleton, meaning that only one instance of this
+ * class is created and shared across the entire robot code.
  */
 public class PivotSubsystem extends SubsystemBase {
   /** Creates a new Pivot. */
-  private TalonFX pivotMotorLeft;
+  private TalonFX pivotMotor;
 
-  private TalonFX pivotMotorRight;
-
-  private TalonFXConfiguration pivotLeftConfiguration;
-  private TalonFXConfiguration pivotRightConfiguration;
-
-  private Slot0Configs pivotLeftConfigs;
-  private Slot0Configs pivotRightConfigs;
+  // Configurations
+  private TalonFXConfiguration pivotMotorConfiguration;
+  private Slot0Configs pivotConfigs;
+  private MotorOutputConfigs pivotOutputConfigs;
+  private CurrentLimitsConfigs pivotMotorCurrentConfig;
+  private ClosedLoopRampsConfigs pivotMotorRampConfig;
+  private SoftwareLimitSwitchConfigs pivotMotorSoftLimitConfig;
 
   private PositionVoltage pos_reqest;
   private VelocityVoltage vel_voltage;
 
-  private MotorOutputConfigs pivotConfigs;
-
-  private CurrentLimitsConfigs leftMotorCurrentConfig;
-  private CurrentLimitsConfigs rightMotorCurrentConfig;
-
-  private ClosedLoopRampsConfigs leftMotorRampConfig;
-  private ClosedLoopRampsConfigs rightMotorRampConfig;
-
-  private SoftwareLimitSwitchConfigs leftSoftLimitConfig;
-  private SoftwareLimitSwitchConfigs rightSoftLimitConfig;
-
   private VoltageOut voltageOut;
 
   private double deadband = 0.001;
-
-  private double absPos;
+  // private double absPos = 0;
 
   /**
    * The Singleton instance of this PivotSubsystem. Code should use the {@link #getInstance()}
@@ -76,85 +63,52 @@ public class PivotSubsystem extends SubsystemBase {
    * a Singleton. Code should use the {@link #getInstance()} method to get the singleton instance.
    */
   private PivotSubsystem() {
-    pivotMotorLeft = new TalonFX(MotorParameters.PIVOT_MOTOR_LEFT_ID);
-    pivotMotorRight = new TalonFX(MotorParameters.PIVOT_MOTOR_RIGHT_ID);
+    pivotMotor = new TalonFX(MotorParameters.PIVOT_MOTOR_ID);
 
-    pivotConfigs = new MotorOutputConfigs();
+    pivotOutputConfigs = new MotorOutputConfigs();
 
-    pivotLeftConfigs = new Slot0Configs();
-    pivotRightConfigs = new Slot0Configs();
+    pivotConfigs = new Slot0Configs();
 
-    pivotLeftConfiguration = new TalonFXConfiguration();
-    pivotRightConfiguration = new TalonFXConfiguration();
+    pivotMotorConfiguration = new TalonFXConfiguration();
 
-    pivotMotorLeft.getConfigurator().apply(pivotLeftConfiguration);
-    pivotMotorLeft.getConfigurator().apply(pivotConfigs);
-    pivotMotorRight.getConfigurator().apply(pivotRightConfiguration);
-    pivotMotorRight.getConfigurator().apply(pivotConfigs);
+    pivotMotor.getConfigurator().apply(pivotMotorConfiguration);
+    pivotMotor.getConfigurator().apply(pivotConfigs);
 
-    pivotConfigs.NeutralMode = NeutralModeValue.Brake;
+    pivotOutputConfigs.NeutralMode = NeutralModeValue.Brake;
 
-    pivotLeftConfigs.kP = PivotParameters.PIVOT_PID_LEFT_P;
-    pivotLeftConfigs.kI = PivotParameters.PIVOT_PID_LEFT_I;
-    pivotLeftConfigs.kD = PivotParameters.PIVOT_PID_LEFT_D;
-    pivotLeftConfigs.kV = PivotParameters.PIVOT_PID_LEFT_V;
-    // pivotLeftConfigs.kF = PivotConstants.PIVOT_PID_LEFT_F;
+    pivotConfigs.kP = PivotParameters.PIVOT_PID_P;
+    pivotConfigs.kI = PivotParameters.PIVOT_PID_I;
+    pivotConfigs.kD = PivotParameters.PIVOT_PID_D;
+    pivotConfigs.kV = PivotParameters.PIVOT_PID_V;
+    // pivotConfigs.kF = PivotConstants.PIVOT_PID_F;
 
-    pivotRightConfigs.kP = PivotParameters.PIVOT_PID_RIGHT_P;
-    pivotRightConfigs.kI = PivotParameters.PIVOT_PID_RIGHT_I;
-    pivotRightConfigs.kD = PivotParameters.PIVOT_PID_RIGHT_D;
-    pivotRightConfigs.kV = PivotParameters.PIVOT_PID_RIGHT_V;
-    // pivotRightConfigs.kF = PivotConstants.PIVOT_PID_RIGHT_F;
+    pivotMotor.getConfigurator().apply(pivotConfigs);
 
-    pivotMotorLeft.getConfigurator().apply(pivotLeftConfigs);
-    pivotMotorRight.getConfigurator().apply(pivotRightConfigs);
+    pivotMotorCurrentConfig = new CurrentLimitsConfigs();
+    pivotMotorRampConfig = new ClosedLoopRampsConfigs();
+    pivotMotorSoftLimitConfig = new SoftwareLimitSwitchConfigs();
 
-    leftMotorCurrentConfig = new CurrentLimitsConfigs();
-    rightMotorCurrentConfig = new CurrentLimitsConfigs();
+    pivotMotorCurrentConfig.SupplyCurrentLimit = 100;
+    pivotMotorCurrentConfig.SupplyCurrentLimitEnable = true;
+    pivotMotorCurrentConfig.StatorCurrentLimit = 100;
+    pivotMotorCurrentConfig.StatorCurrentLimitEnable = true;
 
-    leftMotorRampConfig = new ClosedLoopRampsConfigs();
-    rightMotorRampConfig = new ClosedLoopRampsConfigs();
+    pivotMotor.getConfigurator().apply(pivotMotorCurrentConfig);
 
-    leftSoftLimitConfig = new SoftwareLimitSwitchConfigs();
-    rightSoftLimitConfig = new SoftwareLimitSwitchConfigs();
+    pivotMotorRampConfig.DutyCycleClosedLoopRampPeriod = 0.1;
 
-    leftMotorCurrentConfig.SupplyCurrentLimit = 100;
-    leftMotorCurrentConfig.SupplyCurrentLimitEnable = true;
-    leftMotorCurrentConfig.StatorCurrentLimit = 100;
-    leftMotorCurrentConfig.StatorCurrentLimitEnable = true;
+    pivotMotor.getConfigurator().apply(pivotMotorRampConfig);
 
-    rightMotorCurrentConfig.SupplyCurrentLimit = 100;
-    rightMotorCurrentConfig.SupplyCurrentLimitEnable = true;
-    rightMotorCurrentConfig.StatorCurrentLimit = 100;
-    rightMotorCurrentConfig.StatorCurrentLimitEnable = true;
+    pivotMotorSoftLimitConfig.ForwardSoftLimitEnable = true;
+    pivotMotorSoftLimitConfig.ReverseSoftLimitEnable = true;
+    pivotMotorSoftLimitConfig.ForwardSoftLimitThreshold = 40;
+    pivotMotorSoftLimitConfig.ReverseSoftLimitThreshold = 0.2;
 
-    pivotMotorLeft.getConfigurator().apply(leftMotorCurrentConfig);
-    pivotMotorRight.getConfigurator().apply(rightMotorCurrentConfig);
+    pivotMotorConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
-    leftMotorRampConfig.DutyCycleClosedLoopRampPeriod = 0.1;
-    rightMotorRampConfig.DutyCycleClosedLoopRampPeriod = 0.1;
+    pivotMotorConfiguration.SoftwareLimitSwitch = pivotMotorSoftLimitConfig;
 
-    pivotMotorLeft.getConfigurator().apply(leftMotorRampConfig);
-    pivotMotorRight.getConfigurator().apply(rightMotorRampConfig);
-
-    leftSoftLimitConfig.ForwardSoftLimitEnable = true;
-    leftSoftLimitConfig.ReverseSoftLimitEnable = true;
-    leftSoftLimitConfig.ForwardSoftLimitThreshold = 40;
-    leftSoftLimitConfig.ReverseSoftLimitThreshold = 0.2;
-
-    rightSoftLimitConfig.ForwardSoftLimitEnable = true;
-    rightSoftLimitConfig.ReverseSoftLimitEnable = true;
-    rightSoftLimitConfig.ForwardSoftLimitThreshold = 40;
-    rightSoftLimitConfig.ReverseSoftLimitThreshold = 0.2;
-
-    pivotLeftConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-    pivotRightConfiguration.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-
-    pivotLeftConfiguration.SoftwareLimitSwitch = leftSoftLimitConfig;
-    pivotRightConfiguration.SoftwareLimitSwitch = rightSoftLimitConfig;
-
-    pivotMotorLeft.getConfigurator().apply(leftSoftLimitConfig);
-    pivotMotorRight.getConfigurator().apply(rightSoftLimitConfig);
+    pivotMotor.getConfigurator().apply(pivotMotorSoftLimitConfig);
 
     // absoluteEncoder = new DigitalInput(9);
 
@@ -163,71 +117,42 @@ public class PivotSubsystem extends SubsystemBase {
     voltageOut = new VoltageOut(0);
     new PositionDutyCycle(0);
 
-    pivotMotorLeft.setPosition(0);
-    pivotMotorRight.setPosition(0);
-
-    SmartDashboard.putNumber("Pivot Angle Value", 46);
+    pivotMotor.setPosition(0);
   }
 
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
     dash(
-        pairOf("Pivot Left Position", pivotMotorLeft.getPosition().getValueAsDouble()),
-        pairOf("Pivot Right Position", pivotMotorRight.getPosition().getValueAsDouble()),
-        pairOf("Pivot SoftLimit", getSoftLimit()));
-
-    // TODO: wtf does this do, make it do something useful or remove it
-    // if (absPos == PivotConstants.PIVOT_NEUTRAL_POS) {
-    //   PivotConstants.IS_NEUTRAL = true;
-    // }
+      pairOf("Pivot Motor Position", pivotMotor.getPosition().getValueAsDouble()),
+      pairOf("Pivot SoftLimit", this.getSoftLimit())
+    );
   }
 
-  /** Stops the pivot motors */
-  public void stopMotors() {
-    pivotMotorLeft.stopMotor();
-    pivotMotorRight.stopMotor();
+  /** Stops the pivot motor */
+  public void stopMotor() {
+    pivotMotor.stopMotor();
     voltageOut.Output = -0.014;
-    pivotMotorLeft.setControl(voltageOut);
-    pivotMotorRight.setControl(voltageOut);
+    pivotMotor.setControl(voltageOut);
   }
 
   /**
    * Set the position of the left and right pivot motors
    *
-   * @param left Left motor position
-   * @param right Right motor position
+   * @param motorPos Motor position
+   * @return void
    */
-  public void setMotorPosition(double left, double right) {
-    pivotMotorLeft.setControl(pos_reqest.withPosition(left));
-    pivotMotorRight.setControl(pos_reqest.withPosition(right));
-  }
-  
-    /**
-   * Get the position of the elevator motor
-   *
-   * @param motor "left" or "right | The motor to get the position of
-   * @return double, the position of the elevator motor
-   * @throws -1.0 if the motor is not "left" or "right"
-   */
-  public double getPivotPosValue(String motor) {
-    if (motor.toLowerCase().equals("left")) {
-      return pivotMotorLeft.getPosition().getValue().magnitude();
-    } else if (motor.toLowerCase().equals("right")) {
-      return pivotMotorRight.getPosition().getValue().magnitude();
-    } else {
-      // This returns if the motor is not "left" or "right"
-      System.out.println("getElevatorPosValue: Invalid motor, motor type should only be 'left' or 'right'");
-      return -1.0;
-    }
+  public void setMotorPosition(double motorPos) {
+    pivotMotor.setControl(pos_reqest.withPosition(motorPos));
   }
 
   /**
-   * Get the average position of the pivot motor
-   * @return double, the average position of the pivot motor
+   * Get the position of the elevator motor
+   *
+   * @return double, the position of the elevator motor
    */
-  public double getPivotPosAvg() {
-    return (getPivotPosValue("left") + getPivotPosValue("right")) / 2;
+  public double getPivotPosValue() {
+    return pivotMotor.getPosition().getValue().magnitude();
   }
 
   /**
@@ -242,61 +167,56 @@ public class PivotSubsystem extends SubsystemBase {
     return y;
   }
 
- /**
+  /**
    * Soft resets the encoders on the elevator motors
+   *
+   * @return void
    */
   public void resetEncoders() {
-    pivotMotorLeft.setPosition(0);
-    pivotMotorRight.setPosition(0);
+    pivotMotor.setPosition(0);
   }
 
   /**
    * Toggles the soft stop for the elevator motor
+   *
+   * @return void
    */
   public void toggleSoftStop() {
     PivotParameters.SOFT_LIMIT_ENABLED = !PivotParameters.SOFT_LIMIT_ENABLED;
-    leftSoftLimitConfig.ReverseSoftLimitEnable = PivotParameters.SOFT_LIMIT_ENABLED;
+    pivotMotorSoftLimitConfig.ReverseSoftLimitEnable = PivotParameters.SOFT_LIMIT_ENABLED;
     // leftSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
-    leftSoftLimitConfig.ReverseSoftLimitThreshold = 0;
+    pivotMotorSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
-    // rightSoftLimitConfig.ForwardSoftLimitEnable = PivotGlobalValues.soft_limit_enabled;
-    rightSoftLimitConfig.ReverseSoftLimitEnable = PivotParameters.SOFT_LIMIT_ENABLED;
-    // rightSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
-    rightSoftLimitConfig.ReverseSoftLimitThreshold = 0;
-
-    pivotMotorLeft.getConfigurator().apply(leftSoftLimitConfig);
-    pivotMotorRight.getConfigurator().apply(rightSoftLimitConfig);
+    pivotMotor.getConfigurator().apply(pivotMotorSoftLimitConfig);
   }
 
   /**
    * Move the pivot motor based on the velocity
+   *
    * @param velocity double, The velocity to move the pivot motor
    * @return void
    */
   public void movePivot(double velocity) {
     if (Math.abs(velocity) >= deadband) {
-      pivotMotorLeft.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
-      pivotMotorRight.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
-
-      SmartDashboard.putNumber("PivotLeft Velo Error", pivotMotorLeft.get() - velocity);
-      SmartDashboard.putNumber("PivotRight Velo Error", pivotMotorLeft.get() - velocity);
+      pivotMotor.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
     } else {
-      stopMotors();
+      this.stopMotor();
     }
   }
 
   /**
    * Set the pivot motor to a specific position
+   *
    * @param pos double, The position to set the pivot motor to
    * @return void
    */
   public void setPivot(double pos) {
-    pivotMotorLeft.setControl(vel_voltage.withVelocity(pos));
-    pivotMotorRight.setControl(vel_voltage.withVelocity(pos));
+    pivotMotor.setControl(vel_voltage.withVelocity(pos));
   }
 
   /**
    * Toggles the soft limit for the elevator motor
+   *
    * @return void
    */
   public void toggleLimit() {
@@ -309,6 +229,7 @@ public class PivotSubsystem extends SubsystemBase {
 
   /**
    * Get the soft limit for the pivot motor
+   *
    * @return boolean, The soft limit state for the pivot motor
    */
   public boolean getSoftLimit() {

@@ -28,9 +28,8 @@ public class RobotParameters {
     public static final int BACK_RIGHT_CAN_CODER_ID = 12;
     public static final int ELEVATOR_MOTOR_LEFT_ID = 13;
     public static final int ELEVATOR_MOTOR_RIGHT_ID = 14;
+    public static final int PIVOT_MOTOR_ID = 15;
     public static final int PIDGEY_ID = 16;
-    public static final int PIVOT_MOTOR_LEFT_ID = 17;
-    public static final int PIVOT_MOTOR_RIGHT_ID = 18;
 
     // Motor Property Values
     public static final double MAX_SPEED = 5.76;
@@ -39,10 +38,8 @@ public class RobotParameters {
     public static final double STEER_MOTOR_GEAR_RATIO = 150.0 / 7;
     public static final double DRIVE_MOTOR_GEAR_RATIO = 5.9;
     public static final double WHEEL_DIAMETER = 0.106;
-    public static final double SPEED_CONSTANT = 0.6;
-    public static final double AACORN_SPEED = 0.95;
-    public static final double SLOW_SPEED = 0.3;
-    public static final double TURN_CONSTANT = 0.3;
+    // public static final double SPEED_CONSTANT = 0.6;
+    // public static final double TURN_CONSTANT = 0.3;
     public static final double METERS_PER_REV = WHEEL_DIAMETER * Math.PI * 0.99;
     public static double HEADING = 0.0;
 
@@ -50,9 +47,6 @@ public class RobotParameters {
     public static final double DRIVE_SUPPLY_LIMIT = 45.0;
     public static final double DRIVE_STATOR_LIMIT = 80.0;
     public static final double STEER_SUPPLY_LIMIT = 30.0;
-
-    // Motor Speed Manipulation Values
-    public static boolean SLOW_MODE = false;
   }
 
   /** Class containing global values related to the swerve drive system. */
@@ -124,7 +118,7 @@ public class RobotParameters {
       public static final int[] GREEN_LED = {0, 255, 0};
       public static final int[] ORANGE_LED = {255, 165, 0};
       public static final int[] HIGHTIDE_LED = {0, 182, 174};
-      
+
       // Testing boolean for SmartDashboard (to not slow down the robot)
       public static boolean TEST_MODE = true;
     }
@@ -158,15 +152,10 @@ public class RobotParameters {
 
   /** Class containing constants for the pivot subsystem. */
   public static class PivotParameters {
-    public static final double PIVOT_PID_LEFT_P = 0.0;
-    public static final double PIVOT_PID_LEFT_I = 0.0;
-    public static final double PIVOT_PID_LEFT_D = 0.0;
-    public static final double PIVOT_PID_LEFT_V = 0.0;
-
-    public static final double PIVOT_PID_RIGHT_P = 0.0;
-    public static final double PIVOT_PID_RIGHT_I = 0.0;
-    public static final double PIVOT_PID_RIGHT_D = 0.0;
-    public static final double PIVOT_PID_RIGHT_V = 0.0;
+    public static final double PIVOT_PID_P = 0.0;
+    public static final double PIVOT_PID_I = 0.0;
+    public static final double PIVOT_PID_D = 0.0;
+    public static final double PIVOT_PID_V = 0.0;
 
     public static boolean SOFT_LIMIT_ENABLED = false;
     public static boolean IS_SOFTLIMIT = false;
