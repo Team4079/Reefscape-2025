@@ -150,6 +150,7 @@ public class RobotParameters {
     public static final double ELEVATOR_PID_RIGHT_D = 0.0;
     public static final double ELEVATOR_PID_RIGHT_V = 0.0;
 
+    // TODO: Get elevator values for these once the mechanism is built and functioning
     // Elevator Positions
     public static final double NEUTRAL = 0.0;
     public static final double L1 = 1.0;

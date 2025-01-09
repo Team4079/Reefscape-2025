@@ -5,6 +5,11 @@
     "husky": "^9.1.7"
   },
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky",
+    "cz-cuzt": "cz-customizable"
+  },
+  "dependencies": {
+    "cz": "^1.8.2",
+    "cz-customizable": "^7.4.0"
   }
 }

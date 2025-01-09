@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.commands.PadDrive;
 import frc.robot.subsystems.*;
+import frc.robot.subsystems.ElevatorSubsystem.ElevatorState;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.SwerveParameters;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
@@ -24,10 +25,12 @@ public class RobotContainer {
   private final JoystickButton padB;
   private final JoystickButton padX;
   private final JoystickButton padY;
+  private final JoystickButton padStart;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     LogitechGamingPad pad = new LogitechGamingPad(0);
+    padStart = new JoystickButton(pad, 8);
     padA = new JoystickButton(pad, 1);
     padB = new JoystickButton(pad, 2);
     padX = new JoystickButton(pad, 3);
@@ -47,9 +50,14 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // padA.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::addRotorPositionsforModules));
-    padB.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::resetPidgey));
-    padY.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::updateModuleTelePIDValues));
+    padStart.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::resetPidgey)); // Prev Button: padB
+    // padY.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::updateModuleTelePIDValues));
     // padX.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::configSlowMode));
+
+    padA.onTrue(new InstantCommand(() -> ElevatorSubsystem.getInstance().setState(ElevatorState.L1)));
+    padB.onTrue(new InstantCommand(() -> ElevatorSubsystem.getInstance().setState(ElevatorState.L2)));
+    padX.onTrue(new InstantCommand(() -> ElevatorSubsystem.getInstance().setState(ElevatorState.L3)));
+    padY.onTrue(new InstantCommand(() -> ElevatorSubsystem.getInstance().setState(ElevatorState.L4)));
   }
 
   /**

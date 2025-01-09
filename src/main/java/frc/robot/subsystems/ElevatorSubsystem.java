@@ -53,6 +53,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private double deadband = 0.001;
 
+  private ElevatorState state = ElevatorState.NEUTRAL;
+
   /**
    * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
    * method to get the single instance (rather than trying to construct an instance of this class.)
@@ -198,6 +200,11 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorMotorRight.setControl(pos_reqest.withPosition(right));
   }
 
+  /** Sets the elevator motor to the L1 position */
+  public void setState(ElevatorState state) {
+    this.state = state;
+  }
+
   // TODO: Figure out what the .magnitude() method does and document it in the method signature
   /**
    * Get the position of the elevator motor
@@ -220,29 +227,34 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   /**
-   * Sets the state of the elevator
-   *
-   * @param state
+   * Sets the state of the elevator motor based on the state local variable value
+   * To be used in sequences
    */
-  public void setElevatorState(ElevatorState state) {
+  public void setElevatorState() {
     switch (state) {
       case NEUTRAL:
-        setMotorPosition(ElevatorParameters.NEUTRAL, ElevatorParameters.NEUTRAL);
+        // setMotorPosition(ElevatorParameters.NEUTRAL, ElevatorParameters.NEUTRAL);
+        Logger.recordOutput("Elevator State", "NEUTRAL");
         break;
       case L1:
-        setMotorPosition(ElevatorParameters.L1, ElevatorParameters.L1);
+        Logger.recordOutput("Elevator State", "L1");
+        // setMotorPosition(ElevatorParameters.L1, ElevatorParameters.L1);
         break;
       case L2:
-        setMotorPosition(ElevatorParameters.L2, ElevatorParameters.L2);
+        Logger.recordOutput("Elevator State", "L2");
+        // setMotorPosition(ElevatorParameters.L2, ElevatorParameters.L2);
         break;
       case L3:
-        setMotorPosition(ElevatorParameters.L3, ElevatorParameters.L3);
+        Logger.recordOutput("Elevator State", "L3");
+        // setMotorPosition(ElevatorParameters.L3, ElevatorParameters.L3);
         break;
       case L4:
-        setMotorPosition(ElevatorParameters.L4, ElevatorParameters.L4);
+        Logger.recordOutput("Elevator State", "L4");
+        // setMotorPosition(ElevatorParameters.L4, ElevatorParameters.L4);
         break;
       default:
-        setMotorPosition(ElevatorParameters.NEUTRAL, ElevatorParameters.NEUTRAL);
+        Logger.recordOutput("Elevator State", "NEUTRAL");
+        // setMotorPosition(ElevatorParameters.NEUTRAL, ElevatorParameters.NEUTRAL);
         break;
     }
   }
