@@ -17,12 +17,12 @@ import frc.robot.utils.RobotParameters.*;
 import org.littletonrobotics.junction.Logger;
 
 /**
- * The ArmSubsystem class is a subsystem that interfaces with the arm system to provide control
+ * The EndEffectorSubsystem class is a subsystem that interfaces with the arm system to provide control
  * over the arm motors. This subsystem is a Singleton, meaning that only one instance of this
  * class is created and shared across the entire robot code.
  */
 public class EndEffectorSubsystem extends SubsystemBase {
-  /** Creates a new arm. */
+  /** Creates a new end effector. */
   private TalonFX endEffectorMotor;
 
   // Configurations
@@ -43,13 +43,13 @@ public class EndEffectorSubsystem extends SubsystemBase {
   // private double absPos = 0;
 
   /**
-   * The Singleton instance of this ArmSubsystem. Code should use the {@link #getInstance()}
+   * The Singleton instance of this EndEffectorSubsystem. Code should use the {@link #getInstance()}
    * method to get the single instance (rather than trying to construct an instance of this class.)
    */
   private static final EndEffectorSubsystem INSTANCE = new EndEffectorSubsystem();
 
   /**
-   * Returns the Singleton instance of this armSubsystem. This static method should be used,
+   * Returns the Singleton instance of this EndEffectorSubsystem. This static method should be used,
    * rather than the constructor, to get the single instance of this class. For example: {@code
    * armSubsystem.getInstance();}
    */
@@ -135,16 +135,16 @@ public class EndEffectorSubsystem extends SubsystemBase {
   }
 
   /**
-   * Get the position of the elevator motor
+   * Get the position of the end effector motor
    *
-   * @return double, the position of the elevator motor
+   * @return double, the position of the end effector motor
    */
-  public double getArmPosValue() {
+  public double getEndEffectorPosValue() {
     return endEffectorMotor.getPosition().getValue().magnitude();
   }
 
   /**
-   * Soft resets the encoders on the elevator motors
+   * Soft resets the encoders on the end effector motors
    *
    * @return void
    */
@@ -153,7 +153,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
   }
 
   /**
-   * Toggles the soft stop for the elevator motor
+   * Toggles the soft stop for the end effector motor
    *
    * @return void
    */
@@ -167,9 +167,9 @@ public class EndEffectorSubsystem extends SubsystemBase {
   }
 
   /**
-   * Move the arm motor based on the velocity
+   * Move the end effector motor based on the velocity
    *
-   * @param velocity double, The velocity to move the arm motor
+   * @param velocity double, The velocity to move the end effector motor
    * @return void
    */
   public void moveArm(double velocity) {
@@ -181,7 +181,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
   }
 
   /**
-   * Toggles the soft limit for the elevator motor
+   * Toggles the soft limit for the end effector motor
    *
    * @return void
    */
@@ -192,7 +192,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
   /**
    * Get the soft limit for the arm motor
    *
-   * @return boolean, The soft limit state for the arm motor
+   * @return boolean, The soft limit state for the end effector motor
    */
   public boolean getSoftLimit() {
     return EndEffectorParameters.IS_SOFTLIMIT;

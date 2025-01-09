@@ -140,19 +140,19 @@ public class RobotParameters {
 
   /** Class containing constants for the elevator subsystem. */
   public static class ElevatorParameters {
-    public static final double ELEVATOR_PID_LEFT_P = 0.0;
+    public static final double ELEVATOR_PID_LEFT_P = 0.0001;
     public static final double ELEVATOR_PID_LEFT_I = 0.0;
     public static final double ELEVATOR_PID_LEFT_D = 0.0;
     public static final double ELEVATOR_PID_LEFT_V = 0.0;
 
-    public static final double ELEVATOR_PID_RIGHT_P = 0.0;
+    public static final double ELEVATOR_PID_RIGHT_P = 0.0001;
     public static final double ELEVATOR_PID_RIGHT_I = 0.0;
     public static final double ELEVATOR_PID_RIGHT_D = 0.0;
     public static final double ELEVATOR_PID_RIGHT_V = 0.0;
 
     // TODO: Get elevator values for these once the mechanism is built and functioning
     // Elevator Positions
-    public static final double NEUTRAL = 0.0;
+    public static final double NEUTRAL = 0.5;
     public static final double L1 = 1.0;
     public static final double L2 = 2.0;
     public static final double L3 = 3.0;
@@ -164,7 +164,7 @@ public class RobotParameters {
 
   /** Class containing constants for the pivot subsystem. */
   public static class PivotParameters {
-    public static final double PIVOT_PID_P = 0.0;
+    public static final double PIVOT_PID_P = 0.001;
     public static final double PIVOT_PID_I = 0.0;
     public static final double PIVOT_PID_D = 0.0;
     public static final double PIVOT_PID_V = 0.0;
@@ -174,7 +174,7 @@ public class RobotParameters {
   }
 
   public static class EndEffectorParameters {
-    public static final double END_EFFECTOR_PID_P = 0.0;
+    public static final double END_EFFECTOR_PID_P = 0.001;
     public static final double END_EFFECTOR_PID_I = 0.0;
     public static final double END_EFFECTOR_PID_D = 0.0;
     public static final double END_EFFECTOR_PID_V = 0.0;
