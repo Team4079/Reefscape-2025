@@ -38,7 +38,7 @@ $dokka.location:frc.robot.subsystems/ElevatorSubsystem/stopMotors/#/PointingToDe
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/toggleLimit/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/toggle-limit.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/toggleSoftStop/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/toggle-soft-stop.html
 $dokka.location:frc.robot.subsystems/EndEffectorSubsystem///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-end-effector-subsystem/index.html
-$dokka.location:frc.robot.subsystems/EndEffectorSubsystem/getArmPosValue/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-end-effector-subsystem/get-arm-pos-value.html
+$dokka.location:frc.robot.subsystems/EndEffectorSubsystem/getEndEffectorPosValue/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-end-effector-subsystem/get-end-effector-pos-value.html
 $dokka.location:frc.robot.subsystems/EndEffectorSubsystem/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-end-effector-subsystem/get-instance.html
 $dokka.location:frc.robot.subsystems/EndEffectorSubsystem/getSoftLimit/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-end-effector-subsystem/get-soft-limit.html
 $dokka.location:frc.robot.subsystems/EndEffectorSubsystem/moveArm/#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-end-effector-subsystem/move-arm.html
