@@ -173,11 +173,11 @@ public class RobotParameters {
     public static boolean IS_SOFTLIMIT = false;
   }
 
-  public static class ArmParameters {
-    public static final double ARM_PID_P = 0.0;
-    public static final double ARM_PID_I = 0.0;
-    public static final double ARM_PID_D = 0.0;
-    public static final double ARM_PID_V = 0.0;
+  public static class EndEffectorParameters {
+    public static final double END_EFFECTOR_PID_P = 0.0;
+    public static final double END_EFFECTOR_PID_I = 0.0;
+    public static final double END_EFFECTOR_PID_D = 0.0;
+    public static final double END_EFFECTOR_PID_V = 0.0;
 
     public static boolean SOFT_LIMIT_ENABLED = false;
     public static boolean IS_SOFTLIMIT = false;
