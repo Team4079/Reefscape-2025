@@ -30,7 +30,7 @@ public class RobotParameters {
     public static final int ELEVATOR_MOTOR_RIGHT_ID = 14;
     public static final int PIVOT_MOTOR_ID = 15;
     public static final int PIDGEY_ID = 16;
-    public static final int ARM_MOTOR_ID = 17;
+    public static final int END_EFFECTOR_MOTOR_ID = 17;
 
     // Motor Property Values
     public static final double MAX_SPEED = 5.76;
@@ -152,7 +152,6 @@ public class RobotParameters {
 
     // TODO: Get elevator values for these once the mechanism is built and functioning
     // Elevator Positions
-    public static final double NEUTRAL = 0.5;
     public static final double L1 = 1.0;
     public static final double L2 = 2.0;
     public static final double L3 = 3.0;

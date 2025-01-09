@@ -16,7 +16,6 @@ import org.littletonrobotics.junction.Logger;
  */
 public class ElevatorSubsystem extends SubsystemBase {
   public enum ElevatorState {
-    NEUTRAL,
     L1,
     L2,
     L3,
@@ -53,7 +52,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   private double deadband = 0.001;
 
-  private ElevatorState state = ElevatorState.NEUTRAL;
+  private ElevatorState state = ElevatorState.L1;
 
   /**
    * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
@@ -232,10 +231,6 @@ public class ElevatorSubsystem extends SubsystemBase {
    */
   public void setElevatorState() {
     switch (state) {
-      case NEUTRAL:
-        // setMotorPosition(ElevatorParameters.NEUTRAL, ElevatorParameters.NEUTRAL);
-        Logger.recordOutput("Elevator State", "NEUTRAL");
-        break;
       case L1:
         Logger.recordOutput("Elevator State", "L1");
         // setMotorPosition(ElevatorParameters.L1, ElevatorParameters.L1);
@@ -253,8 +248,8 @@ public class ElevatorSubsystem extends SubsystemBase {
         // setMotorPosition(ElevatorParameters.L4, ElevatorParameters.L4);
         break;
       default:
-        Logger.recordOutput("Elevator State", "NEUTRAL");
-        // setMotorPosition(ElevatorParameters.NEUTRAL, ElevatorParameters.NEUTRAL);
+        Logger.recordOutput("Elevator State", "L1");
+        // setMotorPosition(ElevatorParameters.L1, ElevatorParameters.NEUTRAL);
         break;
     }
   }

@@ -33,7 +33,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
   private ClosedLoopRampsConfigs endEffectorMotorRampConfig;
   private SoftwareLimitSwitchConfigs endEffectorMotorSoftLimitConfig;
 
-  private PositionVoltage pos_reqest;
+  private PositionVoltage pos_voltage;
   private VelocityVoltage vel_voltage;
 
   private VoltageOut voltageOut;
@@ -63,7 +63,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
    * a Singleton. Code should use the {@link #getInstance()} method to get the singleton instance.
    */
   private EndEffectorSubsystem() {
-    endEffectorMotor = new TalonFX(MotorParameters.ARM_MOTOR_ID);
+    endEffectorMotor = new TalonFX(MotorParameters.END_EFFECTOR_MOTOR_ID);
 
     endEffectorMotorOutputConfigs = new MotorOutputConfigs();
 
@@ -113,7 +113,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
     // absoluteEncoder = new DigitalInput(9);
 
     vel_voltage = new VelocityVoltage(0);
-    pos_reqest = new PositionVoltage(0);
+    pos_voltage = new PositionVoltage(0);
     voltageOut = new VoltageOut(0);
     new PositionDutyCycle(0);
 
