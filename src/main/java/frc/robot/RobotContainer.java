@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.commands.PadDrive;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.ElevatorSubsystem.ElevatorState;
+import frc.robot.subsystems.Elevator.ElevatorState;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.SwerveParameters;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
@@ -56,13 +56,13 @@ public class RobotContainer {
     // padX.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::configSlowMode));
 
     padA.onTrue(
-        new InstantCommand(() -> ElevatorSubsystem.getInstance().setState(ElevatorState.L1)));
+        new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L1)));
     padB.onTrue(
-        new InstantCommand(() -> ElevatorSubsystem.getInstance().setState(ElevatorState.L2)));
+        new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L2)));
     padX.onTrue(
-        new InstantCommand(() -> ElevatorSubsystem.getInstance().setState(ElevatorState.L3)));
+        new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L3)));
     padY.onTrue(
-        new InstantCommand(() -> ElevatorSubsystem.getInstance().setState(ElevatorState.L4)));
+        new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L4)));
   }
 
   /**

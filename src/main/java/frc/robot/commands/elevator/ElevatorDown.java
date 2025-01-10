@@ -2,15 +2,15 @@ package frc.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.ElevatorSubsystem.ElevatorState;
+import frc.robot.subsystems.Elevator.ElevatorState;
 import frc.robot.utils.RobotParameters;
 
 public class ElevatorDown extends Command {
-    ElevatorSubsystem elevator;
+    Elevator elevator;
 
     public ElevatorDown() {
-        addRequirements(SwerveSubsystem.getInstance(), ElevatorSubsystem.getInstance());
-        elevator = ElevatorSubsystem.getInstance();
+        addRequirements(SwerveSubsystem.getInstance(), Elevator.getInstance());
+        elevator = Elevator.getInstance();
     }
 
     /**

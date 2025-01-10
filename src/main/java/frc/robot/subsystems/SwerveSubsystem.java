@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
+import frc.robot.subsystems.PhotonVision;
 import java.util.Optional;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 import org.photonvision.EstimatedRobotPose;
@@ -169,7 +170,7 @@ public class SwerveSubsystem extends SubsystemBase {
     */
     if (DriverStation.isTeleop()) {
       EstimatedRobotPose estimatedPose =
-          PhotonvisionSubsystem.getInstance()
+          PhotonVision.getInstance()
               .getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
       if (estimatedPose != null) {
         double timestamp = estimatedPose.timestampSeconds;

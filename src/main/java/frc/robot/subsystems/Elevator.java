@@ -15,7 +15,7 @@ import frc.robot.utils.RobotParameters.*;
  * sets the motor positions, gets the motor positions, stops the motors, and toggles the soft stop
  * for the elevator motor.
  */
-public class ElevatorSubsystem extends SubsystemBase {
+public class Elevator extends SubsystemBase {
   public static final String ELEVATOR_STATE_KEY = "Elevator State";
 
   public enum ElevatorState {
@@ -61,7 +61,7 @@ public class ElevatorSubsystem extends SubsystemBase {
    * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
    * method to get the single instance (rather than trying to construct an instance of this class.)
    */
-  private static final ElevatorSubsystem INSTANCE = new ElevatorSubsystem();
+  private static final Elevator INSTANCE = new Elevator();
 
   /**
    * Returns the Singleton instance of this ElevatorSubsystem. This static method should be used,
@@ -69,7 +69,7 @@ public class ElevatorSubsystem extends SubsystemBase {
    * ElevatorSubsystem.getInstance();}
    */
   @SuppressWarnings("WeakerAccess")
-  public static ElevatorSubsystem getInstance() {
+  public static Elevator getInstance() {
     return INSTANCE;
   }
 
@@ -78,7 +78,7 @@ public class ElevatorSubsystem extends SubsystemBase {
    * is a Singleton. Code should use the {@link #getInstance()} method to get the singleton
    * instance.
    */
-  private ElevatorSubsystem() {
+  private Elevator() {
     elevatorMotorLeft = new TalonFX(MotorParameters.ELEVATOR_MOTOR_LEFT_ID);
     elevatorMotorRight = new TalonFX(MotorParameters.ELEVATOR_MOTOR_RIGHT_ID);
 
@@ -166,9 +166,6 @@ public class ElevatorSubsystem extends SubsystemBase {
     vel_voltage = new VelocityTorqueCurrentFOC(0);
     pos_reqest = new PositionTorqueCurrentFOC(0);
     voltageOut = new VoltageOut(0);
-
-    vel_voltage.EnableFOC = true;
-    pos_reqest.EnableFOC = true;
     
     new PositionDutyCycle(0);
 

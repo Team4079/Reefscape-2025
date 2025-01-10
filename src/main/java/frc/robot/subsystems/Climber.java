@@ -23,7 +23,7 @@ import frc.robot.utils.RobotParameters.*;
  * over the pivot motors. This subsystem is a Singleton, meaning that only one instance of this
  * class is created and shared across the entire robot code.
  */
-public class PivotSubsystem extends SubsystemBase {
+public class Climber extends SubsystemBase {
   /** Creates a new Pivot. */
   private TalonFX pivotMotor;
 
@@ -48,7 +48,7 @@ public class PivotSubsystem extends SubsystemBase {
    * The Singleton instance of this PivotSubsystem. Code should use the {@link #getInstance()}
    * method to get the single instance (rather than trying to construct an instance of this class.)
    */
-  private static final PivotSubsystem INSTANCE = new PivotSubsystem();
+  private static final Climber INSTANCE = new Climber();
 
   /**
    * Returns the Singleton instance of this PivotSubsystem. This static method should be used,
@@ -56,7 +56,7 @@ public class PivotSubsystem extends SubsystemBase {
    * PivotSubsystem.getInstance();}
    */
   @SuppressWarnings("WeakerAccess")
-  public static PivotSubsystem getInstance() {
+  public static Climber getInstance() {
     return INSTANCE;
   }
 
@@ -64,7 +64,7 @@ public class PivotSubsystem extends SubsystemBase {
    * Creates a new instance of this PivotSubsystem. This constructor is private since this class is
    * a Singleton. Code should use the {@link #getInstance()} method to get the singleton instance.
    */
-  private PivotSubsystem() {
+  private Climber() {
     pivotMotor = new TalonFX(MotorParameters.PIVOT_MOTOR_ID);
 
     pivotOutputConfigs = new MotorOutputConfigs();

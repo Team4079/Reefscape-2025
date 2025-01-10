@@ -11,13 +11,13 @@ public class AlignLeft extends Command {
   private PIDController rotationalController;
 
   public AlignLeft() {
-    addRequirements(SwerveSubsystem.getInstance(), PhotonvisionSubsystem.getInstance());
+    addRequirements(SwerveSubsystem.getInstance(), PhotonVision.getInstance());
   }
 
   /** The initial subroutine of a command. Called once when the command is initially scheduled. */
   @Override
   public void initialize() {
-    yaw = PhotonvisionSubsystem.getInstance().getYaw();
+    yaw = PhotonVision.getInstance().getYaw();
     rotationalController =
         new PIDController(ROTATIONAL_PID.getP(), ROTATIONAL_PID.getI(), ROTATIONAL_PID.getD());
     rotationalController.setTolerance(1.5);
@@ -30,8 +30,8 @@ public class AlignLeft extends Command {
    */
   @Override
   public void execute() {
-    yaw = PhotonvisionSubsystem.getInstance().getYaw();
-    if (PhotonvisionSubsystem.getInstance().hasTag()) {
+    yaw = PhotonVision.getInstance().getYaw();
+    if (PhotonVision.getInstance().hasTag()) {
       SwerveSubsystem.getInstance()
           .setDriveSpeeds(0, 0, rotationalController.calculate(yaw, 0), false);
     } else {

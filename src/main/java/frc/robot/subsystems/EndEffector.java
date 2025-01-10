@@ -23,7 +23,7 @@ import frc.robot.utils.RobotParameters.*;
  * control over the arm motors. This subsystem is a Singleton, meaning that only one instance of
  * this class is created and shared across the entire robot code.
  */
-public class EndEffectorSubsystem extends SubsystemBase {
+public class EndEffector extends SubsystemBase {
   /** Creates a new end effector. */
   private TalonFX endEffectorMotor;
 
@@ -48,7 +48,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
    * The Singleton instance of this EndEffectorSubsystem. Code should use the {@link #getInstance()}
    * method to get the single instance (rather than trying to construct an instance of this class.)
    */
-  private static final EndEffectorSubsystem INSTANCE = new EndEffectorSubsystem();
+  private static final EndEffector INSTANCE = new EndEffector();
 
   /**
    * Returns the Singleton instance of this EndEffectorSubsystem. This static method should be used,
@@ -56,7 +56,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
    * armSubsystem.getInstance();}
    */
   @SuppressWarnings("WeakerAccess")
-  public static EndEffectorSubsystem getInstance() {
+  public static EndEffector getInstance() {
     return INSTANCE;
   }
 
@@ -64,7 +64,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
    * Creates a new instance of this armSubsystem. This constructor is private since this class is a
    * Singleton. Code should use the {@link #getInstance()} method to get the singleton instance.
    */
-  private EndEffectorSubsystem() {
+  private EndEffector() {
     endEffectorMotor = new TalonFX(MotorParameters.END_EFFECTOR_MOTOR_ID);
 
     endEffectorMotorOutputConfigs = new MotorOutputConfigs();

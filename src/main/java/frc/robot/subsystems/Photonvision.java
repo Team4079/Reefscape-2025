@@ -20,7 +20,7 @@ import org.photonvision.targeting.*;
  * the subwoofer, and the yaw of the subwoofer. It also provides methods to check if a tag is
  * visible, get the forward distance to the target, and get the pivot position.
  */
-public class PhotonvisionSubsystem extends SubsystemBase {
+public class PhotonVision extends SubsystemBase {
   // PhotonVision cameras
   private final PhotonCamera camera = new PhotonCamera("Camera");
 
@@ -58,7 +58,7 @@ public class PhotonvisionSubsystem extends SubsystemBase {
    * #getInstance()} method to get the single instance (rather than trying to construct an instance
    * of this class.)
    */
-  private static final PhotonvisionSubsystem INSTANCE = new PhotonvisionSubsystem();
+  private static final PhotonVision INSTANCE = new PhotonVision();
 
   /**
    * Returns the Singleton instance of this PhotonvisionSubsystem. This static method should be
@@ -66,7 +66,7 @@ public class PhotonvisionSubsystem extends SubsystemBase {
    * {@code PhotonvisionSubsystem.getInstance();}
    */
   @SuppressWarnings("WeakerAccess")
-  public static PhotonvisionSubsystem getInstance() {
+  public static PhotonVision getInstance() {
     return INSTANCE;
   }
 
@@ -75,7 +75,7 @@ public class PhotonvisionSubsystem extends SubsystemBase {
    * class is a Singleton. Code should use the {@link #getInstance()} method to get the singleton
    * instance.
    */
-  private PhotonvisionSubsystem() {
+  private PhotonVision() {
     result = camera.getAllUnreadResults();
     photonPoseEstimator =
         new PhotonPoseEstimator(
