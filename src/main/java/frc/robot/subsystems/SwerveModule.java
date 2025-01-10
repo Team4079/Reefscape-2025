@@ -66,7 +66,7 @@ public class SwerveModule {
     driveMotor = new TalonFX(driveId);
     canCoder = new CANcoder(canCoderID);
     steerMotor = new TalonFX(steerId);
-    positionSetter = new PositionTorqueCurrentFOC(0.0);
+    positionSetter = new PositionTorqueCurrentFOC(0.0).withSlot(0);
     velocitySetter = new VelocityTorqueCurrentFOC(0.0);
     swerveModulePosition = new SwerveModulePosition();
     state = new SwerveModuleState(0.0, Rotation2d.fromDegrees(0.0));
