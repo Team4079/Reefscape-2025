@@ -294,10 +294,11 @@ public class SwerveModule {
             "Disconnected CANCoder " + Integer.toString(canCoderID) + ".",
             AlertType.kError);
 
-    driveDisconnectedAlert.set(driveMotor.isConnected());
-    turnDisconnectedAlert.set(steerMotor.isConnected());
-    canCoderDisconnectedAlert.set(canCoder.isConnected());
+    driveDisconnectedAlert.set(!driveMotor.isConnected());
+    turnDisconnectedAlert.set(!steerMotor.isConnected());
+    canCoderDisconnectedAlert.set(!canCoder.isConnected());
   }
+
   public void updateTelePID() {
 
     PIDParameters.STEER_PID_TELE.setP(
