@@ -1,13 +1,14 @@
 package frc.robot.subsystems;
 
+import static frc.robot.utils.Dash.*;
+
 import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.*;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
-import frc.robot.utils.RobotParameters.ElevatorParameters;
-import org.littletonrobotics.junction.Logger;
+import frc.robot.utils.RobotParameters.*;
 
 /**
  * The ElevatorSubsystem class is a Singleton to control the elevator motors on the robot. The class
@@ -15,11 +16,13 @@ import org.littletonrobotics.junction.Logger;
  * for the elevator motor.
  */
 public class ElevatorSubsystem extends SubsystemBase {
+  public static final String ELEVATOR_STATE_KEY = "Elevator State";
+
   public enum ElevatorState {
     L1,
     L2,
     L3,
-    L4,
+    L4
   }
 
   private TalonFX elevatorMotorLeft;
@@ -76,8 +79,8 @@ public class ElevatorSubsystem extends SubsystemBase {
    * instance.
    */
   private ElevatorSubsystem() {
-    elevatorMotorLeft = new TalonFX(RobotParameters.MotorParameters.ELEVATOR_MOTOR_LEFT_ID);
-    elevatorMotorRight = new TalonFX(RobotParameters.MotorParameters.ELEVATOR_MOTOR_RIGHT_ID);
+    elevatorMotorLeft = new TalonFX(MotorParameters.ELEVATOR_MOTOR_LEFT_ID);
+    elevatorMotorRight = new TalonFX(MotorParameters.ELEVATOR_MOTOR_RIGHT_ID);
 
     elevatorConfigs = new MotorOutputConfigs();
 
@@ -172,11 +175,10 @@ public class ElevatorSubsystem extends SubsystemBase {
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    Logger.recordOutput(
-        "Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
-    Logger.recordOutput(
-        "Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
-    Logger.recordOutput("Elevator SoftLimit", this.getSoftLimit());
+    log("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
+    log("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
+    log("Elevator SoftLimit", this.getSoftLimit());
+    logElevatorState();
   }
 
   /** Stops the elevator motors */
@@ -204,19 +206,18 @@ public class ElevatorSubsystem extends SubsystemBase {
     this.state = state;
   }
 
-  // TODO: Figure out what the .magnitude() method does and document it in the method signature
   /**
    * Get the position of the elevator motor
    *
    * @param motor "left" or "right | The motor to get the position of
-   * @return double, the position of the elevator motor
-   * @throws -1.0 if the motor is not "left" or "right"
+   * @return double, the position of the elevator motor and -1.0 if the motor is not "left" or
+   *     "right"
    */
   public double getElevatorPosValue(String motor) {
-    if (motor.toLowerCase().equals("left")) {
-      return elevatorMotorLeft.getPosition().getValue().magnitude();
-    } else if (motor.toLowerCase().equals("right")) {
-      return elevatorMotorRight.getPosition().getValue().magnitude();
+    if (motor.equalsIgnoreCase("left")) {
+      return elevatorMotorLeft.getPosition().getValueAsDouble();
+    } else if (motor.equalsIgnoreCase("right")) {
+      return elevatorMotorRight.getPosition().getValueAsDouble();
     } else {
       // This returns if the motor is not "left" or "right"
       System.out.println(
@@ -229,27 +230,22 @@ public class ElevatorSubsystem extends SubsystemBase {
    * Sets the state of the elevator motor based on the state local variable value To be used in
    * sequences
    */
-  public void setElevatorState() {
+  public void logElevatorState() {
     switch (state) {
       case L1:
-        Logger.recordOutput("Elevator State", "L1");
-        // setMotorPosition(ElevatorParameters.L1, ElevatorParameters.L1);
+        log(ELEVATOR_STATE_KEY, "L1");
         break;
       case L2:
-        Logger.recordOutput("Elevator State", "L2");
-        // setMotorPosition(ElevatorParameters.L2, ElevatorParameters.L2);
+        log(ELEVATOR_STATE_KEY, "L2");
         break;
       case L3:
-        Logger.recordOutput("Elevator State", "L3");
-        // setMotorPosition(ElevatorParameters.L3, ElevatorParameters.L3);
+        log(ELEVATOR_STATE_KEY, "L3");
         break;
       case L4:
-        Logger.recordOutput("Elevator State", "L4");
-        // setMotorPosition(ElevatorParameters.L4, ElevatorParameters.L4);
+        log(ELEVATOR_STATE_KEY, "L4");
         break;
       default:
-        Logger.recordOutput("Elevator State", "L1");
-        // setMotorPosition(ElevatorParameters.L1, ElevatorParameters.NEUTRAL);
+        log(ELEVATOR_STATE_KEY, "L1");
         break;
     }
   }
@@ -296,8 +292,8 @@ public class ElevatorSubsystem extends SubsystemBase {
       elevatorMotorLeft.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
       elevatorMotorRight.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
 
-      Logger.recordOutput("ElevatorLeft Velo", elevatorMotorLeft.get());
-      Logger.recordOutput("ElevatorRight Velo", elevatorMotorRight.get());
+      log("ElevatorLeft Velo", elevatorMotorLeft.get());
+      log("ElevatorRight Velo", elevatorMotorRight.get());
 
     } else {
       stopMotors();

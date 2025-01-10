@@ -1,12 +1,13 @@
 package frc.robot.subsystems;
 
+import static frc.robot.utils.Dash.*;
+
 import edu.wpi.first.apriltag.*;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import java.util.*;
-import org.littletonrobotics.junction.Logger;
 import org.photonvision.*;
 import org.photonvision.targeting.*;
 
@@ -100,14 +101,14 @@ public class PhotonvisionSubsystem extends SubsystemBase {
     targetPoseAmbiguity = target != null ? target.getPoseAmbiguity() : 7157.0;
 
     for (PhotonTrackedTarget tag : currentResult.getTargets()) {
-        yaw = tag.getYaw();
+      yaw = tag.getYaw();
     }
 
-    Logger.recordOutput("yaw to target", yaw);
-    Logger.recordOutput("range target", rangeToTarget);
-    Logger.recordOutput("april tag yaw", getSubwooferYaw());
-    Logger.recordOutput("cam ambiguity", targetPoseAmbiguity);
-    Logger.recordOutput("_targets", currentResult.hasTargets());
+    log("yaw to target", yaw);
+    log("range target", rangeToTarget);
+    log("april tag yaw", getSubwooferYaw());
+    log("cam ambiguity", targetPoseAmbiguity);
+    log("_targets", currentResult.hasTargets());
   }
 
   /**
@@ -147,6 +148,7 @@ public class PhotonvisionSubsystem extends SubsystemBase {
 
   /**
    * Uses some fancy stuff to return the distance from the april tag
+   *
    * @return double
    */
   public double getDistanceAprilTag() {

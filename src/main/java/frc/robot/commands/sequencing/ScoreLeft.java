@@ -13,10 +13,6 @@ import frc.robot.commands.AlignLeft;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ScoreLeft extends SequentialCommandGroup {
   public ScoreLeft() {
-    addCommands(
-        new ParallelCommandGroup(
-            new AlignLeft()
-        )
-    );
+    addCommands(new ParallelCommandGroup(new AlignLeft()));
   }
 }

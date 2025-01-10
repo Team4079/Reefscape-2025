@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import static frc.robot.utils.Dash.*;
+
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
@@ -13,8 +15,8 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
-import org.littletonrobotics.junction.Logger;
 
 /**
  * The EndEffectorSubsystem class is a subsystem that interfaces with the arm system to provide
@@ -123,9 +125,8 @@ public class EndEffectorSubsystem extends SubsystemBase {
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    Logger.recordOutput(
-        "End Effector Motor Position", endEffectorMotor.getPosition().getValueAsDouble());
-    Logger.recordOutput("End Effector SoftLimit", this.getSoftLimit());
+    log("End Effector Motor Position", endEffectorMotor.getPosition().getValueAsDouble());
+    log("End Effector SoftLimit", this.getSoftLimit());
   }
 
   /** Stops the arm motor */

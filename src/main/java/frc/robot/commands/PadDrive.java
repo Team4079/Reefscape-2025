@@ -1,11 +1,11 @@
 package frc.robot.commands;
 
+import static frc.robot.utils.Dash.*;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
-import frc.robot.utils.LogitechGamingPad;
-import frc.robot.utils.RobotParameters;
+import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds;
-import org.littletonrobotics.junction.Logger;
 
 /** Command to control the robot's swerve drive using a Logitech gaming pad. */
 public class PadDrive extends Command {
@@ -34,14 +34,13 @@ public class PadDrive extends Command {
     Coordinate position = positionSet(pad);
 
     double rotation =
-        -pad.getRightAnalogXAxis() * RobotParameters.MotorParameters.MAX_ANGULAR_SPEED;
-    if (Math.abs(pad.getRightAnalogXAxis()) < 0.2) {
-      rotation = 0.0;
-    }
+        (Math.abs(pad.getRightAnalogXAxis()) >= 0.2)
+            ? -pad.getRightAnalogXAxis() * RobotParameters.MotorParameters.MAX_ANGULAR_SPEED
+            : 0.0;
 
-    Logger.recordOutput("X Joystick", position.x());
-    Logger.recordOutput("Y Joystick", position.y());
-    Logger.recordOutput("Rotation", rotation);
+    log("X Joystick", position.x());
+    log("Y Joystick", position.y());
+    log("Rotation", rotation);
 
     SwerveSubsystem.getInstance()
         .setDriveSpeeds(position.y(), position.x(), rotation * 0.8, isFieldOriented);

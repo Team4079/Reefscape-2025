@@ -27,7 +27,6 @@ import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import java.util.Optional;
-import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 import org.photonvision.EstimatedRobotPose;
 
@@ -187,19 +186,15 @@ public class SwerveSubsystem extends SubsystemBase {
 
     field.setRobotPose(poseEstimator.getEstimatedPosition());
 
-    // dash(
-    //     pairOf("Pidgey Heading", getHeading()),
-    //     pairOf("Pidgey Rotation2D", getPidgeyRotation().getDegrees()),
-    //     pairOf("Robot Pose", field.getRobotPose()));
+    log("Pidgey Heading", getHeading());
+    log("Pidgey Rotation2D", getPidgeyRotation().getDegrees());
+    log("Robot Pose", field.getRobotPose());
 
     // Test mode toggle, replace later with Dash instance preferably instead of SmartDashboard
     putBoolean("Test Mode Enabled", Thresholds.TEST_MODE);
     LoggedNetworkNumber a = new LoggedNetworkNumber("Steer D test");
 
-    System.out.println(a.get());
-    test();
-    // Logger.recordOutput("Steer D test", 10);
-    // TODO Make advantage scope work with Pose2D
+    log("Steer D test", a.get());
   }
 
   /**
@@ -213,12 +208,9 @@ public class SwerveSubsystem extends SubsystemBase {
   public void setDriveSpeeds(
       double forwardSpeed, double leftSpeed, double turnSpeed, boolean isFieldOriented) {
 
-    Logger.recordOutput("Forward speed", forwardSpeed);
-    Logger.recordOutput("Left speed", leftSpeed);
-    Logger.recordOutput("Pidgey Heading", getHeading());
-    Logger.recordOutput("Pidgey Rotation2D", getPidgeyRotation().getDegrees());
-    Logger.recordOutput("Robot Pose", field.getRobotPose());
-        
+    log("Forward speed", forwardSpeed);
+    log("Left speed", leftSpeed);
+
     ChassisSpeeds speeds =
         !isFieldOriented
             ? new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed)
