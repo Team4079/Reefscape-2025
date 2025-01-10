@@ -1,19 +1,21 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:frc.robot.commands.elevator////PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/index.html
-$dokka.location:frc.robot.commands.elevator/ElevatorDown///PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-down/index.html
-$dokka.location:frc.robot.commands.elevator/ElevatorDown/ElevatorDown/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-down/-elevator-down.html
-$dokka.location:frc.robot.commands.elevator/ElevatorDown/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-down/end.html
-$dokka.location:frc.robot.commands.elevator/ElevatorDown/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-down/initialize.html
-$dokka.location:frc.robot.commands.elevator/ElevatorDown/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-down/is-finished.html
-$dokka.location:frc.robot.commands.elevator/ElevatorUp///PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-up/index.html
-$dokka.location:frc.robot.commands.elevator/ElevatorUp/ElevatorUp/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-up/-elevator-up.html
-$dokka.location:frc.robot.commands.elevator/ElevatorUp/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-up/end.html
-$dokka.location:frc.robot.commands.elevator/ElevatorUp/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-up/initialize.html
-$dokka.location:frc.robot.commands.elevator/ElevatorUp/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-up/is-finished.html
+$dokka.location:frc.robot.commands.elevator/MoveToLevel///PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-move-to-level/index.html
+$dokka.location:frc.robot.commands.elevator/MoveToLevel/MoveToLevel/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-move-to-level/-move-to-level.html
+$dokka.location:frc.robot.commands.elevator/MoveToLevel/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-move-to-level/end.html
+$dokka.location:frc.robot.commands.elevator/MoveToLevel/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-move-to-level/initialize.html
+$dokka.location:frc.robot.commands.elevator/MoveToLevel/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-move-to-level/is-finished.html
+$dokka.location:frc.robot.commands.elevator/SetL1///PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-set-l1/index.html
+$dokka.location:frc.robot.commands.elevator/SetL1/SetL1/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-set-l1/-set-l1.html
+$dokka.location:frc.robot.commands.elevator/SetL1/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-set-l1/end.html
+$dokka.location:frc.robot.commands.elevator/SetL1/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-set-l1/initialize.html
+$dokka.location:frc.robot.commands.elevator/SetL1/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-set-l1/is-finished.html
 $dokka.location:frc.robot.commands.sequencing////PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/index.html
 $dokka.location:frc.robot.commands.sequencing/ScoreLeft///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-left/index.html
 $dokka.location:frc.robot.commands.sequencing/ScoreLeft/ScoreLeft/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-left/-score-left.html
+$dokka.location:frc.robot.commands.sequencing/ScoreRight///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-right/index.html
+$dokka.location:frc.robot.commands.sequencing/ScoreRight/ScoreRight/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-right/-score-right.html
 $dokka.location:frc.robot.commands////PointingToDeclaration/-reefscape2025/frc.robot.commands/index.html
 $dokka.location:frc.robot.commands/AlignLeft///PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-left/index.html
 $dokka.location:frc.robot.commands/AlignLeft/AlignLeft/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-left/-align-left.html
@@ -61,8 +63,11 @@ $dokka.location:frc.robot.subsystems/Elevator/getElevatorPosAvg/#/PointingToDecl
 $dokka.location:frc.robot.subsystems/Elevator/getElevatorPosValue/#java.lang.String/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/get-elevator-pos-value.html
 $dokka.location:frc.robot.subsystems/Elevator/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/get-instance.html
 $dokka.location:frc.robot.subsystems/Elevator/getSoftLimit/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/get-soft-limit.html
+$dokka.location:frc.robot.subsystems/Elevator/getState/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/get-state.html
+$dokka.location:frc.robot.subsystems/Elevator/getStateDouble/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/get-state-double.html
 $dokka.location:frc.robot.subsystems/Elevator/logElevatorState/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/log-elevator-state.html
 $dokka.location:frc.robot.subsystems/Elevator/moveElevator/#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/move-elevator.html
+$dokka.location:frc.robot.subsystems/Elevator/moveElevatorToLevel/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/move-elevator-to-level.html
 $dokka.location:frc.robot.subsystems/Elevator/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/periodic.html
 $dokka.location:frc.robot.subsystems/Elevator/resetEncoders/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/reset-encoders.html
 $dokka.location:frc.robot.subsystems/Elevator/setElevatorPosition/#double#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/set-elevator-position.html
