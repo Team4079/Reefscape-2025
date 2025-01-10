@@ -297,9 +297,6 @@ public class Elevator extends SubsystemBase {
       case L4:
         log(ELEVATOR_STATE_KEY, "L4");
         break;
-      default:
-        log(ELEVATOR_STATE_KEY, "L1");
-        break;
     }
   }
 
