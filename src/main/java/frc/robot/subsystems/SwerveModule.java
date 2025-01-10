@@ -71,6 +71,7 @@ public class SwerveModule {
     state = new SwerveModuleState(0.0, Rotation2d.fromDegrees(0.0));
 
     positionSetter.EnableFOC = true;
+    velocitySetter.EnableFOC = true; // just added dis
 
     driveConfigs = new TalonFXConfiguration();
 
