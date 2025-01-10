@@ -4,163 +4,178 @@ import static frc.robot.utils.Dash.*;
 
 import edu.wpi.first.apriltag.*;
 import edu.wpi.first.math.geometry.*;
-import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.*;
+import frc.robot.utils.RobotParameters.*;
 import java.util.*;
 import org.photonvision.*;
 import org.photonvision.targeting.*;
 
 /**
- * The PhotonvisionSubsystem class is a subsystem that interfaces with the PhotonVision system to
- * provide vision tracking and pose estimation capabilities. This subsystem is a Singleton, meaning
- * that only one instance of this class is created and shared across the entire robot code.
+ * The PhotonVision class is a subsystem that interfaces with multiple PhotonVision cameras to
+ * provide vision tracking and pose estimation capabilities. This subsystem is a Singleton that
+ * manages multiple CameraModules and selects the best result based on pose ambiguity.
  *
  * <p>This subsystem provides methods to get the estimated global pose of the robot, the distance to
- * the subwoofer, and the yaw of the subwoofer. It also provides methods to check if a tag is
- * visible, get the forward distance to the target, and get the pivot position.
+ * targets, and the yaw of detected AprilTags. It also provides methods to check if a tag is visible
+ * and get the pivot position based on distance calculations.
  */
 public class PhotonVision extends SubsystemBase {
-  // PhotonVision cameras
-  private final PhotonCamera camera = new PhotonCamera("Camera");
-
-  // Pose estimator for determining the robot's position on the field
-  private final PhotonPoseEstimator photonPoseEstimator;
-
-  private final Translation2d cameraTrans = new Translation2d(0.31, 0.0);
-
-  // AprilTag field layout for the 2024 Crescendo field
-  private AprilTagFieldLayout aprilTagFieldLayout =
-      AprilTagFieldLayout.loadField(AprilTagFields.k2024Crescendo);
-
-  // Transformation from the robot to the camera
-  private Transform3d cameraPos =
-      new Transform3d(
-          Extensions.dimensionIncrease(
-              cameraTrans, RobotParameters.PhotonVisionConstants.CAMERA_ONE_HEIGHT_METER),
-          new Rotation3d(
-              0.0,
-              Math.toRadians(360 - RobotParameters.PhotonVisionConstants.CAMERA_ONE_ANGLE_DEG),
-              Math.toRadians(180.0)));
-
-  private PhotonTrackedTarget target = null;
-  // private boolean isTargetVisible = false;
+  private final List<CameraModule> cameras = new ArrayList<>();
+  private CameraModule bestCamera;
+  private PhotonPipelineResult currentResult;
+  private PhotonTrackedTarget currentTarget;
   private double yaw = -15.0;
   private double targetPoseAmbiguity = 7157.0;
-  private double rangeToTarget = 0.0;
-  private List<PhotonPipelineResult> result;
-  private PhotonPipelineResult currentResult = null;
-  // private boolean camTag = false;
-  private Translation3d currentPose = null;
 
-  /**
-   * The Singleton instance of this PhotonvisionSubsystem. Code should use the {@link
-   * #getInstance()} method to get the single instance (rather than trying to construct an instance
-   * of this class.)
-   */
+  // Singleton instance
   private static final PhotonVision INSTANCE = new PhotonVision();
 
   /**
-   * Returns the Singleton instance of this PhotonvisionSubsystem. This static method should be
+   * Returns the Singleton instance of this PhotonVision subsystem. This static method should be
    * used, rather than the constructor, to get the single instance of this class. For example:
-   * {@code PhotonvisionSubsystem.getInstance();}
+   * {@code PhotonVision.getInstance();}
+   *
+   * @return The Singleton instance of PhotonVision
    */
-  @SuppressWarnings("WeakerAccess")
   public static PhotonVision getInstance() {
     return INSTANCE;
   }
 
   /**
-   * Creates a new instance of this PhotonvisionSubsystem. This constructor is private since this
+   * Creates a new instance of this PhotonVision subsystem. This constructor is private since this
    * class is a Singleton. Code should use the {@link #getInstance()} method to get the singleton
    * instance.
    */
   private PhotonVision() {
-    result = camera.getAllUnreadResults();
-    photonPoseEstimator =
-        new PhotonPoseEstimator(
-            aprilTagFieldLayout,
-            PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
-            cameraPos);
+    // Initialize cameras with their positions
+    AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
+
+    // First camera setup
+    Transform3d camera1Pos =
+        new Transform3d(
+            new Translation3d(0.31, 0.0, PhotonVisionConstants.CAMERA_ONE_HEIGHT_METER),
+            new Rotation3d(
+                0.0,
+                Math.toRadians(360 - PhotonVisionConstants.CAMERA_ONE_ANGLE_DEG),
+                Math.toRadians(180.0)));
+    cameras.add(new CameraModule("Camera", camera1Pos, fieldLayout));
+
+    // Add additional cameras here as needed
   }
 
   /**
-   * This method is called periodically by the scheduler. It updates the tracked targets and
-   * displays relevant information on the SmartDashboard.
+   * This method is called periodically by the CommandScheduler. It updates the tracked targets,
+   * selects the best camera based on pose ambiguity, and updates dashboard information.
    */
   @Override
   public void periodic() {
-    result = camera.getAllUnreadResults();
-    currentResult = result.isEmpty() ? null : result.get(0);
+    updateBestCamera();
+    if (bestCamera == null) return;
+
+    List<PhotonPipelineResult> results = bestCamera.getAllUnreadResults();
+    currentResult = results.isEmpty() ? null : results.get(0);
 
     if (currentResult == null) return;
 
-    photonPoseEstimator.update(currentResult);
-
-    target = currentResult.getBestTarget();
-    targetPoseAmbiguity = target != null ? target.getPoseAmbiguity() : 7157.0;
+    currentTarget = currentResult.getBestTarget();
+    targetPoseAmbiguity = currentTarget != null ? currentTarget.getPoseAmbiguity() : 7157.0;
 
     for (PhotonTrackedTarget tag : currentResult.getTargets()) {
       yaw = tag.getYaw();
     }
 
+    // Update dashboard
     log("yaw to target", yaw);
-    log("range target", rangeToTarget);
-    log("april tag yaw", getSubwooferYaw());
     log("cam ambiguity", targetPoseAmbiguity);
     log("_targets", currentResult.hasTargets());
   }
 
+  /** Updates the best camera selection based on pose ambiguity of detected targets. */
+  private void updateBestCamera() {
+    bestCamera = getCameraWithLeastAmbiguity();
+  }
+
   /**
-   * Checks if there is a tag.
+   * Selects the camera with the least pose ambiguity from all available cameras.
+   *
+   * @return The CameraModule with the lowest pose ambiguity, or null if no cameras have valid
+   *     targets
+   */
+  private CameraModule getCameraWithLeastAmbiguity() {
+    CameraModule bestCam = null;
+    double bestAmbiguity = Double.MAX_VALUE;
+
+    for (CameraModule camera : cameras) {
+      List<PhotonPipelineResult> results = camera.getAllUnreadResults();
+      for (PhotonPipelineResult result : results) {
+        if (result.hasTargets()) {
+          PhotonTrackedTarget target = result.getBestTarget();
+          if (target != null && target.getPoseAmbiguity() < bestAmbiguity) {
+            bestAmbiguity = target.getPoseAmbiguity();
+            bestCam = camera;
+          }
+        }
+      }
+    }
+
+    return bestCam;
+  }
+
+  /**
+   * Checks if there is a visible AprilTag.
    *
    * <p>This method is useful to avoid NullPointerExceptions when trying to access specific info
    * based on vision.
    *
-   * @return true if there is a tag, false otherwise.
+   * @return true if there is a visible tag, false otherwise
    */
   public boolean hasTag() {
     return currentResult != null && currentResult.hasTargets();
   }
 
   /**
-   * Gets the estimated global pose of the robot.
+   * Gets the estimated global pose of the robot using the best available camera.
    *
-   * @param prevEstimatedRobotPose The previous estimated pose of the robot.
-   * @return The estimated robot pose, or null if no pose could be estimated.
+   * @param prevEstimatedRobotPose The previous estimated pose of the robot
+   * @return The estimated robot pose, or null if no pose could be estimated
    */
   public EstimatedRobotPose getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
-    photonPoseEstimator.setReferencePose(prevEstimatedRobotPose);
-    return currentResult != null ? photonPoseEstimator.update(currentResult).orElse(null) : null;
+    if (bestCamera == null) return null;
+
+    PhotonPoseEstimator estimator = bestCamera.getPoseEstimator();
+    estimator.setReferencePose(prevEstimatedRobotPose);
+    return currentResult != null ? estimator.update(currentResult).orElse(null) : null;
   }
 
   /**
-   * Gets the estimated global pose of the robot.
+   * Gets the estimated global pose of the robot as a Transform3d.
    *
-   * @return The estimated global pose of the robot.
+   * @return The estimated global pose as a Transform3d
    */
-  @SuppressWarnings("java:S3655") // It does call Optional.isPresent :rolleyes:
+  @SuppressWarnings("java:S3655")
   public Transform3d getEstimatedGlobalPose() {
-    return currentResult != null && currentResult.getMultiTagResult().isPresent()
-        ? currentResult.getMultiTagResult().get().estimatedPose.best
-        : new Transform3d(0.0, 0.0, 0.0, new Rotation3d());
+    if (currentResult == null || currentResult.getMultiTagResult().isEmpty()) {
+      return new Transform3d(0.0, 0.0, 0.0, new Rotation3d());
+    }
+    return currentResult.getMultiTagResult().get().estimatedPose.best;
   }
 
   /**
-   * Uses some fancy stuff to return the distance from the april tag
+   * Calculates the straight-line distance to the currently tracked AprilTag.
    *
-   * @return double
+   * @return The distance to the AprilTag in meters
    */
   public double getDistanceAprilTag() {
+    Transform3d pose = getEstimatedGlobalPose();
     return Math.sqrt(
-        Math.pow(getEstimatedGlobalPose().getTranslation().getX(), 2)
-            + Math.pow(getEstimatedGlobalPose().getTranslation().getY(), 2));
+        Math.pow(pose.getTranslation().getX(), 2) + Math.pow(pose.getTranslation().getY(), 2));
   }
 
   /**
-   * Gets the forward distance to the target.
+   * Calculates the pivot position based on the distance to the AprilTag. Uses a polynomial function
+   * tuned for optimal positioning.
    *
-   * @return The forward distance to the target.
+   * @return The calculated pivot position
    */
   public double getPivotPosition() {
     // 10/14/2024 outside tuning
@@ -182,29 +197,29 @@ public class PhotonVision extends SubsystemBase {
   }
 
   /**
-   * Gets the yaw of the subwoofer.
+   * Gets the current yaw angle to the target.
    *
-   * @return The yaw of the subwoofer.
-   */
-  public double getSubwooferYaw() {
-    return 180 - Math.toDegrees(getEstimatedGlobalPose().getRotation().getAngle());
-  }
-
-  /**
-   * Gets the yaw value.
-   *
-   * @return The current yaw value.
+   * @return The yaw angle in degrees
    */
   public double getYaw() {
     return yaw;
   }
 
   /**
-   * Sets the yaw value.
+   * Gets the current target pose ambiguity.
    *
-   * @param yaw The new yaw value to set.
+   * @return The target pose ambiguity value
    */
-  public void setYaw(double yaw) {
-    this.yaw = yaw;
+  public double getTargetPoseAmbiguity() {
+    return targetPoseAmbiguity;
+  }
+
+  /**
+   * Gets the current tracked target.
+   *
+   * @return The current PhotonTrackedTarget, or null if no target is tracked
+   */
+  public PhotonTrackedTarget getCurrentTarget() {
+    return currentTarget;
   }
 }

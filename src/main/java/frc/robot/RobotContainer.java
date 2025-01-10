@@ -36,7 +36,7 @@ public class RobotContainer {
     padX = new JoystickButton(pad, 3);
     padY = new JoystickButton(pad, 4);
 
-    SwerveSubsystem.getInstance()
+    Swerve.getInstance()
         .setDefaultCommand(new PadDrive(pad, Thresholds.IS_FIELD_ORIENTED));
 
     configureBindings();
@@ -51,18 +51,14 @@ public class RobotContainer {
   private void configureBindings() {
     // padA.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::addRotorPositionsforModules));
     padStart.onTrue(
-        new InstantCommand(SwerveSubsystem.getInstance()::resetPidgey)); // Prev Button: padB
+        new InstantCommand(Swerve.getInstance()::resetPidgey)); // Prev Button: padB
     // padY.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::updateModuleTelePIDValues));
     // padX.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::configSlowMode));
 
-    padA.onTrue(
-        new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L1)));
-    padB.onTrue(
-        new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L2)));
-    padX.onTrue(
-        new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L3)));
-    padY.onTrue(
-        new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L4)));
+    padA.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L1)));
+    padB.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L2)));
+    padX.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L3)));
+    padY.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L4)));
   }
 
   /**

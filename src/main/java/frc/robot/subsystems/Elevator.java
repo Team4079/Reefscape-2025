@@ -166,7 +166,7 @@ public class Elevator extends SubsystemBase {
     vel_voltage = new VelocityTorqueCurrentFOC(0);
     pos_reqest = new PositionTorqueCurrentFOC(0);
     voltageOut = new VoltageOut(0);
-    
+
     new PositionDutyCycle(0);
 
     elevatorMotorLeft.setPosition(0);
