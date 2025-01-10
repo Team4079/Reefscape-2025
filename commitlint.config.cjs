@@ -1,5 +1,5 @@
-// import fs from 'fs';
-import path from 'path';
+const path = require('path');
+const fs = require('fs');
 
 // Path to your .cz-config.js file
 const czConfigPath = path.resolve(__dirname, '.cz-config.js');
