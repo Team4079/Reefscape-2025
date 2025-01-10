@@ -5,7 +5,7 @@ import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class LEDSubsystem extends SubsystemBase {
+public class LED extends SubsystemBase {
   private final AddressableLED alignmentIndication1;
   private final AddressableLEDBuffer addressableLEDBuffer;
 
@@ -13,7 +13,7 @@ public class LEDSubsystem extends SubsystemBase {
    * The Singleton instance of this LEDSubsystem. Code should use the {@link #getInstance()} method
    * to get the single instance (rather than trying to construct an instance of this class.)
    */
-  private static final LEDSubsystem INSTANCE = new LEDSubsystem();
+  private static final LED INSTANCE = new LED();
 
   /**
    * Returns the Singleton instance of this LEDSubsystem. This static method should be used, rather
@@ -21,7 +21,7 @@ public class LEDSubsystem extends SubsystemBase {
    * LEDSubsystem.getInstance();}
    */
   @SuppressWarnings("WeakerAccess")
-  public static LEDSubsystem getInstance() {
+  public static LED getInstance() {
     return INSTANCE;
   }
 
@@ -29,7 +29,7 @@ public class LEDSubsystem extends SubsystemBase {
    * Creates a new instance of this LEDSubsystem. This constructor is private since this class is a
    * Singleton. Code should use the {@link #getInstance()} method to get the singleton instance.
    */
-  private LEDSubsystem() {
+  private LED() {
     alignmentIndication1 = new AddressableLED(9);
     addressableLEDBuffer = new AddressableLEDBuffer(120);
     alignmentIndication1.setLength(addressableLEDBuffer.getLength());

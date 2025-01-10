@@ -26,12 +26,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
-import frc.robot.subsystems.PhotonVision;
 import java.util.Optional;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 import org.photonvision.EstimatedRobotPose;
 
-public class SwerveSubsystem extends SubsystemBase {
+public class Swerve extends SubsystemBase {
   private final SwerveDrivePoseEstimator poseEstimator;
   private final Field2d field = new Field2d();
   private final Pigeon2 pidgey = new Pigeon2(RobotParameters.MotorParameters.PIDGEY_ID);
@@ -51,7 +50,7 @@ public class SwerveSubsystem extends SubsystemBase {
    * The Singleton instance of this SwerveSubsystem. Code should use the {@link #getInstance()}
    * method to get the single instance (rather than trying to construct an instance of this class.)
    */
-  private static final SwerveSubsystem INSTANCE = new SwerveSubsystem();
+  private static final Swerve INSTANCE = new Swerve();
 
   /**
    * Returns the Singleton instance of this SwerveSubsystem. This static method should be used,
@@ -59,7 +58,7 @@ public class SwerveSubsystem extends SubsystemBase {
    * SwerveSubsystem.getInstance();}
    */
   @SuppressWarnings("WeakerAccess")
-  public static SwerveSubsystem getInstance() {
+  public static Swerve getInstance() {
     return INSTANCE;
   }
 
@@ -67,7 +66,7 @@ public class SwerveSubsystem extends SubsystemBase {
    * Creates a new instance of this SwerveSubsystem. This constructor is private since this class is
    * a Singleton. Code should use the {@link #getInstance()} method to get the singleton instance.
    */
-  private SwerveSubsystem() {
+  private Swerve() {
     this.modules = initializeModules();
     this.pid = initializePID();
     this.pidgey.reset();
@@ -170,8 +169,7 @@ public class SwerveSubsystem extends SubsystemBase {
     */
     if (DriverStation.isTeleop()) {
       EstimatedRobotPose estimatedPose =
-          PhotonVision.getInstance()
-              .getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
+          PhotonVision.getInstance().getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
       if (estimatedPose != null) {
         double timestamp = estimatedPose.timestampSeconds;
         Pose2d visionMeasurement2d = estimatedPose.estimatedPose.toPose2d();

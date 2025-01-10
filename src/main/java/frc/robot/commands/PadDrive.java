@@ -21,7 +21,7 @@ public class PadDrive extends Command {
   public PadDrive(LogitechGamingPad pad, boolean isFieldOriented) {
     this.pad = pad;
     this.isFieldOriented = isFieldOriented;
-    addRequirements(SwerveSubsystem.getInstance());
+    addRequirements(Swerve.getInstance());
   }
 
   /**
@@ -42,7 +42,7 @@ public class PadDrive extends Command {
     log("Y Joystick", position.y());
     log("Rotation", rotation);
 
-    SwerveSubsystem.getInstance()
+    Swerve.getInstance()
         .setDriveSpeeds(position.y(), position.x(), rotation * 0.8, isFieldOriented);
   }
 
