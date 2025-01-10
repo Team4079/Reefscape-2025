@@ -5,10 +5,10 @@ import frc.robot.subsystems.*;
 import frc.robot.subsystems.Elevator.ElevatorState;
 import frc.robot.utils.RobotParameters;
 
-public class ElevatorDown extends Command {
+public class MoveToLevel extends Command {
     Elevator elevator;
 
-    public ElevatorDown() {
+    public MoveToLevel() {
         addRequirements(SwerveSubsystem.getInstance(), Elevator.getInstance());
         elevator = Elevator.getInstance();
     }
@@ -19,7 +19,7 @@ public class ElevatorDown extends Command {
     @Override
     public void initialize() {
         // Placeholder code, PLS CHANGE LATER
-        elevator.setState(ElevatorState.L1);
+        elevator.moveElevatorToLevel();
     }
 
     /**
@@ -39,8 +39,8 @@ public class ElevatorDown extends Command {
     @Override
     public boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        // return Math.abs(elevator.getElevatorPosAvg() - RobotParameters.ElevatorParameters.L4) < 0.5;
-        return true;
+        return Math.abs(elevator.getElevatorPosAvg() - elevator.getStateDouble()) < 0.5;
+        // return true;
     }
 
     /**

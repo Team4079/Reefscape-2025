@@ -5,10 +5,10 @@ import frc.robot.subsystems.*;
 import frc.robot.subsystems.Elevator.ElevatorState;
 import frc.robot.utils.RobotParameters;
 
-public class ElevatorUp extends Command {
+public class SetL1 extends Command {
     Elevator elevator;
 
-    public ElevatorUp() {
+    public SetL1() {
         addRequirements(SwerveSubsystem.getInstance(), Elevator.getInstance());
         elevator = Elevator.getInstance();
     }
@@ -18,7 +18,6 @@ public class ElevatorUp extends Command {
      */
     @Override
     public void initialize() {
-        // Placeholder code, PLS CHANGE LATER
         elevator.setState(ElevatorState.L1);
     }
 

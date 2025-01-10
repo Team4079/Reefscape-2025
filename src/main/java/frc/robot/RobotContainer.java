@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.commands.PadDrive;
+import frc.robot.commands.sequencing.ScoreLeft;
+import frc.robot.commands.sequencing.ScoreRight;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.Elevator.ElevatorState;
 import frc.robot.utils.*;
@@ -26,6 +28,8 @@ public class RobotContainer {
   private final JoystickButton padX;
   private final JoystickButton padY;
   private final JoystickButton padStart;
+  private final JoystickButton padLeftBumper;
+  private final JoystickButton padRightBumper;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -35,6 +39,8 @@ public class RobotContainer {
     padB = new JoystickButton(pad, 2);
     padX = new JoystickButton(pad, 3);
     padY = new JoystickButton(pad, 4);
+    padLeftBumper = new JoystickButton(pad, 5);
+    padRightBumper = new JoystickButton(pad, 6);
 
     SwerveSubsystem.getInstance()
         .setDefaultCommand(new PadDrive(pad, Thresholds.IS_FIELD_ORIENTED));
@@ -63,7 +69,12 @@ public class RobotContainer {
         new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L3)));
     padY.onTrue(
         new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L4)));
-  }
+    // TODO: These are placeholders, please change them to the correct values when Aaron finalizes them
+      padLeftBumper.onTrue(
+        new InstantCommand(() -> new ScoreLeft()));
+    padRightBumper.onTrue(
+        new InstantCommand(() -> new ScoreRight()));
+    }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
