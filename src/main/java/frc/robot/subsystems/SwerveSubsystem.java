@@ -193,9 +193,6 @@ public class SwerveSubsystem extends SubsystemBase {
 
     // Test mode toggle, replace later with Dash instance preferably instead of SmartDashboard
     putBoolean("Test Mode Enabled", Thresholds.TEST_MODE);
-    LoggedNetworkNumber a = new LoggedNetworkNumber("Steer D test");
-
-    log("Steer D test", a.get());
   }
 
   /**

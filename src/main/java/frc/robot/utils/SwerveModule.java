@@ -1,4 +1,6 @@
-package frc.robot.subsystems;
+package frc.robot.utils;
+
+import static frc.robot.utils.Dash.*;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -17,7 +19,6 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.utils.PID;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
@@ -27,7 +28,7 @@ public class SwerveModule {
   private final TalonFX driveMotor;
   private final CANcoder canCoder;
   private final TalonFX steerMotor;
-  private final PositionTorqueCurrentFOC positionSetter;
+  private final PositionVoltage positionSetter;
   private final VelocityTorqueCurrentFOC velocitySetter;
   private final SwerveModulePosition swerveModulePosition;
   private SwerveModuleState state;
@@ -66,10 +67,12 @@ public class SwerveModule {
     driveMotor = new TalonFX(driveId);
     canCoder = new CANcoder(canCoderID);
     steerMotor = new TalonFX(steerId);
-    positionSetter = new PositionTorqueCurrentFOC(0.0).withSlot(0);
+    positionSetter = new PositionVoltage(0.0).withSlot(0);
     velocitySetter = new VelocityTorqueCurrentFOC(0.0);
     swerveModulePosition = new SwerveModulePosition();
     state = new SwerveModuleState(0.0, Rotation2d.fromDegrees(0.0));
+
+    positionSetter.EnableFOC = true;
 
     driveConfigs = new TalonFXConfiguration();
 
@@ -293,6 +296,7 @@ public class SwerveModule {
   }
 
   public void updateTelePID() {
+
     PIDParameters.DRIVE_PID_TELE.setP(driveP.get());
     PIDParameters.DRIVE_PID_TELE.setI(driveI.get());
     PIDParameters.DRIVE_PID_TELE.setD(driveD.get());
