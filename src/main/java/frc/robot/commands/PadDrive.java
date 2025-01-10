@@ -1,13 +1,11 @@
 package frc.robot.commands;
 
-import org.littletonrobotics.junction.Logger;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
-import frc.robot.utils.Dash;
 import frc.robot.utils.LogitechGamingPad;
 import frc.robot.utils.RobotParameters;
 import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds;
+import org.littletonrobotics.junction.Logger;
 
 /** Command to control the robot's swerve drive using a Logitech gaming pad. */
 public class PadDrive extends Command {

@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import java.util.*;
-
 import org.littletonrobotics.junction.Logger;
 import org.photonvision.*;
 import org.photonvision.targeting.*;
@@ -44,13 +43,13 @@ public class PhotonvisionSubsystem extends SubsystemBase {
               Math.toRadians(180.0)));
 
   private PhotonTrackedTarget target = null;
-  private boolean isTargetVisible = false;
+  // private boolean isTargetVisible = false;
   private double yaw = -15.0;
   private double targetPoseAmbiguity = 7157.0;
   private double rangeToTarget = 0.0;
   private List<PhotonPipelineResult> result;
   private PhotonPipelineResult currentResult = null;
-  private boolean camTag = false;
+  // private boolean camTag = false;
   private Translation3d currentPose = null;
 
   /**
@@ -101,14 +100,11 @@ public class PhotonvisionSubsystem extends SubsystemBase {
     targetPoseAmbiguity = target != null ? target.getPoseAmbiguity() : 7157.0;
 
     for (PhotonTrackedTarget tag : currentResult.getTargets()) {
-      if (tag.getFiducialId() == 7 || tag.getFiducialId() == 4) {
         yaw = tag.getYaw();
-      }
     }
-    
+
     Logger.recordOutput("yaw to target", yaw);
     Logger.recordOutput("range target", rangeToTarget);
-    Logger.recordOutput("april tag distance", getDistanceSubwoofer());
     Logger.recordOutput("april tag yaw", getSubwooferYaw());
     Logger.recordOutput("cam ambiguity", targetPoseAmbiguity);
     Logger.recordOutput("_targets", currentResult.hasTargets());
@@ -150,6 +146,16 @@ public class PhotonvisionSubsystem extends SubsystemBase {
   }
 
   /**
+   * Uses some fancy stuff to return the distance from the april tag
+   * @return double
+   */
+  public double getDistanceAprilTag() {
+    return Math.sqrt(
+        Math.pow(getEstimatedGlobalPose().getTranslation().getX(), 2)
+            + Math.pow(getEstimatedGlobalPose().getTranslation().getY(), 2));
+  }
+
+  /**
    * Gets the forward distance to the target.
    *
    * @return The forward distance to the target.
@@ -157,7 +163,7 @@ public class PhotonvisionSubsystem extends SubsystemBase {
   public double getPivotPosition() {
     // 10/14/2024 outside tuning
     // Desmos: https://www.desmos.com/calculator/naalukjxze
-    double r = getDistanceSubwoofer() + 0.6;
+    double r = getDistanceAprilTag() + 0.6;
     double f = -1.39223; // power 5
     double e = 20.9711; // power 4
     double d = -122.485; // power 3
@@ -174,46 +180,29 @@ public class PhotonvisionSubsystem extends SubsystemBase {
   }
 
   /**
-   * Calculates and returns the distance to the subwoofer for the 2024 Crescendo game.
-   *
-   * <p>This method computes the Euclidean distance (distance formula) from the robot's current
-   * position to the location of the subwoofer. The calculation varies based on the alliance:
-   *
-   * <ul>
-   *   <li>If the alliance is {@code RED} or not specified, the subwoofer is assumed to be at
-   *       coordinates (16.5, 5.5).
-   *   <li>If the alliance is {@code BLUE}, the subwoofer is assumed to be at (0, 5.5).
-   * </ul>
-   *
-   * If the current pose is not available, the method returns a default value of {@code 687.0}. This
-   * value reflects our team's tradition of thanking teams for their help to us. :D
-   *
-   * @return The calculated distance to the subwoofer, or {@code 687.0} if the current pose is
-   *     unavailable.
-   */
-  @SuppressWarnings("java:S3655") // It checks if it's empty first :rolleyes:
-  public double getDistanceSubwoofer() {
-    currentPose = getEstimatedGlobalPose().getTranslation();
-    if (currentPose != null) {
-      if (DriverStation.getAlliance().isEmpty()
-          || DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
-        return Math.sqrt(
-            Math.pow(currentPose.getX() - 16.5, 2.0) + Math.pow(currentPose.getY() - 5.5, 2.0));
-      } else {
-        return Math.sqrt(
-            Math.pow(currentPose.getX(), 2.0) + Math.pow(currentPose.getY() - 5.5, 2.0));
-      }
-    } else {
-      return 687.0;
-    }
-  }
-
-  /**
    * Gets the yaw of the subwoofer.
    *
    * @return The yaw of the subwoofer.
    */
   public double getSubwooferYaw() {
     return 180 - Math.toDegrees(getEstimatedGlobalPose().getRotation().getAngle());
+  }
+
+  /**
+   * Gets the yaw value.
+   *
+   * @return The current yaw value.
+   */
+  public double getYaw() {
+    return yaw;
+  }
+
+  /**
+   * Sets the yaw value.
+   *
+   * @param yaw The new yaw value to set.
+   */
+  public void setYaw(double yaw) {
+    this.yaw = yaw;
   }
 }

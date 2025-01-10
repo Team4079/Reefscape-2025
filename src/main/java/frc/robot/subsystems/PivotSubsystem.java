@@ -1,9 +1,5 @@
 package frc.robot.subsystems;
 
-import static frc.robot.utils.Dash.*;
-
-import org.littletonrobotics.junction.Logger;
-
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
@@ -18,6 +14,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters.*;
+import org.littletonrobotics.junction.Logger;
 
 /**
  * The PivotSubsystem class is a subsystem that interfaces with the pivot system to provide control

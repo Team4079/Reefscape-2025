@@ -21,13 +21,13 @@ module.exports = {
       value: 'chore',
       name: 'chore:    Changes to the build process or auxiliary tools\n            and libraries such as documentation generation',
     },
-    {value: 'WIP', name: 'WIP:      Work in progress'},
+    {value: 'wip', name: 'wip:      Work in progress'},
     {value: 'revert', name: 'revert:   Revert to a prior commit'},
     {value: 'removal', name: 'removal:  Remove a feature or code section'},
     {value: 'update', name: 'update:   Update a dependency or vendor dep'},
   ],
 
-  scopes: [{name: 'photonvision'}, {name: 'swerve'}, {name: 'elevator'}, {name: 'pivot'}, {name: 'robotparams'}, {name: 'paddrive'}, {name: 'utils'}, {name: 'project'}],
+  scopes: [{name: 'robot'}, {name: 'photonvision'}, {name: 'swerve'}, {name: 'elevator'}, {name: 'pivot'}, {name: 'led'}, {name: 'robotparams'}, {name: 'paddrive'}, {name: 'utils'}, {name: 'project'}],
 
   usePreparedCommit: false, // to re-use commit from ./.git/COMMIT_EDITMSG
   allowTicketNumber: false,
@@ -43,11 +43,12 @@ module.exports = {
       {name: 'dokka'},
       {name: 'cz'},
       {name: 'commitlint'},
+      {name: 'husky'}
     ],
     tune: [
       {name: 'swerve'},
       {name: 'pivot'},
-      {name: 'elevator'},
+      {name: 'elevator'}
     ],
     update: []
   },

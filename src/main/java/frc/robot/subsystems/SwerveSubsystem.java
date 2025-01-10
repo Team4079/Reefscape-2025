@@ -10,7 +10,6 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
-
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -28,7 +27,6 @@ import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import java.util.Optional;
-
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 import org.photonvision.EstimatedRobotPose;
@@ -40,12 +38,13 @@ public class SwerveSubsystem extends SubsystemBase {
   private final SwerveModuleState[] states = new SwerveModuleState[4];
   private final SwerveModule[] modules;
   private final PID pid;
-  private PathPlannerPath pathToScore = null; // TODO JAYDEN PLS MAKE THE PATH PLANNER STUFF ALL READY!!!!!!! this is the path to go from feeder to the goal and align itself 
-  // The plan is for it to path towards it then we use a set path to align itself with the goal and be more accurate 
+  private PathPlannerPath pathToScore = null;
+  // from feeder to the goal and align itself
+  // The plan is for it to path towards it then we use a set path to align itself with the goal and
+  // be more accurate
   // Use this https://pathplanner.dev/pplib-pathfinding.html#pathfind-then-follow-path
-  PathConstraints constraints = new PathConstraints(
-        2.0, 3.0,
-        Units.degreesToRadians(540), Units.degreesToRadians(720));
+  PathConstraints constraints =
+      new PathConstraints(2.0, 3.0, Units.degreesToRadians(540), Units.degreesToRadians(720));
   private double velocity = 0.0;
 
   /**
@@ -163,8 +162,6 @@ public class SwerveSubsystem extends SubsystemBase {
   /**
    * This method is called periodically by the scheduler. It updates the pose estimator and
    * dashboard values.
-   *
-   * @return void
    */
   @Override
   public void periodic() {
@@ -202,7 +199,7 @@ public class SwerveSubsystem extends SubsystemBase {
     System.out.println(a.get());
     test();
     // Logger.recordOutput("Steer D test", 10);
-    // TODO Make advantage scope work with Pose2D Dash.pairOf("Robot Pose", field.getRobotPose()));
+    // TODO Make advantage scope work with Pose2D
   }
 
   /**
@@ -221,7 +218,7 @@ public class SwerveSubsystem extends SubsystemBase {
     Logger.recordOutput("Pidgey Heading", getHeading());
     Logger.recordOutput("Pidgey Rotation2D", getPidgeyRotation().getDegrees());
     Logger.recordOutput("Robot Pose", field.getRobotPose());
-
+        
     ChassisSpeeds speeds =
         !isFieldOriented
             ? new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed)
@@ -395,14 +392,12 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public void updateModuleTelePIDValues() {
-    for (int i = 0; i < modules.length; i++) {
-      modules[i].updateTelePID();
+    for (SwerveModule module : modules) {
+      module.updateTelePID();
     }
   }
 
   public Command pathFindToGoal() {
-    return AutoBuilder.pathfindThenFollowPath(
-        pathToScore,
-        constraints);
+    return AutoBuilder.pathfindThenFollowPath(pathToScore, constraints);
   }
 }

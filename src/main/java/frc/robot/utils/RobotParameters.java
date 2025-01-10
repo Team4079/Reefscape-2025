@@ -4,6 +4,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
+import edu.wpi.first.math.controller.*;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -30,6 +31,7 @@ public class RobotParameters {
     public static final int ELEVATOR_MOTOR_RIGHT_ID = 14;
     public static final int PIVOT_MOTOR_ID = 15;
     public static final int PIDGEY_ID = 16;
+    public static final int END_EFFECTOR_MOTOR_ID = 17;
 
     // Motor Property Values
     public static final double MAX_SPEED = 5.76;
@@ -115,8 +117,11 @@ public class RobotParameters {
       public static final double ON_BALANCE_ANGLE_THRESHOLD = 5.0;
 
       // Robot LED Constants
+      public static final int[] TAN_LED = {255, 120, 20};
+      public static final int[] RED_LED = {255, 0, 0};
       public static final int[] GREEN_LED = {0, 255, 0};
       public static final int[] ORANGE_LED = {255, 165, 0};
+      public static final int[] PURPLE_LED = {160, 32, 240};
       public static final int[] HIGHTIDE_LED = {0, 182, 174};
 
       // Testing boolean for SmartDashboard (to not slow down the robot)
@@ -136,15 +141,22 @@ public class RobotParameters {
 
   /** Class containing constants for the elevator subsystem. */
   public static class ElevatorParameters {
-    public static final double ELEVATOR_PID_LEFT_P = 0.0;
+    public static final double ELEVATOR_PID_LEFT_P = 0.0001;
     public static final double ELEVATOR_PID_LEFT_I = 0.0;
     public static final double ELEVATOR_PID_LEFT_D = 0.0;
     public static final double ELEVATOR_PID_LEFT_V = 0.0;
 
-    public static final double ELEVATOR_PID_RIGHT_P = 0.0;
+    public static final double ELEVATOR_PID_RIGHT_P = 0.0001;
     public static final double ELEVATOR_PID_RIGHT_I = 0.0;
     public static final double ELEVATOR_PID_RIGHT_D = 0.0;
     public static final double ELEVATOR_PID_RIGHT_V = 0.0;
+
+    // TODO: Get elevator values for these once the mechanism is built and functioning
+    // Elevator Positions
+    public static final double L1 = 1.0;
+    public static final double L2 = 2.0;
+    public static final double L3 = 3.0;
+    public static final double L4 = 4.0;
 
     public static boolean SOFT_LIMIT_ENABLED = false;
     public static boolean IS_SOFTLIMIT = false;
@@ -152,10 +164,20 @@ public class RobotParameters {
 
   /** Class containing constants for the pivot subsystem. */
   public static class PivotParameters {
-    public static final double PIVOT_PID_P = 0.0;
+    public static final double PIVOT_PID_P = 0.001;
     public static final double PIVOT_PID_I = 0.0;
     public static final double PIVOT_PID_D = 0.0;
     public static final double PIVOT_PID_V = 0.0;
+
+    public static boolean SOFT_LIMIT_ENABLED = false;
+    public static boolean IS_SOFTLIMIT = false;
+  }
+
+  public static class EndEffectorParameters {
+    public static final double END_EFFECTOR_PID_P = 0.001;
+    public static final double END_EFFECTOR_PID_I = 0.0;
+    public static final double END_EFFECTOR_PID_D = 0.0;
+    public static final double END_EFFECTOR_PID_V = 0.0;
 
     public static boolean SOFT_LIMIT_ENABLED = false;
     public static boolean IS_SOFTLIMIT = false;

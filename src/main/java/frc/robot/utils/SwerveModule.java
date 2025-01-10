@@ -2,16 +2,14 @@ package frc.robot.utils;
 
 import static frc.robot.utils.Dash.*;
 
-import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
-
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TorqueCurrentConfigs;
+import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.ConnectedMotorValue;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
@@ -23,6 +21,7 @@ import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
+import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 
 /** Represents a swerve module used in a swerve drive system. */
 public class SwerveModule {
@@ -284,15 +283,12 @@ public class SwerveModule {
   }
 
   public void intializeAlarms(int driveID, int steerID, int canCoderID) {
-    driveDisconnectedAlert = new Alert(
-            "Disconnected drive motor " + Integer.toString(driveID) + ".",
-            AlertType.kError);
-    turnDisconnectedAlert = new Alert(
-            "Disconnected turn motor " + Integer.toString(steerID) + ".",
-            AlertType.kError);
-    canCoderDisconnectedAlert = new Alert(
-            "Disconnected CANCoder " + Integer.toString(canCoderID) + ".",
-            AlertType.kError);
+    driveDisconnectedAlert =
+        new Alert("Disconnected drive motor " + Integer.toString(driveID) + ".", AlertType.kError);
+    turnDisconnectedAlert =
+        new Alert("Disconnected turn motor " + Integer.toString(steerID) + ".", AlertType.kError);
+    canCoderDisconnectedAlert =
+        new Alert("Disconnected CANCoder " + Integer.toString(canCoderID) + ".", AlertType.kError);
 
     driveDisconnectedAlert.set(!driveMotor.isConnected());
     turnDisconnectedAlert.set(!steerMotor.isConnected());
@@ -308,18 +304,16 @@ public class SwerveModule {
     PIDParameters.STEER_PID_TELE.setD(
         SmartDashboard.getNumber("Steer D", PIDParameters.STEER_PID_TELE.getD()));
 
-
     PIDParameters.DRIVE_PID_TELE.setP(driveP.get());
     PIDParameters.DRIVE_PID_TELE.setI(driveI.get());
     PIDParameters.DRIVE_PID_TELE.setD(driveD.get());
 
     PIDParameters.STEER_PID_TELE.setP(steerP.get());
     PIDParameters.STEER_PID_TELE.setI(steerI.get());
-    PIDParameters.STEER_PID_TELE.setD(steerD.get());  
+    PIDParameters.STEER_PID_TELE.setD(steerD.get());
 
     applyTelePIDValues();
 
     System.out.println(SmartDashboard.getNumber("Steer P", PIDParameters.STEER_PID_TELE.getP()));
   }
-
 }
