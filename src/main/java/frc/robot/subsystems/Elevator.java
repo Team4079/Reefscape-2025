@@ -55,7 +55,7 @@ public class Elevator extends SubsystemBase {
 
   private double deadband = 0.001;
 
-  private ElevatorState state = ElevatorState.L1;
+  private ElevatorState currentState = ElevatorState.L1;
 
   /**
    * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
@@ -180,8 +180,14 @@ public class Elevator extends SubsystemBase {
     log("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
     log("Elevator SoftLimit", this.getSoftLimit());
     logElevatorState();
+  }
 
-    switch (this.state) {
+  /**
+   * Move the elevator motor to a specific level
+   * @return void
+   */
+  public void moveElevatorToLevel() {
+    switch (this.currentState) {
       case L1:
         setElevatorPosition(ElevatorParameters.L1, ElevatorParameters.L1);
         break;
@@ -220,10 +226,38 @@ public class Elevator extends SubsystemBase {
     elevatorMotorRight.setControl(pos_reqest.withPosition(right));
   }
 
-  /** Sets the elevator motor to the L1 position */
-  public void setState(ElevatorState state) {
-    this.state = state;
+  /** Sets the elevator state */
+  public void setState(ElevatorState currentState) {
+    this.currentState = currentState;
   }
+
+  /**
+   * Get the state of the elevator motor
+   * @return ElevatorState, the state of the elevator motor
+   */
+  public ElevatorState getState() {
+    return this.currentState;
+  }
+
+  /**
+   * Gets the state of the elevator motor as a double in terms of its height in the parameters file
+   * @return double, the state of the elevator motor as a double
+   */
+  public double getStateDouble() {
+    switch (this.currentState) {
+      case L1:
+        return ElevatorParameters.L1;
+      case L2:
+        return ElevatorParameters.L2;
+      case L3:
+        return ElevatorParameters.L3;
+      case L4:
+        return ElevatorParameters.L4;
+      default:
+        return ElevatorParameters.L1;
+    }
+  }
+  
 
   /**
    * Get the position of the elevator motor
@@ -250,7 +284,7 @@ public class Elevator extends SubsystemBase {
    * sequences
    */
   public void logElevatorState() {
-    switch (state) {
+    switch (currentState) {
       case L1:
         log(ELEVATOR_STATE_KEY, "L1");
         break;
@@ -262,9 +296,6 @@ public class Elevator extends SubsystemBase {
         break;
       case L4:
         log(ELEVATOR_STATE_KEY, "L4");
-        break;
-      default:
-        log(ELEVATOR_STATE_KEY, "L1");
         break;
     }
   }

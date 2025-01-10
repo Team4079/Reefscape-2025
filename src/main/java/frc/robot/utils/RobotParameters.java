@@ -4,7 +4,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
-import edu.wpi.first.math.controller.*;
+import edu.wpi.first.math.controller.*; //TODO: Add the controller function for everything
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -159,6 +159,7 @@ public class RobotParameters {
     public static final double L2 = 2.0;
     public static final double L3 = 3.0;
     public static final double L4 = 4.0;
+    //Brandon: Why are these static?
 
     public static boolean SOFT_LIMIT_ENABLED = false;
     public static boolean IS_SOFTLIMIT = false;
@@ -183,5 +184,6 @@ public class RobotParameters {
 
     public static boolean SOFT_LIMIT_ENABLED = false;
     public static boolean IS_SOFTLIMIT = false;
+    //Brandon: Tf why are there two bruh
   }
 }

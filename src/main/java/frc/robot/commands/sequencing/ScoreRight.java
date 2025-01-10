@@ -13,8 +13,8 @@ import frc.robot.commands.elevator.SetL1;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ScoreLeft extends SequentialCommandGroup {
-  public ScoreLeft() {
+public class ScoreRight extends SequentialCommandGroup {
+  public ScoreRight() {
     addCommands(
       new ParallelCommandGroup(
         new AlignLeft() // Align the robot to the april tag (and add an offset)
