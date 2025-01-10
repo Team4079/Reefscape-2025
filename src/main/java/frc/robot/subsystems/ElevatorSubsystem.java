@@ -179,6 +179,24 @@ public class ElevatorSubsystem extends SubsystemBase {
     log("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
     log("Elevator SoftLimit", this.getSoftLimit());
     logElevatorState();
+
+    switch (this.state) {
+      case L1:
+        setElevatorPosition(ElevatorParameters.L1, ElevatorParameters.L1);
+        break;
+      case L2:
+        setElevatorPosition(ElevatorParameters.L2, ElevatorParameters.L2);
+        break;
+      case L3:
+        setElevatorPosition(ElevatorParameters.L3, ElevatorParameters.L3);
+        break;
+      case L4:
+        setElevatorPosition(ElevatorParameters.L4, ElevatorParameters.L4);
+        break;
+      default:
+        setElevatorPosition(ElevatorParameters.L1, ElevatorParameters.L1);
+        break;
+    }
   }
 
   /** Stops the elevator motors */
@@ -196,7 +214,7 @@ public class ElevatorSubsystem extends SubsystemBase {
    * @param left Left motor position
    * @param right Right motor position
    */
-  public void setMotorPosition(double left, double right) {
+  public void setElevatorPosition(double left, double right) {
     elevatorMotorLeft.setControl(pos_reqest.withPosition(left));
     elevatorMotorRight.setControl(pos_reqest.withPosition(right));
   }
@@ -306,7 +324,7 @@ public class ElevatorSubsystem extends SubsystemBase {
    * @param pos double, the position to set the elevator motor to
    * @return void
    */
-  public void setElevatorPos(double pos) {
+  public void setElevatorPosition(double pos) {
     elevatorMotorLeft.setControl(pos_reqest.withVelocity(pos));
     elevatorMotorRight.setControl(pos_reqest.withVelocity(pos));
   }
