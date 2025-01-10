@@ -3,13 +3,12 @@ package frc.robot.commands.elevator;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.Elevator.ElevatorState;
-import frc.robot.utils.RobotParameters;
 
 public class SetL1 extends Command {
     Elevator elevator;
 
     public SetL1() {
-        addRequirements(SwerveSubsystem.getInstance(), Elevator.getInstance());
+        addRequirements(Elevator.getInstance());
         elevator = Elevator.getInstance();
     }
 
@@ -18,6 +17,7 @@ public class SetL1 extends Command {
      */
     @Override
     public void initialize() {
+        // Placeholder code, PLS CHANGE LATER
         elevator.setState(ElevatorState.L1);
     }
 
@@ -38,20 +38,19 @@ public class SetL1 extends Command {
     @Override
     public boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        // return Math.abs(elevator.getElevatorPosAvg() - RobotParameters.ElevatorParameters.L1) < 0.5;
         return true;
     }
 
-    /**
-     * The action to take when the command ends. Called when either the command
-     * finishes normally -- that is it is called when {@link #isFinished()} returns
-     * true -- or when  it is interrupted/canceled. This is where you may want to
-     * wrap up loose ends, like shutting off a motor that was being used in the command.
-     *
-     * @param interrupted whether the command was interrupted/canceled
-     */
-    @Override
-    public void end(boolean interrupted) {
-        SwerveSubsystem.getInstance().stop();
-    }
+  /**
+   * The action to take when the command ends. Called when either the command finishes normally --
+   * that is it is called when {@link #isFinished()} returns true -- or when it is
+   * interrupted/canceled. This is where you may want to wrap up loose ends, like shutting off a
+   * motor that was being used in the command.
+   *
+   * @param interrupted whether the command was interrupted/canceled
+   */
+  @Override
+  public void end(boolean interrupted) {
+    Swerve.getInstance().stop();
+  }
 }

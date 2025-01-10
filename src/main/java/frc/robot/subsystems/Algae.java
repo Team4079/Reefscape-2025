@@ -2,12 +2,12 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class AlgaeSubsystem extends SubsystemBase {
+public class Algae extends SubsystemBase {
   /**
    * The Singleton instance of this AlgaeSubsystem. Code should use the {@link #getInstance()}
    * method to get the single instance (rather than trying to construct an instance of this class.)
    */
-  private static final AlgaeSubsystem INSTANCE = new AlgaeSubsystem();
+  private static final Algae INSTANCE = new Algae();
 
   /**
    * Returns the Singleton instance of this AlgaeSubsystem. This static method should be used,
@@ -15,7 +15,7 @@ public class AlgaeSubsystem extends SubsystemBase {
    * AlgaeSubsystem.getInstance();}
    */
   @SuppressWarnings("WeakerAccess")
-  public static AlgaeSubsystem getInstance() {
+  public static Algae getInstance() {
     return INSTANCE;
   }
 
@@ -23,7 +23,7 @@ public class AlgaeSubsystem extends SubsystemBase {
    * Creates a new instance of this AlgaeSubsystem. This constructor is private since this class is
    * a Singleton. Code should use the {@link #getInstance()} method to get the singleton instance.
    */
-  private AlgaeSubsystem() {
+  private Algae() {
     // TODO: Set the default command, if any, for this subsystem by calling
     // setDefaultCommand(command)
     //       in the constructor or in the robot coordination class, such as RobotContainer.
