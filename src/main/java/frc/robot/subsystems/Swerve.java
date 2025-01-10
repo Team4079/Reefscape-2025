@@ -38,6 +38,7 @@ public class Swerve extends SubsystemBase {
   private final SwerveModule[] modules;
   private final PID pid;
   private PathPlannerPath pathToScore = null;
+  private SwerveModuleState[] moduleStates = new SwerveModuleState[4];;
   // from feeder to the goal and align itself
   // The plan is for it to path towards it then we use a set path to align itself with the goal and
   // be more accurate
@@ -188,6 +189,7 @@ public class Swerve extends SubsystemBase {
     log("Pidgey Heading", getHeading());
     log("Pidgey Rotation2D", getPidgeyRotation().getDegrees());
     log("Robot Pose", field.getRobotPose());
+    // log("Swerve Module States", getModuleStates());
 
     // Test mode toggle, replace later with Dash instance preferably instead of SmartDashboard
     putBoolean("Test Mode Enabled", Thresholds.TEST_MODE);
@@ -312,7 +314,6 @@ public class Swerve extends SubsystemBase {
    * @return The states of the swerve modules.
    */
   public SwerveModuleState[] getModuleStates() {
-    SwerveModuleState[] moduleStates = new SwerveModuleState[modules.length];
     for (int i = 0; i < modules.length; i++) {
       moduleStates[i] = modules[i].getState();
     }
@@ -360,7 +361,7 @@ public class Swerve extends SubsystemBase {
   /** Sets the PID constants for teleoperated driving. */
   public void setTelePID() {
     for (SwerveModule module : modules) {
-      module.setTelePID();
+      module.applyTelePIDValues();
     }
   }
 

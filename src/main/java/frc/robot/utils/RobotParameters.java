@@ -64,6 +64,8 @@ public class RobotParameters {
       public static final PID DRIVE_PID_TELE = new PID(1.5, 0.0, 0.0);
       public static final double DRIVE_PID_V_TELE = 0.0;
       public static final PID ROTATIONAL_PID = new PID(0.2, 0.0, 0.0, 0.0);
+      public static final PID Y_PID = new PID(0.2, 0.0, 0.0, 0.0);
+      public static final PID DIST_PID = new PID(0.2, 0.0, 0.0, 0.0);
       public static final PID PASS_ROTATIONAL_PID = new PID(0.1, 0.0, 0.0, 0.0);
 
       public static PPHolonomicDriveController pathFollower =

@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.utils.PID;
+import frc.robot.utils.*;
+import static frc.robot.utils.Dash.*;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
@@ -65,7 +67,7 @@ public class SwerveModule {
     driveMotor = new TalonFX(driveId);
     canCoder = new CANcoder(canCoderID);
     steerMotor = new TalonFX(steerId);
-    positionSetter = new PositionTorqueCurrentFOC(0.0).withSlot(0);
+    positionSetter = new PositionTorqueCurrentFOC(0.0);
     velocitySetter = new VelocityTorqueCurrentFOC(0.0);
     swerveModulePosition = new SwerveModulePosition();
     state = new SwerveModuleState(0.0, Rotation2d.fromDegrees(0.0));
@@ -188,16 +190,11 @@ public class SwerveModule {
     driveMotor.setControl(velocitySetter.withVelocity(velocityToSet));
 
     // Log the actual and set values for debugging
-    // dash(
-    //   pairOf("drive actual speed " + canCoder.getDeviceID(),
-    // driveMotor.getVelocity().getValueAsDouble()),
-    //   pairOf("drive set speed " + canCoder.getDeviceID(), velocityToSet),
-    //   pairOf("steer actual angle " + canCoder.getDeviceID(),
-    // steerMotor.getRotorPosition().getValueAsDouble()),
-    //   pairOf("steer set angle " + canCoder.getDeviceID(), angleToSet),
-    //   pairOf("desired state after optimize " + canCoder.getDeviceID(),
-    // state.angle.getRotations())
-    // );
+    log("drive actual speed " + canCoder.getDeviceID(), driveMotor.getVelocity().getValueAsDouble());
+    log("drive set speed " + canCoder.getDeviceID(), velocityToSet);
+    log("steer actual angle " + canCoder.getDeviceID(), steerMotor.getRotorPosition().getValueAsDouble());
+    log("steer set angle " + canCoder.getDeviceID(), angleToSet);
+    log("desired state after optimize " + canCoder.getDeviceID(), state.angle.getRotations());
 
     // Update the state
     state = value;
@@ -267,15 +264,15 @@ public class SwerveModule {
   }
 
   public void initializeLoggedNetworkPID() {
-    driveP = new LoggedNetworkNumber("Drive P", driveConfigs.Slot0.kP);
-    driveI = new LoggedNetworkNumber("Drive I", driveConfigs.Slot0.kI);
-    driveD = new LoggedNetworkNumber("Drive D", driveConfigs.Slot0.kD);
-    driveV = new LoggedNetworkNumber("Drive V", driveConfigs.Slot0.kV);
+    driveP = new LoggedNetworkNumber("/Tuning/Drive P", driveConfigs.Slot0.kP);
+    driveI = new LoggedNetworkNumber("/Tuning/Drive I", driveConfigs.Slot0.kI);
+    driveD = new LoggedNetworkNumber("/Tuning/Drive D", driveConfigs.Slot0.kD);
+    driveV = new LoggedNetworkNumber("/Tuning/Drive V", driveConfigs.Slot0.kV);
 
-    steerP = new LoggedNetworkNumber("Steer P", steerConfigs.Slot0.kP);
-    steerI = new LoggedNetworkNumber("Steer I", steerConfigs.Slot0.kI);
-    steerD = new LoggedNetworkNumber("Steer D", steerConfigs.Slot0.kD);
-    steerV = new LoggedNetworkNumber("Steer V", steerConfigs.Slot0.kV);
+    steerP = new LoggedNetworkNumber("/Tuning/Steer P", steerConfigs.Slot0.kP);
+    steerI = new LoggedNetworkNumber("/Tuning/Steer I", steerConfigs.Slot0.kI);
+    steerD = new LoggedNetworkNumber("/Tuning/Steer D", steerConfigs.Slot0.kD);
+    steerV = new LoggedNetworkNumber("/Tuning/Steer V", steerConfigs.Slot0.kV);
   }
 
   public void intializeAlarms(int driveID, int steerID, int canCoderID) {

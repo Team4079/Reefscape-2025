@@ -52,13 +52,13 @@ public class RobotContainer {
     // padA.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::addRotorPositionsforModules));
     padStart.onTrue(
         new InstantCommand(Swerve.getInstance()::resetPidgey)); // Prev Button: padB
-    // padY.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::updateModuleTelePIDValues));
+    padY.onTrue(new InstantCommand(Swerve.getInstance()::setTelePID));
     // padX.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::configSlowMode));
 
-    padA.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L1)));
-    padB.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L2)));
-    padX.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L3)));
-    padY.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L4)));
+    // padA.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L1)));
+    // padB.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L2)));
+    // padX.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L3)));
+    // padY.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L4)));
   }
 
   /**

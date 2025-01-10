@@ -25,6 +25,9 @@ public class PhotonVision extends SubsystemBase {
   private PhotonPipelineResult currentResult;
   private PhotonTrackedTarget currentTarget;
   private double yaw = -15.0;
+  private double y = 0.0;
+  private double dist = 0.0;
+
   private double targetPoseAmbiguity = 7157.0;
 
   // Singleton instance
@@ -82,7 +85,12 @@ public class PhotonVision extends SubsystemBase {
 
     for (PhotonTrackedTarget tag : currentResult.getTargets()) {
       yaw = tag.getYaw();
+      y = tag.getBestCameraToTarget().getX();
+      dist = tag.getBestCameraToTarget().getZ();
+
     }
+
+  
 
     // Update dashboard
     log("yaw to target", yaw);
@@ -203,6 +211,14 @@ public class PhotonVision extends SubsystemBase {
    */
   public double getYaw() {
     return yaw;
+  }
+
+  public double getDist() {
+    return dist;
+  }
+
+  public double getY() {
+    return y;
   }
 
   /**

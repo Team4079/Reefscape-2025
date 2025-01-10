@@ -5,23 +5,41 @@ import static frc.robot.utils.RobotParameters.SwerveParameters.PIDParameters.*;
 import edu.wpi.first.math.controller.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
+import frc.robot.utils.PID;
 
 public class AlignLeft extends Command {
   private double yaw;
+  private double y;
+  private double dist; 
   private PIDController rotationalController;
+  private PIDController yController;
+  private PIDController disController;
 
   public AlignLeft() {
-    addRequirements(Swerve.getInstance(), PhotonVision.getInstance());
+    addRequirements(Swerve.getInstance());
   }
 
   /** The initial subroutine of a command. Called once when the command is initially scheduled. */
   @Override
   public void initialize() {
     yaw = PhotonVision.getInstance().getYaw();
+    y = PhotonVision.getInstance().getY();
+    dist = PhotonVision.getInstance().getDist();
+
     rotationalController =
         new PIDController(ROTATIONAL_PID.getP(), ROTATIONAL_PID.getI(), ROTATIONAL_PID.getD());
     rotationalController.setTolerance(1.5);
     rotationalController.setSetpoint(0);
+
+    yController =
+      new PIDController(Y_PID.getP(), Y_PID.getI(), Y_PID.getD());
+    yController.setTolerance(1.5);
+    yController.setSetpoint(0);
+
+    disController =
+      new PIDController(DIST_PID.getP(), DIST_PID.getI(), DIST_PID.getD());
+    disController.setTolerance(1.5);
+    disController.setSetpoint(0);
   }
 
   /**
@@ -31,12 +49,10 @@ public class AlignLeft extends Command {
   @Override
   public void execute() {
     yaw = PhotonVision.getInstance().getYaw();
-    if (PhotonVision.getInstance().hasTag()) {
-      Swerve.getInstance()
-          .setDriveSpeeds(0, 0, rotationalController.calculate(yaw, 0), false);
-    } else {
-      Swerve.getInstance().stop();
-    }
+    y = PhotonVision.getInstance().getY();
+    dist = PhotonVision.getInstance().getDist();
+
+    Swerve.getInstance().setDriveSpeeds(disController.calculate(dist), yController.calculate(y), rotationalController.calculate(yaw), false);
   }
 
   /**
