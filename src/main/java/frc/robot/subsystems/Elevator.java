@@ -166,6 +166,10 @@ public class ElevatorSubsystem extends SubsystemBase {
     vel_voltage = new VelocityTorqueCurrentFOC(0);
     pos_reqest = new PositionTorqueCurrentFOC(0);
     voltageOut = new VoltageOut(0);
+
+    vel_voltage.EnableFOC = true;
+    pos_reqest.EnableFOC = true;
+    
     new PositionDutyCycle(0);
 
     elevatorMotorLeft.setPosition(0);
