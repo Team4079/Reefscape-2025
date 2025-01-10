@@ -21,7 +21,7 @@ module.exports = {
       value: 'chore',
       name: 'chore:    Changes to the build process or auxiliary tools\n            and libraries such as documentation generation',
     },
-    {value: 'WIP', name: 'WIP:      Work in progress'},
+    {value: 'wip', name: 'wip:      Work in progress'},
     {value: 'revert', name: 'revert:   Revert to a prior commit'},
     {value: 'removal', name: 'removal:  Remove a feature or code section'},
     {value: 'update', name: 'update:   Update a dependency or vendor dep'},

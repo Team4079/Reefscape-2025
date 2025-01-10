@@ -17,9 +17,9 @@ import frc.robot.utils.RobotParameters.*;
 import org.littletonrobotics.junction.Logger;
 
 /**
- * The EndEffectorSubsystem class is a subsystem that interfaces with the arm system to provide control
- * over the arm motors. This subsystem is a Singleton, meaning that only one instance of this
- * class is created and shared across the entire robot code.
+ * The EndEffectorSubsystem class is a subsystem that interfaces with the arm system to provide
+ * control over the arm motors. This subsystem is a Singleton, meaning that only one instance of
+ * this class is created and shared across the entire robot code.
  */
 public class EndEffectorSubsystem extends SubsystemBase {
   /** Creates a new end effector. */
@@ -59,8 +59,8 @@ public class EndEffectorSubsystem extends SubsystemBase {
   }
 
   /**
-   * Creates a new instance of this armSubsystem. This constructor is private since this class is
-   * a Singleton. Code should use the {@link #getInstance()} method to get the singleton instance.
+   * Creates a new instance of this armSubsystem. This constructor is private since this class is a
+   * Singleton. Code should use the {@link #getInstance()} method to get the singleton instance.
    */
   private EndEffectorSubsystem() {
     endEffectorMotor = new TalonFX(MotorParameters.END_EFFECTOR_MOTOR_ID);
@@ -123,7 +123,8 @@ public class EndEffectorSubsystem extends SubsystemBase {
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    Logger.recordOutput("End Effector Motor Position", endEffectorMotor.getPosition().getValueAsDouble());
+    Logger.recordOutput(
+        "End Effector Motor Position", endEffectorMotor.getPosition().getValueAsDouble());
     Logger.recordOutput("End Effector SoftLimit", this.getSoftLimit());
   }
 
@@ -159,7 +160,8 @@ public class EndEffectorSubsystem extends SubsystemBase {
    */
   public void toggleSoftStop() {
     EndEffectorParameters.SOFT_LIMIT_ENABLED = !EndEffectorParameters.SOFT_LIMIT_ENABLED;
-    endEffectorMotorSoftLimitConfig.ReverseSoftLimitEnable = EndEffectorParameters.SOFT_LIMIT_ENABLED;
+    endEffectorMotorSoftLimitConfig.ReverseSoftLimitEnable =
+        EndEffectorParameters.SOFT_LIMIT_ENABLED;
     // leftSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     endEffectorMotorSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
@@ -188,7 +190,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
   public void toggleLimit() {
     EndEffectorParameters.IS_SOFTLIMIT = !EndEffectorParameters.IS_SOFTLIMIT;
   }
-  
+
   /**
    * Get the soft limit for the arm motor
    *

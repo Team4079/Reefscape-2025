@@ -50,14 +50,19 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // padA.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::addRotorPositionsforModules));
-    padStart.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::resetPidgey)); // Prev Button: padB
+    padStart.onTrue(
+        new InstantCommand(SwerveSubsystem.getInstance()::resetPidgey)); // Prev Button: padB
     // padY.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::updateModuleTelePIDValues));
     // padX.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::configSlowMode));
 
-    padA.onTrue(new InstantCommand(() -> ElevatorSubsystem.getInstance().setState(ElevatorState.L1)));
-    padB.onTrue(new InstantCommand(() -> ElevatorSubsystem.getInstance().setState(ElevatorState.L2)));
-    padX.onTrue(new InstantCommand(() -> ElevatorSubsystem.getInstance().setState(ElevatorState.L3)));
-    padY.onTrue(new InstantCommand(() -> ElevatorSubsystem.getInstance().setState(ElevatorState.L4)));
+    padA.onTrue(
+        new InstantCommand(() -> ElevatorSubsystem.getInstance().setState(ElevatorState.L1)));
+    padB.onTrue(
+        new InstantCommand(() -> ElevatorSubsystem.getInstance().setState(ElevatorState.L2)));
+    padX.onTrue(
+        new InstantCommand(() -> ElevatorSubsystem.getInstance().setState(ElevatorState.L3)));
+    padY.onTrue(
+        new InstantCommand(() -> ElevatorSubsystem.getInstance().setState(ElevatorState.L4)));
   }
 
   /**

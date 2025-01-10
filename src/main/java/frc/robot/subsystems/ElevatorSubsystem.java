@@ -226,8 +226,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   /**
-   * Sets the state of the elevator motor based on the state local variable value
-   * To be used in sequences
+   * Sets the state of the elevator motor based on the state local variable value To be used in
+   * sequences
    */
   public void setElevatorState() {
     switch (state) {
