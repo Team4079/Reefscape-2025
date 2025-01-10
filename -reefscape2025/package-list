@@ -1,5 +1,26 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
+$dokka.location:frc.robot.commands.elevator////PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/index.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL1_Placeholder///PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l1_-placeholder/index.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL1_Placeholder/ElevatorL1_Placeholder/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l1_-placeholder/-elevator-l1_-placeholder.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL1_Placeholder/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l1_-placeholder/end.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL1_Placeholder/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l1_-placeholder/initialize.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL1_Placeholder/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l1_-placeholder/is-finished.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL2_Placeholder///PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l2_-placeholder/index.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL2_Placeholder/ElevatorL2_Placeholder/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l2_-placeholder/-elevator-l2_-placeholder.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL2_Placeholder/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l2_-placeholder/end.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL2_Placeholder/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l2_-placeholder/initialize.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL2_Placeholder/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l2_-placeholder/is-finished.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL3_Placeholder///PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l3_-placeholder/index.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL3_Placeholder/ElevatorL3_Placeholder/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l3_-placeholder/-elevator-l3_-placeholder.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL3_Placeholder/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l3_-placeholder/end.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL3_Placeholder/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l3_-placeholder/initialize.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL3_Placeholder/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l3_-placeholder/is-finished.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL4_Placeholder///PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l4_-placeholder/index.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL4_Placeholder/ElevatorL4_Placeholder/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l4_-placeholder/-elevator-l4_-placeholder.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL4_Placeholder/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l4_-placeholder/end.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL4_Placeholder/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l4_-placeholder/initialize.html
+$dokka.location:frc.robot.commands.elevator/ElevatorL4_Placeholder/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l4_-placeholder/is-finished.html
 $dokka.location:frc.robot.commands.sequencing////PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/index.html
 $dokka.location:frc.robot.commands.sequencing/ScoreLeft///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-left/index.html
 $dokka.location:frc.robot.commands.sequencing/ScoreLeft/ScoreLeft/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-left/-score-left.html
@@ -36,8 +57,8 @@ $dokka.location:frc.robot.subsystems/ElevatorSubsystem/logElevatorState/#/Pointi
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/moveElevator/#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/move-elevator.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/periodic.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/resetEncoders/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/reset-encoders.html
-$dokka.location:frc.robot.subsystems/ElevatorSubsystem/setElevatorPos/#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/set-elevator-pos.html
-$dokka.location:frc.robot.subsystems/ElevatorSubsystem/setMotorPosition/#double#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/set-motor-position.html
+$dokka.location:frc.robot.subsystems/ElevatorSubsystem/setElevatorPosition/#double#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/set-elevator-position.html
+$dokka.location:frc.robot.subsystems/ElevatorSubsystem/setElevatorPosition/#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/set-elevator-position.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/setState/#frc.robot.subsystems.ElevatorSubsystem.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/set-state.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/stopMotors/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/stop-motors.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/toggleLimit/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/toggle-limit.html
@@ -88,6 +109,21 @@ $dokka.location:frc.robot.subsystems/PivotSubsystem/shootPos/#double/PointingToD
 $dokka.location:frc.robot.subsystems/PivotSubsystem/stopMotor/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-pivot-subsystem/stop-motor.html
 $dokka.location:frc.robot.subsystems/PivotSubsystem/toggleLimit/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-pivot-subsystem/toggle-limit.html
 $dokka.location:frc.robot.subsystems/PivotSubsystem/toggleSoftStop/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-pivot-subsystem/toggle-soft-stop.html
+$dokka.location:frc.robot.subsystems/SwerveModule///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/index.html
+$dokka.location:frc.robot.subsystems/SwerveModule/SwerveModule/#int#int#int#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/-swerve-module.html
+$dokka.location:frc.robot.subsystems/SwerveModule/applyTelePIDValues/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/apply-tele-p-i-d-values.html
+$dokka.location:frc.robot.subsystems/SwerveModule/getPosition/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/get-position.html
+$dokka.location:frc.robot.subsystems/SwerveModule/getState/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/get-state.html
+$dokka.location:frc.robot.subsystems/SwerveModule/initializeLoggedNetworkPID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/initialize-logged-network-p-i-d.html
+$dokka.location:frc.robot.subsystems/SwerveModule/intializeAlarms/#int#int#int/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/intialize-alarms.html
+$dokka.location:frc.robot.subsystems/SwerveModule/resetDrivePosition/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/reset-drive-position.html
+$dokka.location:frc.robot.subsystems/SwerveModule/setAutoPID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/set-auto-p-i-d.html
+$dokka.location:frc.robot.subsystems/SwerveModule/setDrivePID/#frc.robot.utils.PID#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/set-drive-p-i-d.html
+$dokka.location:frc.robot.subsystems/SwerveModule/setState/#edu.wpi.first.math.kinematics.SwerveModuleState/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/set-state.html
+$dokka.location:frc.robot.subsystems/SwerveModule/setSteerPID/#frc.robot.utils.PID#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/set-steer-p-i-d.html
+$dokka.location:frc.robot.subsystems/SwerveModule/setTelePID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/set-tele-p-i-d.html
+$dokka.location:frc.robot.subsystems/SwerveModule/stop/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/stop.html
+$dokka.location:frc.robot.subsystems/SwerveModule/updateTelePID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/update-tele-p-i-d.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/index.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/chassisSpeedsDrive/#edu.wpi.first.math.kinematics.ChassisSpeeds/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/chassis-speeds-drive.html
 $dokka.location:frc.robot.subsystems/SwerveSubsystem/getAutoSpeeds/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-subsystem/get-auto-speeds.html
@@ -231,21 +267,6 @@ $dokka.location:frc.robot.utils/RobotParameters.SwerveParameters///PointingToDec
 $dokka.location:frc.robot.utils/RobotParameters.SwerveParameters/RobotParameters.SwerveParameters/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-swerve-parameters/-robot-parameters.-swerve-parameters.html
 $dokka.location:frc.robot.utils/RobotParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters/RobotParameters/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-robot-parameters.html
-$dokka.location:frc.robot.utils/SwerveModule///PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/index.html
-$dokka.location:frc.robot.utils/SwerveModule/SwerveModule/#int#int#int#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/-swerve-module.html
-$dokka.location:frc.robot.utils/SwerveModule/applyTelePIDValues/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/apply-tele-p-i-d-values.html
-$dokka.location:frc.robot.utils/SwerveModule/getPosition/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/get-position.html
-$dokka.location:frc.robot.utils/SwerveModule/getState/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/get-state.html
-$dokka.location:frc.robot.utils/SwerveModule/initializeLoggedNetworkPID/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/initialize-logged-network-p-i-d.html
-$dokka.location:frc.robot.utils/SwerveModule/intializeAlarms/#int#int#int/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/intialize-alarms.html
-$dokka.location:frc.robot.utils/SwerveModule/resetDrivePosition/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/reset-drive-position.html
-$dokka.location:frc.robot.utils/SwerveModule/setAutoPID/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/set-auto-p-i-d.html
-$dokka.location:frc.robot.utils/SwerveModule/setDrivePID/#frc.robot.utils.PID#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/set-drive-p-i-d.html
-$dokka.location:frc.robot.utils/SwerveModule/setState/#edu.wpi.first.math.kinematics.SwerveModuleState/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/set-state.html
-$dokka.location:frc.robot.utils/SwerveModule/setSteerPID/#frc.robot.utils.PID#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/set-steer-p-i-d.html
-$dokka.location:frc.robot.utils/SwerveModule/setTelePID/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/set-tele-p-i-d.html
-$dokka.location:frc.robot.utils/SwerveModule/stop/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/stop.html
-$dokka.location:frc.robot.utils/SwerveModule/updateTelePID/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-swerve-module/update-tele-p-i-d.html
 $dokka.location:frc.robot////PointingToDeclaration/-reefscape2025/frc.robot/index.html
 $dokka.location:frc.robot/Main///PointingToDeclaration/-reefscape2025/frc.robot/-main/index.html
 $dokka.location:frc.robot/Main/Main/#/PointingToDeclaration/-reefscape2025/frc.robot/-main/-main.html
@@ -262,6 +283,7 @@ $dokka.location:frc.robot/RobotContainer/RobotContainer/#/PointingToDeclaration/
 $dokka.location:frc.robot/RobotContainer/getAutonomousCommand/#/PointingToDeclaration/-reefscape2025/frc.robot/-robot-container/get-autonomous-command.html
 frc.robot
 frc.robot.commands
+frc.robot.commands.elevator
 frc.robot.commands.sequencing
 frc.robot.subsystems
 frc.robot.utils
