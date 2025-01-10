@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TorqueCurrentConfigs;
+import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.CANcoder;
@@ -26,7 +27,7 @@ public class SwerveModule {
   private final TalonFX driveMotor;
   private final CANcoder canCoder;
   private final TalonFX steerMotor;
-  private final PositionVoltage positionSetter;
+  private final PositionTorqueCurrentFOC positionSetter;
   private final VelocityTorqueCurrentFOC velocitySetter;
   private final SwerveModulePosition swerveModulePosition;
   private SwerveModuleState state;
@@ -65,13 +66,10 @@ public class SwerveModule {
     driveMotor = new TalonFX(driveId);
     canCoder = new CANcoder(canCoderID);
     steerMotor = new TalonFX(steerId);
-    positionSetter = new PositionVoltage(0.0).withSlot(0);
+    positionSetter = new PositionTorqueCurrentFOC(0.0).withSlot(0);
     velocitySetter = new VelocityTorqueCurrentFOC(0.0);
     swerveModulePosition = new SwerveModulePosition();
     state = new SwerveModuleState(0.0, Rotation2d.fromDegrees(0.0));
-
-    positionSetter.EnableFOC = true;
-    velocitySetter.EnableFOC = true; // just added dis
 
     driveConfigs = new TalonFXConfiguration();
 
