@@ -1,26 +1,16 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:frc.robot.commands.elevator////PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/index.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL1_Placeholder///PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l1_-placeholder/index.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL1_Placeholder/ElevatorL1_Placeholder/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l1_-placeholder/-elevator-l1_-placeholder.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL1_Placeholder/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l1_-placeholder/end.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL1_Placeholder/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l1_-placeholder/initialize.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL1_Placeholder/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l1_-placeholder/is-finished.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL2_Placeholder///PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l2_-placeholder/index.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL2_Placeholder/ElevatorL2_Placeholder/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l2_-placeholder/-elevator-l2_-placeholder.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL2_Placeholder/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l2_-placeholder/end.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL2_Placeholder/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l2_-placeholder/initialize.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL2_Placeholder/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l2_-placeholder/is-finished.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL3_Placeholder///PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l3_-placeholder/index.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL3_Placeholder/ElevatorL3_Placeholder/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l3_-placeholder/-elevator-l3_-placeholder.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL3_Placeholder/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l3_-placeholder/end.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL3_Placeholder/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l3_-placeholder/initialize.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL3_Placeholder/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l3_-placeholder/is-finished.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL4_Placeholder///PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l4_-placeholder/index.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL4_Placeholder/ElevatorL4_Placeholder/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l4_-placeholder/-elevator-l4_-placeholder.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL4_Placeholder/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l4_-placeholder/end.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL4_Placeholder/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l4_-placeholder/initialize.html
-$dokka.location:frc.robot.commands.elevator/ElevatorL4_Placeholder/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-l4_-placeholder/is-finished.html
+$dokka.location:frc.robot.commands.elevator/ElevatorDown///PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-down/index.html
+$dokka.location:frc.robot.commands.elevator/ElevatorDown/ElevatorDown/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-down/-elevator-down.html
+$dokka.location:frc.robot.commands.elevator/ElevatorDown/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-down/end.html
+$dokka.location:frc.robot.commands.elevator/ElevatorDown/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-down/initialize.html
+$dokka.location:frc.robot.commands.elevator/ElevatorDown/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-down/is-finished.html
+$dokka.location:frc.robot.commands.elevator/ElevatorUp///PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-up/index.html
+$dokka.location:frc.robot.commands.elevator/ElevatorUp/ElevatorUp/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-up/-elevator-up.html
+$dokka.location:frc.robot.commands.elevator/ElevatorUp/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-up/end.html
+$dokka.location:frc.robot.commands.elevator/ElevatorUp/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-up/initialize.html
+$dokka.location:frc.robot.commands.elevator/ElevatorUp/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-elevator-up/is-finished.html
 $dokka.location:frc.robot.commands.sequencing////PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/index.html
 $dokka.location:frc.robot.commands.sequencing/ScoreLeft///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-left/index.html
 $dokka.location:frc.robot.commands.sequencing/ScoreLeft/ScoreLeft/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-left/-score-left.html
