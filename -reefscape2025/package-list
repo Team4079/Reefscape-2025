@@ -32,11 +32,11 @@ $dokka.location:frc.robot.subsystems/ElevatorSubsystem/getElevatorPosAvg/#/Point
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/getElevatorPosValue/#java.lang.String/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/get-elevator-pos-value.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/get-instance.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/getSoftLimit/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/get-soft-limit.html
+$dokka.location:frc.robot.subsystems/ElevatorSubsystem/logElevatorState/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/log-elevator-state.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/moveElevator/#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/move-elevator.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/periodic.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/resetEncoders/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/reset-encoders.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/setElevatorPos/#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/set-elevator-pos.html
-$dokka.location:frc.robot.subsystems/ElevatorSubsystem/setElevatorState/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/set-elevator-state.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/setMotorPosition/#double#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/set-motor-position.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/setState/#frc.robot.subsystems.ElevatorSubsystem.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/set-state.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem/stopMotors/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator-subsystem/stop-motors.html
@@ -115,7 +115,11 @@ $dokka.location:frc.robot.subsystems/SwerveSubsystem/zeroPose/#/PointingToDeclar
 $dokka.location:frc.robot.utils////PointingToDeclaration/-reefscape2025/frc.robot.utils/index.html
 $dokka.location:frc.robot.utils/Dash///PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/index.html
 $dokka.location:frc.robot.utils/Dash/dashPID/#java.lang.String#frc.robot.utils.PID#double#java.util.function.DoubleConsumer/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/dash-p-i-d.html
-$dokka.location:frc.robot.utils/Dash/test/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/test.html
+$dokka.location:frc.robot.utils/Dash/log/#java.lang.String#T/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/log.html
+$dokka.location:frc.robot.utils/Dash/log/#java.lang.String#boolean/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/log.html
+$dokka.location:frc.robot.utils/Dash/log/#java.lang.String#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/log.html
+$dokka.location:frc.robot.utils/Dash/log/#java.lang.String#int/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/log.html
+$dokka.location:frc.robot.utils/Dash/log/#java.lang.String#java.lang.String/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/log.html
 $dokka.location:frc.robot.utils/Extensions///PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions/index.html
 $dokka.location:frc.robot.utils/Extensions/Extensions/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions/-extensions.html
 $dokka.location:frc.robot.utils/Extensions/dimensionIncrease/#edu.wpi.first.math.geometry.Translation2d#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions/dimension-increase.html
