@@ -146,6 +146,16 @@ public class PhotonvisionSubsystem extends SubsystemBase {
   }
 
   /**
+   * Uses some fancy stuff to return the distance from the april tag
+   * @return double
+   */
+  public double getDistanceAprilTag() {
+    return Math.sqrt(
+        Math.pow(getEstimatedGlobalPose().getTranslation().getX(), 2)
+            + Math.pow(getEstimatedGlobalPose().getTranslation().getY(), 2));
+  }
+
+  /**
    * Gets the forward distance to the target.
    *
    * @return The forward distance to the target.
@@ -153,7 +163,7 @@ public class PhotonvisionSubsystem extends SubsystemBase {
   public double getPivotPosition() {
     // 10/14/2024 outside tuning
     // Desmos: https://www.desmos.com/calculator/naalukjxze
-    double r = getDistanceSubwoofer() + 0.6;
+    double r = getDistanceAprilTag() + 0.6;
     double f = -1.39223; // power 5
     double e = 20.9711; // power 4
     double d = -122.485; // power 3
