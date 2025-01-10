@@ -1,11 +1,12 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
-$dokka.location:frc.robot.commands.sequences////PointingToDeclaration/-reefscape2025/frc.robot.commands.sequences/index.html
-$dokka.location:frc.robot.commands.sequences/AlignScoreLeft///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequences/-align-score-left/index.html
-$dokka.location:frc.robot.commands.sequences/AlignScoreLeft/AlignScoreLeft/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequences/-align-score-left/-align-score-left.html
-$dokka.location:frc.robot.commands.sequences/AlignScoreRight///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequences/-align-score-right/index.html
-$dokka.location:frc.robot.commands.sequences/AlignScoreRight/AlignScoreRight/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequences/-align-score-right/-align-score-right.html
 $dokka.location:frc.robot.commands////PointingToDeclaration/-reefscape2025/frc.robot.commands/index.html
+$dokka.location:frc.robot.commands/AlignLeft///PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-left/index.html
+$dokka.location:frc.robot.commands/AlignLeft/AlignLeft/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-left/-align-left.html
+$dokka.location:frc.robot.commands/AlignLeft/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-left/end.html
+$dokka.location:frc.robot.commands/AlignLeft/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-left/execute.html
+$dokka.location:frc.robot.commands/AlignLeft/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-left/initialize.html
+$dokka.location:frc.robot.commands/AlignLeft/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-left/is-finished.html
 $dokka.location:frc.robot.commands/PadDrive.Coordinate///PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/-coordinate/index.html
 $dokka.location:frc.robot.commands/PadDrive.Coordinate/PadDrive.Coordinate/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/-coordinate/-pad-drive.-coordinate.html
 $dokka.location:frc.robot.commands/PadDrive///PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/index.html
@@ -14,6 +15,8 @@ $dokka.location:frc.robot.commands/PadDrive/execute/#/PointingToDeclaration/-re
 $dokka.location:frc.robot.commands/PadDrive/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/is-finished.html
 $dokka.location:frc.robot.commands/PadDrive/positionSet/#frc.robot.utils.LogitechGamingPad/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/position-set.html
 $dokka.location:frc.robot.subsystems////PointingToDeclaration/-reefscape2025/frc.robot.subsystems/index.html
+$dokka.location:frc.robot.subsystems/AlgaeSubsystem///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-algae-subsystem/index.html
+$dokka.location:frc.robot.subsystems/AlgaeSubsystem/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-algae-subsystem/get-instance.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem.ElevatorState.L1///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.subsystems/-elevator-subsystem/-elevator-state/-l1/index.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem.ElevatorState.L2///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.subsystems/-elevator-subsystem/-elevator-state/-l2/index.html
 $dokka.location:frc.robot.subsystems/ElevatorSubsystem.ElevatorState.L3///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.subsystems/-elevator-subsystem/-elevator-state/-l3/index.html
@@ -59,14 +62,15 @@ $dokka.location:frc.robot.subsystems/LEDSubsystem/setRGB/#int#int#int/PointingTo
 $dokka.location:frc.robot.subsystems/LEDSubsystem/setRed/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d-subsystem/set-red.html
 $dokka.location:frc.robot.subsystems/LEDSubsystem/setTan/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d-subsystem/set-tan.html
 $dokka.location:frc.robot.subsystems/PhotonvisionSubsystem///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photonvision-subsystem/index.html
-$dokka.location:frc.robot.subsystems/PhotonvisionSubsystem/getDistanceSubwoofer/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photonvision-subsystem/get-distance-subwoofer.html
 $dokka.location:frc.robot.subsystems/PhotonvisionSubsystem/getEstimatedGlobalPose/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photonvision-subsystem/get-estimated-global-pose.html
 $dokka.location:frc.robot.subsystems/PhotonvisionSubsystem/getEstimatedGlobalPose/#edu.wpi.first.math.geometry.Pose2d/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photonvision-subsystem/get-estimated-global-pose.html
 $dokka.location:frc.robot.subsystems/PhotonvisionSubsystem/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photonvision-subsystem/get-instance.html
 $dokka.location:frc.robot.subsystems/PhotonvisionSubsystem/getPivotPosition/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photonvision-subsystem/get-pivot-position.html
 $dokka.location:frc.robot.subsystems/PhotonvisionSubsystem/getSubwooferYaw/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photonvision-subsystem/get-subwoofer-yaw.html
+$dokka.location:frc.robot.subsystems/PhotonvisionSubsystem/getYaw/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photonvision-subsystem/get-yaw.html
 $dokka.location:frc.robot.subsystems/PhotonvisionSubsystem/hasTag/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photonvision-subsystem/has-tag.html
 $dokka.location:frc.robot.subsystems/PhotonvisionSubsystem/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photonvision-subsystem/periodic.html
+$dokka.location:frc.robot.subsystems/PhotonvisionSubsystem/setYaw/#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photonvision-subsystem/set-yaw.html
 $dokka.location:frc.robot.subsystems/PivotSubsystem///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-pivot-subsystem/index.html
 $dokka.location:frc.robot.subsystems/PivotSubsystem/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-pivot-subsystem/get-instance.html
 $dokka.location:frc.robot.subsystems/PivotSubsystem/getPivotPosValue/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-pivot-subsystem/get-pivot-pos-value.html
@@ -250,6 +254,5 @@ $dokka.location:frc.robot/RobotContainer/RobotContainer/#/PointingToDeclaration/
 $dokka.location:frc.robot/RobotContainer/getAutonomousCommand/#/PointingToDeclaration/-reefscape2025/frc.robot/-robot-container/get-autonomous-command.html
 frc.robot
 frc.robot.commands
-frc.robot.commands.sequences
 frc.robot.subsystems
 frc.robot.utils
