@@ -1,5 +1,8 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
+$dokka.location:frc.robot.commands.sequencing////PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/index.html
+$dokka.location:frc.robot.commands.sequencing/ScoreLeft///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-left/index.html
+$dokka.location:frc.robot.commands.sequencing/ScoreLeft/ScoreLeft/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-left/-score-left.html
 $dokka.location:frc.robot.commands////PointingToDeclaration/-reefscape2025/frc.robot.commands/index.html
 $dokka.location:frc.robot.commands/AlignLeft///PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-left/index.html
 $dokka.location:frc.robot.commands/AlignLeft/AlignLeft/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-left/-align-left.html
@@ -62,6 +65,7 @@ $dokka.location:frc.robot.subsystems/LEDSubsystem/setRGB/#int#int#int/PointingTo
 $dokka.location:frc.robot.subsystems/LEDSubsystem/setRed/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d-subsystem/set-red.html
 $dokka.location:frc.robot.subsystems/LEDSubsystem/setTan/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d-subsystem/set-tan.html
 $dokka.location:frc.robot.subsystems/PhotonvisionSubsystem///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photonvision-subsystem/index.html
+$dokka.location:frc.robot.subsystems/PhotonvisionSubsystem/getDistanceAprilTag/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photonvision-subsystem/get-distance-april-tag.html
 $dokka.location:frc.robot.subsystems/PhotonvisionSubsystem/getEstimatedGlobalPose/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photonvision-subsystem/get-estimated-global-pose.html
 $dokka.location:frc.robot.subsystems/PhotonvisionSubsystem/getEstimatedGlobalPose/#edu.wpi.first.math.geometry.Pose2d/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photonvision-subsystem/get-estimated-global-pose.html
 $dokka.location:frc.robot.subsystems/PhotonvisionSubsystem/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photonvision-subsystem/get-instance.html
@@ -254,5 +258,6 @@ $dokka.location:frc.robot/RobotContainer/RobotContainer/#/PointingToDeclaration/
 $dokka.location:frc.robot/RobotContainer/getAutonomousCommand/#/PointingToDeclaration/-reefscape2025/frc.robot/-robot-container/get-autonomous-command.html
 frc.robot
 frc.robot.commands
+frc.robot.commands.sequencing
 frc.robot.subsystems
 frc.robot.utils
