@@ -108,14 +108,44 @@
   <div class="breadcrumbs"><a href="../../../index.html">Reefscape2025</a><span class="delimiter">/</span><a href="../index.html">frc.robot.subsystems</a><span class="delimiter">/</span><span class="current">PhotonVision</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Photon</span><wbr></wbr><span><span>Vision</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">PhotonVision</a><span class="token keyword"> extends </span><span data-unresolved-link="edu.wpi.first.wpilibj2.command/SubsystemBase///PointingToDeclaration/">SubsystemBase</span></div><p class="paragraph">The PhotonvisionSubsystem class is a subsystem that interfaces with the PhotonVision system to provide vision tracking and pose estimation capabilities. This subsystem is a Singleton, meaning that only one instance of this class is created and shared across the entire robot code. </p><p class="paragraph">This subsystem provides methods to get the estimated global pose of the robot, the distance to the subwoofer, and the yaw of the subwoofer. It also provides methods to check if a tag is visible, get the forward distance to the target, and get the pivot position.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">PhotonVision</a><span class="token keyword"> extends </span><span data-unresolved-link="edu.wpi.first.wpilibj2.command/SubsystemBase///PointingToDeclaration/">SubsystemBase</span></div><p class="paragraph">The PhotonVision class is a subsystem that interfaces with multiple PhotonVision cameras to provide vision tracking and pose estimation capabilities. This subsystem is a Singleton that manages multiple CameraModules and selects the best result based on pose ambiguity. </p><p class="paragraph">This subsystem provides methods to get the estimated global pose of the robot, the distance to targets, and the yaw of detected AprilTags. It also provides methods to check if a tag is visible and get the pivot position based on distance calculations.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
     <div class="tabs-section-body">
       <div data-togglable="PROPERTY">
         <h2 class="">Properties</h2>
-        <div class="table"><a data-name="449038473%2FProperties%2F-251573632" anchor-label="yaw" id="449038473%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+        <div class="table"><a data-name="662399278%2FProperties%2F-251573632" anchor-label="currentTarget" id="662399278%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#662399278%2FProperties%2F-251573632"><span>current</span><wbr></wbr><span><span>Target</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="662399278%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><span data-unresolved-link="org.photonvision.targeting/PhotonTrackedTarget///PointingToDeclaration/">PhotonTrackedTarget</span> <a href="index.html#662399278%2FProperties%2F-251573632">currentTarget</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1375496365%2FProperties%2F-251573632" anchor-label="targetPoseAmbiguity" id="1375496365%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1375496365%2FProperties%2F-251573632"><span>target</span><wbr></wbr><span>Pose</span><wbr></wbr><span><span>Ambiguity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1375496365%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>double <a href="index.html#1375496365%2FProperties%2F-251573632">targetPoseAmbiguity</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="449038473%2FProperties%2F-251573632" anchor-label="yaw" id="449038473%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
           <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
@@ -134,7 +164,22 @@
       </div>
       <div data-togglable="FUNCTION">
         <h2 class="">Functions</h2>
-        <div class="table"><a data-name="-2094176967%2FFunctions%2F-251573632" anchor-label="getDistanceAprilTag" id="-2094176967%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+        <div class="table"><a data-name="-1715634930%2FFunctions%2F-251573632" anchor-label="getCurrentTarget" id="-1715634930%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-current-target.html"><span>get</span><wbr></wbr><span>Current</span><wbr></wbr><span><span>Target</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1715634930%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><span data-unresolved-link="org.photonvision.targeting/PhotonTrackedTarget///PointingToDeclaration/">PhotonTrackedTarget</span> <a href="get-current-target.html"><span class="token function">getCurrentTarget</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the current tracked target.</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2094176967%2FFunctions%2F-251573632" anchor-label="getDistanceAprilTag" id="-2094176967%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
           <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
@@ -144,7 +189,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>double <a href="get-distance-april-tag.html"><span class="token function">getDistanceAprilTag</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Uses some fancy stuff to return the distance from the april tag</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>double <a href="get-distance-april-tag.html"><span class="token function">getDistanceAprilTag</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Calculates the straight-line distance to the currently tracked AprilTag.</div></div></div>
                 </div>
               </div>
             </div>
@@ -159,7 +204,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Transform3d///PointingToDeclaration/">Transform3d</span> <a href="get-estimated-global-pose.html"><span class="token function">getEstimatedGlobalPose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><span data-unresolved-link="org.photonvision/EstimatedRobotPose///PointingToDeclaration/">EstimatedRobotPose</span> <a href="get-estimated-global-pose.html"><span class="token function">getEstimatedGlobalPose</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> prevEstimatedRobotPose</span></span><span class="token punctuation">)</span></div><div class="brief ">Gets the estimated global pose of the robot.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Transform3d///PointingToDeclaration/">Transform3d</span> <a href="get-estimated-global-pose.html"><span class="token function">getEstimatedGlobalPose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the estimated global pose of the robot as a Transform3d.</div><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><span data-unresolved-link="org.photonvision/EstimatedRobotPose///PointingToDeclaration/">EstimatedRobotPose</span> <a href="get-estimated-global-pose.html"><span class="token function">getEstimatedGlobalPose</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> prevEstimatedRobotPose</span></span><span class="token punctuation">)</span></div><div class="brief ">Gets the estimated global pose of the robot using the best available camera.</div></div></div>
                 </div>
               </div>
             </div>
@@ -174,7 +219,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span><a href="index.html">PhotonVision</a> <a href="get-instance.html"><span class="token function">getInstance</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the Singleton instance of this PhotonvisionSubsystem.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">static </span><a href="index.html">PhotonVision</a> <a href="get-instance.html"><span class="token function">getInstance</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Returns the Singleton instance of this PhotonVision subsystem.</div></div></div>
                 </div>
               </div>
             </div>
@@ -189,22 +234,22 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>double <a href="get-pivot-position.html"><span class="token function">getPivotPosition</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the forward distance to the target.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>double <a href="get-pivot-position.html"><span class="token function">getPivotPosition</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Calculates the pivot position based on the distance to the AprilTag.</div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1486489009%2FFunctions%2F-251573632" anchor-label="getSubwooferYaw" id="-1486489009%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+<a data-name="-359132019%2FFunctions%2F-251573632" anchor-label="getTargetPoseAmbiguity" id="-359132019%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
           <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="get-subwoofer-yaw.html"><span>get</span><wbr></wbr><span>Subwoofer</span><wbr></wbr><span><span>Yaw</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1486489009%2FFunctions%2F-251573632"></span>
+                  <div><a href="get-target-pose-ambiguity.html"><span>get</span><wbr></wbr><span>Target</span><wbr></wbr><span>Pose</span><wbr></wbr><span><span>Ambiguity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-359132019%2FFunctions%2F-251573632"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>double <a href="get-subwoofer-yaw.html"><span class="token function">getSubwooferYaw</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the yaw of the subwoofer.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>double <a href="get-target-pose-ambiguity.html"><span class="token function">getTargetPoseAmbiguity</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the current target pose ambiguity.</div></div></div>
                 </div>
               </div>
             </div>
@@ -219,7 +264,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>double <a href="get-yaw.html"><span class="token function">getYaw</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the yaw value.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>double <a href="get-yaw.html"><span class="token function">getYaw</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Gets the current yaw angle to the target.</div></div></div>
                 </div>
               </div>
             </div>
@@ -234,7 +279,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean <a href="has-tag.html"><span class="token function">hasTag</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks if there is a tag.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean <a href="has-tag.html"><span class="token function">hasTag</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">Checks if there is a visible AprilTag.</div></div></div>
                 </div>
               </div>
             </div>
@@ -249,22 +294,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void <a href="periodic.html"><span class="token function">periodic</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">This method is called periodically by the scheduler.</div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="804013444%2FFunctions%2F-251573632" anchor-label="setYaw" id="804013444%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
-          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="set-yaw.html"><span>set</span><wbr></wbr><span><span>Yaw</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="804013444%2FFunctions%2F-251573632"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void <a href="set-yaw.html"><span class="token function">setYaw</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span>double yaw</span></span><span class="token punctuation">)</span></div><div class="brief ">Sets the yaw value.</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>void <a href="periodic.html"><span class="token function">periodic</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief ">This method is called periodically by the CommandScheduler.</div></div></div>
                 </div>
               </div>
             </div>
