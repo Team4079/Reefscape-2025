@@ -27,7 +27,6 @@ import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import java.util.Optional;
-import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 import org.photonvision.EstimatedRobotPose;
 
 public class Swerve extends SubsystemBase {

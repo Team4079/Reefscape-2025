@@ -5,17 +5,53 @@ import static frc.robot.utils.RobotParameters.SwerveParameters.PIDParameters.*;
 import edu.wpi.first.math.controller.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
-import frc.robot.utils.PID;
 
-public class AlignLeft extends Command {
+public class AlignSwerve extends Command {
   private double yaw;
   private double y;
   private double dist; 
   private PIDController rotationalController;
   private PIDController yController;
   private PIDController disController;
+  private double offset; // double offset is the left/right offset from the april tag to make it properly align with the L4 branches
+  private double tolerance = 0.4;
 
-  public AlignLeft() {
+  /**
+   * Creates a new AlignSwerve.
+   *
+   * @param offsetSide The side of the robot to offset the alignment to. Can be "left", "right", or
+   *     "center".
+   */
+  public AlignSwerve(String offsetSide) {
+    if (offsetSide.toLowerCase().equals("left")) {
+      this.offset = -0.1;
+    } else if (offsetSide.toLowerCase().equals("right")) {
+      this.offset = 0.1;
+    } else if (offsetSide.toLowerCase().equals("center")) {
+      this.offset = 0;
+    } else {
+      this.offset = 0;
+    }
+
+    addRequirements(Swerve.getInstance());
+  }
+
+  /**
+   * Creates a new AlignSwerve.
+   *
+   * @param offsetSide The side of the robot to offset the alignment to. Can be "left", "right", or
+   *     "center".
+   * @param offsetAmount The amount to offset the alignment by.
+   */
+  public AlignSwerve(String offsetSide, double offsetAmount) {
+    if (offsetSide.toLowerCase().equals("left")) {
+      this.offset = -offsetAmount;
+    } else if (offsetSide.toLowerCase().equals("right")) {
+      this.offset = offsetAmount;
+    } else {
+      this.offset = 0;
+    }
+
     addRequirements(Swerve.getInstance());
   }
 
@@ -28,7 +64,7 @@ public class AlignLeft extends Command {
 
     rotationalController =
         new PIDController(ROTATIONAL_PID.getP(), ROTATIONAL_PID.getI(), ROTATIONAL_PID.getD());
-    rotationalController.setTolerance(1.5);
+    rotationalController.setTolerance(tolerance);
     rotationalController.setSetpoint(0);
 
     yController =

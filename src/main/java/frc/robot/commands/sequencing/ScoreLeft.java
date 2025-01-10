@@ -4,9 +4,8 @@
 
 package frc.robot.commands.sequencing;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.AlignLeft;
+import frc.robot.commands.AlignSwerve;
 import frc.robot.commands.elevator.MoveToLevel;
 import frc.robot.commands.elevator.SetL1;
 
@@ -16,9 +15,9 @@ import frc.robot.commands.elevator.SetL1;
 public class ScoreLeft extends SequentialCommandGroup {
   public ScoreLeft() {
     addCommands(
-      new ParallelCommandGroup(
-        new AlignLeft() // Align the robot to the april tag (and add an offset)
-      ),
+      // new ParallelCommandGroup(
+      new AlignSwerve("left"), // Align the robot to the april tag (and add an offset)
+      // ),
       new MoveToLevel(), // Move the elevator to the desired level
       // Pivot to branch
       // Reverse rollers

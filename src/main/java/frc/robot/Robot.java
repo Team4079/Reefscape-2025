@@ -17,6 +17,7 @@ import org.littletonrobotics.junction.wpilog.WPILOGWriter;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
+@SuppressWarnings("resource")
 public class Robot extends LoggedRobot {
   private Command autonomousCommand;
   private RobotContainer robotContainer;
@@ -32,6 +33,7 @@ public class Robot extends LoggedRobot {
     if (isReal()) {
       // Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
       Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
+      // WARNING: PowerDistribution resource leak
       new PowerDistribution(1, ModuleType.kRev); // Enables power distribution logging
     } else {
       setUseTiming(false); // Run as fast as possible
