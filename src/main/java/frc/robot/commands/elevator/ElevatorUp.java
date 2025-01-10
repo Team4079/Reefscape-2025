@@ -5,10 +5,10 @@ import frc.robot.subsystems.*;
 import frc.robot.subsystems.ElevatorSubsystem.ElevatorState;
 import frc.robot.utils.RobotParameters;
 
-public class ElevatorL1_Placeholder extends Command {
+public class ElevatorUp extends Command {
     ElevatorSubsystem elevator;
 
-    public ElevatorL1_Placeholder() {
+    public ElevatorUp() {
         addRequirements(SwerveSubsystem.getInstance(), ElevatorSubsystem.getInstance());
         elevator = ElevatorSubsystem.getInstance();
     }
@@ -18,6 +18,7 @@ public class ElevatorL1_Placeholder extends Command {
      */
     @Override
     public void initialize() {
+        // Placeholder code, PLS CHANGE LATER
         elevator.setState(ElevatorState.L1);
     }
 
@@ -38,7 +39,8 @@ public class ElevatorL1_Placeholder extends Command {
     @Override
     public boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        return Math.abs(elevator.getElevatorPosAvg() - RobotParameters.ElevatorParameters.L1) < 0.5;
+        // return Math.abs(elevator.getElevatorPosAvg() - RobotParameters.ElevatorParameters.L1) < 0.5;
+        return true;
     }
 
     /**
