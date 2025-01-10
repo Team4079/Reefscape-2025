@@ -34,8 +34,8 @@ public class ElevatorSubsystem extends SubsystemBase {
   private Slot0Configs elevatorLeftConfigs;
   private Slot0Configs elevatorRightConfigs;
 
-  private PositionVoltage pos_reqest;
-  private VelocityVoltage vel_voltage;
+  private PositionTorqueCurrentFOC pos_reqest;
+  private VelocityTorqueCurrentFOC vel_voltage;
 
   private MotorOutputConfigs elevatorConfigs;
 
@@ -160,8 +160,8 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // absoluteEncoder = new DigitalInput(9);
 
-    vel_voltage = new VelocityVoltage(0);
-    pos_reqest = new PositionVoltage(0);
+    vel_voltage = new VelocityTorqueCurrentFOC(0);
+    pos_reqest = new PositionTorqueCurrentFOC(0);
     voltageOut = new VoltageOut(0);
     new PositionDutyCycle(0);
 
@@ -311,8 +311,8 @@ public class ElevatorSubsystem extends SubsystemBase {
    * @return void
    */
   public void setElevatorPos(double pos) {
-    elevatorMotorLeft.setControl(vel_voltage.withVelocity(pos));
-    elevatorMotorRight.setControl(vel_voltage.withVelocity(pos));
+    elevatorMotorLeft.setControl(pos_reqest.withVelocity(pos));
+    elevatorMotorRight.setControl(pos_reqest.withVelocity(pos));
   }
 
   /**
