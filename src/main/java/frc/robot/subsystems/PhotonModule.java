@@ -11,7 +11,7 @@ import org.photonvision.targeting.*;
  * estimator and position information. This class encapsulates all the functionality needed for a
  * single camera to track AprilTags and estimate robot pose.
  */
-public class CameraModule {
+public class PhotonModule {
   private final PhotonCamera camera;
   private final PhotonPoseEstimator photonPoseEstimator;
   private final Transform3d cameraPos;
@@ -23,7 +23,7 @@ public class CameraModule {
    * @param cameraPos The 3D transform representing the camera's position relative to the robot
    * @param fieldLayout The AprilTag field layout used for pose estimation
    */
-  public CameraModule(String cameraName, Transform3d cameraPos, AprilTagFieldLayout fieldLayout) {
+  public PhotonModule(String cameraName, Transform3d cameraPos, AprilTagFieldLayout fieldLayout) {
     this.camera = new PhotonCamera(cameraName);
     this.cameraPos = cameraPos;
     this.photonPoseEstimator =

@@ -20,8 +20,8 @@ import org.photonvision.targeting.*;
  * and get the pivot position based on distance calculations.
  */
 public class PhotonVision extends SubsystemBase {
-  private final List<CameraModule> cameras = new ArrayList<>();
-  private CameraModule bestCamera;
+  private final List<PhotonModule> cameras = new ArrayList<>();
+  private PhotonModule bestCamera;
   private PhotonPipelineResult currentResult;
   private PhotonTrackedTarget currentTarget;
   private double yaw = -15.0;
@@ -61,7 +61,7 @@ public class PhotonVision extends SubsystemBase {
                 0.0,
                 Math.toRadians(360 - PhotonvisionConstants.CAMERA_ONE_ANGLE_DEG),
                 Math.toRadians(180.0)));
-    cameras.add(new CameraModule("Camera", camera1Pos, fieldLayout));
+    cameras.add(new PhotonModule("Camera", camera1Pos, fieldLayout));
 
     // Add additional cameras here as needed
   }
@@ -107,11 +107,11 @@ public class PhotonVision extends SubsystemBase {
    * @return The CameraModule with the lowest pose ambiguity, or null if no cameras have valid
    *     targets
    */
-  private CameraModule getCameraWithLeastAmbiguity() {
-    CameraModule bestCam = null;
+  private PhotonModule getCameraWithLeastAmbiguity() {
+    PhotonModule bestCam = null;
     double bestAmbiguity = Double.MAX_VALUE;
 
-    for (CameraModule camera : cameras) {
+    for (PhotonModule camera : cameras) {
       List<PhotonPipelineResult> results = camera.getAllUnreadResults();
       for (PhotonPipelineResult result : results) {
         if (result.hasTargets()) {
