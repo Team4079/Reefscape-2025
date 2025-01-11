@@ -11,7 +11,7 @@ import org.photonvision.*;
 import org.photonvision.targeting.*;
 
 /**
- * The PhotonVision class is a subsystem that interfaces with multiple PhotonVision cameras to
+ * The Photonvision class is a subsystem that interfaces with multiple Photonvision cameras to
  * provide vision tracking and pose estimation capabilities. This subsystem is a Singleton that
  * manages multiple CameraModules and selects the best result based on pose ambiguity.
  *
@@ -20,8 +20,8 @@ import org.photonvision.targeting.*;
  * and get the pivot position based on distance calculations.
  */
 public class PhotonVision extends SubsystemBase {
-  private final List<CameraModule> cameras = new ArrayList<>();
-  private CameraModule bestCamera;
+  private final List<PhotonModule> cameras = new ArrayList<>();
+  private PhotonModule bestCamera;
   private PhotonPipelineResult currentResult;
   private PhotonTrackedTarget currentTarget;
   private double yaw = -15.0;
@@ -34,18 +34,18 @@ public class PhotonVision extends SubsystemBase {
   private static final PhotonVision INSTANCE = new PhotonVision();
 
   /**
-   * Returns the Singleton instance of this PhotonVision subsystem. This static method should be
+   * Returns the Singleton instance of this Photonvision subsystem. This static method should be
    * used, rather than the constructor, to get the single instance of this class. For example:
-   * {@code PhotonVision.getInstance();}
+   * {@code Photonvision.getInstance();}
    *
-   * @return The Singleton instance of PhotonVision
+   * @return The Singleton instance of Photonvision
    */
   public static PhotonVision getInstance() {
     return INSTANCE;
   }
 
   /**
-   * Creates a new instance of this PhotonVision subsystem. This constructor is private since this
+   * Creates a new instance of this Photonvision subsystem. This constructor is private since this
    * class is a Singleton. Code should use the {@link #getInstance()} method to get the singleton
    * instance.
    */
@@ -56,12 +56,12 @@ public class PhotonVision extends SubsystemBase {
     // First camera setup
     Transform3d camera1Pos =
         new Transform3d(
-            new Translation3d(0.31, 0.0, PhotonVisionConstants.CAMERA_ONE_HEIGHT_METER),
+            new Translation3d(0.31, 0.0, PhotonvisionConstants.CAMERA_ONE_HEIGHT_METER),
             new Rotation3d(
                 0.0,
-                Math.toRadians(360 - PhotonVisionConstants.CAMERA_ONE_ANGLE_DEG),
+                Math.toRadians(360 - PhotonvisionConstants.CAMERA_ONE_ANGLE_DEG),
                 Math.toRadians(180.0)));
-    cameras.add(new CameraModule("Camera", camera1Pos, fieldLayout));
+    cameras.add(new PhotonModule("Camera", camera1Pos, fieldLayout));
 
     // Add additional cameras here as needed
   }
@@ -87,10 +87,7 @@ public class PhotonVision extends SubsystemBase {
       yaw = tag.getYaw();
       y = tag.getBestCameraToTarget().getX();
       dist = tag.getBestCameraToTarget().getZ();
-
     }
-
-  
 
     // Update dashboard
     log("yaw to target", yaw);
@@ -109,11 +106,11 @@ public class PhotonVision extends SubsystemBase {
    * @return The CameraModule with the lowest pose ambiguity, or null if no cameras have valid
    *     targets
    */
-  private CameraModule getCameraWithLeastAmbiguity() {
-    CameraModule bestCam = null;
+  private PhotonModule getCameraWithLeastAmbiguity() {
+    PhotonModule bestCam = null;
     double bestAmbiguity = Double.MAX_VALUE;
 
-    for (CameraModule camera : cameras) {
+    for (PhotonModule camera : cameras) {
       List<PhotonPipelineResult> results = camera.getAllUnreadResults();
       for (PhotonPipelineResult result : results) {
         if (result.hasTargets()) {

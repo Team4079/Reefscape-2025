@@ -5,32 +5,39 @@ import static frc.robot.utils.RobotParameters.SwerveParameters.PIDParameters.*;
 import edu.wpi.first.math.controller.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
+import frc.robot.utils.*;
+import frc.robot.utils.RobotParameters.SwerveParameters;
 
 public class AlignSwerve extends Command {
   private double yaw;
   private double y;
-  private double dist; 
+  private double dist;
   private PIDController rotationalController;
   private PIDController yController;
   private PIDController disController;
-  private double offset; // double offset is the left/right offset from the april tag to make it properly align with the L4 branches
+  private double
+      offset; // double offset is the left/right offset from the april tag to make it properly align
+  // with the L4 branches
   private double tolerance = 0.4;
 
   /**
-   * Creates a new AlignSwerve.
+   * Creates a new AlignSwerve using the Direction Enum.
    *
    * @param offsetSide The side of the robot to offset the alignment to. Can be "left", "right", or
    *     "center".
    */
-  public AlignSwerve(String offsetSide) {
-    if (offsetSide.toLowerCase().equals("left")) {
-      this.offset = -0.1;
-    } else if (offsetSide.toLowerCase().equals("right")) {
-      this.offset = 0.1;
-    } else if (offsetSide.toLowerCase().equals("center")) {
-      this.offset = 0;
-    } else {
-      this.offset = 0;
+  public AlignSwerve(Direction offsetSide) {
+    switch (offsetSide) {
+      // TODO: Placeholder for the offset amount, figure out the correct value
+      case LEFT:
+        this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_LEFT;
+        break;
+      case RIGHT:
+        this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_RIGHT;
+        break;
+      case CENTER:
+        this.offset = 0;
+        break;
     }
 
     addRequirements(Swerve.getInstance());
@@ -43,13 +50,17 @@ public class AlignSwerve extends Command {
    *     "center".
    * @param offsetAmount The amount to offset the alignment by.
    */
-  public AlignSwerve(String offsetSide, double offsetAmount) {
-    if (offsetSide.toLowerCase().equals("left")) {
-      this.offset = -offsetAmount;
-    } else if (offsetSide.toLowerCase().equals("right")) {
-      this.offset = offsetAmount;
-    } else {
-      this.offset = 0;
+  public AlignSwerve(Direction offsetSide, double offsetAmount) {
+    switch (offsetSide) {
+      case LEFT:
+        this.offset = -offsetAmount;
+        break;
+      case RIGHT:
+        this.offset = offsetAmount;
+        break;
+      case CENTER:
+        this.offset = 0;
+        break;
     }
 
     addRequirements(Swerve.getInstance());
@@ -67,13 +78,11 @@ public class AlignSwerve extends Command {
     rotationalController.setTolerance(tolerance);
     rotationalController.setSetpoint(0);
 
-    yController =
-      new PIDController(Y_PID.getP(), Y_PID.getI(), Y_PID.getD());
+    yController = new PIDController(Y_PID.getP(), Y_PID.getI(), Y_PID.getD());
     yController.setTolerance(1.5);
     yController.setSetpoint(0);
 
-    disController =
-      new PIDController(DIST_PID.getP(), DIST_PID.getI(), DIST_PID.getD());
+    disController = new PIDController(DIST_PID.getP(), DIST_PID.getI(), DIST_PID.getD());
     disController.setTolerance(1.5);
     disController.setSetpoint(0);
   }
@@ -88,7 +97,12 @@ public class AlignSwerve extends Command {
     y = PhotonVision.getInstance().getY();
     dist = PhotonVision.getInstance().getDist();
 
-    Swerve.getInstance().setDriveSpeeds(disController.calculate(dist), yController.calculate(y), rotationalController.calculate(yaw), false);
+    Swerve.getInstance()
+        .setDriveSpeeds(
+            disController.calculate(dist),
+            yController.calculate(y),
+            rotationalController.calculate(yaw),
+            false);
   }
 
   /**

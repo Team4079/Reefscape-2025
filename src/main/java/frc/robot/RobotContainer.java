@@ -1,20 +1,16 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
 package frc.robot;
 
-import com.pathplanner.lib.commands.PathPlannerAuto;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.commands.PadDrive;
-import frc.robot.commands.sequencing.ScoreLeft;
-import frc.robot.commands.sequencing.ScoreRight;
+import frc.robot.commands.sequencing.AutomaticScore;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.Elevator.ElevatorState;
 import frc.robot.utils.*;
-import frc.robot.utils.RobotParameters.SwerveParameters;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
+
+import static frc.robot.utils.Kommand.*;
+import static frc.robot.utils.Direction.*;
+import static frc.robot.utils.ElevatorState.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -42,10 +38,12 @@ public class RobotContainer {
     padLeftBumper = new JoystickButton(pad, 5);
     padRightBumper = new JoystickButton(pad, 6);
 
-    Swerve.getInstance()
-        .setDefaultCommand(new PadDrive(pad, Thresholds.IS_FIELD_ORIENTED));
+    Swerve.getInstance().setDefaultCommand(new PadDrive(pad, Thresholds.IS_FIELD_ORIENTED));
 
     configureBindings();
+
+    NamedCommands.registerCommand("scoreLeft", new AutomaticScore(LEFT));
+    NamedCommands.registerCommand("scoreRight", new AutomaticScore(RIGHT));
   }
 
   /**
@@ -56,28 +54,15 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // padA.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::addRotorPositionsforModules));
-    padStart.onTrue(
-        new InstantCommand(Swerve.getInstance()::resetPidgey)); // Prev Button: padB
-    padY.onTrue(new InstantCommand(Swerve.getInstance()::setTelePID));
+    padStart.onTrue(resetPidgey()); // Prev Button: padB
+    padY.onTrue(setTelePid());
     // padX.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::configSlowMode));
 
-    padA.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L1)));
-    padB.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L2)));
-    padX.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L3)));
-    padY.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L4)));
-    // TODO: These are placeholders, please change them to the correct values when Aaron finalizes them
-      padLeftBumper.onTrue(
-        new InstantCommand(() -> new ScoreLeft()));
-    padRightBumper.onTrue(
-        new InstantCommand(() -> new ScoreRight()));
-    }
-
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    return new PathPlannerAuto(SwerveParameters.pathPlannerAutoName);
+    padA.onTrue(setElevatorState(L1));
+    padB.onTrue(setElevatorState(L2));
+    padX.onTrue(setElevatorState(L3));
+    padY.onTrue(setElevatorState(L4));
+    padLeftBumper.onTrue(score(LEFT));
+    padRightBumper.onTrue(score(RIGHT));
   }
 }

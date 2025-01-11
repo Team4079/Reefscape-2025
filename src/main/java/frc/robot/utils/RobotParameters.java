@@ -4,7 +4,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
-import edu.wpi.first.math.controller.*; //TODO: Add the controller function for everything
+import edu.wpi.first.math.controller.*; // TODO: Add the controller function for everything
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -32,13 +32,15 @@ public class RobotParameters {
     public static final int PIVOT_MOTOR_ID = 15;
     public static final int PIDGEY_ID = 16;
     public static final int END_EFFECTOR_MOTOR_ID = 17;
+    public static final int CORAL_MANIPULATOR_MOTOR_UP_ID = 18;
+    public static final int CORAL_MANIPULATOR_MOTOR_DOWN_ID = 19;
 
     // Motor Property Values
     public static final double MAX_SPEED = 5.76;
     public static final double MAX_ANGULAR_SPEED = (14 * Math.PI) / 3;
     public static final double ENCODER_COUNTS_PER_ROTATION = 1.0;
     public static final double STEER_MOTOR_GEAR_RATIO = 150.0 / 7;
-    public static final double DRIVE_MOTOR_GEAR_RATIO = 5.9;
+    public static final double DRIVE_MOTOR_GEAR_RATIO = 6.750000000000000;
     public static final double WHEEL_DIAMETER = 0.106;
     // public static final double SPEED_CONSTANT = 0.6;
     // public static final double TURN_CONSTANT = 0.3;
@@ -53,7 +55,10 @@ public class RobotParameters {
 
   /** Class containing global values related to the swerve drive system. */
   public static class SwerveParameters {
-    public static final String pathPlannerAutoName = "Straight Auto";
+    public static final String PATHPLANNER_AUTO_NAME = "Straight Auto";
+
+    public static final double AUTO_ALIGN_SWERVE_LEFT = -0.1;
+    public static final double AUTO_ALIGN_SWERVE_RIGHT = 0.1;
 
     /** Class containing PID constants for the swerve drive system. */
     public static class PIDParameters {
@@ -131,8 +136,8 @@ public class RobotParameters {
     }
   }
 
-  /** Class containing constants for the PhotonVision subsystem. */
-  public static class PhotonVisionConstants {
+  /** Class containing constants for the Photonvision subsystem. */
+  public static class PhotonvisionConstants {
     public static final double CAMERA_ONE_HEIGHT_METER = 0.47;
     public static final double CAMERA_ONE_ANGLE_DEG = 33.0;
     public static final double OFFSET_TOWARD_MID_LEFT = -15.00;
@@ -159,7 +164,7 @@ public class RobotParameters {
     public static final double L2 = 2.0;
     public static final double L3 = 3.0;
     public static final double L4 = 4.0;
-    //Brandon: Why are these static?
+    // Brandon: Why are these static?
 
     public static boolean SOFT_LIMIT_ENABLED = false;
     public static boolean IS_SOFTLIMIT = false;
@@ -184,6 +189,18 @@ public class RobotParameters {
 
     public static boolean SOFT_LIMIT_ENABLED = false;
     public static boolean IS_SOFTLIMIT = false;
-    //Brandon: Tf why are there two bruh
+    // Brandon: Tf why are there two bruh
+  }
+
+  public static class CoralManipulatorParameters {
+    public static final double CORAL_MANIPULATOR_UP_PID_P = 0.001;
+    public static final double CORAL_MANIPULATOR_UP_PID_I = 0.0;
+    public static final double CORAL_MANIPULATOR_UP_PID_D = 0.0;
+    public static final double CORAL_MANIPULATOR_UP_PID_V = 0.0;
+
+    public static final double CORAL_MANIPULATOR_DOWN_PID_P = 0.001;
+    public static final double CORAL_MANIPULATOR_DOWN_PID_I = 0.0;
+    public static final double CORAL_MANIPULATOR_DOWN_PID_D = 0.0;
+    public static final double CORAL_MANIPULATOR_DOWN_PID_V = 0.0;
   }
 }
