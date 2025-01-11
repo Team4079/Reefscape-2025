@@ -34,6 +34,11 @@ $dokka.location:frc.robot.subsystems/Climber/shootPos/#double/PointingToDeclarat
 $dokka.location:frc.robot.subsystems/Climber/stopMotor/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/stop-motor.html
 $dokka.location:frc.robot.subsystems/Climber/toggleLimit/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/toggle-limit.html
 $dokka.location:frc.robot.subsystems/Climber/toggleSoftStop/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/toggle-soft-stop.html
+$dokka.location:frc.robot.subsystems/CoralManipulator///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-coral-manipulator/index.html
+$dokka.location:frc.robot.subsystems/CoralManipulator/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-coral-manipulator/get-instance.html
+$dokka.location:frc.robot.subsystems/CoralManipulator/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-coral-manipulator/periodic.html
+$dokka.location:frc.robot.subsystems/CoralManipulator/startMotors/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-coral-manipulator/start-motors.html
+$dokka.location:frc.robot.subsystems/CoralManipulator/stopMotors/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-coral-manipulator/stop-motors.html
 $dokka.location:frc.robot.subsystems/Elevator.ElevatorState.L1///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.subsystems/-elevator/-elevator-state/-l1/index.html
 $dokka.location:frc.robot.subsystems/Elevator.ElevatorState.L2///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.subsystems/-elevator/-elevator-state/-l2/index.html
 $dokka.location:frc.robot.subsystems/Elevator.ElevatorState.L3///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.subsystems/-elevator/-elevator-state/-l3/index.html
@@ -244,6 +249,8 @@ $dokka.location:frc.robot.utils/PID/setSetpoint/#double/PointingToDeclaration/-
 $dokka.location:frc.robot.utils/PID/updatePID/#double#double#double#double#int/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d/update-p-i-d.html
 $dokka.location:frc.robot.utils/PID/updatePID/#double#double#double#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d/update-p-i-d.html
 $dokka.location:frc.robot.utils/PID/updatePID/#double#double#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d/update-p-i-d.html
+$dokka.location:frc.robot.utils/RobotParameters.CoralManipulatorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-coral-manipulator-parameters/index.html
+$dokka.location:frc.robot.utils/RobotParameters.CoralManipulatorParameters/RobotParameters.CoralManipulatorParameters/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-coral-manipulator-parameters/-robot-parameters.-coral-manipulator-parameters.html
 $dokka.location:frc.robot.utils/RobotParameters.ElevatorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-elevator-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.ElevatorParameters/RobotParameters.ElevatorParameters/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-elevator-parameters/-robot-parameters.-elevator-parameters.html
 $dokka.location:frc.robot.utils/RobotParameters.EndEffectorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-end-effector-parameters/index.html
