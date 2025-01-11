@@ -7,11 +7,9 @@ package frc.robot.commands.sequencing;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.AlignSwerve;
-import frc.robot.commands.AlignSwerve.Direction;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Elevator.*;
-
-import static frc.robot.commands.AlignSwerve.Direction.*;
+import frc.robot.utils.*;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
