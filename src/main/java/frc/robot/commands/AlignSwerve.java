@@ -23,14 +23,19 @@ public class AlignSwerve extends Command {
    *     "center".
    */
   public AlignSwerve(String offsetSide) {
-    if (offsetSide.toLowerCase().equals("left")) {
-      this.offset = -0.1;
-    } else if (offsetSide.toLowerCase().equals("right")) {
-      this.offset = 0.1;
-    } else if (offsetSide.toLowerCase().equals("center")) {
-      this.offset = 0;
-    } else {
-      this.offset = 0;
+    switch (offsetSide.toLowerCase()) {
+      case "left":
+        this.offset = -0.1;
+        break;
+      case "right":
+        this.offset = 0.1;
+        break;
+      case "center":
+        this.offset = 0;
+        break;
+      default:
+        this.offset = 0;
+        break;
     }
 
     addRequirements(Swerve.getInstance());
@@ -44,12 +49,19 @@ public class AlignSwerve extends Command {
    * @param offsetAmount The amount to offset the alignment by.
    */
   public AlignSwerve(String offsetSide, double offsetAmount) {
-    if (offsetSide.toLowerCase().equals("left")) {
-      this.offset = -offsetAmount;
-    } else if (offsetSide.toLowerCase().equals("right")) {
-      this.offset = offsetAmount;
-    } else {
-      this.offset = 0;
+    switch (offsetSide.toLowerCase()) {
+      case "left":
+        this.offset = -offsetAmount;
+        break;
+      case "right":
+        this.offset = offsetAmount;
+        break;
+      case "center":
+        this.offset = 0;
+        break;
+      default:
+        this.offset = 0;
+        break;
     }
 
     addRequirements(Swerve.getInstance());
