@@ -53,7 +53,10 @@ public class RobotParameters {
 
   /** Class containing global values related to the swerve drive system. */
   public static class SwerveParameters {
-    public static final String pathPlannerAutoName = "Straight Auto";
+    public static final String PATHPLANNER_AUTO_NAME = "Straight Auto";
+
+    public static final double AUTO_ALIGN_SWERVE_LEFT = -0.1;
+    public static final double AUTO_ALIGN_SWERVE_RIGHT = 0.1;
 
     /** Class containing PID constants for the swerve drive system. */
     public static class PIDParameters {

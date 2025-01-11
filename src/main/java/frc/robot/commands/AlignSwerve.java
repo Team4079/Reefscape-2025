@@ -5,6 +5,7 @@ import static frc.robot.utils.RobotParameters.SwerveParameters.PIDParameters.*;
 import edu.wpi.first.math.controller.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
+import frc.robot.utils.RobotParameters.SwerveParameters;
 
 public class AlignSwerve extends Command {
   private double yaw;
@@ -24,11 +25,12 @@ public class AlignSwerve extends Command {
    */
   public AlignSwerve(String offsetSide) {
     switch (offsetSide.toLowerCase()) {
+      // TODO: Placeholder for the offset amount, figure out the correct value
       case "left":
-        this.offset = -0.1;
+        this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_LEFT;
         break;
       case "right":
-        this.offset = 0.1;
+        this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_RIGHT;
         break;
       case "center":
         this.offset = 0;
