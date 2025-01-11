@@ -1,16 +1,5 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
-$dokka.location:frc.robot.commands.elevator////PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/index.html
-$dokka.location:frc.robot.commands.elevator/MoveToLevel///PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-move-to-level/index.html
-$dokka.location:frc.robot.commands.elevator/MoveToLevel/MoveToLevel/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-move-to-level/-move-to-level.html
-$dokka.location:frc.robot.commands.elevator/MoveToLevel/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-move-to-level/end.html
-$dokka.location:frc.robot.commands.elevator/MoveToLevel/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-move-to-level/initialize.html
-$dokka.location:frc.robot.commands.elevator/MoveToLevel/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-move-to-level/is-finished.html
-$dokka.location:frc.robot.commands.elevator/SetL1///PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-set-l1/index.html
-$dokka.location:frc.robot.commands.elevator/SetL1/SetL1/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-set-l1/-set-l1.html
-$dokka.location:frc.robot.commands.elevator/SetL1/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-set-l1/end.html
-$dokka.location:frc.robot.commands.elevator/SetL1/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-set-l1/initialize.html
-$dokka.location:frc.robot.commands.elevator/SetL1/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.elevator/-set-l1/is-finished.html
 $dokka.location:frc.robot.commands.sequencing////PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/index.html
 $dokka.location:frc.robot.commands.sequencing/ScoreLeft///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-left/index.html
 $dokka.location:frc.robot.commands.sequencing/ScoreLeft/ScoreLeft/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-left/-score-left.html
@@ -287,7 +276,6 @@ $dokka.location:frc.robot/RobotContainer/RobotContainer/#/PointingToDeclaration/
 $dokka.location:frc.robot/RobotContainer/getAutonomousCommand/#/PointingToDeclaration/-reefscape2025/frc.robot/-robot-container/get-autonomous-command.html
 frc.robot
 frc.robot.commands
-frc.robot.commands.elevator
 frc.robot.commands.sequencing
 frc.robot.subsystems
 frc.robot.utils
