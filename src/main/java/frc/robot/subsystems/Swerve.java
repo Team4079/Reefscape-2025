@@ -169,7 +169,7 @@ public class Swerve extends SubsystemBase {
     */
     if (DriverStation.isTeleop()) {
       EstimatedRobotPose estimatedPose =
-          PhotonVision.getInstance().getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
+          Photonvision.getInstance().getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
       if (estimatedPose != null) {
         double timestamp = estimatedPose.timestampSeconds;
         Pose2d visionMeasurement2d = estimatedPose.estimatedPose.toPose2d();

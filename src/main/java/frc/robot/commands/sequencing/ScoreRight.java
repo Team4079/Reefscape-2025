@@ -17,7 +17,6 @@ public class ScoreRight extends SequentialCommandGroup {
     addCommands(
       new AlignSwerve("right"), // Align the robot to the april tag (and add an offset)
       new MoveToLevel(), // Move the elevator to the desired level
-      // Pivot to branch
       // Reverse rollers
       // Stop rollers
       new SetL1(),

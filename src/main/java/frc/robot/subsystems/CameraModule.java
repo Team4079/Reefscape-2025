@@ -7,7 +7,7 @@ import org.photonvision.*;
 import org.photonvision.targeting.*;
 
 /**
- * The CameraModule class represents a single PhotonVision camera setup with its associated pose
+ * The CameraModule class represents a single Photonvision camera setup with its associated pose
  * estimator and position information. This class encapsulates all the functionality needed for a
  * single camera to track AprilTags and estimate robot pose.
  */
@@ -19,7 +19,7 @@ public class CameraModule {
   /**
    * Creates a new CameraModule with the specified parameters.
    *
-   * @param cameraName The name of the camera in the PhotonVision interface
+   * @param cameraName The name of the camera in the Photonvision interface
    * @param cameraPos The 3D transform representing the camera's position relative to the robot
    * @param fieldLayout The AprilTag field layout used for pose estimation
    */
