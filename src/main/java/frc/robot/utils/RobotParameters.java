@@ -38,7 +38,7 @@ public class RobotParameters {
     public static final double MAX_ANGULAR_SPEED = (14 * Math.PI) / 3;
     public static final double ENCODER_COUNTS_PER_ROTATION = 1.0;
     public static final double STEER_MOTOR_GEAR_RATIO = 150.0 / 7;
-    public static final double DRIVE_MOTOR_GEAR_RATIO = 5.9;
+    public static final double DRIVE_MOTOR_GEAR_RATIO = 6.750000000000000;
     public static final double WHEEL_DIAMETER = 0.106;
     // public static final double SPEED_CONSTANT = 0.6;
     // public static final double TURN_CONSTANT = 0.3;

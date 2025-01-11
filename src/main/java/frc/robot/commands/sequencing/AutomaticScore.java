@@ -7,6 +7,7 @@ package frc.robot.commands.sequencing;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.AlignSwerve;
+import frc.robot.commands.AlignSwerve.Direction;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Elevator.*;
 
@@ -15,12 +16,10 @@ import static frc.robot.commands.AlignSwerve.Direction.*;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ScoreLeft extends SequentialCommandGroup {
-  public ScoreLeft() {
+public class AutomaticScore extends SequentialCommandGroup {
+  public AutomaticScore(Direction offsetSide) {
     addCommands(
-      // new ParallelCommandGroup(
-      new AlignSwerve(LEFT), // Align the robot to the april tag (and add an offset)
-      // ),
+      new AlignSwerve(offsetSide), // Align the robot to the april tag (and add an offset)
       new InstantCommand(() -> Elevator.getInstance().moveElevatorToLevel()),
       // Reverse rollers
       // Stop rollers

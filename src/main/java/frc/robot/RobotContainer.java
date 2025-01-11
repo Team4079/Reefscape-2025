@@ -3,13 +3,14 @@
 // the WPILib BSD license file in the root directory of this project.
 package frc.robot;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.commands.PadDrive;
-import frc.robot.commands.sequencing.ScoreLeft;
-import frc.robot.commands.sequencing.ScoreRight;
+import frc.robot.commands.AlignSwerve.Direction;
+import frc.robot.commands.sequencing.AutomaticScore;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.Elevator.ElevatorState;
 import frc.robot.utils.*;
@@ -46,6 +47,9 @@ public class RobotContainer {
         .setDefaultCommand(new PadDrive(pad, Thresholds.IS_FIELD_ORIENTED));
 
     configureBindings();
+
+    NamedCommands.registerCommand("scoreLeft", new AutomaticScore(Direction.LEFT));
+    NamedCommands.registerCommand("scoreRight", new AutomaticScore(Direction.RIGHT));
   }
 
   /**
@@ -67,9 +71,9 @@ public class RobotContainer {
     padY.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L4)));
     // TODO: These are placeholders, please change them to the correct values when Aaron finalizes them
       padLeftBumper.onTrue(
-        new InstantCommand(() -> new ScoreLeft()));
+        new InstantCommand(() -> new AutomaticScore(Direction.LEFT)));
     padRightBumper.onTrue(
-        new InstantCommand(() -> new ScoreRight()));
+        new InstantCommand(() -> new AutomaticScore(Direction.RIGHT)));
     }
 
   /**
