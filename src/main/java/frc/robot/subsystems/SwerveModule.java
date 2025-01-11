@@ -12,12 +12,12 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
+import edu.wpi.first.math.controller.*;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
-import frc.robot.utils.PID;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
@@ -215,7 +215,7 @@ public class SwerveModule {
    * @param pid The PID object containing the PID values.
    * @param velocity The velocity value.
    */
-  public void setDrivePID(PID pid, double velocity) {
+  public void setDrivePID(PIDController pid, double velocity) {
     driveConfigs.Slot0.kP = pid.getP();
     driveConfigs.Slot0.kI = pid.getI();
     driveConfigs.Slot0.kD = pid.getD();
@@ -229,7 +229,7 @@ public class SwerveModule {
    * @param pid The PID object containing the PID values.
    * @param velocity The velocity value.
    */
-  public void setSteerPID(PID pid, double velocity) {
+  public void setSteerPID(PIDController pid, double velocity) {
     steerConfigs.Slot0.kP = pid.getP();
     steerConfigs.Slot0.kI = pid.getI();
     steerConfigs.Slot0.kD = pid.getD();

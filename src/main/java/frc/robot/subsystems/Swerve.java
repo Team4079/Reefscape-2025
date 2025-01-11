@@ -10,6 +10,7 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
+import edu.wpi.first.math.controller.*;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -35,7 +36,7 @@ public class Swerve extends SubsystemBase {
   private final Pigeon2 pidgey = new Pigeon2(RobotParameters.MotorParameters.PIDGEY_ID);
   private final SwerveModuleState[] states = new SwerveModuleState[4];
   private final SwerveModule[] modules;
-  private final PID pid;
+  private final PIDController pid;
   private PathPlannerPath pathToScore = null;
   private SwerveModuleState[] moduleStates = new SwerveModuleState[4];
   ;
@@ -111,8 +112,8 @@ public class Swerve extends SubsystemBase {
    *
    * @return A new PID object with values from the SmartDashboard.
    */
-  private PID initializePID() {
-    return new PID(
+  private PIDController initializePID() {
+    return new PIDController(
         getNumber("AUTO: P", PIDParameters.DRIVE_PID_AUTO.getP()),
         getNumber("AUTO: I", PIDParameters.DRIVE_PID_AUTO.getI()),
         getNumber("AUTO: D", PIDParameters.DRIVE_PID_AUTO.getD()));

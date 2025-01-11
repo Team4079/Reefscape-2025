@@ -1,12 +1,13 @@
 package frc.robot.utils
 
+import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.kinematics.SwerveModuleState
 import edu.wpi.first.util.WPISerializable
 import edu.wpi.first.util.struct.StructSerializable
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds
-import java.util.function.DoubleConsumer
 import org.littletonrobotics.junction.Logger
+import java.util.function.DoubleConsumer
 
 /**
  * Utility class for interacting with the SmartDashboard and logging. Provides methods to update PID
@@ -23,7 +24,10 @@ object Dash {
      */
     @JvmStatic
     fun dashPID(
-        prefix: String, pid: PID, velocity: Double, changeV: DoubleConsumer
+        prefix: String,
+        pid: PIDController,
+        velocity: Double,
+        changeV: DoubleConsumer,
     ) {
         pid.p = SmartDashboard.getNumber("$prefix Auto P", pid.p)
         pid.i = SmartDashboard.getNumber("$prefix Auto I", pid.i)
@@ -38,7 +42,10 @@ object Dash {
      * @param value The double value to log.
      */
     @JvmStatic
-    fun log(key: String?, value: Double) {
+    fun log(
+        key: String?,
+        value: Double,
+    ) {
         if (Thresholds.TEST_MODE) {
             Logger.recordOutput(key, value)
         }
@@ -51,7 +58,10 @@ object Dash {
      * @param value The integer value to log.
      */
     @JvmStatic
-    fun log(key: String?, value: Int) {
+    fun log(
+        key: String?,
+        value: Int,
+    ) {
         if (Thresholds.TEST_MODE) {
             Logger.recordOutput(key, value)
         }
@@ -64,7 +74,10 @@ object Dash {
      * @param value The boolean value to log.
      */
     @JvmStatic
-    fun log(key: String?, value: Boolean) {
+    fun log(
+        key: String?,
+        value: Boolean,
+    ) {
         if (Thresholds.TEST_MODE) {
             Logger.recordOutput(key, value)
         }
@@ -77,22 +90,12 @@ object Dash {
      * @param value The String value to log.
      */
     @JvmStatic
-    fun log(key: String?, value: String?) {
+    fun log(
+        key: String?,
+        value: String?,
+    ) {
         if (Thresholds.TEST_MODE) {
             Logger.recordOutput(key, value)
-        }
-    }
-
-    /**
-     * Logs a SwerveModuleState[] value with a specified key if the system is in test mode.
-     *
-     * @param key The key associated with the value to log.
-     * @param value The SwerveModuleState[] value to log.
-     */
-    @JvmStatic
-    fun log(key: String?, value: Array<SwerveModuleState?>) {
-        if (Thresholds.TEST_MODE) {
-            Logger.recordOutput(key, *value)
         }
     }
 
@@ -103,22 +106,28 @@ object Dash {
      * @param value The WPISerializable value to log.
      */
     @JvmStatic
-    fun <T : WPISerializable?> log(key: String?, value: T) {
+    fun <T : WPISerializable?> log(
+        key: String?,
+        value: T,
+    ) {
         if (Thresholds.TEST_MODE) {
             Logger.recordOutput(key, value)
         }
     }
 
     /**
-     * Logs a StructSerializable value with a specified key if the system is in test mode.
+     * Logs a SwerveModuleState value with a specified key if the system is in test mode.
      *
      * @param key The key associated with the value to log.
-     * @param value The StructSerializable value to log.
+     * @param value The SwerveModuleState value to log.
      */
     @JvmStatic
-    fun <T : StructSerializable?> log(key: String?, value: T) {
+    fun <T : StructSerializable?> log(
+        key: String?,
+        vararg value: T,
+    ) {
         if (Thresholds.TEST_MODE) {
-            Logger.recordOutput(key, value)
+            Logger.recordOutput(key, *value)
         }
     }
 }
