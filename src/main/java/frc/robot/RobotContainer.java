@@ -1,6 +1,9 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.NamedCommands;
+
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.commands.PadDrive;
 import frc.robot.commands.sequencing.AutomaticScore;
@@ -9,6 +12,9 @@ import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 
 import static frc.robot.utils.Kommand.*;
+
+import org.littletonrobotics.junction.networktables.*;
+
 import static frc.robot.utils.Direction.*;
 import static frc.robot.utils.ElevatorState.*;
 
@@ -27,6 +33,8 @@ public class RobotContainer {
   private final JoystickButton padLeftBumper;
   private final JoystickButton padRightBumper;
 
+  private final LoggedDashboardChooser<Command> networkChooser;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     GamingController pad = new GamingController(0);
@@ -44,6 +52,9 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("scoreLeft", new AutomaticScore(LEFT));
     NamedCommands.registerCommand("scoreRight", new AutomaticScore(RIGHT));
+
+    networkChooser = new LoggedDashboardChooser<>("AutoChooser");
+    networkChooser.addDefaultOption("Do Nothing", new InstantCommand());
   }
 
   /**
