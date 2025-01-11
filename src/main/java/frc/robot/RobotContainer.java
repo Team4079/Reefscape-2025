@@ -29,7 +29,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    LogitechGamingPad pad = new LogitechGamingPad(0);
+    GamingController pad = new GamingController(0);
     padStart = new JoystickButton(pad, 8);
     padA = new JoystickButton(pad, 1);
     padB = new JoystickButton(pad, 2);

@@ -9,7 +9,7 @@ import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds;
 
 /** Command to control the robot's swerve drive using a Logitech gaming pad. */
 public class PadDrive extends Command {
-  private final LogitechGamingPad pad;
+  private final GamingController pad;
   private final boolean isFieldOriented;
 
   /**
@@ -18,7 +18,7 @@ public class PadDrive extends Command {
    * @param pad The Logitech gaming pad used to control the robot.
    * @param isFieldOriented Whether the drive is field-oriented.
    */
-  public PadDrive(LogitechGamingPad pad, boolean isFieldOriented) {
+  public PadDrive(GamingController pad, boolean isFieldOriented) {
     this.pad = pad;
     this.isFieldOriented = isFieldOriented;
     addRequirements(Swerve.getInstance());
@@ -65,7 +65,7 @@ public class PadDrive extends Command {
    * @param pad The Logitech gaming pad.
    * @return The coordinate representing the position.
    */
-  public static Coordinate positionSet(LogitechGamingPad pad) {
+  public static Coordinate positionSet(GamingController pad) {
     double x = -pad.getLeftAnalogXAxis() * RobotParameters.MotorParameters.MAX_SPEED;
     if (Math.abs(x) < Thresholds.X_DEADZONE) {
       x = 0.0;

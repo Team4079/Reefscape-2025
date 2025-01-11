@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
 /** A class representing a Logitech Gaming Pad. */
-public class LogitechGamingPad extends XboxController {
+public class GamingController extends XboxController {
   private final Joystick gamepad;
 
   /** Enum representing the DPad directions. */
@@ -74,7 +74,7 @@ public class LogitechGamingPad extends XboxController {
    *
    * @param usbPort The USB port the gamepad is connected to.
    */
-  public LogitechGamingPad(int usbPort) {
+  public GamingController(int usbPort) {
     super(usbPort);
     this.gamepad = new Joystick(usbPort);
   }

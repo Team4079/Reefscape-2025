@@ -27,6 +27,7 @@ module.exports = {
     { value: 'revert', name: 'revert:   Revert to a prior commit' },
     { value: 'removal', name: 'removal:  Remove a feature or code section' },
     { value: 'update', name: 'update:   Update a dependency or vendor dep' },
+    { value: 'rename', name: 'rename:   Rename a class or function (or something else)' },
   ],
 
   scopes: [{ name: 'robot' }, { name: 'swerve' }, { name: 'elevator' }, { name: 'pivot' }, { name: 'led' }, { name: 'photon' }, { name: 'robotparams' }, { name: 'command' }, { name: 'utils' }, { name: 'project' }],
