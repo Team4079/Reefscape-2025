@@ -1,10 +1,8 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:frc.robot.commands.sequencing////PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/index.html
-$dokka.location:frc.robot.commands.sequencing/ScoreLeft///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-left/index.html
-$dokka.location:frc.robot.commands.sequencing/ScoreLeft/ScoreLeft/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-left/-score-left.html
-$dokka.location:frc.robot.commands.sequencing/ScoreRight///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-right/index.html
-$dokka.location:frc.robot.commands.sequencing/ScoreRight/ScoreRight/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-right/-score-right.html
+$dokka.location:frc.robot.commands.sequencing/AutomaticScore///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/index.html
+$dokka.location:frc.robot.commands.sequencing/AutomaticScore/AutomaticScore/#frc.robot.commands.AlignSwerve.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/-automatic-score.html
 $dokka.location:frc.robot.commands////PointingToDeclaration/-reefscape2025/frc.robot.commands/index.html
 $dokka.location:frc.robot.commands/AlignSwerve.Direction.CENTER///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.commands/-align-swerve/-direction/-c-e-n-t-e-r/index.html
 $dokka.location:frc.robot.commands/AlignSwerve.Direction.LEFT///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.commands/-align-swerve/-direction/-l-e-f-t/index.html
