@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.commands.PadDrive;
-import frc.robot.commands.AlignSwerve.Direction;
 import frc.robot.commands.sequencing.AutomaticScore;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.Elevator.ElevatorState;

@@ -5,6 +5,7 @@ import static frc.robot.utils.RobotParameters.SwerveParameters.PIDParameters.*;
 import edu.wpi.first.math.controller.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
+import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.SwerveParameters;
 
 public class AlignSwerve extends Command {
@@ -16,12 +17,6 @@ public class AlignSwerve extends Command {
   private PIDController disController;
   private double offset; // double offset is the left/right offset from the april tag to make it properly align with the L4 branches
   private double tolerance = 0.4;
-
-  public enum Direction {
-    LEFT,
-    RIGHT,
-    CENTER
-  }
 
   /**
    * Creates a new AlignSwerve using the Direction Enum.
