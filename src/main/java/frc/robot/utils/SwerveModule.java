@@ -269,15 +269,15 @@ public class SwerveModule {
   }
 
   public void initializeLoggedNetworkPID() {
-    driveP = new LoggedNetworkNumber("Drive P", driveConfigs.Slot0.kP);
-    driveI = new LoggedNetworkNumber("Drive I", driveConfigs.Slot0.kI);
-    driveD = new LoggedNetworkNumber("Drive D", driveConfigs.Slot0.kD);
-    driveV = new LoggedNetworkNumber("Drive V", driveConfigs.Slot0.kV);
+    driveP = new LoggedNetworkNumber("/Tuning/Drive P", driveConfigs.Slot0.kP);
+    driveI = new LoggedNetworkNumber("/Tuning/Drive I", driveConfigs.Slot0.kI);
+    driveD = new LoggedNetworkNumber("/Tuning/Drive D", driveConfigs.Slot0.kD);
+    driveV = new LoggedNetworkNumber("/Tuning/Drive V", driveConfigs.Slot0.kV);
 
-    steerP = new LoggedNetworkNumber("Steer P", steerConfigs.Slot0.kP);
-    steerI = new LoggedNetworkNumber("Steer I", steerConfigs.Slot0.kI);
-    steerD = new LoggedNetworkNumber("Steer D", steerConfigs.Slot0.kD);
-    steerV = new LoggedNetworkNumber("Steer V", steerConfigs.Slot0.kV);
+    steerP = new LoggedNetworkNumber("/Tuning/Steer P", steerConfigs.Slot0.kP);
+    steerI = new LoggedNetworkNumber("/Tuning/Steer I", steerConfigs.Slot0.kI);
+    steerD = new LoggedNetworkNumber("/Tuning/Steer D", steerConfigs.Slot0.kD);
+    steerV = new LoggedNetworkNumber("/Tuning/Steer V", steerConfigs.Slot0.kV);
   }
 
   public void intializeAlarms(int driveID, int steerID, int canCoderID) {
