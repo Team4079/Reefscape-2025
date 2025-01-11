@@ -32,6 +32,8 @@ public class RobotParameters {
     public static final int PIVOT_MOTOR_ID = 15;
     public static final int PIDGEY_ID = 16;
     public static final int END_EFFECTOR_MOTOR_ID = 17;
+    public static final int CORAL_MANIPULATOR_MOTOR_UP_ID = 18;
+    public static final int CORAL_MANIPULATOR_MOTOR_DOWN_ID = 19;
 
     // Motor Property Values
     public static final double MAX_SPEED = 5.76;
@@ -188,5 +190,12 @@ public class RobotParameters {
     public static boolean SOFT_LIMIT_ENABLED = false;
     public static boolean IS_SOFTLIMIT = false;
     //Brandon: Tf why are there two bruh
+  }
+
+  public static class CoralManipulatorParameters {
+    public static final double CORAL_MANIPULATOR_PID_P = 0.001;
+    public static final double CORAL_MANIPULATOR_PID_I = 0.0;
+    public static final double CORAL_MANIPULATOR_PID_D = 0.0;
+    public static final double CORAL_MANIPULATOR_PID_V = 0.0;
   }
 }
