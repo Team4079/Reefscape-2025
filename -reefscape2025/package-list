@@ -34,11 +34,6 @@ $dokka.location:frc.robot.commands/PadDrive/positionSet/#frc.robot.utils.Logitec
 $dokka.location:frc.robot.subsystems////PointingToDeclaration/-reefscape2025/frc.robot.subsystems/index.html
 $dokka.location:frc.robot.subsystems/Algae///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-algae/index.html
 $dokka.location:frc.robot.subsystems/Algae/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-algae/get-instance.html
-$dokka.location:frc.robot.subsystems/CameraModule///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-camera-module/index.html
-$dokka.location:frc.robot.subsystems/CameraModule/CameraModule/#java.lang.String#edu.wpi.first.math.geometry.Transform3d#edu.wpi.first.apriltag.AprilTagFieldLayout/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-camera-module/-camera-module.html
-$dokka.location:frc.robot.subsystems/CameraModule/getAllUnreadResults/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-camera-module/get-all-unread-results.html
-$dokka.location:frc.robot.subsystems/CameraModule/getCameraPosition/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-camera-module/get-camera-position.html
-$dokka.location:frc.robot.subsystems/CameraModule/getPoseEstimator/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-camera-module/get-pose-estimator.html
 $dokka.location:frc.robot.subsystems/Climber///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/index.html
 $dokka.location:frc.robot.subsystems/Climber/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/get-instance.html
 $dokka.location:frc.robot.subsystems/Climber/getPivotPosValue/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/get-pivot-pos-value.html
@@ -99,6 +94,11 @@ $dokka.location:frc.robot.subsystems/LED/setPurpleColor/#/PointingToDeclaration/
 $dokka.location:frc.robot.subsystems/LED/setRGB/#int#int#int/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/set-r-g-b.html
 $dokka.location:frc.robot.subsystems/LED/setRed/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/set-red.html
 $dokka.location:frc.robot.subsystems/LED/setTan/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/set-tan.html
+$dokka.location:frc.robot.subsystems/PhotonModule///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/index.html
+$dokka.location:frc.robot.subsystems/PhotonModule/PhotonModule/#java.lang.String#edu.wpi.first.math.geometry.Transform3d#edu.wpi.first.apriltag.AprilTagFieldLayout/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/-photon-module.html
+$dokka.location:frc.robot.subsystems/PhotonModule/getAllUnreadResults/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-all-unread-results.html
+$dokka.location:frc.robot.subsystems/PhotonModule/getCameraPosition/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-camera-position.html
+$dokka.location:frc.robot.subsystems/PhotonModule/getPoseEstimator/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-pose-estimator.html
 $dokka.location:frc.robot.subsystems/PhotonVision///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/index.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getCurrentTarget/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-current-target.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getDist/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-dist.html
