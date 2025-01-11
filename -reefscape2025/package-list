@@ -161,6 +161,12 @@ $dokka.location:frc.robot.utils/ElevatorState/values/#/PointingToDeclaration/-r
 $dokka.location:frc.robot.utils/Extensions///PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions/index.html
 $dokka.location:frc.robot.utils/Extensions/Extensions/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions/-extensions.html
 $dokka.location:frc.robot.utils/Extensions/dimensionIncrease/#edu.wpi.first.math.geometry.Translation2d#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions/dimension-increase.html
+$dokka.location:frc.robot.utils/Kommand///PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/index.html
+$dokka.location:frc.robot.utils/Kommand/autonomousCommand/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/autonomous-command.html
+$dokka.location:frc.robot.utils/Kommand/resetPidgey/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/reset-pidgey.html
+$dokka.location:frc.robot.utils/Kommand/score/#frc.robot.utils.Direction/PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/score.html
+$dokka.location:frc.robot.utils/Kommand/setElevatorState/#frc.robot.utils.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/set-elevator-state.html
+$dokka.location:frc.robot.utils/Kommand/setTelePid/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/set-tele-pid.html
 $dokka.location:frc.robot.utils/LogitechGamingPad.Axis.LEFT_ANALOG_X///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-logitech-gaming-pad/-axis/-l-e-f-t_-a-n-a-l-o-g_-x/index.html
 $dokka.location:frc.robot.utils/LogitechGamingPad.Axis.LEFT_ANALOG_Y///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-logitech-gaming-pad/-axis/-l-e-f-t_-a-n-a-l-o-g_-y/index.html
 $dokka.location:frc.robot.utils/LogitechGamingPad.Axis.RIGHT_ANALOG_X///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-logitech-gaming-pad/-axis/-r-i-g-h-t_-a-n-a-l-o-g_-x/index.html
@@ -284,7 +290,6 @@ $dokka.location:frc.robot/Robot/teleopInit/#/PointingToDeclaration/-reefscape20
 $dokka.location:frc.robot/Robot/testInit/#/PointingToDeclaration/-reefscape2025/frc.robot/-robot/test-init.html
 $dokka.location:frc.robot/RobotContainer///PointingToDeclaration/-reefscape2025/frc.robot/-robot-container/index.html
 $dokka.location:frc.robot/RobotContainer/RobotContainer/#/PointingToDeclaration/-reefscape2025/frc.robot/-robot-container/-robot-container.html
-$dokka.location:frc.robot/RobotContainer/getAutonomousCommand/#/PointingToDeclaration/-reefscape2025/frc.robot/-robot-container/get-autonomous-command.html
 frc.robot
 frc.robot.commands
 frc.robot.commands.sequencing
