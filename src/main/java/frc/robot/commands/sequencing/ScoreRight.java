@@ -10,13 +10,15 @@ import frc.robot.commands.AlignSwerve;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Elevator.ElevatorState;
 
+import static frc.robot.commands.AlignSwerve.Direction.*;
+
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ScoreRight extends SequentialCommandGroup {
   public ScoreRight() {
     addCommands(
-      new AlignSwerve("right"), // Align the robot to the april tag (and add an offset)
+      new AlignSwerve(RIGHT), // Align the robot to the april tag (and add an offset)
       new InstantCommand(() -> Elevator.getInstance().moveElevatorToLevel()),
       // Move the elevator to the desired level
       // Reverse rollers

@@ -17,25 +17,28 @@ public class AlignSwerve extends Command {
   private double offset; // double offset is the left/right offset from the april tag to make it properly align with the L4 branches
   private double tolerance = 0.4;
 
+  public enum Direction {
+    LEFT,
+    RIGHT,
+    CENTER
+  }
+
   /**
-   * Creates a new AlignSwerve.
+   * Creates a new AlignSwerve using the Direction Enum.
    *
    * @param offsetSide The side of the robot to offset the alignment to. Can be "left", "right", or
    *     "center".
    */
-  public AlignSwerve(String offsetSide) {
-    switch (offsetSide.toLowerCase()) {
+  public AlignSwerve(Direction offsetSide) {
+    switch (offsetSide) {
       // TODO: Placeholder for the offset amount, figure out the correct value
-      case "left":
+      case LEFT:
         this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_LEFT;
         break;
-      case "right":
+      case RIGHT:
         this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_RIGHT;
         break;
-      case "center":
-        this.offset = 0;
-        break;
-      default:
+      case CENTER:
         this.offset = 0;
         break;
     }
@@ -50,18 +53,15 @@ public class AlignSwerve extends Command {
    *     "center".
    * @param offsetAmount The amount to offset the alignment by.
    */
-  public AlignSwerve(String offsetSide, double offsetAmount) {
-    switch (offsetSide.toLowerCase()) {
-      case "left":
+  public AlignSwerve(Direction offsetSide, double offsetAmount) {
+    switch (offsetSide) {
+      case LEFT:
         this.offset = -offsetAmount;
         break;
-      case "right":
+      case RIGHT:
         this.offset = offsetAmount;
         break;
-      case "center":
-        this.offset = 0;
-        break;
-      default:
+      case CENTER:
         this.offset = 0;
         break;
     }
