@@ -131,8 +131,8 @@ public class RobotParameters {
     }
   }
 
-  /** Class containing constants for the PhotonVision subsystem. */
-  public static class PhotonVisionConstants {
+  /** Class containing constants for the Photonvision subsystem. */
+  public static class PhotonvisionConstants {
     public static final double CAMERA_ONE_HEIGHT_METER = 0.47;
     public static final double CAMERA_ONE_ANGLE_DEG = 33.0;
     public static final double OFFSET_TOWARD_MID_LEFT = -15.00;
