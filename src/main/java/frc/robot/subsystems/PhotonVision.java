@@ -19,7 +19,7 @@ import org.photonvision.targeting.*;
  * targets, and the yaw of detected AprilTags. It also provides methods to check if a tag is visible
  * and get the pivot position based on distance calculations.
  */
-public class Photonvision extends SubsystemBase {
+public class PhotonVision extends SubsystemBase {
   private final List<CameraModule> cameras = new ArrayList<>();
   private CameraModule bestCamera;
   private PhotonPipelineResult currentResult;
@@ -31,7 +31,7 @@ public class Photonvision extends SubsystemBase {
   private double targetPoseAmbiguity = 7157.0;
 
   // Singleton instance
-  private static final Photonvision INSTANCE = new Photonvision();
+  private static final PhotonVision INSTANCE = new PhotonVision();
 
   /**
    * Returns the Singleton instance of this Photonvision subsystem. This static method should be
@@ -40,7 +40,7 @@ public class Photonvision extends SubsystemBase {
    *
    * @return The Singleton instance of Photonvision
    */
-  public static Photonvision getInstance() {
+  public static PhotonVision getInstance() {
     return INSTANCE;
   }
 
@@ -49,7 +49,7 @@ public class Photonvision extends SubsystemBase {
    * class is a Singleton. Code should use the {@link #getInstance()} method to get the singleton
    * instance.
    */
-  private Photonvision() {
+  private PhotonVision() {
     // Initialize cameras with their positions
     AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
 
@@ -89,8 +89,6 @@ public class Photonvision extends SubsystemBase {
       dist = tag.getBestCameraToTarget().getZ();
 
     }
-
-  
 
     // Update dashboard
     log("yaw to target", yaw);

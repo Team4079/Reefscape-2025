@@ -70,9 +70,9 @@ public class AlignSwerve extends Command {
   /** The initial subroutine of a command. Called once when the command is initially scheduled. */
   @Override
   public void initialize() {
-    yaw = Photonvision.getInstance().getYaw();
-    y = Photonvision.getInstance().getY();
-    dist = Photonvision.getInstance().getDist();
+    yaw = PhotonVision.getInstance().getYaw();
+    y = PhotonVision.getInstance().getY();
+    dist = PhotonVision.getInstance().getDist();
 
     rotationalController =
         new PIDController(ROTATIONAL_PID.getP(), ROTATIONAL_PID.getI(), ROTATIONAL_PID.getD());
@@ -96,9 +96,9 @@ public class AlignSwerve extends Command {
    */
   @Override
   public void execute() {
-    yaw = Photonvision.getInstance().getYaw();
-    y = Photonvision.getInstance().getY();
-    dist = Photonvision.getInstance().getDist();
+    yaw = PhotonVision.getInstance().getYaw();
+    y = PhotonVision.getInstance().getY();
+    dist = PhotonVision.getInstance().getDist();
 
     Swerve.getInstance().setDriveSpeeds(disController.calculate(dist), yController.calculate(y), rotationalController.calculate(yaw), false);
   }
