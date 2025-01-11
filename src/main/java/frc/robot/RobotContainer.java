@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.commands.PadDrive;
 import frc.robot.commands.sequencing.AutomaticScore;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.Elevator.ElevatorState;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.SwerveParameters;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
@@ -42,8 +41,7 @@ public class RobotContainer {
     padLeftBumper = new JoystickButton(pad, 5);
     padRightBumper = new JoystickButton(pad, 6);
 
-    Swerve.getInstance()
-        .setDefaultCommand(new PadDrive(pad, Thresholds.IS_FIELD_ORIENTED));
+    Swerve.getInstance().setDefaultCommand(new PadDrive(pad, Thresholds.IS_FIELD_ORIENTED));
 
     configureBindings();
 
@@ -59,21 +57,25 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // padA.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::addRotorPositionsforModules));
-    padStart.onTrue(
-        new InstantCommand(Swerve.getInstance()::resetPidgey)); // Prev Button: padB
+    padStart.onTrue(new InstantCommand(Swerve.getInstance()::resetPidgey)); // Prev Button: padB
     padY.onTrue(new InstantCommand(Swerve.getInstance()::setTelePID));
     // padX.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::configSlowMode));
 
-    padA.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L1)));
-    padB.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L2)));
-    padX.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L3)));
+    padA.onTrue(
+        new InstantCommand(
+            () -> Elevator.getInstance().setState(frc.robot.utils.ElevatorState.L1)));
+    padB.onTrue(
+        new InstantCommand(
+            () -> Elevator.getInstance().setState(frc.robot.utils.ElevatorState.L2)));
+    padX.onTrue(
+        new InstantCommand(
+            () -> Elevator.getInstance().setState(frc.robot.utils.ElevatorState.L3)));
     padY.onTrue(new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L4)));
-    // TODO: These are placeholders, please change them to the correct values when Aaron finalizes them
-      padLeftBumper.onTrue(
-        new InstantCommand(() -> new AutomaticScore(Direction.LEFT)));
-    padRightBumper.onTrue(
-        new InstantCommand(() -> new AutomaticScore(Direction.RIGHT)));
-    }
+    // TODO: These are placeholders, please change them to the correct values when Aaron finalizes
+    // them
+    padLeftBumper.onTrue(new InstantCommand(() -> new AutomaticScore(Direction.LEFT)));
+    padRightBumper.onTrue(new InstantCommand(() -> new AutomaticScore(Direction.RIGHT)));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

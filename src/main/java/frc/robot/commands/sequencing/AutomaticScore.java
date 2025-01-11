@@ -17,12 +17,13 @@ import frc.robot.utils.*;
 public class AutomaticScore extends SequentialCommandGroup {
   public AutomaticScore(Direction offsetSide) {
     addCommands(
-      new AlignSwerve(offsetSide), // Align the robot to the april tag (and add an offset)
-      new InstantCommand(() -> Elevator.getInstance().moveElevatorToLevel()),
-      // Reverse rollers
-      // Stop rollers
-      new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L1)),
-      new InstantCommand(() -> Elevator.getInstance().moveElevatorToLevel()) // Move the elevator back to L1
-    );
+        new AlignSwerve(offsetSide), // Align the robot to the april tag (and add an offset)
+        new InstantCommand(() -> Elevator.getInstance().moveElevatorToLevel()),
+        // Reverse rollers
+        // Stop rollers
+        new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L1)),
+        new InstantCommand(
+            () -> Elevator.getInstance().moveElevatorToLevel()) // Move the elevator back to L1
+        );
   }
 }

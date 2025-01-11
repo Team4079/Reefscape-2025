@@ -78,7 +78,7 @@ public class Dash {
     }
   }
 
-    /**
+  /**
    * Logs a SwerveModuleState[] value with a specified key if the system is in test mode.
    *
    * @param key The key associated with the value to log.

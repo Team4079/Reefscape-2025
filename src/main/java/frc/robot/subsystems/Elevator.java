@@ -18,13 +18,6 @@ import frc.robot.utils.RobotParameters.*;
 public class Elevator extends SubsystemBase {
   public static final String ELEVATOR_STATE_KEY = "Elevator State";
 
-  public enum ElevatorState {
-    L1,
-    L2,
-    L3,
-    L4
-  }
-
   private TalonFX elevatorMotorLeft;
   private TalonFX elevatorMotorRight;
 
@@ -55,7 +48,7 @@ public class Elevator extends SubsystemBase {
 
   private double deadband = 0.001;
 
-  private ElevatorState currentState = ElevatorState.L1;
+  private ElevatorState currentState = frc.robot.utils.ElevatorState.L1;
 
   /**
    * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
@@ -184,6 +177,7 @@ public class Elevator extends SubsystemBase {
 
   /**
    * Move the elevator motor to a specific level
+   *
    * @return void
    */
   public void moveElevatorToLevel() {
@@ -233,6 +227,7 @@ public class Elevator extends SubsystemBase {
 
   /**
    * Get the state of the elevator motor
+   *
    * @return ElevatorState, the state of the elevator motor
    */
   public ElevatorState getState() {
@@ -241,6 +236,7 @@ public class Elevator extends SubsystemBase {
 
   /**
    * Gets the state of the elevator motor as a double in terms of its height in the parameters file
+   *
    * @return double, the state of the elevator motor as a double
    */
   public double getStateDouble() {
@@ -257,7 +253,6 @@ public class Elevator extends SubsystemBase {
         return ElevatorParameters.L1;
     }
   }
-  
 
   /**
    * Get the position of the elevator motor
@@ -366,7 +361,7 @@ public class Elevator extends SubsystemBase {
    *
    * @return void
    */
-  public void toggleLimit() {
+  public static void toggleLimit() {
     ElevatorParameters.IS_SOFTLIMIT = !ElevatorParameters.IS_SOFTLIMIT;
   }
 

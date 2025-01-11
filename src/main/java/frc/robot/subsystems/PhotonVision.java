@@ -87,7 +87,6 @@ public class PhotonVision extends SubsystemBase {
       yaw = tag.getYaw();
       y = tag.getBestCameraToTarget().getX();
       dist = tag.getBestCameraToTarget().getZ();
-
     }
 
     // Update dashboard

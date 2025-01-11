@@ -11,11 +11,13 @@ import frc.robot.utils.RobotParameters.SwerveParameters;
 public class AlignSwerve extends Command {
   private double yaw;
   private double y;
-  private double dist; 
+  private double dist;
   private PIDController rotationalController;
   private PIDController yController;
   private PIDController disController;
-  private double offset; // double offset is the left/right offset from the april tag to make it properly align with the L4 branches
+  private double
+      offset; // double offset is the left/right offset from the april tag to make it properly align
+  // with the L4 branches
   private double tolerance = 0.4;
 
   /**
@@ -76,13 +78,11 @@ public class AlignSwerve extends Command {
     rotationalController.setTolerance(tolerance);
     rotationalController.setSetpoint(0);
 
-    yController =
-      new PIDController(Y_PID.getP(), Y_PID.getI(), Y_PID.getD());
+    yController = new PIDController(Y_PID.getP(), Y_PID.getI(), Y_PID.getD());
     yController.setTolerance(1.5);
     yController.setSetpoint(0);
 
-    disController =
-      new PIDController(DIST_PID.getP(), DIST_PID.getI(), DIST_PID.getD());
+    disController = new PIDController(DIST_PID.getP(), DIST_PID.getI(), DIST_PID.getD());
     disController.setTolerance(1.5);
     disController.setSetpoint(0);
   }
@@ -97,7 +97,12 @@ public class AlignSwerve extends Command {
     y = PhotonVision.getInstance().getY();
     dist = PhotonVision.getInstance().getDist();
 
-    Swerve.getInstance().setDriveSpeeds(disController.calculate(dist), yController.calculate(y), rotationalController.calculate(yaw), false);
+    Swerve.getInstance()
+        .setDriveSpeeds(
+            disController.calculate(dist),
+            yController.calculate(y),
+            rotationalController.calculate(yaw),
+            false);
   }
 
   /**

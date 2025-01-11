@@ -1,22 +1,16 @@
 package frc.robot.utils;
 
 /**
- * The Direction enum represents the possible directions
- * that can be used in the robot's navigation system.
+ * The Direction enum represents the possible directions that can be used in the robot's navigation
+ * system.
  */
 public enum Direction {
-  /**
-   * Represents the left direction.
-   */
+  /** Represents the left direction. */
   LEFT,
 
-  /**
-   * Represents the right direction.
-   */
+  /** Represents the right direction. */
   RIGHT,
 
-  /**
-   * Represents the center direction.
-   */
+  /** Represents the center direction. */
   CENTER
 }

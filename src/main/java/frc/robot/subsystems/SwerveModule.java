@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import static frc.robot.utils.Dash.*;
+
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TorqueCurrentConfigs;
@@ -16,7 +18,6 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import frc.robot.utils.PID;
-import static frc.robot.utils.Dash.*;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
@@ -188,9 +189,13 @@ public class SwerveModule {
     driveMotor.setControl(velocitySetter.withVelocity(velocityToSet));
 
     // Log the actual and set values for debugging
-    log("drive actual speed " + canCoder.getDeviceID(), driveMotor.getVelocity().getValueAsDouble());
+    log(
+        "drive actual speed " + canCoder.getDeviceID(),
+        driveMotor.getVelocity().getValueAsDouble());
     log("drive set speed " + canCoder.getDeviceID(), velocityToSet);
-    log("steer actual angle " + canCoder.getDeviceID(), steerMotor.getRotorPosition().getValueAsDouble());
+    log(
+        "steer actual angle " + canCoder.getDeviceID(),
+        steerMotor.getRotorPosition().getValueAsDouble());
     log("steer set angle " + canCoder.getDeviceID(), angleToSet);
     log("desired state after optimize " + canCoder.getDeviceID(), state.angle.getRotations());
 
