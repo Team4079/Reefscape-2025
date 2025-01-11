@@ -6,9 +6,15 @@ $dokka.location:frc.robot.commands.sequencing/ScoreLeft/ScoreLeft/#/PointingToDe
 $dokka.location:frc.robot.commands.sequencing/ScoreRight///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-right/index.html
 $dokka.location:frc.robot.commands.sequencing/ScoreRight/ScoreRight/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-right/-score-right.html
 $dokka.location:frc.robot.commands////PointingToDeclaration/-reefscape2025/frc.robot.commands/index.html
+$dokka.location:frc.robot.commands/AlignSwerve.Direction.CENTER///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.commands/-align-swerve/-direction/-c-e-n-t-e-r/index.html
+$dokka.location:frc.robot.commands/AlignSwerve.Direction.LEFT///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.commands/-align-swerve/-direction/-l-e-f-t/index.html
+$dokka.location:frc.robot.commands/AlignSwerve.Direction.RIGHT///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.commands/-align-swerve/-direction/-r-i-g-h-t/index.html
+$dokka.location:frc.robot.commands/AlignSwerve.Direction///PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/-direction/index.html
+$dokka.location:frc.robot.commands/AlignSwerve.Direction/valueOf/#java.lang.String/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/-direction/value-of.html
+$dokka.location:frc.robot.commands/AlignSwerve.Direction/values/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/-direction/values.html
 $dokka.location:frc.robot.commands/AlignSwerve///PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/index.html
-$dokka.location:frc.robot.commands/AlignSwerve/AlignSwerve/#java.lang.String#double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/-align-swerve.html
-$dokka.location:frc.robot.commands/AlignSwerve/AlignSwerve/#java.lang.String/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/-align-swerve.html
+$dokka.location:frc.robot.commands/AlignSwerve/AlignSwerve/#frc.robot.commands.AlignSwerve.Direction#double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/-align-swerve.html
+$dokka.location:frc.robot.commands/AlignSwerve/AlignSwerve/#frc.robot.commands.AlignSwerve.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/-align-swerve.html
 $dokka.location:frc.robot.commands/AlignSwerve/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/end.html
 $dokka.location:frc.robot.commands/AlignSwerve/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/execute.html
 $dokka.location:frc.robot.commands/AlignSwerve/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/initialize.html
