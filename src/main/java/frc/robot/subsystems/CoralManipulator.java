@@ -18,7 +18,6 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters;
 import frc.robot.utils.RobotParameters.MotorParameters;
@@ -55,15 +54,16 @@ public class CoralManipulator extends SubsystemBase {
   private double deadband = 0.001;
 
   /**
-   * The Singleton instance of this CoralManipulatorSubsystem. Code should use the {@link #getInstance()}
-   * method to get the single instance (rather than trying to construct an instance of this class.)
+   * The Singleton instance of this CoralManipulatorSubsystem. Code should use the {@link
+   * #getInstance()} method to get the single instance (rather than trying to construct an instance
+   * of this class.)
    */
   private static final CoralManipulator INSTANCE = new CoralManipulator();
 
   /**
-   * Returns the Singleton instance of this CoralManipulatorSubsystem. This static method should be used,
-   * rather than the constructor, to get the single instance of this class. For example: {@code
-   * CoralManipulatorSubsystem.getInstance();}
+   * Returns the Singleton instance of this CoralManipulatorSubsystem. This static method should be
+   * used, rather than the constructor, to get the single instance of this class. For example:
+   * {@code CoralManipulatorSubsystem.getInstance();}
    */
   @SuppressWarnings("WeakerAccess")
   public static CoralManipulator getInstance() {
@@ -71,9 +71,9 @@ public class CoralManipulator extends SubsystemBase {
   }
 
   /**
-   * Creates a new instance of this CoralManipulatorSubsystem. This constructor is private since this class
-   * is a Singleton. Code should use the {@link #getInstance()} method to get the singleton
-   * instance.
+   * Creates a new instance of this CoralManipulatorSubsystem. This constructor is private since
+   * this class is a Singleton. Code should use the {@link #getInstance()} method to get the
+   * singleton instance.
    */
   private CoralManipulator() {
     coralManipulatorMotorUp = new TalonFX(MotorParameters.CORAL_MANIPULATOR_MOTOR_UP_ID);
@@ -97,15 +97,23 @@ public class CoralManipulator extends SubsystemBase {
     coralManipulatorUpConfigurator.apply(coralManipulatorConfigs);
     coralManipulatorDownConfigurator.apply(coralManipulatorConfigs);
 
-    coralManipulatorUpConfigs.kP = RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_P;
-    coralManipulatorUpConfigs.kI = RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_I;
-    coralManipulatorUpConfigs.kD = RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_D;
-    coralManipulatorUpConfigs.kV = RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_V;
+    coralManipulatorUpConfigs.kP =
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_P;
+    coralManipulatorUpConfigs.kI =
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_I;
+    coralManipulatorUpConfigs.kD =
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_D;
+    coralManipulatorUpConfigs.kV =
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_V;
 
-    coralManipulatorDownConfigs.kP = RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_P;
-    coralManipulatorDownConfigs.kI = RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_I;
-    coralManipulatorDownConfigs.kD = RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_D;
-    coralManipulatorDownConfigs.kV = RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_V;
+    coralManipulatorDownConfigs.kP =
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_P;
+    coralManipulatorDownConfigs.kI =
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_I;
+    coralManipulatorDownConfigs.kD =
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_D;
+    coralManipulatorDownConfigs.kV =
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_V;
 
     coralManipulatorMotorUp.getConfigurator().apply(coralManipulatorUpConfigs);
     coralManipulatorMotorDown.getConfigurator().apply(coralManipulatorDownConfigs);
@@ -146,6 +154,7 @@ public class CoralManipulator extends SubsystemBase {
 
     new PositionDutyCycle(0);
   }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

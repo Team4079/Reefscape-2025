@@ -1,7 +1,10 @@
 package frc.robot;
 
-import com.pathplanner.lib.auto.NamedCommands;
+import static frc.robot.utils.Direction.*;
+import static frc.robot.utils.ElevatorState.*;
+import static frc.robot.utils.Kommand.*;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
@@ -10,13 +13,7 @@ import frc.robot.commands.sequencing.AutomaticScore;
 import frc.robot.subsystems.*;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
-
-import static frc.robot.utils.Kommand.*;
-
 import org.littletonrobotics.junction.networktables.*;
-
-import static frc.robot.utils.Direction.*;
-import static frc.robot.utils.ElevatorState.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a

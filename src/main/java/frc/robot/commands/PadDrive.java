@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds;
+import kotlin.*;
 
 /** Command to control the robot's swerve drive using a Logitech gaming pad. */
 public class PadDrive extends Command {
@@ -31,19 +32,19 @@ public class PadDrive extends Command {
    */
   @Override
   public void execute() {
-    Coordinate position = positionSet(pad);
+    Pair<Double, Double> position = positionSet(pad);
 
     double rotation =
         (Math.abs(pad.getRightAnalogXAxis()) >= 0.2)
             ? -pad.getRightAnalogXAxis() * RobotParameters.MotorParameters.MAX_ANGULAR_SPEED
             : 0.0;
 
-    log("X Joystick", position.x());
-    log("Y Joystick", position.y());
+    log("X Joystick", position.getFirst());
+    log("Y Joystick", position.getSecond());
     log("Rotation", rotation);
 
     Swerve.getInstance()
-        .setDriveSpeeds(position.y(), position.x(), rotation * 0.8, isFieldOriented);
+        .setDriveSpeeds(position.getSecond(), position.getFirst(), rotation * 0.8, isFieldOriented);
   }
 
   /**
@@ -56,16 +57,14 @@ public class PadDrive extends Command {
     return false;
   }
 
-  /** Record representing a coordinate with x and y values. */
-  public record Coordinate(double x, double y) {}
-
   /**
    * Sets the position based on the input from the Logitech gaming pad.
    *
    * @param pad The Logitech gaming pad.
-   * @return The coordinate representing the position.
+   * @return The coordinate representing the position. The first element is the x-coordinate, and
+   *     the second element is the y-coordinate.
    */
-  public static Coordinate positionSet(GamingController pad) {
+  public static Pair<Double, Double> positionSet(GamingController pad) {
     double x = -pad.getLeftAnalogXAxis() * RobotParameters.MotorParameters.MAX_SPEED;
     if (Math.abs(x) < Thresholds.X_DEADZONE) {
       x = 0.0;
@@ -76,6 +75,6 @@ public class PadDrive extends Command {
       y = 0.0;
     }
 
-    return new Coordinate(x, y);
+    return new Pair<>(x, y);
   }
 }
