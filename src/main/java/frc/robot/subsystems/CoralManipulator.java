@@ -63,7 +63,7 @@ public class CoralManipulator extends SubsystemBase {
   /**
    * Returns the Singleton instance of this CoralManipulatorSubsystem. This static method should be used,
    * rather than the constructor, to get the single instance of this class. For example: {@code
-   * coralManipulatorSubsystem.getInstance();}
+   * CoralManipulatorSubsystem.getInstance();}
    */
   @SuppressWarnings("WeakerAccess")
   public static CoralManipulator getInstance() {
@@ -97,15 +97,15 @@ public class CoralManipulator extends SubsystemBase {
     coralManipulatorUpConfigurator.apply(coralManipulatorConfigs);
     coralManipulatorDownConfigurator.apply(coralManipulatorConfigs);
 
-    coralManipulatorUpConfigs.kP = RobotParameters.ElevatorParameters.ELEVATOR_PID_LEFT_P;
-    coralManipulatorUpConfigs.kI = RobotParameters.ElevatorParameters.ELEVATOR_PID_LEFT_I;
-    coralManipulatorUpConfigs.kD = RobotParameters.ElevatorParameters.ELEVATOR_PID_LEFT_D;
-    coralManipulatorUpConfigs.kV = RobotParameters.ElevatorParameters.ELEVATOR_PID_LEFT_V;
+    coralManipulatorUpConfigs.kP = RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_P;
+    coralManipulatorUpConfigs.kI = RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_I;
+    coralManipulatorUpConfigs.kD = RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_D;
+    coralManipulatorUpConfigs.kV = RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_V;
 
-    coralManipulatorDownConfigs.kP = RobotParameters.ElevatorParameters.ELEVATOR_PID_Down_P;
-    coralManipulatorDownConfigs.kI = RobotParameters.ElevatorParameters.ELEVATOR_PID_Down_I;
-    coralManipulatorDownConfigs.kD = RobotParameters.ElevatorParameters.ELEVATOR_PID_Down_D;
-    coralManipulatorDownConfigs.kV = RobotParameters.ElevatorParameters.ELEVATOR_PID_Down_V;
+    coralManipulatorDownConfigs.kP = RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_P;
+    coralManipulatorDownConfigs.kI = RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_I;
+    coralManipulatorDownConfigs.kD = RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_D;
+    coralManipulatorDownConfigs.kV = RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_V;
 
     coralManipulatorMotorUp.getConfigurator().apply(coralManipulatorUpConfigs);
     coralManipulatorMotorDown.getConfigurator().apply(coralManipulatorDownConfigs);
@@ -145,28 +145,25 @@ public class CoralManipulator extends SubsystemBase {
     voltageOut = new VoltageOut(0);
 
     new PositionDutyCycle(0);
-
-    coralManipulatorMotorUp.setPosition(0);
-    coralManipulatorMotorDown.setPosition(0);
   }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
 
-  /** Stops the elevator motors */
+  /** Stops the coral manipulator motors */
   public void stopMotors() {
-    elevatorMotorLeft.stopMotor();
-    elevatorMotorRight.stopMotor();
+    coralManipulatorMotorUp.stopMotor();
+    coralManipulatorMotorDown.stopMotor();
     voltageOut.Output = -0.014;
-    elevatorMotorLeft.setControl(voltageOut);
-    elevatorMotorRight.setControl(voltageOut);
+    coralManipulatorMotorUp.setControl(voltageOut);
+    coralManipulatorMotorDown.setControl(voltageOut);
   }
 
-  /** Starts the elevator motors */
+  /** Starts the coral manipulator motors */
   public void startMotors() {
-    voltageOut.Output = 0.0;
-    elevatorMotorLeft.setControl(voltageOut);
-    elevatorMotorRight.setControl(voltageOut);
+    voltageOut.Output = 0.014;
+    coralManipulatorMotorUp.setControl(voltageOut);
+    coralManipulatorMotorDown.setControl(voltageOut);
   }
 }

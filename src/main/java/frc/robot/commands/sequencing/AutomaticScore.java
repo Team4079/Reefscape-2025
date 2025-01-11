@@ -7,9 +7,10 @@ package frc.robot.commands.sequencing;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.AlignSwerve;
+import frc.robot.utils.Direction;
+import frc.robot.utils.ElevatorState;
+import frc.robot.subsystems.CoralManipulator;
 import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Elevator.*;
-import frc.robot.utils.*;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -19,8 +20,8 @@ public class AutomaticScore extends SequentialCommandGroup {
     addCommands(
         new AlignSwerve(offsetSide), // Align the robot to the april tag (and add an offset)
         new InstantCommand(() -> Elevator.getInstance().moveElevatorToLevel()),
-        // Reverse rollers
-        // Stop rollers
+        new InstantCommand(() -> CoralManipulator.getInstance().startMotors()), // Start rollers
+        new InstantCommand(() -> CoralManipulator.getInstance().stopMotors()), // Move the coral manipulator up
         new InstantCommand(() -> Elevator.getInstance().setState(ElevatorState.L1)),
         new InstantCommand(
             () -> Elevator.getInstance().moveElevatorToLevel()) // Move the elevator back to L1
