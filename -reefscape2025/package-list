@@ -11,8 +11,6 @@ $dokka.location:frc.robot.commands/AlignSwerve/end/#boolean/PointingToDeclaratio
 $dokka.location:frc.robot.commands/AlignSwerve/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/execute.html
 $dokka.location:frc.robot.commands/AlignSwerve/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/initialize.html
 $dokka.location:frc.robot.commands/AlignSwerve/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/is-finished.html
-$dokka.location:frc.robot.commands/PadDrive.Coordinate///PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/-coordinate/index.html
-$dokka.location:frc.robot.commands/PadDrive.Coordinate/PadDrive.Coordinate/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/-coordinate/-pad-drive.-coordinate.html
 $dokka.location:frc.robot.commands/PadDrive///PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/index.html
 $dokka.location:frc.robot.commands/PadDrive/PadDrive/#frc.robot.utils.GamingController#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/-pad-drive.html
 $dokka.location:frc.robot.commands/PadDrive/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/execute.html
