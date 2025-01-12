@@ -185,6 +185,7 @@ $dokka.location:frc.robot.utils/ElevatorState/valueOf/#java.lang.String/Pointing
 $dokka.location:frc.robot.utils/ElevatorState/values/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-elevator-state/values.html
 $dokka.location:frc.robot.utils/Kommand///PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/index.html
 $dokka.location:frc.robot.utils/Kommand/autonomousCommand/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/autonomous-command.html
+$dokka.location:frc.robot.utils/Kommand/drive/#frc.robot.utils.controller.GamingController#kotlin.Boolean/PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/drive.html
 $dokka.location:frc.robot.utils/Kommand/moveElevatorToLevel/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/move-elevator-to-level.html
 $dokka.location:frc.robot.utils/Kommand/resetPidgey/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/reset-pidgey.html
 $dokka.location:frc.robot.utils/Kommand/score/#frc.robot.utils.Direction/PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/score.html
