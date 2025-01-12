@@ -135,7 +135,7 @@ public class SwerveModule {
   /**
    * Gets the current position of the swerve module.
    *
-   * @return The current position of the swerve module.
+   * @return SwerveModulePosition, The current position of the swerve module.
    */
   public SwerveModulePosition getPosition() {
     driveVelocity = driveMotor.getVelocity().getValueAsDouble();
@@ -155,7 +155,7 @@ public class SwerveModule {
   /**
    * Gets the current state of the swerve module.
    *
-   * @return The current state of the swerve module, including the angle and speed.
+   * @return SwerveModuleState, The current state of the swerve module, including the angle and speed.
    */
   public SwerveModuleState getState() {
     state.angle = Rotation2d.fromRotations(steerMotor.getPosition().getValueAsDouble());
@@ -186,6 +186,7 @@ public class SwerveModule {
     double velocityToSet =
         (state.speedMetersPerSecond
             * (MotorParameters.DRIVE_MOTOR_GEAR_RATIO / MotorParameters.METERS_PER_REV));
+    driveMotor.setControl(velocitySetter.withVelocity(velocityToSet));
     driveMotor.setControl(velocitySetter.withVelocity(velocityToSet));
 
     // Log the actual and set values for debugging

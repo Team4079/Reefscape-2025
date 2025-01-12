@@ -11,7 +11,7 @@ import org.photonvision.*;
 import org.photonvision.targeting.*;
 
 /**
- * The Photonvision class is a subsystem that interfaces with multiple Photonvision cameras to
+ * The PhotonVision class is a subsystem that interfaces with multiple PhotonVision cameras to
  * provide vision tracking and pose estimation capabilities. This subsystem is a Singleton that
  * manages multiple CameraModules and selects the best result based on pose ambiguity.
  *
@@ -34,18 +34,18 @@ public class PhotonVision extends SubsystemBase {
   private static final PhotonVision INSTANCE = new PhotonVision();
 
   /**
-   * Returns the Singleton instance of this Photonvision subsystem. This static method should be
+   * Returns the Singleton instance of this PhotonVision subsystem. This static method should be
    * used, rather than the constructor, to get the single instance of this class. For example:
-   * {@code Photonvision.getInstance();}
+   * {@code PhotonVision.getInstance();}
    *
-   * @return The Singleton instance of Photonvision
+   * @return The Singleton instance of PhotonVision
    */
   public static PhotonVision getInstance() {
     return INSTANCE;
   }
 
   /**
-   * Creates a new instance of this Photonvision subsystem. This constructor is private since this
+   * Creates a new instance of this PhotonVision subsystem. This constructor is private since this
    * class is a Singleton. Code should use the {@link #getInstance()} method to get the singleton
    * instance.
    */
@@ -56,10 +56,10 @@ public class PhotonVision extends SubsystemBase {
     // First camera setup
     Transform3d camera1Pos =
         new Transform3d(
-            new Translation3d(0.31, 0.0, PhotonvisionConstants.CAMERA_ONE_HEIGHT_METER),
+            new Translation3d(0.31, 0.0, PhotonVisionConstants.CAMERA_ONE_HEIGHT_METER),
             new Rotation3d(
                 0.0,
-                Math.toRadians(360 - PhotonvisionConstants.CAMERA_ONE_ANGLE_DEG),
+                Math.toRadians(360 - PhotonVisionConstants.CAMERA_ONE_ANGLE_DEG),
                 Math.toRadians(180.0)));
     cameras.add(new PhotonModule("Camera", camera1Pos, fieldLayout));
 

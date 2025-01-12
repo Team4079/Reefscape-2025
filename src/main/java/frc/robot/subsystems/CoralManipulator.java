@@ -51,8 +51,6 @@ public class CoralManipulator extends SubsystemBase {
 
   private VoltageOut voltageOut;
 
-  private double deadband = 0.001;
-
   /**
    * The Singleton instance of this CoralManipulatorSubsystem. Code should use the {@link
    * #getInstance()} method to get the single instance (rather than trying to construct an instance

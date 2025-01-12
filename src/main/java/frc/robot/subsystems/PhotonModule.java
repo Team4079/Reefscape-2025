@@ -43,7 +43,7 @@ public class PhotonModule {
   /**
    * Gets the pose estimator associated with this camera.
    *
-   * @return The PhotonPoseEstimator object used for robot pose estimation
+   * @return PhotonPoseEstimator, The PhotonPoseEstimator object used for robot pose estimation
    */
   public PhotonPoseEstimator getPoseEstimator() {
     return photonPoseEstimator;
@@ -52,7 +52,7 @@ public class PhotonModule {
   /**
    * Gets the camera's position relative to the robot.
    *
-   * @return The Transform3d representing the camera's position
+   * @return Transform3d, The Transform3d representing the camera's position
    */
   public Transform3d getCameraPosition() {
     return cameraPos;

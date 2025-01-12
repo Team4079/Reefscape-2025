@@ -77,10 +77,10 @@ public class Swerve extends SubsystemBase {
   }
 
   /**
-   * Initializes the swerve modules. Ensure the swerve modules are intialized in the same order as
+   * Initializes the swerve modules. Ensure the swerve modules are initialized in the same order as
    * in kinematics.
    *
-   * @return An array of initialized SwerveModule objects.
+   * @return SwerveModule[], An array of initialized SwerveModule objects.
    */
   private SwerveModule[] initializeModules() {
     return new SwerveModule[] {
@@ -110,7 +110,7 @@ public class Swerve extends SubsystemBase {
   /**
    * Initializes the PID controller.
    *
-   * @return A new PID object with values from the SmartDashboard.
+   * @return PIDController, A new PID object with values from the SmartDashboard.
    */
   private PIDController initializePID() {
     return new PIDController(
@@ -123,7 +123,7 @@ public class Swerve extends SubsystemBase {
    * Initializes the SwerveDrivePoseEstimator. The SwerveDrivePoseEsimator estimates the robot's
    * position. This is based on a combination of the robot's movement and vision.
    *
-   * @return A new SwerveDrivePoseEstimator object.
+   * @return SwerveDrivePoseEstimator, A new SwerveDrivePoseEstimator object.
    */
   private SwerveDrivePoseEstimator initializePoseEstimator() {
     return new SwerveDrivePoseEstimator(
@@ -224,7 +224,7 @@ public class Swerve extends SubsystemBase {
   /**
    * Gets the rotation of the Pigeon2 IMU.
    *
-   * @return The rotation of the Pigeon2 IMU.
+   * @return Rotation2d, The rotation of the Pigeon2 IMU.
    */
   public Rotation2d getPidgeyRotation() {
     return pidgey.getRotation2d();
@@ -233,7 +233,7 @@ public class Swerve extends SubsystemBase {
   /**
    * Gets the heading of the robot.
    *
-   * @return The heading of the robot.
+   * @return double, The heading of the robot.
    */
   public double getHeading() {
     return -pidgey.getYaw().getValueAsDouble();
@@ -242,7 +242,7 @@ public class Swerve extends SubsystemBase {
   /**
    * Gets the yaw of the Pigeon2 IMU.
    *
-   * @return The yaw of the Pigeon2 IMU.
+   * @return double, The yaw of the Pigeon2 IMU.
    */
   public double getPidgeyYaw() {
     return pidgey.getYaw().getValueAsDouble();
@@ -254,7 +254,7 @@ public class Swerve extends SubsystemBase {
   }
 
   /**
-   * Gets the current pose of the robot from he pose estimator.
+   * Gets the current pose of the robot from the pose estimator.
    *
    * @return The current pose of the robot.
    */
@@ -282,7 +282,7 @@ public class Swerve extends SubsystemBase {
   /**
    * Gets the chassis speeds for autonomous driving.
    *
-   * @return The chassis speeds for autonomous driving.
+   * @return ChassisSpeeds, The chassis speeds for autonomous driving.
    */
   public ChassisSpeeds getAutoSpeeds() {
     SwerveDriveKinematics k = SwerveParameters.PhysicalParameters.kinematics;
@@ -292,7 +292,7 @@ public class Swerve extends SubsystemBase {
   /**
    * Gets the rotation of the Pigeon2 IMU for PID control.
    *
-   * @return The rotation of the Pigeon2 IMU for PID control.
+   * @return Rotation2d, The rotation of the Pigeon2 IMU for PID control.
    */
   public Rotation2d getRotationPidggy() {
     return Rotation2d.fromDegrees(-pidgey.getRotation2d().getDegrees());
@@ -312,7 +312,7 @@ public class Swerve extends SubsystemBase {
   /**
    * Gets the states of the swerve modules.
    *
-   * @return The states of the swerve modules.
+   * @return SwerveModuleState[], The states of the swerve modules.
    */
   public SwerveModuleState[] getModuleStates() {
     for (int i = 0; i < modules.length; i++) {
@@ -335,7 +335,7 @@ public class Swerve extends SubsystemBase {
   /**
    * Gets the positions of the swerve modules.
    *
-   * @return The positions of the swerve modules.
+   * @return SwerveModulePosition[], The positions of the swerve modules.
    */
   public SwerveModulePosition[] getModulePositions() {
     SwerveModulePosition[] positions = new SwerveModulePosition[states.length];

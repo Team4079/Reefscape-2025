@@ -46,9 +46,7 @@ public class Elevator extends SubsystemBase {
 
   private VoltageOut voltageOut;
 
-  private double deadband = 0.001;
-
-  private ElevatorState currentState = frc.robot.utils.ElevatorState.L1;
+    private ElevatorState currentState = frc.robot.utils.ElevatorState.L1;
 
   /**
    * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
@@ -175,16 +173,9 @@ public class Elevator extends SubsystemBase {
     logElevatorState();
   }
 
-  /**
-   * Move the elevator motor to a specific level
-   *
-   * @return void
-   */
+  /** Move the elevator motor to a specific level */
   public void moveElevatorToLevel() {
     switch (this.currentState) {
-      case L1:
-        setElevatorPosition(ElevatorParameters.L1, ElevatorParameters.L1);
-        break;
       case L2:
         setElevatorPosition(ElevatorParameters.L2, ElevatorParameters.L2);
         break;
@@ -240,18 +231,12 @@ public class Elevator extends SubsystemBase {
    * @return double, the state of the elevator motor as a double
    */
   public double getStateDouble() {
-    switch (this.currentState) {
-      case L1:
-        return ElevatorParameters.L1;
-      case L2:
-        return ElevatorParameters.L2;
-      case L3:
-        return ElevatorParameters.L3;
-      case L4:
-        return ElevatorParameters.L4;
-      default:
-        return ElevatorParameters.L1;
-    }
+      return switch (this.currentState) {
+          case L2 -> ElevatorParameters.L2;
+          case L3 -> ElevatorParameters.L3;
+          case L4 -> ElevatorParameters.L4;
+          default -> ElevatorParameters.L1;
+      };
   }
 
   /**
@@ -269,7 +254,7 @@ public class Elevator extends SubsystemBase {
     } else {
       // This returns if the motor is not "left" or "right"
       System.out.println(
-          "getElevatorPosValue: Invalid motor, motor type should only be 'left' or 'right'");
+          "getElevatorPosValue: Invalid motor type, motor type should only be 'left' or 'right'");
       return -1.0;
     }
   }
@@ -330,10 +315,10 @@ public class Elevator extends SubsystemBase {
    * Move the elevator motor at a specific velocity
    *
    * @param velocity double, the velocity to move the elevator motor at
-   * @return void
    */
   public void moveElevator(double velocity) {
-    if (Math.abs(velocity) >= deadband) {
+      final double deadband = 0.001;
+      if (Math.abs(velocity) >= deadband) {
       elevatorMotorLeft.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
       elevatorMotorRight.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
 
@@ -349,18 +334,13 @@ public class Elevator extends SubsystemBase {
    * Sets the elevator motor to a specific position
    *
    * @param pos double, the position to set the elevator motor to
-   * @return void
    */
   public void setElevatorPosition(double pos) {
     elevatorMotorLeft.setControl(pos_reqest.withVelocity(pos));
     elevatorMotorRight.setControl(pos_reqest.withVelocity(pos));
   }
 
-  /**
-   * Toggles the soft limit for the elevator motor
-   *
-   * @return void
-   */
+  /** Toggles the soft limit for the elevator motor */
   public static void toggleLimit() {
     ElevatorParameters.IS_SOFTLIMIT = !ElevatorParameters.IS_SOFTLIMIT;
   }

@@ -39,9 +39,7 @@ public class EndEffector extends SubsystemBase {
 
   private VoltageOut voltageOut;
 
-  private double deadband = 0.001;
-
-  // private double absPos = 0;
+    // private double absPos = 0;
 
   /**
    * The Singleton instance of this EndEffectorSubsystem. Code should use the {@link #getInstance()}
@@ -175,7 +173,8 @@ public class EndEffector extends SubsystemBase {
    * @return void
    */
   public void moveArm(double velocity) {
-    if (Math.abs(velocity) >= deadband) {
+      final double deadband = 0.001;
+      if (Math.abs(velocity) >= deadband) {
       endEffectorMotor.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
     } else {
       this.stopMotor();

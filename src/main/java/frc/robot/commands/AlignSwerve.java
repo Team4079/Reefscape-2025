@@ -18,7 +18,7 @@ public class AlignSwerve extends Command {
   private double
       offset; // double offset is the left/right offset from the april tag to make it properly align
   // with the L4 branches
-  private double tolerance = 0.4;
+  private final double tolerance = 0.4;
 
   /**
    * Creates a new AlignSwerve using the Direction Enum.
@@ -100,7 +100,7 @@ public class AlignSwerve extends Command {
     Swerve.getInstance()
         .setDriveSpeeds(
             disController.calculate(dist),
-            yController.calculate(y),
+            yController.calculate(y) + offset,
             rotationalController.calculate(yaw),
             false);
   }

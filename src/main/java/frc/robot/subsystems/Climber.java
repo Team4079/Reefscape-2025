@@ -139,7 +139,6 @@ public class Climber extends SubsystemBase {
    * Set the position of the left and right pivot motors
    *
    * @param motorPos Motor position
-   * @return void
    */
   public void setMotorPosition(double motorPos) {
     pivotMotor.setControl(pos_reqest.withPosition(motorPos));
@@ -166,20 +165,12 @@ public class Climber extends SubsystemBase {
     return y;
   }
 
-  /**
-   * Soft resets the encoders on the elevator motors
-   *
-   * @return void
-   */
+  /** Soft resets the encoders on the elevator motors */
   public void resetEncoders() {
     pivotMotor.setPosition(0);
   }
 
-  /**
-   * Toggles the soft stop for the elevator motor
-   *
-   * @return void
-   */
+  /** Toggles the soft stop for the elevator motor */
   public void toggleSoftStop() {
     PivotParameters.SOFT_LIMIT_ENABLED = !PivotParameters.SOFT_LIMIT_ENABLED;
     pivotMotorSoftLimitConfig.ReverseSoftLimitEnable = PivotParameters.SOFT_LIMIT_ENABLED;
@@ -193,7 +184,6 @@ public class Climber extends SubsystemBase {
    * Move the pivot motor based on the velocity
    *
    * @param velocity double, The velocity to move the pivot motor
-   * @return void
    */
   public void movePivot(double velocity) {
     if (Math.abs(velocity) >= deadband) {
@@ -207,17 +197,12 @@ public class Climber extends SubsystemBase {
    * Set the pivot motor to a specific position
    *
    * @param pos double, The position to set the pivot motor to
-   * @return void
    */
   public void setPivot(double pos) {
     pivotMotor.setControl(vel_voltage.withVelocity(pos));
   }
 
-  /**
-   * Toggles the soft limit for the elevator motor
-   *
-   * @return void
-   */
+  /** Toggles the soft limit for the elevator motor */
   public void toggleLimit() {
     PivotParameters.IS_SOFTLIMIT = !PivotParameters.IS_SOFTLIMIT;
   }
