@@ -3,11 +3,14 @@ package frc.robot.utils
 import com.pathplanner.lib.commands.PathPlannerAuto
 import edu.wpi.first.wpilibj2.command.InstantCommand
 import edu.wpi.first.wpilibj2.command.WaitCommand
+import frc.robot.commands.PadDrive
 import frc.robot.commands.sequencing.AutomaticScore
 import frc.robot.subsystems.CoralManipulator
 import frc.robot.subsystems.Elevator
 import frc.robot.subsystems.Swerve
 import frc.robot.utils.RobotParameters.SwerveParameters
+import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds
+import frc.robot.utils.controller.GamingController
 
 /**
  * The [Kommand] object provides factory methods to create various commands
@@ -48,13 +51,26 @@ object Kommand {
     fun stopCoralManipulator() = InstantCommand({ CoralManipulator.getInstance().stopMotors() })
 
     /**
-     * Creates an [InstantCommand] to score in a specified direction.
+     * Wraps [AutomaticScore] to score in a specified direction.
      *
      * @param dir The direction in which to score.
-     * @return An [InstantCommand] that performs the scoring action.
+     * @return An [AutomaticScore] that performs the scoring action.
      */
     @JvmStatic
-    fun score(dir: Direction) = InstantCommand({ AutomaticScore(dir) })
+    fun score(dir: Direction) = AutomaticScore(dir)
+
+    /**
+     * Creates a [PadDrive] command to control the robot's driving mechanism.
+     *
+     * @param controller The gaming controller used to drive the robot.
+     * @param isFieldOriented Whether the driving should be field-oriented.
+     * @return A [PadDrive] command to control the robot's driving mechanism.
+     */
+    @JvmStatic
+    fun drive(
+        controller: GamingController,
+        isFieldOriented: Boolean = Thresholds.IS_FIELD_ORIENTED,
+    ) = PadDrive(controller, isFieldOriented)
 
     /**
      * Creates an [InstantCommand] to reset the Pidgey sensor.

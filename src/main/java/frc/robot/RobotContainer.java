@@ -8,8 +8,6 @@ import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
-import frc.robot.commands.PadDrive;
-import frc.robot.commands.sequencing.AutomaticScore;
 import frc.robot.subsystems.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import frc.robot.utils.controller.*;
@@ -42,12 +40,12 @@ public class RobotContainer {
     padLeftBumper = new JoystickButton(pad, 5);
     padRightBumper = new JoystickButton(pad, 6);
 
-    Swerve.getInstance().setDefaultCommand(new PadDrive(pad, Thresholds.IS_FIELD_ORIENTED));
+    Swerve.getInstance().setDefaultCommand(drive(pad, Thresholds.IS_FIELD_ORIENTED));
 
     configureBindings();
 
-    NamedCommands.registerCommand("scoreLeft", new AutomaticScore(LEFT));
-    NamedCommands.registerCommand("scoreRight", new AutomaticScore(RIGHT));
+    NamedCommands.registerCommand("scoreLeft", score(LEFT));
+    NamedCommands.registerCommand("scoreRight", score(RIGHT));
 
     LoggedDashboardChooser<Command> networkChooser = new LoggedDashboardChooser<>("AutoChooser");
     networkChooser.addDefaultOption("Do Nothing", new InstantCommand());
