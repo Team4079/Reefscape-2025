@@ -11,8 +11,9 @@ import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.commands.PadDrive;
 import frc.robot.commands.sequencing.AutomaticScore;
 import frc.robot.subsystems.*;
-import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
+import frc.robot.utils.controller.*;
+import frc.robot.utils.controller.Trigger;
 import org.littletonrobotics.junction.networktables.*;
 
 /**
@@ -29,8 +30,6 @@ public class RobotContainer {
   private final JoystickButton padStart;
   private final JoystickButton padLeftBumper;
   private final JoystickButton padRightBumper;
-
-  private final LoggedDashboardChooser<Command> networkChooser;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -50,7 +49,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("scoreLeft", new AutomaticScore(LEFT));
     NamedCommands.registerCommand("scoreRight", new AutomaticScore(RIGHT));
 
-    networkChooser = new LoggedDashboardChooser<>("AutoChooser");
+    LoggedDashboardChooser<Command> networkChooser = new LoggedDashboardChooser<>("AutoChooser");
     networkChooser.addDefaultOption("Do Nothing", new InstantCommand());
   }
 
@@ -61,11 +60,8 @@ public class RobotContainer {
    * CommandXboxController}/{@link CommandPS4Controller} controllers or {@link CommandJoystick}.
    */
   private void configureBindings() {
-    // padA.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::addRotorPositionsforModules));
     padStart.onTrue(resetPidgey()); // Prev Button: padB
     padY.onTrue(setTelePid());
-    // padX.onTrue(new InstantCommand(SwerveSubsystem.getInstance()::configSlowMode));
-
     padA.onTrue(setElevatorState(L1));
     padB.onTrue(setElevatorState(L2));
     padX.onTrue(setElevatorState(L3));

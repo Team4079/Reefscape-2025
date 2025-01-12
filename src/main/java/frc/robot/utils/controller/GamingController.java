@@ -1,4 +1,8 @@
-package frc.robot.utils;
+package frc.robot.utils.controller;
+
+import static frc.robot.utils.controller.Axis.*;
+import static frc.robot.utils.controller.Button.*;
+import static frc.robot.utils.controller.Trigger.*;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -6,68 +10,6 @@ import edu.wpi.first.wpilibj.XboxController;
 /** A class representing a Logitech Gaming Pad. */
 public class GamingController extends XboxController {
   private final Joystick gamepad;
-
-  /** Enum representing the DPad directions. */
-  public enum DPad {
-    UP(0),
-    UP_RIGHT(45),
-    RIGHT(90),
-    DOWN_RIGHT(135),
-    DOWN(180),
-    DOWN_LEFT(225),
-    LEFT(270),
-    UP_LEFT(315);
-
-    public final int angle;
-
-    DPad(int angle) {
-      this.angle = angle;
-    }
-  }
-
-  /** Enum representing the buttons on the gamepad. */
-  public enum Button {
-    A(1),
-    B(2),
-    X(3),
-    Y(4),
-    LEFT_BUMPER(5),
-    RIGHT_BUMPER(6),
-    BACK(7),
-    START(8);
-
-    public final int button;
-
-    Button(int button) {
-      this.button = button;
-    }
-  }
-
-  /** Enum representing the axes on the gamepad. */
-  public enum Axis {
-    LEFT_ANALOG_X(0),
-    LEFT_ANALOG_Y(1),
-    RIGHT_ANALOG_X(4),
-    RIGHT_ANALOG_Y(5);
-
-    public final int axis;
-
-    Axis(int axis) {
-      this.axis = axis;
-    }
-  }
-
-  /** Enum representing the triggers on the gamepad. */
-  public enum Trigger {
-    LEFT(2),
-    RIGHT(3);
-
-    public final int trigger;
-
-    Trigger(int trigger) {
-      this.trigger = trigger;
-    }
-  }
 
   /**
    * Constructor for the LogitechGamingPad.
@@ -85,25 +27,7 @@ public class GamingController extends XboxController {
    * @return The value of the left trigger.
    */
   public double getLeftTriggerValue() {
-    return gamepad.getRawAxis(Trigger.LEFT.trigger);
-  }
-
-  /**
-   * Gets the value of the left analog X axis.
-   *
-   * @return The value of the left analog X axis.
-   */
-  public double getLeftAnalogXAxis() {
-    return gamepad.getRawAxis(Axis.LEFT_ANALOG_X.axis);
-  }
-
-  /**
-   * Gets the value of the left analog Y axis.
-   *
-   * @return The value of the left analog Y axis.
-   */
-  public double getLeftAnalogYAxis() {
-    return gamepad.getRawAxis(Axis.LEFT_ANALOG_Y.axis);
+    return gamepad.getRawAxis(LEFT);
   }
 
   /**
@@ -112,7 +36,25 @@ public class GamingController extends XboxController {
    * @return The value of the right trigger.
    */
   public double getRightTriggerValue() {
-    return gamepad.getRawAxis(Trigger.RIGHT.trigger);
+    return gamepad.getRawAxis(RIGHT);
+  }
+
+  /**
+   * Gets the value of the left analog X axis.
+   *
+   * @return The value of the left analog X axis.
+   */
+  public double getLeftAnalogXAxis() {
+    return gamepad.getRawAxis(LEFT_ANALOG_X);
+  }
+
+  /**
+   * Gets the value of the left analog Y axis.
+   *
+   * @return The value of the left analog Y axis.
+   */
+  public double getLeftAnalogYAxis() {
+    return gamepad.getRawAxis(LEFT_ANALOG_Y);
   }
 
   /**
@@ -121,7 +63,7 @@ public class GamingController extends XboxController {
    * @return The value of the right analog X axis.
    */
   public double getRightAnalogXAxis() {
-    return gamepad.getRawAxis(Axis.RIGHT_ANALOG_X.axis);
+    return gamepad.getRawAxis(RIGHT_ANALOG_X);
   }
 
   /**
@@ -130,37 +72,37 @@ public class GamingController extends XboxController {
    * @return The value of the right analog Y axis.
    */
   public double getRightAnalogYAxis() {
-    return gamepad.getRawAxis(Axis.RIGHT_ANALOG_Y.axis);
+    return gamepad.getRawAxis(RIGHT_ANALOG_Y);
   }
 
   @Override
   public boolean getAButton() {
-    return gamepad.getRawButton(Button.A.button);
+    return gamepad.getRawButton(A);
   }
 
   @Override
   public boolean getBButton() {
-    return gamepad.getRawButton(Button.B.button);
+    return gamepad.getRawButton(B);
   }
 
   @Override
   public boolean getXButton() {
-    return gamepad.getRawButton(Button.X.button);
+    return gamepad.getRawButton(X);
   }
 
   @Override
   public boolean getYButton() {
-    return gamepad.getRawButton(Button.Y.button);
+    return gamepad.getRawButton(Y);
   }
 
   @Override
   public boolean getBackButton() {
-    return gamepad.getRawButton(Button.BACK.button);
+    return gamepad.getRawButton(BACK);
   }
 
   @Override
   public boolean getStartButton() {
-    return gamepad.getRawButton(Button.START.button);
+    return gamepad.getRawButton(START);
   }
 
   /**
@@ -237,23 +179,5 @@ public class GamingController extends XboxController {
   @Override
   public int getPOV(int pov) {
     return gamepad.getPOV(pov);
-  }
-
-  /**
-   * Gets the twist value.
-   *
-   * @return The twist value.
-   */
-  public double getTwist() {
-    return 0.0;
-  }
-
-  /**
-   * Gets the throttle value.
-   *
-   * @return The throttle value.
-   */
-  public double getThrottle() {
-    return 0.0;
   }
 }

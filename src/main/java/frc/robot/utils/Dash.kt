@@ -1,7 +1,6 @@
 package frc.robot.utils
 
 import edu.wpi.first.math.controller.PIDController
-import edu.wpi.first.math.kinematics.SwerveModuleState
 import edu.wpi.first.util.WPISerializable
 import edu.wpi.first.util.struct.StructSerializable
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
