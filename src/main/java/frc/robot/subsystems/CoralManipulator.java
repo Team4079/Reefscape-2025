@@ -166,14 +166,13 @@ public class CoralManipulator extends SubsystemBase {
     // This method will be called once per scheduler run
 
     /**
-     * If the coral sensor is triggered, set the hasPiece boolean to true. (hasPiece = true,
-     * sensorDetect = true), motors spinning If the manipulator has a piece, but the sensor no
-     * longer detects it, stop the motors. (hasPiece = true, sensorDetect = false), motors stop If
-     * the manipulator should start, but the motors are not running, start the motors (hasPiece =
-     * false, sensorDetect = false), motors spinning by setting if it has a piece to false, due to
-     * the fact that the manipulator should not have a piece after the motors are started again.
+     * If the coral sensor is triggered, set the hasPiece boolean to true. (hasPiece = true, sensorDetect = true), motors spinning
+     * If the manipulator has a piece, but the sensor no longer detects it, stop the motors. (hasPiece = true, sensorDetect = false), motors stop
+     * If the manipulator should start, but the motors are not running, start the motors (hasPiece = false, sensorDetect = false), motors spinning
+     * by setting if it has a piece to false, due to the fact that the manipulator should
+     * not have a piece after the motors are started again.
      *
-     * <p>The manipulator motors should be on by default, as per Aaron's request.
+     * The manipulator motors should be on by default, as per Aaron's request.
      */
     if (coralSensor.get()) {
       this.setHasPiece(true);
