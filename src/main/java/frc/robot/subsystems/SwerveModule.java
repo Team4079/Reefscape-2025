@@ -242,10 +242,12 @@ public class SwerveModule {
     driveConfigs.Slot0.kP = driveP.get();
     driveConfigs.Slot0.kI = driveI.get();
     driveConfigs.Slot0.kD = driveD.get();
+    driveConfigs.Slot0.kV = driveV.get();
 
     steerConfigs.Slot0.kP = steerP.get();
     steerConfigs.Slot0.kI = steerI.get();
     steerConfigs.Slot0.kD = steerD.get();
+    steerConfigs.Slot0.kV = steerV.get();
 
     driveMotor.getConfigurator().apply(driveConfigs);
     steerMotor.getConfigurator().apply(steerConfigs);
