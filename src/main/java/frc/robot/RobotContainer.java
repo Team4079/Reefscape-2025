@@ -40,7 +40,6 @@ public class RobotContainer {
     padLeftBumper = new JoystickButton(pad, 5);
     padRightBumper = new JoystickButton(pad, 6);
 
-
     Swerve.getInstance().setDefaultCommand(drive(pad, Thresholds.IS_FIELD_ORIENTED));
 
     configureBindings();
@@ -63,10 +62,10 @@ public class RobotContainer {
   private void configureBindings() {
     padStart.onTrue(resetPidgey()); // Prev Button: padB
     padY.onTrue(setTelePid());
-//    padA.onTrue(setElevatorState(L1));
-//    padB.onTrue(setElevatorState(L2));
-//    padX.onTrue(setElevatorState(L3));
-//    padY.onTrue(setElevatorState(L4));
+    //    padA.onTrue(setElevatorState(L1));
+    //    padB.onTrue(setElevatorState(L2));
+    //    padX.onTrue(setElevatorState(L3));
+    //    padY.onTrue(setElevatorState(L4));
     padLeftBumper.onTrue(score(LEFT));
     padRightBumper.onTrue(score(RIGHT));
   }

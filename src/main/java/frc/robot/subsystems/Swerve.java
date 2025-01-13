@@ -40,17 +40,19 @@ public class Swerve extends SubsystemBase {
   private PathPlannerPath pathToScore = null;
   private SwerveModuleState[] moduleStates = new SwerveModuleState[4];
 
-  Thread swerveLoggingThread = new Thread(() -> {
-    while (true) {
-        log("Swerve Module States", getModuleStates());
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            break;
-        }
-    }
-  });
+  Thread swerveLoggingThread =
+      new Thread(
+          () -> {
+            while (true) {
+              log("Swerve Module States", getModuleStates());
+              try {
+                Thread.sleep(100);
+              } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break;
+              }
+            }
+          });
 
   // from feeder to the goal and align itself
   // The plan is for it to path towards it then we use a set path to align itself with the goal and

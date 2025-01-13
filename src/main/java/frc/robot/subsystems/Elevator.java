@@ -230,12 +230,12 @@ public class Elevator extends SubsystemBase {
    * @return double, the state of the elevator motor as a double
    */
   public double getStateDouble() {
-      return switch (this.currentState) {
-          case L2 -> ElevatorParameters.L2;
-          case L3 -> ElevatorParameters.L3;
-          case L4 -> ElevatorParameters.L4;
-          default -> ElevatorParameters.L1;
-      };
+    return switch (this.currentState) {
+      case L2 -> ElevatorParameters.L2;
+      case L3 -> ElevatorParameters.L3;
+      case L4 -> ElevatorParameters.L4;
+      default -> ElevatorParameters.L1;
+    };
   }
 
   /**
@@ -316,8 +316,8 @@ public class Elevator extends SubsystemBase {
    * @param velocity double, the velocity to move the elevator motor at
    */
   public void moveElevator(double velocity) {
-      final double deadband = 0.001;
-      if (Math.abs(velocity) >= deadband) {
+    final double deadband = 0.001;
+    if (Math.abs(velocity) >= deadband) {
       elevatorMotorLeft.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
       elevatorMotorRight.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
 

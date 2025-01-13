@@ -39,7 +39,7 @@ public class EndEffector extends SubsystemBase {
 
   private VoltageOut voltageOut;
 
-    // private double absPos = 0;
+  // private double absPos = 0;
 
   /**
    * The Singleton instance of this EndEffectorSubsystem. Code should use the {@link #getInstance()}
@@ -141,16 +141,12 @@ public class EndEffector extends SubsystemBase {
     return endEffectorMotor.getPosition().getValue().magnitude();
   }
 
-  /**
-   * Soft resets the encoders on the end effector motors
-   */
+  /** Soft resets the encoders on the end effector motors */
   public void resetEncoders() {
     endEffectorMotor.setPosition(0);
   }
 
-  /**
-   * Toggles the soft stop for the end effector motor
-   */
+  /** Toggles the soft stop for the end effector motor */
   public void toggleSoftStop() {
     EndEffectorParameters.SOFT_LIMIT_ENABLED = !EndEffectorParameters.SOFT_LIMIT_ENABLED;
     endEffectorMotorSoftLimitConfig.ReverseSoftLimitEnable =
@@ -167,8 +163,8 @@ public class EndEffector extends SubsystemBase {
    * @param velocity double, The velocity to move the end effector motor
    */
   public void moveArm(double velocity) {
-      final double deadband = 0.001;
-      if (Math.abs(velocity) >= deadband) {
+    final double deadband = 0.001;
+    if (Math.abs(velocity) >= deadband) {
       endEffectorMotor.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
     } else {
       this.stopMotor();

@@ -155,7 +155,8 @@ public class SwerveModule {
   /**
    * Gets the current state of the swerve module.
    *
-   * @return SwerveModuleState, The current state of the swerve module, including the angle and speed.
+   * @return SwerveModuleState, The current state of the swerve module, including the angle and
+   *     speed.
    */
   public SwerveModuleState getState() {
     state.angle = Rotation2d.fromRotations(steerMotor.getPosition().getValueAsDouble());
