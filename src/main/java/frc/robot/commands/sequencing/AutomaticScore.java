@@ -17,10 +17,10 @@ public class AutomaticScore extends SequentialCommandGroup {
   public AutomaticScore(Direction offsetSide) {
     addCommands(
         new AlignSwerve(offsetSide),
+//        setElevatorState(L4),
         moveElevatorToLevel(),
         startCoralManipulator(),
         waitCmd(1),
-        stopCoralManipulator(),
         setElevatorState(L1),
         moveElevatorToLevel());
   }

@@ -167,7 +167,6 @@ public class RobotParameters {
     // Brandon: Why are these static?
 
     public static boolean SOFT_LIMIT_ENABLED = false;
-    public static boolean IS_SOFTLIMIT = false;
   }
 
   /** Class containing constants for the pivot subsystem. */
@@ -178,7 +177,6 @@ public class RobotParameters {
     public static final double PIVOT_PID_V = 0.0;
 
     public static boolean SOFT_LIMIT_ENABLED = false;
-    public static boolean IS_SOFTLIMIT = false;
   }
 
   public static class EndEffectorParameters {
@@ -188,11 +186,11 @@ public class RobotParameters {
     public static final double END_EFFECTOR_PID_V = 0.0;
 
     public static boolean SOFT_LIMIT_ENABLED = false;
-    public static boolean IS_SOFTLIMIT = false;
-    // Brandon: Tf why are there two bruh
   }
 
   public static class CoralManipulatorParameters {
+    public static final int CORAL_SENSOR_ID = 8;
+
     public static final double CORAL_MANIPULATOR_UP_PID_P = 0.001;
     public static final double CORAL_MANIPULATOR_UP_PID_I = 0.0;
     public static final double CORAL_MANIPULATOR_UP_PID_D = 0.0;
@@ -202,5 +200,7 @@ public class RobotParameters {
     public static final double CORAL_MANIPULATOR_DOWN_PID_I = 0.0;
     public static final double CORAL_MANIPULATOR_DOWN_PID_D = 0.0;
     public static final double CORAL_MANIPULATOR_DOWN_PID_V = 0.0;
+
+    public static boolean HAS_PIECE = false;
   }
 }

@@ -123,7 +123,6 @@ public class EndEffector extends SubsystemBase {
   @Override
   public void periodic() {
     log("End Effector Motor Position", endEffectorMotor.getPosition().getValueAsDouble());
-    log("End Effector SoftLimit", this.getSoftLimit());
   }
 
   /** Stops the arm motor */
@@ -144,8 +143,6 @@ public class EndEffector extends SubsystemBase {
 
   /**
    * Soft resets the encoders on the end effector motors
-   *
-   * @return void
    */
   public void resetEncoders() {
     endEffectorMotor.setPosition(0);
@@ -153,8 +150,6 @@ public class EndEffector extends SubsystemBase {
 
   /**
    * Toggles the soft stop for the end effector motor
-   *
-   * @return void
    */
   public void toggleSoftStop() {
     EndEffectorParameters.SOFT_LIMIT_ENABLED = !EndEffectorParameters.SOFT_LIMIT_ENABLED;
@@ -170,7 +165,6 @@ public class EndEffector extends SubsystemBase {
    * Move the end effector motor based on the velocity
    *
    * @param velocity double, The velocity to move the end effector motor
-   * @return void
    */
   public void moveArm(double velocity) {
       final double deadband = 0.001;
@@ -179,23 +173,5 @@ public class EndEffector extends SubsystemBase {
     } else {
       this.stopMotor();
     }
-  }
-
-  /**
-   * Toggles the soft limit for the end effector motor
-   *
-   * @return void
-   */
-  public void toggleLimit() {
-    EndEffectorParameters.IS_SOFTLIMIT = !EndEffectorParameters.IS_SOFTLIMIT;
-  }
-
-  /**
-   * Get the soft limit for the arm motor
-   *
-   * @return boolean, The soft limit state for the end effector motor
-   */
-  public boolean getSoftLimit() {
-    return EndEffectorParameters.IS_SOFTLIMIT;
   }
 }

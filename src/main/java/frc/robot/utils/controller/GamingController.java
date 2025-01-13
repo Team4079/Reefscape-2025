@@ -105,6 +105,22 @@ public class GamingController extends XboxController {
     return gamepad.getRawButton(START);
   }
 
+  public boolean getDPadUp() {
+    return checkDPad(0);
+  }
+
+  public boolean getDPadRight() {
+    return checkDPad(2);
+  }
+
+  public boolean getDPadDown() {
+    return checkDPad(4);
+  }
+
+  public boolean getDPadLeft() {
+    return checkDPad(6);
+  }
+
   /**
    * Checks if the DPad is pressed in a specific direction.
    *
@@ -174,10 +190,5 @@ public class GamingController extends XboxController {
   @Override
   public boolean getRawButton(int button) {
     return gamepad.getRawButton(button);
-  }
-
-  @Override
-  public int getPOV(int pov) {
-    return gamepad.getPOV(pov);
   }
 }

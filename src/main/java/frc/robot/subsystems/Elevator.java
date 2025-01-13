@@ -46,7 +46,7 @@ public class Elevator extends SubsystemBase {
 
   private VoltageOut voltageOut;
 
-    private ElevatorState currentState = frc.robot.utils.ElevatorState.L1;
+  private ElevatorState currentState = frc.robot.utils.ElevatorState.L1;
 
   /**
    * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
@@ -169,7 +169,6 @@ public class Elevator extends SubsystemBase {
   public void periodic() {
     log("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
     log("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
-    log("Elevator SoftLimit", this.getSoftLimit());
     logElevatorState();
   }
 
@@ -338,19 +337,5 @@ public class Elevator extends SubsystemBase {
   public void setElevatorPosition(double pos) {
     elevatorMotorLeft.setControl(pos_reqest.withVelocity(pos));
     elevatorMotorRight.setControl(pos_reqest.withVelocity(pos));
-  }
-
-  /** Toggles the soft limit for the elevator motor */
-  public static void toggleLimit() {
-    ElevatorParameters.IS_SOFTLIMIT = !ElevatorParameters.IS_SOFTLIMIT;
-  }
-
-  /**
-   * Get the soft limit for the elevator motor
-   *
-   * @return boolean, the soft limit state for the elevator motor
-   */
-  public boolean getSoftLimit() {
-    return ElevatorParameters.IS_SOFTLIMIT;
   }
 }

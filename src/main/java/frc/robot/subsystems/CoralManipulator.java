@@ -18,9 +18,11 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters;
 import frc.robot.utils.RobotParameters.MotorParameters;
+import frc.robot.utils.RobotParameters.CoralManipulatorParameters;
 
 public class CoralManipulator extends SubsystemBase {
   private TalonFX coralManipulatorMotorUp;
@@ -51,6 +53,10 @@ public class CoralManipulator extends SubsystemBase {
 
   private VoltageOut voltageOut;
 
+  private DigitalInput coralSensor;
+
+  private boolean motorsRunning = false;
+
   /**
    * The Singleton instance of this CoralManipulatorSubsystem. Code should use the {@link
    * #getInstance()} method to get the single instance (rather than trying to construct an instance
@@ -76,6 +82,8 @@ public class CoralManipulator extends SubsystemBase {
   private CoralManipulator() {
     coralManipulatorMotorUp = new TalonFX(MotorParameters.CORAL_MANIPULATOR_MOTOR_UP_ID);
     coralManipulatorMotorDown = new TalonFX(MotorParameters.CORAL_MANIPULATOR_MOTOR_DOWN_ID);
+
+    coralSensor = new DigitalInput(CoralManipulatorParameters.CORAL_SENSOR_ID);
 
     coralManipulatorConfigs = new MotorOutputConfigs();
 
@@ -156,6 +164,33 @@ public class CoralManipulator extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    /**
+     * If the coral sensor is triggered, set the hasPiece boolean to true. (hasPiece = true, sensorDetect = true), motors spinning
+     * If the manipulator has a piece, but the sensor no longer detects it, stop the motors. (hasPiece = true, sensorDetect = false), motors stop
+     * If the manipulator should start, but the motors are not running, start the motors (hasPiece = false, sensorDetect = false), motors spinning
+     * by setting if it has a piece to false, due to the fact that the manipulator should
+     * not have a piece after the motors are started again.
+     *
+     * The manipulator motors should be on by default, as per Aaron's request.
+     */
+    if (coralSensor.get()) {
+      this.setHasPiece(true);
+    }
+
+    if (!coralSensor.get() && CoralManipulatorParameters.HAS_PIECE) {
+      if (this.motorsRunning) {
+        // Stop the motors if the manipulator has a piece, but the sensor no longer detects it
+        // May require a delay of 100-500ms to prevent the motors from stopping too early
+        this.stopMotors();
+      }
+    } else {
+      // Will run if the sensor doesn't detect the piece, and it doesn't have a piece concurrently
+      // Will also run if the coral sensor detects a piece, and it has a piece
+      if (!this.motorsRunning) {
+        this.startMotors();
+      }
+    }
   }
 
   /** Stops the coral manipulator motors */
@@ -165,6 +200,7 @@ public class CoralManipulator extends SubsystemBase {
     voltageOut.Output = -0.014;
     coralManipulatorMotorUp.setControl(voltageOut);
     coralManipulatorMotorDown.setControl(voltageOut);
+    this.motorsRunning = false;
   }
 
   /** Starts the coral manipulator motors */
@@ -172,5 +208,10 @@ public class CoralManipulator extends SubsystemBase {
     voltageOut.Output = 0.014;
     coralManipulatorMotorUp.setControl(voltageOut);
     coralManipulatorMotorDown.setControl(voltageOut);
+    this.motorsRunning = true;
+  }
+
+  public void setHasPiece(boolean hasPiece) {
+    CoralManipulatorParameters.HAS_PIECE = hasPiece;
   }
 }

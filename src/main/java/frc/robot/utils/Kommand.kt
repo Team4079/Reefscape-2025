@@ -40,7 +40,7 @@ object Kommand {
      * @return An [InstantCommand] that starts the coral manipulator motors.
      */
     @JvmStatic
-    fun startCoralManipulator() = InstantCommand({ CoralManipulator.getInstance().startMotors() })
+    fun startCoralManipulator() = InstantCommand({ CoralManipulator.getInstance().setHasPiece(false) })
 
     /**
      * Creates an [InstantCommand] to stop the coral manipulator motors.

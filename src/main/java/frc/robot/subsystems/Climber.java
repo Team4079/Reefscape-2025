@@ -125,7 +125,6 @@ public class Climber extends SubsystemBase {
   @Override
   public void periodic() {
     log("Pivot Motor Position", pivotMotor.getPosition().getValueAsDouble());
-    log("Pivot SoftLimit", this.getSoftLimit());
   }
 
   /** Stops the pivot motor */
@@ -202,21 +201,7 @@ public class Climber extends SubsystemBase {
     pivotMotor.setControl(vel_voltage.withVelocity(pos));
   }
 
-  /** Toggles the soft limit for the elevator motor */
-  public void toggleLimit() {
-    PivotParameters.IS_SOFTLIMIT = !PivotParameters.IS_SOFTLIMIT;
-  }
-
   // public void recalibrateEncoders() {
   //   PivotGlobalValues.offset = PivotGlobalValues.PIVOT_NEUTRAL_ANGLE - getAbsoluteEncoder();
   // }
-
-  /**
-   * Get the soft limit for the pivot motor
-   *
-   * @return boolean, The soft limit state for the pivot motor
-   */
-  public boolean getSoftLimit() {
-    return PivotParameters.IS_SOFTLIMIT;
-  }
 }

@@ -28,7 +28,6 @@ public class AlignSwerve extends Command {
    */
   public AlignSwerve(Direction offsetSide) {
     switch (offsetSide) {
-      // TODO: Placeholder for the offset amount, figure out the correct value
       case LEFT:
         this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_LEFT;
         break;
@@ -51,6 +50,7 @@ public class AlignSwerve extends Command {
    * @param offsetAmount The amount to offset the alignment by.
    */
   public AlignSwerve(Direction offsetSide, double offsetAmount) {
+    // TODO: Placeholder for the offset amount, figure out the correct value
     switch (offsetSide) {
       case LEFT:
         this.offset = -offsetAmount;
@@ -125,7 +125,7 @@ public class AlignSwerve extends Command {
 
   /**
    * The action to take when the command ends. Called when either the command finishes normally --
-   * that is it is called when {@link #isFinished()} returns true -- or when it is
+   * that is called when {@link #isFinished()} returns true -- or when it is
    * interrupted/canceled. This is where you may want to wrap up loose ends, like shutting off a
    * motor that was being used in the command.
    *
