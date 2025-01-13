@@ -171,8 +171,8 @@ public class Climber extends SubsystemBase {
 
   /** Toggles the soft stop for the elevator motor */
   public void toggleSoftStop() {
-    PivotParameters.SOFT_LIMIT_ENABLED = !PivotParameters.SOFT_LIMIT_ENABLED;
-    pivotMotorSoftLimitConfig.ReverseSoftLimitEnable = PivotParameters.SOFT_LIMIT_ENABLED;
+    PivotParameters.isSoftLimitEnabled = !PivotParameters.isSoftLimitEnabled;
+    pivotMotorSoftLimitConfig.ReverseSoftLimitEnable = PivotParameters.isSoftLimitEnabled;
     // leftSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     pivotMotorSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 

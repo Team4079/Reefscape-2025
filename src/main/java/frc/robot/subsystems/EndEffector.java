@@ -148,9 +148,9 @@ public class EndEffector extends SubsystemBase {
 
   /** Toggles the soft stop for the end effector motor */
   public void toggleSoftStop() {
-    EndEffectorParameters.SOFT_LIMIT_ENABLED = !EndEffectorParameters.SOFT_LIMIT_ENABLED;
+    EndEffectorParameters.isSoftLimitEnabled = !EndEffectorParameters.isSoftLimitEnabled;
     endEffectorMotorSoftLimitConfig.ReverseSoftLimitEnable =
-        EndEffectorParameters.SOFT_LIMIT_ENABLED;
+        EndEffectorParameters.isSoftLimitEnabled;
     // leftSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     endEffectorMotorSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 

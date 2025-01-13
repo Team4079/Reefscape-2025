@@ -296,13 +296,13 @@ public class Elevator extends SubsystemBase {
 
   /** Toggles the soft stop for the elevator motor */
   public void toggleSoftStop() {
-    ElevatorParameters.SOFT_LIMIT_ENABLED = !ElevatorParameters.SOFT_LIMIT_ENABLED;
-    leftSoftLimitConfig.ReverseSoftLimitEnable = ElevatorParameters.SOFT_LIMIT_ENABLED;
+    ElevatorParameters.isSoftLimitEnabled = !ElevatorParameters.isSoftLimitEnabled;
+    leftSoftLimitConfig.ReverseSoftLimitEnable = ElevatorParameters.isSoftLimitEnabled;
     // leftSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     leftSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
     // rightSoftLimitConfig.ForwardSoftLimitEnable = elevatorGlobalValues.soft_limit_enabled;
-    rightSoftLimitConfig.ReverseSoftLimitEnable = ElevatorParameters.SOFT_LIMIT_ENABLED;
+    rightSoftLimitConfig.ReverseSoftLimitEnable = ElevatorParameters.isSoftLimitEnabled;
     // rightSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     rightSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 

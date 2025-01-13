@@ -104,22 +104,22 @@ public class CoralManipulator extends SubsystemBase {
     coralManipulatorDownConfigurator.apply(coralManipulatorConfigs);
 
     coralManipulatorUpConfigs.kP =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_P;
+        CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PIDV.getP();
     coralManipulatorUpConfigs.kI =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_I;
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PIDV.getI();
     coralManipulatorUpConfigs.kD =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_D;
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PIDV.getD();
     coralManipulatorUpConfigs.kV =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_V;
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PIDV.getV();
 
     coralManipulatorDownConfigs.kP =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_P;
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PIDV.getP();
     coralManipulatorDownConfigs.kI =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_I;
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PIDV.getI();
     coralManipulatorDownConfigs.kD =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_D;
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PIDV.getD();
     coralManipulatorDownConfigs.kV =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_V;
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PIDV.getV();
 
     coralManipulatorMotorUp.getConfigurator().apply(coralManipulatorUpConfigs);
     coralManipulatorMotorDown.getConfigurator().apply(coralManipulatorDownConfigs);
@@ -179,7 +179,7 @@ public class CoralManipulator extends SubsystemBase {
       this.setHasPiece(true);
     }
 
-    if (!coralSensor.get() && CoralManipulatorParameters.HAS_PIECE) {
+    if (!coralSensor.get() && CoralManipulatorParameters.hasPiece) {
       if (this.motorsRunning) {
         // Stop the motors if the manipulator has a piece, but the sensor no longer detects it
         // May require a delay of 100-500ms to prevent the motors from stopping too early
@@ -213,6 +213,6 @@ public class CoralManipulator extends SubsystemBase {
   }
 
   public void setHasPiece(boolean hasPiece) {
-    CoralManipulatorParameters.HAS_PIECE = hasPiece;
+    CoralManipulatorParameters.hasPiece = hasPiece;
   }
 }
