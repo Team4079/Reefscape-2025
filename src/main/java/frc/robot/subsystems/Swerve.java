@@ -36,9 +36,9 @@ public class Swerve extends SubsystemBase {
   private final Pigeon2 pidgey = new Pigeon2(RobotParameters.MotorParameters.PIDGEY_ID);
   private final SwerveModuleState[] states = new SwerveModuleState[4];
   private final SwerveModule[] modules;
-  private final PIDController pid;
+  private final PIDVController pid;
+  public Pose2d currentPose = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
   private PathPlannerPath pathToScore = null;
-  private SwerveModuleState[] moduleStates = new SwerveModuleState[4];
 
   Thread swerveLoggingThread =
       new Thread(
@@ -60,7 +60,6 @@ public class Swerve extends SubsystemBase {
   // Use this https://pathplanner.dev/pplib-pathfinding.html#pathfind-then-follow-path
   PathConstraints constraints =
       new PathConstraints(2.0, 3.0, Units.degreesToRadians(540), Units.degreesToRadians(720));
-  private double velocity = 0.0;
 
   /**
    * The Singleton instance of this SwerveSubsystem. Code should use the {@link #getInstance()}
@@ -127,11 +126,12 @@ public class Swerve extends SubsystemBase {
    *
    * @return PIDController, A new PID object with values from the SmartDashboard.
    */
-  private PIDController initializePID() {
-    return new PIDController(
+  private PIDVController initializePID() {
+    return new PIDVController(
         getNumber("AUTO: P", PIDParameters.DRIVE_PID_AUTO.getP()),
         getNumber("AUTO: I", PIDParameters.DRIVE_PID_AUTO.getI()),
-        getNumber("AUTO: D", PIDParameters.DRIVE_PID_AUTO.getD()));
+        getNumber("AUTO: D", PIDParameters.DRIVE_PID_AUTO.getD()),
+        getNumber("AUTO: V", PIDParameters.DRIVE_PID_AUTO.getV()));
   }
 
   /**
@@ -191,7 +191,7 @@ public class Swerve extends SubsystemBase {
         double timestamp = estimatedPose.timestampSeconds;
         Pose2d visionMeasurement2d = estimatedPose.estimatedPose.toPose2d();
         poseEstimator.addVisionMeasurement(visionMeasurement2d, timestamp);
-        SwerveParameters.Thresholds.currentPose = poseEstimator.getEstimatedPosition();
+        currentPose = poseEstimator.getEstimatedPosition();
       }
     }
 
@@ -205,9 +205,6 @@ public class Swerve extends SubsystemBase {
     log("Pidgey Heading", getHeading());
     log("Pidgey Rotation2D", getPidgeyRotation().getDegrees());
     log("Robot Pose", field.getRobotPose());
-
-    // Test mode toggle, replace later with Dash instance preferably instead of SmartDashboard
-    putBoolean("Test Mode Enabled", Thresholds.TEST_MODE);
   }
 
   /**
@@ -329,6 +326,7 @@ public class Swerve extends SubsystemBase {
    * @return SwerveModuleState[], The states of the swerve modules.
    */
   public SwerveModuleState[] getModuleStates() {
+    SwerveModuleState[] moduleStates = new SwerveModuleState[4];
     for (int i = 0; i < modules.length; i++) {
       moduleStates[i] = modules[i].getState();
     }
@@ -384,14 +382,6 @@ public class Swerve extends SubsystemBase {
   public void resetDrive() {
     for (SwerveModule module : modules) {
       module.resetDrivePosition();
-    }
-  }
-
-  /** Sets custom PID constants for the drive. */
-  public void setCustomDrivePID() {
-    dashPID("Drive", pid, PIDParameters.DRIVE_PID_V_AUTO, v -> velocity = v);
-    for (SwerveModule module : modules) {
-      module.setDrivePID(pid, velocity);
     }
   }
 

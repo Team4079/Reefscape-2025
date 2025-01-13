@@ -77,7 +77,7 @@ public class SwerveModule {
     driveConfigs.Slot0.kP = PIDParameters.DRIVE_PID_AUTO.getP();
     driveConfigs.Slot0.kI = PIDParameters.DRIVE_PID_AUTO.getI();
     driveConfigs.Slot0.kD = PIDParameters.DRIVE_PID_AUTO.getD();
-    driveConfigs.Slot0.kV = PIDParameters.DRIVE_PID_V_AUTO;
+    driveConfigs.Slot0.kV = PIDParameters.DRIVE_PID_AUTO.getV();
 
     // Sets the brake mode, invered, and current limits for the drive motor
     driveConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -256,13 +256,13 @@ public class SwerveModule {
 
   /** Sets the PID values for teleoperation mode. */
   public void setTelePID() {
-    setDrivePID(PIDParameters.DRIVE_PID_TELE, PIDParameters.DRIVE_PID_V_TELE);
+    setDrivePID(PIDParameters.DRIVE_PID_TELE, PIDParameters.DRIVE_PID_TELE.getV());
     setSteerPID(PIDParameters.STEER_PID_TELE, 0.0);
   }
 
   /** Sets the PID values for autonomous mode. */
   public void setAutoPID() {
-    setDrivePID(PIDParameters.DRIVE_PID_AUTO, PIDParameters.DRIVE_PID_V_AUTO);
+    setDrivePID(PIDParameters.DRIVE_PID_AUTO, PIDParameters.DRIVE_PID_AUTO.getV());
   }
 
   /** Resets the drive motor position to zero. */

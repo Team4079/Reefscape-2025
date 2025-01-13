@@ -1,39 +1,15 @@
 package frc.robot.utils
 
-import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.util.WPISerializable
 import edu.wpi.first.util.struct.StructSerializable
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds
 import org.littletonrobotics.junction.Logger
-import java.util.function.DoubleConsumer
 
 /**
- * Utility class for interacting with the SmartDashboard and logging. Provides methods to update PID
+ * Utility class for logging. Provides methods to update PID
  * values, retrieve double values, create pairs, and perform test logging.
  */
 object Dash {
-    /**
-     * Method to update PIDV values from the SmartDashboard.
-     *
-     * @param pid The PID object to update.
-     * @param velocity The velocity to update.
-     * @param prefix The prefix for the SmartDashboard keys.
-     * @param changeV The function to change the velocity.
-     */
-    @JvmStatic
-    fun dashPID(
-        prefix: String,
-        pid: PIDController,
-        velocity: Double,
-        changeV: DoubleConsumer,
-    ) {
-        pid.p = SmartDashboard.getNumber("$prefix Auto P", pid.p)
-        pid.i = SmartDashboard.getNumber("$prefix Auto I", pid.i)
-        pid.d = SmartDashboard.getNumber("$prefix Auto D", pid.d)
-        changeV.accept(SmartDashboard.getNumber("$prefix Auto V", velocity))
-    }
-
     /**
      * Logs a double value with a specified key if the system is in test mode.
      *

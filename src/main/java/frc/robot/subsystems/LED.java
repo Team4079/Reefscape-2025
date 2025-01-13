@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
-
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -78,17 +76,17 @@ public class LED extends SubsystemBase {
 
   /** Sets the LED color to tan. */
   public void setTan() {
-    setRGB(TAN_LED[0], TAN_LED[1], TAN_LED[2]);
+    setRGB(255, 122, 20);
   }
 
   /** Sets the LED color to red. */
   public void setRed() {
-    setRGB(RED_LED[0], RED_LED[1], RED_LED[2]);
+    setRGB(255, 0, 0);
   }
 
   /** Sets the LED color to green. */
   public void setGreen() {
-    setRGB(GREEN_LED[0], GREEN_LED[1], GREEN_LED[2]);
+    setRGB(0, 255, 0);
   }
 
   /**
@@ -96,17 +94,17 @@ public class LED extends SubsystemBase {
    * strip.
    */
   public void setOrange() {
-    setRGB(ORANGE_LED[0], ORANGE_LED[1], ORANGE_LED[2]);
+    setRGB(255, 165, 0);
   }
 
   /** Sets the LED color to purple. */
   public void setPurpleColor() {
-    setRGB(PURPLE_LED[0], PURPLE_LED[1], PURPLE_LED[2]);
+    setRGB(160, 32, 240);
   }
 
   /** Sets the LED color to high tide (a specific shade of blue-green). */
   public void setHighTide() {
-    setRGB(HIGHTIDE_LED[0], HIGHTIDE_LED[1], HIGHTIDE_LED[2]);
+    setRGB(0, 182, 174);
   }
 
   /**
