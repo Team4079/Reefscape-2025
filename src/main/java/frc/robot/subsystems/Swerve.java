@@ -38,7 +38,7 @@ public class Swerve extends SubsystemBase {
   private final SwerveModule[] modules;
   private final PIDVController pid;
   public Pose2d currentPose = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
-  private PathPlannerPath pathToScore = null;
+  private final PathPlannerPath pathToScore = null;
 
   Thread swerveLoggingThread =
       new Thread(
@@ -153,7 +153,8 @@ public class Swerve extends SubsystemBase {
    * Allows PathPlanner to get pose and output robot-relative chassis speeds Needs tuning
    */
   private void configureAutoBuilder() {
-    AutoBuilder.configure(
+      assert PIDParameters.config != null;
+      AutoBuilder.configure(
         this::getPose,
         this::newPose,
         this::getAutoSpeeds,

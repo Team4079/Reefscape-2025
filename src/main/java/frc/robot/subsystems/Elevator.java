@@ -246,20 +246,7 @@ public class Elevator extends SubsystemBase {
    * sequences
    */
   public void logElevatorState() {
-    switch (currentState) {
-      case L1:
-        log(ELEVATOR_STATE_KEY, "L1");
-        break;
-      case L2:
-        log(ELEVATOR_STATE_KEY, "L2");
-        break;
-      case L3:
-        log(ELEVATOR_STATE_KEY, "L3");
-        break;
-      case L4:
-        log(ELEVATOR_STATE_KEY, "L4");
-        break;
-    }
+    log(ELEVATOR_STATE_KEY, currentState.toString());
   }
 
   /**
