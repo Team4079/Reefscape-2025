@@ -58,16 +58,16 @@ object RobotParameters {
         /** Class containing PID constants for the swerve drive system.  */
         object PIDParameters {
             @JvmField
-            val STEER_PID_TELE: PIDController = PIDController(15.0, 0.000, 0.1)
+            val STEER_PID_TELE: PIDController = PIDController(200, 0.000, 0)
 
             @JvmField
-            val STEER_PID_AUTO: PIDController = PIDController(15.0, 0.000, 0.1)
+            val STEER_PID_AUTO: PIDController = PIDController(0, 0.0, 0)
 
             @JvmField
-            val DRIVE_PID_AUTO: PIDVController = PIDVController(7.0, 0.0, 0.00, 0.5)
+            val DRIVE_PID_AUTO: PIDVController = PIDVController(0, 0.0, 0.00, 0.)
 
             @JvmField
-            val DRIVE_PID_TELE: PIDVController = PIDVController(1.5, 0.0, 0.0, 0.0)
+            val DRIVE_PID_TELE: PIDVController = PIDVController(1.2, 0.0, 0.0, 0.5)
 
             @JvmField
             val ROTATIONAL_PID: PIDController = PIDController(0.2, 0.0, 0.0)

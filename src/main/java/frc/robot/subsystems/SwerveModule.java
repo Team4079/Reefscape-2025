@@ -94,6 +94,7 @@ public class SwerveModule {
     steerConfigs.Slot0.kI = PIDParameters.STEER_PID_AUTO.getI();
     steerConfigs.Slot0.kD = PIDParameters.STEER_PID_AUTO.getD();
     steerConfigs.Slot0.kV = 0.0;
+    steerConfigs.ClosedLoopGeneral.ContinuousWrap = true;
 
     // Sets the brake mode, inverted, and current limits for the steer motor
     steerConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -118,6 +119,7 @@ public class SwerveModule {
         SensorDirectionValue.CounterClockwise_Positive;
     canCoderConfiguration.MagnetSensor.MagnetOffset =
         SwerveParameters.Thresholds.ENCODER_OFFSET + canCoderDriveStraightSteerSetPoint;
+    canCoderConfiguration.MagnetSensor.AbsoluteSensorDiscontinuityPoint = 1;
 
     driveMotor.getConfigurator().apply(driveConfigs);
     steerMotor.getConfigurator().apply(steerConfigs);
@@ -144,8 +146,8 @@ public class SwerveModule {
     steerPosition = steerMotor.getPosition().getValueAsDouble();
 
     swerveModulePosition.angle =
-        Rotation2d.fromDegrees(
-            ((360 * canCoder.getAbsolutePosition().getValueAsDouble()) % 360 + 360) % 360);
+        Rotation2d.fromRotations(
+            canCoder.getAbsolutePosition().getValueAsDouble());
     swerveModulePosition.distanceMeters =
         (drivePosition / MotorParameters.DRIVE_MOTOR_GEAR_RATIO * MotorParameters.METERS_PER_REV);
 
@@ -159,7 +161,8 @@ public class SwerveModule {
    *     speed.
    */
   public SwerveModuleState getState() {
-    state.angle = Rotation2d.fromRotations(steerMotor.getPosition().getValueAsDouble());
+    state.angle = Rotation2d.fromRotations(
+      canCoder.getAbsolutePosition().getValueAsDouble());
     state.speedMetersPerSecond =
         (driveMotor.getRotorVelocity().getValueAsDouble()
             / MotorParameters.DRIVE_MOTOR_GEAR_RATIO
@@ -188,7 +191,6 @@ public class SwerveModule {
         (state.speedMetersPerSecond
             * (MotorParameters.DRIVE_MOTOR_GEAR_RATIO / MotorParameters.METERS_PER_REV));
     driveMotor.setControl(velocitySetter.withVelocity(velocityToSet));
-    driveMotor.setControl(velocitySetter.withVelocity(velocityToSet));
 
     // Log the actual and set values for debugging
     log(
@@ -197,7 +199,7 @@ public class SwerveModule {
     log("drive set speed " + canCoder.getDeviceID(), velocityToSet);
     log(
         "steer actual angle " + canCoder.getDeviceID(),
-        steerMotor.getRotorPosition().getValueAsDouble());
+        canCoder.getAbsolutePosition().getValueAsDouble());
     log("steer set angle " + canCoder.getDeviceID(), angleToSet);
     log("desired state after optimize " + canCoder.getDeviceID(), state.angle.getRotations());
 
