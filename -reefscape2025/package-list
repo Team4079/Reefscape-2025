@@ -187,6 +187,7 @@ $dokka.location:frc.robot.utils/Kommand/setElevatorState/#frc.robot.utils.Elevat
 $dokka.location:frc.robot.utils/Kommand/setTelePid/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/set-tele-pid.html
 $dokka.location:frc.robot.utils/Kommand/startCoralManipulator/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/start-coral-manipulator.html
 $dokka.location:frc.robot.utils/Kommand/stopCoralManipulator/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/stop-coral-manipulator.html
+$dokka.location:frc.robot.utils/Kommand/trollOm/#kotlin.Boolean/PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/troll-om.html
 $dokka.location:frc.robot.utils/Kommand/waitCmd/#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-kommand/wait-cmd.html
 $dokka.location:frc.robot.utils/PIDVController///PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d-v-controller/index.html
 $dokka.location:frc.robot.utils/PIDVController/PIDVController/#double#double#double#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d-v-controller/-p-i-d-v-controller.html
