@@ -15,7 +15,7 @@ FRC 4079's repository for our 2024 robot code
 
 ## Introduction
 
-This repository contains the code for FRC Team 4079's 2024 robot, named "Reefscape". The code is written in Java and is designed to run on the RoboRIO platform using WPILib. 
+This repository contains the code for the FRC Team 4079's 2025 robot, named "Reefscape". The code is written in Java and is designed to run on the RoboRIO platform using WPILib. 
 
 ## Dependencies
 
