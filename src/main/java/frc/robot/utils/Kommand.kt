@@ -104,4 +104,7 @@ object Kommand {
      */
     @JvmStatic
     fun waitCmd(seconds: Double) = WaitCommand(seconds)
+
+    @JvmStatic
+    fun trollOm(didOmHaveaHeartAttack: Boolean) = println("hopefully true :D")
 }
