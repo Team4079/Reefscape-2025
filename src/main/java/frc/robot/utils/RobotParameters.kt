@@ -61,10 +61,10 @@ object RobotParameters {
             val STEER_PID_TELE: PIDController = PIDController(200.0, 0.000, 0.0)
 
             @JvmField
-            val STEER_PID_AUTO: PIDController = PIDController(0.0, 0.0, 0.0)
+            val STEER_PID_AUTO: PIDController = PIDController(200.0, 0.000, 0.0)
 
             @JvmField
-            val DRIVE_PID_AUTO: PIDVController = PIDVController(0.0, 0.0, 0.00, 0.0)
+            val DRIVE_PID_AUTO: PIDVController = PIDVController(1.2, 0.0, 0.0, 0.5)
 
             @JvmField
             val DRIVE_PID_TELE: PIDVController = PIDVController(1.2, 0.0, 0.0, 0.5)
