@@ -24,22 +24,14 @@ import frc.robot.utils.RobotParameters.*;
  */
 public class Climber extends SubsystemBase {
   /** Creates a new Pivot. */
-  private TalonFX pivotMotor;
+  private final TalonFX pivotMotor;
 
-  // Configurations
-  private TalonFXConfiguration pivotMotorConfiguration;
-  private Slot0Configs pivotConfigs;
-  private MotorOutputConfigs pivotOutputConfigs;
-  private CurrentLimitsConfigs pivotMotorCurrentConfig;
-  private ClosedLoopRampsConfigs pivotMotorRampConfig;
-  private SoftwareLimitSwitchConfigs pivotMotorSoftLimitConfig;
+  private final SoftwareLimitSwitchConfigs pivotMotorSoftLimitConfig;
 
-  private PositionVoltage pos_reqest;
-  private VelocityVoltage vel_voltage;
+  private final PositionVoltage pos_request;
+  private final VelocityVoltage vel_voltage;
 
-  private VoltageOut voltageOut;
-
-  private double deadband = 0.001;
+  private final VoltageOut voltageOut;
 
   // private double absPos = 0;
 
@@ -66,11 +58,12 @@ public class Climber extends SubsystemBase {
   private Climber() {
     pivotMotor = new TalonFX(MotorParameters.PIVOT_MOTOR_ID);
 
-    pivotOutputConfigs = new MotorOutputConfigs();
+    MotorOutputConfigs pivotOutputConfigs = new MotorOutputConfigs();
 
-    pivotConfigs = new Slot0Configs();
+    Slot0Configs pivotConfigs = new Slot0Configs();
 
-    pivotMotorConfiguration = new TalonFXConfiguration();
+    // Configurations
+    TalonFXConfiguration pivotMotorConfiguration = new TalonFXConfiguration();
 
     pivotMotor.getConfigurator().apply(pivotMotorConfiguration);
     pivotMotor.getConfigurator().apply(pivotConfigs);
@@ -85,8 +78,8 @@ public class Climber extends SubsystemBase {
 
     pivotMotor.getConfigurator().apply(pivotConfigs);
 
-    pivotMotorCurrentConfig = new CurrentLimitsConfigs();
-    pivotMotorRampConfig = new ClosedLoopRampsConfigs();
+    CurrentLimitsConfigs pivotMotorCurrentConfig = new CurrentLimitsConfigs();
+    ClosedLoopRampsConfigs pivotMotorRampConfig = new ClosedLoopRampsConfigs();
     pivotMotorSoftLimitConfig = new SoftwareLimitSwitchConfigs();
 
     pivotMotorCurrentConfig.SupplyCurrentLimit = 100;
@@ -114,7 +107,7 @@ public class Climber extends SubsystemBase {
     // absoluteEncoder = new DigitalInput(9);
 
     vel_voltage = new VelocityVoltage(0);
-    pos_reqest = new PositionVoltage(0);
+    pos_request = new PositionVoltage(0);
     voltageOut = new VoltageOut(0);
     new PositionDutyCycle(0);
 
@@ -140,7 +133,7 @@ public class Climber extends SubsystemBase {
    * @param motorPos Motor position
    */
   public void setMotorPosition(double motorPos) {
-    pivotMotor.setControl(pos_reqest.withPosition(motorPos));
+    pivotMotor.setControl(pos_request.withPosition(motorPos));
   }
 
   /**
@@ -185,6 +178,7 @@ public class Climber extends SubsystemBase {
    * @param velocity double, The velocity to move the pivot motor
    */
   public void movePivot(double velocity) {
+    double deadband = 0.001;
     if (Math.abs(velocity) >= deadband) {
       pivotMotor.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
     } else {

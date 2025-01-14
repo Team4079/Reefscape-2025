@@ -24,20 +24,13 @@ import frc.robot.utils.RobotParameters.*;
  */
 public class EndEffector extends SubsystemBase {
   /** Creates a new end effector. */
-  private TalonFX endEffectorMotor;
+  private final TalonFX endEffectorMotor;
 
-  // Configurations
-  private TalonFXConfiguration endEffectorMotorConfiguration;
-  private Slot0Configs endEffectorMotorConfigs;
-  private MotorOutputConfigs endEffectorMotorOutputConfigs;
-  private CurrentLimitsConfigs endEffectorMotorCurrentConfig;
-  private ClosedLoopRampsConfigs endEffectorMotorRampConfig;
-  private SoftwareLimitSwitchConfigs endEffectorMotorSoftLimitConfig;
+  private final SoftwareLimitSwitchConfigs endEffectorMotorSoftLimitConfig;
 
-  private PositionVoltage pos_voltage;
-  private VelocityVoltage vel_voltage;
+  private final VelocityVoltage vel_voltage;
 
-  private VoltageOut voltageOut;
+  private final VoltageOut voltageOut;
 
   // private double absPos = 0;
 
@@ -64,11 +57,12 @@ public class EndEffector extends SubsystemBase {
   private EndEffector() {
     endEffectorMotor = new TalonFX(MotorParameters.END_EFFECTOR_MOTOR_ID);
 
-    endEffectorMotorOutputConfigs = new MotorOutputConfigs();
+    MotorOutputConfigs endEffectorMotorOutputConfigs = new MotorOutputConfigs();
 
-    endEffectorMotorConfigs = new Slot0Configs();
+    Slot0Configs endEffectorMotorConfigs = new Slot0Configs();
 
-    endEffectorMotorConfiguration = new TalonFXConfiguration();
+    // Configurations
+    TalonFXConfiguration endEffectorMotorConfiguration = new TalonFXConfiguration();
 
     endEffectorMotor.getConfigurator().apply(endEffectorMotorConfiguration);
     endEffectorMotor.getConfigurator().apply(endEffectorMotorConfigs);
@@ -83,8 +77,8 @@ public class EndEffector extends SubsystemBase {
 
     endEffectorMotor.getConfigurator().apply(endEffectorMotorConfigs);
 
-    endEffectorMotorCurrentConfig = new CurrentLimitsConfigs();
-    endEffectorMotorRampConfig = new ClosedLoopRampsConfigs();
+    CurrentLimitsConfigs endEffectorMotorCurrentConfig = new CurrentLimitsConfigs();
+    ClosedLoopRampsConfigs endEffectorMotorRampConfig = new ClosedLoopRampsConfigs();
     endEffectorMotorSoftLimitConfig = new SoftwareLimitSwitchConfigs();
 
     endEffectorMotorCurrentConfig.SupplyCurrentLimit = 100;
@@ -112,7 +106,7 @@ public class EndEffector extends SubsystemBase {
     // absoluteEncoder = new DigitalInput(9);
 
     vel_voltage = new VelocityVoltage(0);
-    pos_voltage = new PositionVoltage(0);
+    PositionVoltage pos_voltage = new PositionVoltage(0);
     voltageOut = new VoltageOut(0);
     new PositionDutyCycle(0);
 

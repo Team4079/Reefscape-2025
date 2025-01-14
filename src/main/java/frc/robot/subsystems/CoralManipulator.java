@@ -25,35 +25,15 @@ import frc.robot.utils.RobotParameters.CoralManipulatorParameters;
 import frc.robot.utils.RobotParameters.MotorParameters;
 
 public class CoralManipulator extends SubsystemBase {
-  private TalonFX coralManipulatorMotorUp;
-  private TalonFX coralManipulatorMotorDown;
-
-  private TalonFXConfigurator coralManipulatorUpConfigurator;
-  private TalonFXConfigurator coralManipulatorDownConfigurator;
-
-  private TalonFXConfiguration coralManipulatorUpConfiguration;
-  private TalonFXConfiguration coralManipulatorDownConfiguration;
-
-  private Slot0Configs coralManipulatorUpConfigs;
-  private Slot0Configs coralManipulatorDownConfigs;
-
-  private PositionTorqueCurrentFOC pos_reqest;
-  private VelocityTorqueCurrentFOC vel_voltage;
-
-  private MotorOutputConfigs coralManipulatorConfigs;
-
-  private CurrentLimitsConfigs upMotorCurrentConfig;
-  private CurrentLimitsConfigs downMotorCurrentConfig;
-
-  private ClosedLoopRampsConfigs upMotorRampConfig;
-  private ClosedLoopRampsConfigs downMotorRampConfig;
+  private final TalonFX coralManipulatorMotorUp;
+  private final TalonFX coralManipulatorMotorDown;
 
   private SoftwareLimitSwitchConfigs upSoftLimitConfig;
   private SoftwareLimitSwitchConfigs downSoftLimitConfig;
 
-  private VoltageOut voltageOut;
+  private final VoltageOut voltageOut;
 
-  private DigitalInput coralSensor;
+  private final DigitalInput coralSensor;
 
   private boolean motorsRunning = false;
 
@@ -85,16 +65,17 @@ public class CoralManipulator extends SubsystemBase {
 
     coralSensor = new DigitalInput(CoralManipulatorParameters.CORAL_SENSOR_ID);
 
-    coralManipulatorConfigs = new MotorOutputConfigs();
+    MotorOutputConfigs coralManipulatorConfigs = new MotorOutputConfigs();
 
-    coralManipulatorUpConfigurator = coralManipulatorMotorUp.getConfigurator();
-    coralManipulatorDownConfigurator = coralManipulatorMotorDown.getConfigurator();
+    TalonFXConfigurator coralManipulatorUpConfigurator = coralManipulatorMotorUp.getConfigurator();
+    TalonFXConfigurator coralManipulatorDownConfigurator =
+        coralManipulatorMotorDown.getConfigurator();
 
-    coralManipulatorUpConfigs = new Slot0Configs();
-    coralManipulatorDownConfigs = new Slot0Configs();
+    Slot0Configs coralManipulatorUpConfigs = new Slot0Configs();
+    Slot0Configs coralManipulatorDownConfigs = new Slot0Configs();
 
-    coralManipulatorUpConfiguration = new TalonFXConfiguration();
-    coralManipulatorDownConfiguration = new TalonFXConfiguration();
+    TalonFXConfiguration coralManipulatorUpConfiguration = new TalonFXConfiguration();
+    TalonFXConfiguration coralManipulatorDownConfiguration = new TalonFXConfiguration();
 
     coralManipulatorMotorUp.getConfigurator().apply(coralManipulatorUpConfiguration);
     coralManipulatorMotorDown.getConfigurator().apply(coralManipulatorDownConfiguration);
@@ -103,8 +84,7 @@ public class CoralManipulator extends SubsystemBase {
     coralManipulatorUpConfigurator.apply(coralManipulatorConfigs);
     coralManipulatorDownConfigurator.apply(coralManipulatorConfigs);
 
-    coralManipulatorUpConfigs.kP =
-        CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PIDV.getP();
+    coralManipulatorUpConfigs.kP = CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PIDV.getP();
     coralManipulatorUpConfigs.kI =
         RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PIDV.getI();
     coralManipulatorUpConfigs.kD =
@@ -124,11 +104,11 @@ public class CoralManipulator extends SubsystemBase {
     coralManipulatorMotorUp.getConfigurator().apply(coralManipulatorUpConfigs);
     coralManipulatorMotorDown.getConfigurator().apply(coralManipulatorDownConfigs);
 
-    upMotorCurrentConfig = new CurrentLimitsConfigs();
-    downMotorCurrentConfig = new CurrentLimitsConfigs();
+    CurrentLimitsConfigs upMotorCurrentConfig = new CurrentLimitsConfigs();
+    CurrentLimitsConfigs downMotorCurrentConfig = new CurrentLimitsConfigs();
 
-    upMotorRampConfig = new ClosedLoopRampsConfigs();
-    downMotorRampConfig = new ClosedLoopRampsConfigs();
+    ClosedLoopRampsConfigs upMotorRampConfig = new ClosedLoopRampsConfigs();
+    ClosedLoopRampsConfigs downMotorRampConfig = new ClosedLoopRampsConfigs();
 
     upMotorCurrentConfig.SupplyCurrentLimit = 100;
     upMotorCurrentConfig.SupplyCurrentLimitEnable = true;
@@ -154,8 +134,8 @@ public class CoralManipulator extends SubsystemBase {
     coralManipulatorDownConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     // absoluteEncoder = new DigitalInput(9);
 
-    vel_voltage = new VelocityTorqueCurrentFOC(0);
-    pos_reqest = new PositionTorqueCurrentFOC(0);
+    VelocityTorqueCurrentFOC vel_voltage = new VelocityTorqueCurrentFOC(0);
+    PositionTorqueCurrentFOC pos_reqest = new PositionTorqueCurrentFOC(0);
     voltageOut = new VoltageOut(0);
 
     new PositionDutyCycle(0);

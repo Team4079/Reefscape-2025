@@ -46,6 +46,10 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("scoreLeft", score(LEFT));
     NamedCommands.registerCommand("scoreRight", score(RIGHT));
+    NamedCommands.registerCommand("SetL1", setElevatorState(L1));
+    NamedCommands.registerCommand("SetL2", setElevatorState(L2));
+    NamedCommands.registerCommand("SetL3", setElevatorState(L3));
+    NamedCommands.registerCommand("SetL4", setElevatorState(L4));
 
     LoggedDashboardChooser<Command> networkChooser = new LoggedDashboardChooser<>("AutoChooser");
     networkChooser.addDefaultOption("Do Nothing", new InstantCommand());

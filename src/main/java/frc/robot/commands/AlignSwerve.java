@@ -17,8 +17,6 @@ public class AlignSwerve extends Command {
   private PIDController disController;
   private double
       offset; // double offset is the left/right offset from the april tag to make it properly align
-  // with the L4 branches
-  private final double tolerance = 0.4;
 
   /**
    * Creates a new AlignSwerve using the Direction Enum.
@@ -75,6 +73,8 @@ public class AlignSwerve extends Command {
 
     rotationalController =
         new PIDController(ROTATIONAL_PID.getP(), ROTATIONAL_PID.getI(), ROTATIONAL_PID.getD());
+    // with the L4 branches
+    final double tolerance = 0.4;
     rotationalController.setTolerance(tolerance);
     rotationalController.setSetpoint(0);
 

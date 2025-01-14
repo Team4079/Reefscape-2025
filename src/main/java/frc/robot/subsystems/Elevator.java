@@ -18,33 +18,16 @@ import frc.robot.utils.RobotParameters.*;
 public class Elevator extends SubsystemBase {
   public static final String ELEVATOR_STATE_KEY = "Elevator State";
 
-  private TalonFX elevatorMotorLeft;
-  private TalonFX elevatorMotorRight;
+  private final TalonFX elevatorMotorLeft;
+  private final TalonFX elevatorMotorRight;
 
-  private TalonFXConfigurator elevatorLeftConfigurator;
-  private TalonFXConfigurator elevatorRightConfigurator;
+  private final PositionTorqueCurrentFOC pos_reqest;
+  private final VelocityTorqueCurrentFOC vel_voltage;
 
-  private TalonFXConfiguration elevatorLeftConfiguration;
-  private TalonFXConfiguration elevatorRightConfiguration;
+  private final SoftwareLimitSwitchConfigs leftSoftLimitConfig;
+  private final SoftwareLimitSwitchConfigs rightSoftLimitConfig;
 
-  private Slot0Configs elevatorLeftConfigs;
-  private Slot0Configs elevatorRightConfigs;
-
-  private PositionTorqueCurrentFOC pos_reqest;
-  private VelocityTorqueCurrentFOC vel_voltage;
-
-  private MotorOutputConfigs elevatorConfigs;
-
-  private CurrentLimitsConfigs leftMotorCurrentConfig;
-  private CurrentLimitsConfigs rightMotorCurrentConfig;
-
-  private ClosedLoopRampsConfigs leftMotorRampConfig;
-  private ClosedLoopRampsConfigs rightMotorRampConfig;
-
-  private SoftwareLimitSwitchConfigs leftSoftLimitConfig;
-  private SoftwareLimitSwitchConfigs rightSoftLimitConfig;
-
-  private VoltageOut voltageOut;
+  private final VoltageOut voltageOut;
 
   private ElevatorState currentState = frc.robot.utils.ElevatorState.L1;
 
@@ -73,16 +56,16 @@ public class Elevator extends SubsystemBase {
     elevatorMotorLeft = new TalonFX(MotorParameters.ELEVATOR_MOTOR_LEFT_ID);
     elevatorMotorRight = new TalonFX(MotorParameters.ELEVATOR_MOTOR_RIGHT_ID);
 
-    elevatorConfigs = new MotorOutputConfigs();
+    MotorOutputConfigs elevatorConfigs = new MotorOutputConfigs();
 
-    elevatorLeftConfigurator = elevatorMotorLeft.getConfigurator();
-    elevatorRightConfigurator = elevatorMotorRight.getConfigurator();
+    TalonFXConfigurator elevatorLeftConfigurator = elevatorMotorLeft.getConfigurator();
+    TalonFXConfigurator elevatorRightConfigurator = elevatorMotorRight.getConfigurator();
 
-    elevatorLeftConfigs = new Slot0Configs();
-    elevatorRightConfigs = new Slot0Configs();
+    Slot0Configs elevatorLeftConfigs = new Slot0Configs();
+    Slot0Configs elevatorRightConfigs = new Slot0Configs();
 
-    elevatorLeftConfiguration = new TalonFXConfiguration();
-    elevatorRightConfiguration = new TalonFXConfiguration();
+    TalonFXConfiguration elevatorLeftConfiguration = new TalonFXConfiguration();
+    TalonFXConfiguration elevatorRightConfiguration = new TalonFXConfiguration();
 
     elevatorMotorLeft.getConfigurator().apply(elevatorLeftConfiguration);
     elevatorMotorRight.getConfigurator().apply(elevatorRightConfiguration);
@@ -104,11 +87,11 @@ public class Elevator extends SubsystemBase {
     elevatorMotorLeft.getConfigurator().apply(elevatorLeftConfigs);
     elevatorMotorRight.getConfigurator().apply(elevatorRightConfigs);
 
-    leftMotorCurrentConfig = new CurrentLimitsConfigs();
-    rightMotorCurrentConfig = new CurrentLimitsConfigs();
+    CurrentLimitsConfigs leftMotorCurrentConfig = new CurrentLimitsConfigs();
+    CurrentLimitsConfigs rightMotorCurrentConfig = new CurrentLimitsConfigs();
 
-    leftMotorRampConfig = new ClosedLoopRampsConfigs();
-    rightMotorRampConfig = new ClosedLoopRampsConfigs();
+    ClosedLoopRampsConfigs leftMotorRampConfig = new ClosedLoopRampsConfigs();
+    ClosedLoopRampsConfigs rightMotorRampConfig = new ClosedLoopRampsConfigs();
 
     leftSoftLimitConfig = new SoftwareLimitSwitchConfigs();
     rightSoftLimitConfig = new SoftwareLimitSwitchConfigs();
