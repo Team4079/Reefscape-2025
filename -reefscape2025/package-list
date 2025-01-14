@@ -17,8 +17,6 @@ $dokka.location:frc.robot.commands/PadDrive/execute/#/PointingToDeclaration/-re
 $dokka.location:frc.robot.commands/PadDrive/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/is-finished.html
 $dokka.location:frc.robot.commands/PadDrive/positionSet/#frc.robot.utils.controller.GamingController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/position-set.html
 $dokka.location:frc.robot.subsystems////PointingToDeclaration/-reefscape2025/frc.robot.subsystems/index.html
-$dokka.location:frc.robot.subsystems/Algae///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-algae/index.html
-$dokka.location:frc.robot.subsystems/Algae/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-algae/get-instance.html
 $dokka.location:frc.robot.subsystems/Climber///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/index.html
 $dokka.location:frc.robot.subsystems/Climber/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/get-instance.html
 $dokka.location:frc.robot.subsystems/Climber/getPivotPosValue/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/get-pivot-pos-value.html
