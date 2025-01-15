@@ -227,6 +227,9 @@ public class Swerve extends SubsystemBase {
             ? new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed)
             : ChassisSpeeds.fromFieldRelativeSpeeds(
                 forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation());
+
+    // fixes skew and werid shit idk frc is gay
+    speeds = speeds.discretize(speeds, 0.02);
     SwerveModuleState[] states2 =
         SwerveParameters.PhysicalParameters.kinematics.toSwerveModuleStates(speeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(states2, MotorParameters.MAX_SPEED);

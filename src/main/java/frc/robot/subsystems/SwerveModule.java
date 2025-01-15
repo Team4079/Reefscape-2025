@@ -180,7 +180,7 @@ public class SwerveModule {
     SwerveModulePosition newPosition = getPosition();
 
     // Optimize the state based on the current position
-    state.optimize(newPosition.angle);
+    state = state.optimize(newPosition.angle);
 
     // Set the angle for the steer motor
     double angleToSet = state.angle.getRotations();
