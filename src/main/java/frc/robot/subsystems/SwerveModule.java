@@ -259,7 +259,7 @@ public class SwerveModule {
   /** Sets the PID values for teleoperation mode. */
   public void setTelePID() {
     setDrivePID(PIDParameters.DRIVE_PID_TELE, PIDParameters.DRIVE_PID_TELE.getV());
-    setSteerPID(PIDParameters.STEER_PID_TELE, 0.0);
+    setSteerPID(PIDParameters.STEER_PID_TELE, PIDParameters.STEER_PID_TELE.getV());
   }
 
   /** Sets the PID values for autonomous mode. */
