@@ -228,8 +228,8 @@ public class Swerve extends SubsystemBase {
             : ChassisSpeeds.fromFieldRelativeSpeeds(
                 forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation());
 
-    // fixes skew and werid shit idk frc is gay
-    speeds = speeds.discretize(speeds, 0.02);
+    // Added in WPILib 2024, fixes skew (apparently) and also discretizes the speeds to make the robot run straighter (allegedly)
+    speeds = ChassisSpeeds.discretize(speeds, 0.02);
     SwerveModuleState[] states2 =
         SwerveParameters.PhysicalParameters.kinematics.toSwerveModuleStates(speeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(states2, MotorParameters.MAX_SPEED);
