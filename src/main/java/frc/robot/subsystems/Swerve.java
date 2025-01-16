@@ -100,7 +100,7 @@ public class Swerve extends SubsystemBase {
   private SwerveModule[] initializeModules() {
     return new SwerveModule[] {
       new SwerveModule(
-          MotorParameters.FRONT_LEFT_DRIVE_ID,z
+          MotorParameters.FRONT_LEFT_DRIVE_ID,
           MotorParameters.FRONT_LEFT_STEER_ID,
           MotorParameters.FRONT_LEFT_CAN_CODER_ID,
           SwerveParameters.Thresholds.CANCODER_VAL9),
