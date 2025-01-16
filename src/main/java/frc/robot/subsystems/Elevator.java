@@ -21,7 +21,7 @@ public class Elevator extends SubsystemBase {
   private final TalonFX elevatorMotorLeft;
   private final TalonFX elevatorMotorRight;
 
-  private final PositionTorqueCurrentFOC pos_reqest;
+  private final PositionTorqueCurrentFOC pos_request;
   private final VelocityTorqueCurrentFOC vel_voltage;
 
   private final SoftwareLimitSwitchConfigs leftSoftLimitConfig;
@@ -138,7 +138,7 @@ public class Elevator extends SubsystemBase {
     // absoluteEncoder = new DigitalInput(9);
 
     vel_voltage = new VelocityTorqueCurrentFOC(0);
-    pos_reqest = new PositionTorqueCurrentFOC(0);
+    pos_request = new PositionTorqueCurrentFOC(0);
     voltageOut = new VoltageOut(0);
 
     new PositionDutyCycle(0);
@@ -189,8 +189,8 @@ public class Elevator extends SubsystemBase {
    * @param right Right motor position
    */
   public void setElevatorPosition(double left, double right) {
-    elevatorMotorLeft.setControl(pos_reqest.withPosition(left));
-    elevatorMotorRight.setControl(pos_reqest.withPosition(right));
+    elevatorMotorLeft.setControl(pos_request.withPosition(left));
+    elevatorMotorRight.setControl(pos_request.withPosition(right));
   }
 
   /** Sets the elevator state */
@@ -305,7 +305,7 @@ public class Elevator extends SubsystemBase {
    * @param pos double, the position to set the elevator motor to
    */
   public void setElevatorPosition(double pos) {
-    elevatorMotorLeft.setControl(pos_reqest.withVelocity(pos));
-    elevatorMotorRight.setControl(pos_reqest.withVelocity(pos));
+    elevatorMotorLeft.setControl(pos_request.withVelocity(pos));
+    elevatorMotorRight.setControl(pos_request.withVelocity(pos));
   }
 }
