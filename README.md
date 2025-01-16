@@ -6,11 +6,7 @@ FRC 4079's repository for our 2024 robot code
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Project Structure](#project-structure)
 - [Dependencies](#dependencies)
-- [Building the Project](#building-the-project)
-- [Deploying the Code](#deploying-the-code)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Introduction
@@ -28,15 +24,6 @@ The project relies on several dependencies, including:
 - Dokka
 
 Dependencies are managed through the `build.gradle` file and the `vendordeps` directory.
-
-## Contributing
-We welcome contributions from the community. Please follow these steps to contribute:
-
-Fork the repository.
-Create a new branch for your feature or bugfix.
-Commit your changes.
-Push your branch and create a pull request.
-Please ensure your code adheres to the project's coding standards and passes all tests.
 
 ## License
 
