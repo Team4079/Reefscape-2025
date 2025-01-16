@@ -148,6 +148,7 @@ public class Swerve extends SubsystemBase {
         getModulePositions(),
         new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0.0)));
   }
+
   private static ChassisSpeeds correctForDynamics(ChassisSpeeds originalSpeeds) {
       final double dt = 0.02;
       Pose2d futureRobotPose =
@@ -156,13 +157,12 @@ public class Swerve extends SubsystemBase {
               originalSpeeds.vyMetersPerSecond * dt,
               Rotation2d.fromRadians(originalSpeeds.omegaRadiansPerSecond * dt));
       Twist2d twistForPose = new Twist2d(futureRobotPose.getX(), futureRobotPose.getY(), futureRobotPose.getRotation().getDegrees());
-      ChassisSpeeds updatedSpeeds =
-          new ChassisSpeeds(
+    return new ChassisSpeeds(
               twistForPose.dx / dt,
               twistForPose.dy / dt,
               twistForPose.dtheta / dt);
-      return updatedSpeeds;
   }
+
   /**
    * Configures the AutoBuilder for autonomous driving. READ DOCUMENTATION TO PUT IN CORRECT VALUES
    * Allows PathPlanner to get pose and output robot-relative chassis speeds Needs tuning
@@ -243,14 +243,14 @@ public class Swerve extends SubsystemBase {
             ? new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed)
             : ChassisSpeeds.fromFieldRelativeSpeeds(
                 forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation());
-
-    SwerveModuleState[] states2 =
-        SwerveParameters.PhysicalParameters.kinematics.toSwerveModuleStates(speeds);
-    SwerveDriveKinematics.desaturateWheelSpeeds(states2, MotorParameters.MAX_SPEED);
-    // Added in WPILib 2024, fixes skew (apparently) and also discretizes the speeds to make the robot run straighter (allegedly)
-    // speeds = ChassisSpeeds.discretize(speeds, 0.02);
+    
+    speeds = ChassisSpeeds.discretize(speeds, 0.02);
     speeds = correctForDynamics(speeds);
-    setModuleStates(states2);
+
+    SwerveModuleState[] newStates =
+        SwerveParameters.PhysicalParameters.kinematics.toSwerveModuleStates(speeds);
+    SwerveDriveKinematics.desaturateWheelSpeeds(newStates, MotorParameters.MAX_SPEED);
+    setModuleStates(newStates);
   }
 
   /**
