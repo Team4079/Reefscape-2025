@@ -35,6 +35,7 @@ public class Swerve extends SubsystemBase {
   private final Field2d field = new Field2d();
   private final Pigeon2 pidgey = new Pigeon2(RobotParameters.MotorParameters.PIDGEY_ID);
   private final SwerveModuleState[] states = new SwerveModuleState[4];
+  private SwerveModuleState[] setStates = new SwerveModuleState[4];
   private final SwerveModule[] modules;
   private final PIDVController pid;
   public Pose2d currentPose = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
@@ -53,6 +54,20 @@ public class Swerve extends SubsystemBase {
               }
             }
           });
+
+  Thread swerveLoggingThreadBeforeSet =
+          new Thread(
+                  () -> {
+                    while (true) {
+                      log("Set Swerve Module States", setStates);
+                      try {
+                        Thread.sleep(100);
+                      } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        break;
+                      }
+                    }
+                  });
 
   // from feeder to the goal and align itself
   // The plan is for it to path towards it then we use a set path to align itself with the goal and
@@ -88,6 +103,7 @@ public class Swerve extends SubsystemBase {
     this.poseEstimator = initializePoseEstimator();
     configureAutoBuilder();
     swerveLoggingThread.start();
+    swerveLoggingThreadBeforeSet.start();
   }
 
   /**
@@ -344,6 +360,7 @@ public class Swerve extends SubsystemBase {
    * @param states The states of the swerve modules.
    */
   public void setModuleStates(SwerveModuleState[] states) {
+    setStates = states;
     for (int i = 0; i < states.length; i++) {
       modules[i].setState(states[i]);
     }
