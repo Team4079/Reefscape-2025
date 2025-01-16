@@ -245,11 +245,12 @@ public class Swerve extends SubsystemBase {
                 forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation());
     
     speeds = ChassisSpeeds.discretize(speeds, 0.02);
-    speeds = correctForDynamics(speeds);
+    // speeds = correctForDynamics(speeds);
 
     SwerveModuleState[] newStates =
         SwerveParameters.PhysicalParameters.kinematics.toSwerveModuleStates(speeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(newStates, MotorParameters.MAX_SPEED);
+    
     setModuleStates(newStates);
   }
 
