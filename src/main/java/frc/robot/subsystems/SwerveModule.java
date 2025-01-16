@@ -86,6 +86,7 @@ public class SwerveModule {
     driveConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
     driveConfigs.CurrentLimits.StatorCurrentLimit = MotorParameters.DRIVE_STATOR_LIMIT;
     driveConfigs.CurrentLimits.StatorCurrentLimitEnable = true;
+    driveConfigs.Feedback.RotorToSensorRatio = MotorParameters.DRIVE_MOTOR_GEAR_RATIO;
 
     steerConfigs = new TalonFXConfiguration();
 
