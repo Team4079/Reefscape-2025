@@ -243,7 +243,7 @@ public class Swerve extends SubsystemBase {
             ? new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed)
             : ChassisSpeeds.fromFieldRelativeSpeeds(
                 forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation());
-    
+
     speeds = ChassisSpeeds.discretize(speeds, 0.02);
     // speeds = correctForDynamics(speeds);
 
