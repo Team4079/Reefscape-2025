@@ -14,6 +14,7 @@ import edu.wpi.first.math.controller.*;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Twist2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -148,6 +149,20 @@ public class Swerve extends SubsystemBase {
         new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0.0)));
   }
 
+  private static ChassisSpeeds correctForDynamics(ChassisSpeeds originalSpeeds) {
+      final double dt = 0.02;
+      Pose2d futureRobotPose =
+          new Pose2d(
+              originalSpeeds.vxMetersPerSecond * dt,
+              originalSpeeds.vyMetersPerSecond * dt,
+              Rotation2d.fromRadians(originalSpeeds.omegaRadiansPerSecond * dt));
+      Twist2d twistForPose = new Twist2d(futureRobotPose.getX(), futureRobotPose.getY(), futureRobotPose.getRotation().getDegrees());
+    return new ChassisSpeeds(
+              twistForPose.dx / dt,
+              twistForPose.dy / dt,
+              twistForPose.dtheta / dt);
+  }
+
   /**
    * Configures the AutoBuilder for autonomous driving. READ DOCUMENTATION TO PUT IN CORRECT VALUES
    * Allows PathPlanner to get pose and output robot-relative chassis speeds Needs tuning
@@ -181,20 +196,21 @@ public class Swerve extends SubsystemBase {
    * dashboard values.
    */
   @Override
-  public void periodic() {
+  public void periodic() {  
+
     /*
      This method checks whether the bot is in Teleop, and adds it to poseEstimator based on VISION
     */
-    if (DriverStation.isTeleop()) {
-      EstimatedRobotPose estimatedPose =
-          PhotonVision.getInstance().getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
-      if (estimatedPose != null) {
-        double timestamp = estimatedPose.timestampSeconds;
-        Pose2d visionMeasurement2d = estimatedPose.estimatedPose.toPose2d();
-        poseEstimator.addVisionMeasurement(visionMeasurement2d, timestamp);
-        currentPose = poseEstimator.getEstimatedPosition();
-      }
-    }
+    // if (DriverStation.isTeleop()) {
+    //   EstimatedRobotPose estimatedPose =
+    //       PhotonVision.getInstance().getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
+    //   if (estimatedPose != null) {
+    //     double timestamp = estimatedPose.timestampSeconds;
+    //     Pose2d visionMeasurement2d = estimatedPose.estimatedPose.toPose2d();
+    //     poseEstimator.addVisionMeasurement(visionMeasurement2d, timestamp);
+    //     currentPose = poseEstimator.getEstimatedPosition();
+    //   }
+    // }
 
     /*
      Updates the robot position based on movement and rotation from the pidgey and encoders.
@@ -227,10 +243,15 @@ public class Swerve extends SubsystemBase {
             ? new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed)
             : ChassisSpeeds.fromFieldRelativeSpeeds(
                 forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation());
-    SwerveModuleState[] states2 =
+
+    speeds = ChassisSpeeds.discretize(speeds, 0.02);
+    // speeds = correctForDynamics(speeds);
+
+    SwerveModuleState[] newStates =
         SwerveParameters.PhysicalParameters.kinematics.toSwerveModuleStates(speeds);
-    SwerveDriveKinematics.desaturateWheelSpeeds(states2, MotorParameters.MAX_SPEED);
-    setModuleStates(states2);
+    SwerveDriveKinematics.desaturateWheelSpeeds(newStates, MotorParameters.MAX_SPEED);
+    
+    setModuleStates(newStates);
   }
 
   /**
@@ -240,8 +261,9 @@ public class Swerve extends SubsystemBase {
    */
   public Rotation2d getPidgeyRotation() {
     return pidgey.getRotation2d();
-  }
+  } 
 
+  
   /**
    * Gets the heading of the robot.
    *
@@ -375,6 +397,7 @@ public class Swerve extends SubsystemBase {
   /** Sets the PID constants for teleoperated driving. */
   public void setTelePID() {
     for (SwerveModule module : modules) {
+      module.setTelePID();
       module.applyTelePIDValues();
     }
   }

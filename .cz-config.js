@@ -1,4 +1,4 @@
-const subjectcharacterLimit = 100;
+const subjectCharacterLimit = 100;
 
 module.exports = {
   types: [
@@ -61,7 +61,7 @@ module.exports = {
     scope: '\nDenote the SCOPE of this change (optional):',
     // used if allowCustomScopes is true
     customScope: 'Denote the SCOPE of this change:',
-    subject: `Write a SHORT, IMPERATIVE tense description of the change (less than ${subjectcharacterLimit} characters long):\n`,
+    subject: `Write a SHORT, IMPERATIVE tense description of the change (less than ${subjectCharacterLimit} characters long):\n`,
     body: 'Provide a LONGER description of the change (optional). Use "|" to break new line:\n',
     breaking: 'List any BREAKING CHANGES (optional):\n',
     footer: 'List any ISSUES CLOSED by this change (optional). E.g.: #31, #34:\n',
@@ -74,7 +74,7 @@ module.exports = {
   // skipQuestions: ['scope', 'body'],
 
   // limit subject length
-  subjectLimit: subjectcharacterLimit,
+  subjectLimit: subjectCharacterLimit,
   breaklineChar: '|', // It is supported for fields body and footer.
   // footerPrefix : 'ISSUES CLOSED:'
   // askForBreakingChangeFirst : true, // default is false
