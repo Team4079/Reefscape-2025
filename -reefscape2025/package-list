@@ -2,7 +2,7 @@ $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:frc.robot.commands.sequencing////PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/index.html
 $dokka.location:frc.robot.commands.sequencing/AutomaticScore///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/index.html
-$dokka.location:frc.robot.commands.sequencing/AutomaticScore/AutomaticScore/#frc.robot.utils.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/-automatic-score.html
+$dokka.location:frc.robot.commands.sequencing/AutomaticScore/AutomaticScore/#frc.robot.utils.Direction#frc.robot.utils.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/-automatic-score.html
 $dokka.location:frc.robot.commands////PointingToDeclaration/-reefscape2025/frc.robot.commands/index.html
 $dokka.location:frc.robot.commands/AlignSwerve///PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/index.html
 $dokka.location:frc.robot.commands/AlignSwerve/AlignSwerve/#frc.robot.utils.Direction#double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/-align-swerve.html
