@@ -7,7 +7,6 @@ import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.SHOULD
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
@@ -28,8 +27,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
-
-import java.nio.file.Path;
 import java.util.Optional;
 import org.photonvision.*;
 
@@ -110,11 +107,9 @@ public class Swerve extends SubsystemBase {
 
     try {
       pathToScore = fromPathFile("Straight Path");
-    }
-    catch(Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException("Failed to load robot config", e);
     }
-
   }
 
   /**
@@ -251,7 +246,11 @@ public class Swerve extends SubsystemBase {
     log("Left speed", leftSpeed);
 
     // Converts to a measure that the robot aktualy understands
-    ChassisSpeeds speeds = isFieldOriented ? ChassisSpeeds.fromFieldRelativeSpeeds(forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation()) : new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed);
+    ChassisSpeeds speeds =
+        isFieldOriented
+            ? ChassisSpeeds.fromFieldRelativeSpeeds(
+                forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation())
+            : new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed);
 
     speeds = ChassisSpeeds.discretize(speeds, 0.02);
 

@@ -7,7 +7,6 @@ import static frc.robot.utils.Kommand.*;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.subsystems.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
@@ -30,7 +29,8 @@ public class RobotContainer {
   private final JoystickButton padLeftBumper;
   private final JoystickButton padRightBumper;
 
-  public LoggedDashboardChooser<Command> networkChooser = new LoggedDashboardChooser<>("AutoChooser");
+  public LoggedDashboardChooser<Command> networkChooser =
+      new LoggedDashboardChooser<>("AutoChooser");
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

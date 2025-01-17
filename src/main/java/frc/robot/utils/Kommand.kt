@@ -15,9 +15,9 @@ import frc.robot.utils.controller.GamingController
 /**
  * The [Kommand] object provides factory methods to create various commands
  * used in the robot's operation.
+ *
+ * This is called for instant commands instead of functions
  */
-
- // This is called for instant commands instead of functions
 object Kommand {
     /**
      * Creates an [InstantCommand] to set the state of the elevator.
