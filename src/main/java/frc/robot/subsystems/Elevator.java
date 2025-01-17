@@ -6,6 +6,7 @@ import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.*;
 import com.ctre.phoenix6.signals.*;
+import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
@@ -30,6 +31,9 @@ public class Elevator extends SubsystemBase {
   private final VoltageOut voltageOut;
 
   private ElevatorState currentState = frc.robot.utils.ElevatorState.L1;
+
+  private Alert elevatorLeftDisconnectedAlert;
+  private Alert elevatorRightDisconnectedAlert;
 
   /**
    * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
@@ -145,6 +149,8 @@ public class Elevator extends SubsystemBase {
 
     elevatorMotorLeft.setPosition(0);
     elevatorMotorRight.setPosition(0);
+
+    initializeAlarms();
   }
 
   // This method will be called once per scheduler run
@@ -308,4 +314,19 @@ public class Elevator extends SubsystemBase {
     elevatorMotorLeft.setControl(pos_request.withVelocity(pos));
     elevatorMotorRight.setControl(pos_request.withVelocity(pos));
   }
+
+  public void initializeAlarms() {
+    elevatorLeftDisconnectedAlert =
+            new Alert("Disconnected drive motor " + Integer.toString(MotorParameters.ELEVATOR_MOTOR_LEFT_ID) + ".", Alert.AlertType.kError);
+    elevatorRightDisconnectedAlert = 
+            new Alert("Disconnected turn motor " + Integer.toString(MotorParameters.ELEVATOR_MOTOR_RIGHT_ID) + ".", Alert.AlertType.kError);
+
+    elevatorLeftDisconnectedAlert.set(!elevatorMotorLeft.isConnected());
+    elevatorRightDisconnectedAlert.set(!elevatorMotorRight.isConnected());
+
+    log("Disconnected elevatorMotorLeft " +  Integer.toString(elevatorMotorLeft.getDeviceID()) + ".", elevatorMotorLeft.isConnected());
+    log("Disconnected elevatorMotorRight " + Integer.toString(elevatorMotorRight.getDeviceID()) + ".", elevatorMotorRight.isConnected());
+  }
 }
+
+
