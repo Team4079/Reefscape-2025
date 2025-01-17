@@ -14,6 +14,7 @@ $dokka.location:frc.robot.commands/AlignSwerve/isFinished/#/PointingToDeclaratio
 $dokka.location:frc.robot.commands/Kommand///PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/index.html
 $dokka.location:frc.robot.commands/Kommand/align/#frc.robot.utils.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/align.html
 $dokka.location:frc.robot.commands/Kommand/autonomousCommand/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/autonomous-command.html
+$dokka.location:frc.robot.commands/Kommand/cmd/#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/cmd.html
 $dokka.location:frc.robot.commands/Kommand/drive/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/drive.html
 $dokka.location:frc.robot.commands/Kommand/moveElevatorToLevel/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/move-elevator-to-level.html
 $dokka.location:frc.robot.commands/Kommand/resetPidgey/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/reset-pidgey.html
