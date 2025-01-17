@@ -13,7 +13,6 @@ import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Twist2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -28,7 +27,6 @@ import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import java.util.Optional;
-import org.photonvision.EstimatedRobotPose;
 
 public class Swerve extends SubsystemBase {
   private final SwerveDrivePoseEstimator poseEstimator;
@@ -56,18 +54,18 @@ public class Swerve extends SubsystemBase {
           });
 
   Thread swerveLoggingThreadBeforeSet =
-          new Thread(
-                  () -> {
-                    while (true) {
-                      log("Set Swerve Module States", setStates);
-                      try {
-                        Thread.sleep(100);
-                      } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        break;
-                      }
-                    }
-                  });
+      new Thread(
+          () -> {
+            while (true) {
+              log("Set Swerve Module States", setStates);
+              try {
+                Thread.sleep(100);
+              } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break;
+              }
+            }
+          });
 
   // from feeder to the goal and align itself
   // The plan is for it to path towards it then we use a set path to align itself with the goal and
@@ -164,27 +162,13 @@ public class Swerve extends SubsystemBase {
         new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0.0)));
   }
 
-  private static ChassisSpeeds correctForDynamics(ChassisSpeeds originalSpeeds) {
-      final double dt = 0.02;
-      Pose2d futureRobotPose =
-          new Pose2d(
-              originalSpeeds.vxMetersPerSecond * dt,
-              originalSpeeds.vyMetersPerSecond * dt,
-              Rotation2d.fromRadians(originalSpeeds.omegaRadiansPerSecond * dt));
-      Twist2d twistForPose = new Twist2d(futureRobotPose.getX(), futureRobotPose.getY(), futureRobotPose.getRotation().getDegrees());
-    return new ChassisSpeeds(
-              twistForPose.dx / dt,
-              twistForPose.dy / dt,
-              twistForPose.dtheta / dt);
-  }
-
   /**
    * Configures the AutoBuilder for autonomous driving. READ DOCUMENTATION TO PUT IN CORRECT VALUES
    * Allows PathPlanner to get pose and output robot-relative chassis speeds Needs tuning
    */
   private void configureAutoBuilder() {
-      assert PIDParameters.config != null;
-      AutoBuilder.configure(
+    assert PIDParameters.config != null;
+    AutoBuilder.configure(
         this::getPose,
         this::newPose,
         this::getAutoSpeeds,
@@ -211,14 +195,15 @@ public class Swerve extends SubsystemBase {
    * dashboard values.
    */
   @Override
-  public void periodic() {  
+  public void periodic() {
 
     /*
      This method checks whether the bot is in Teleop, and adds it to poseEstimator based on VISION
     */
     // if (DriverStation.isTeleop()) {
     //   EstimatedRobotPose estimatedPose =
-    //       PhotonVision.getInstance().getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
+    //
+    // PhotonVision.getInstance().getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
     //   if (estimatedPose != null) {
     //     double timestamp = estimatedPose.timestampSeconds;
     //     Pose2d visionMeasurement2d = estimatedPose.estimatedPose.toPose2d();
@@ -260,12 +245,11 @@ public class Swerve extends SubsystemBase {
                 forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation());
 
     speeds = ChassisSpeeds.discretize(speeds, 0.02);
-    // speeds = correctForDynamics(speeds);
 
     SwerveModuleState[] newStates =
         SwerveParameters.PhysicalParameters.kinematics.toSwerveModuleStates(speeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(newStates, MotorParameters.MAX_SPEED);
-    
+
     setModuleStates(newStates);
   }
 
@@ -276,9 +260,8 @@ public class Swerve extends SubsystemBase {
    */
   public Rotation2d getPidgeyRotation() {
     return pidgey.getRotation2d();
-  } 
+  }
 
-  
   /**
    * Gets the heading of the robot.
    *
