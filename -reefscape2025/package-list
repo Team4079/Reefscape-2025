@@ -38,7 +38,6 @@ $dokka.location:frc.robot.subsystems/Climber/periodic/#/PointingToDeclaration/-
 $dokka.location:frc.robot.subsystems/Climber/resetEncoders/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/reset-encoders.html
 $dokka.location:frc.robot.subsystems/Climber/setMotorPosition/#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/set-motor-position.html
 $dokka.location:frc.robot.subsystems/Climber/setPivot/#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/set-pivot.html
-$dokka.location:frc.robot.subsystems/Climber/shootPos/#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/shoot-pos.html
 $dokka.location:frc.robot.subsystems/Climber/stopMotor/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/stop-motor.html
 $dokka.location:frc.robot.subsystems/Climber/toggleSoftStop/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/toggle-soft-stop.html
 $dokka.location:frc.robot.subsystems/CoralManipulator///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-coral-manipulator/index.html
@@ -155,13 +154,6 @@ $dokka.location:frc.robot.utils/Button/getButtonNumber/#/PointingToDeclaration/
 $dokka.location:frc.robot.utils/Button/getEntries/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-button/get-entries.html
 $dokka.location:frc.robot.utils/Button/valueOf/#kotlin.String/PointingToDeclaration/-reefscape2025/frc.robot.utils/-button/value-of.html
 $dokka.location:frc.robot.utils/Button/values/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-button/values.html
-$dokka.location:frc.robot.utils/Dash///PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/index.html
-$dokka.location:frc.robot.utils/Dash/log/#kotlin.String?#TypeParam(bounds=[edu.wpi.first.util.WPISerializable?])/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/log.html
-$dokka.location:frc.robot.utils/Dash/log/#kotlin.String?#kotlin.Array[TypeParam(bounds=[edu.wpi.first.util.struct.StructSerializable?])]/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/log.html
-$dokka.location:frc.robot.utils/Dash/log/#kotlin.String?#kotlin.Boolean/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/log.html
-$dokka.location:frc.robot.utils/Dash/log/#kotlin.String?#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/log.html
-$dokka.location:frc.robot.utils/Dash/log/#kotlin.String?#kotlin.Int/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/log.html
-$dokka.location:frc.robot.utils/Dash/log/#kotlin.String?#kotlin.String?/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/log.html
 $dokka.location:frc.robot.utils/Direction.CENTER///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-direction/-c-e-n-t-e-r/index.html
 $dokka.location:frc.robot.utils/Direction.LEFT///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-direction/-l-e-f-t/index.html
 $dokka.location:frc.robot.utils/Direction.RIGHT///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-direction/-r-i-g-h-t/index.html
@@ -180,6 +172,18 @@ $dokka.location:frc.robot.utils/PIDVController/PIDVController/#double#double#dou
 $dokka.location:frc.robot.utils/PIDVController/PIDVController/#edu.wpi.first.math.controller.PIDController#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d-v-controller/-p-i-d-v-controller.html
 $dokka.location:frc.robot.utils/PIDVController/getV/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d-v-controller/get-v.html
 $dokka.location:frc.robot.utils/PIDVController/setV/#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d-v-controller/set-v.html
+$dokka.location:frc.robot.utils/Register.Dash///PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/index.html
+$dokka.location:frc.robot.utils/Register.Dash/log/#kotlin.String?#TypeParam(bounds=[edu.wpi.first.util.WPISerializable?])/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/log.html
+$dokka.location:frc.robot.utils/Register.Dash/log/#kotlin.String?#kotlin.Array[TypeParam(bounds=[edu.wpi.first.util.struct.StructSerializable?])]/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/log.html
+$dokka.location:frc.robot.utils/Register.Dash/log/#kotlin.String?#kotlin.Boolean/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/log.html
+$dokka.location:frc.robot.utils/Register.Dash/log/#kotlin.String?#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/log.html
+$dokka.location:frc.robot.utils/Register.Dash/log/#kotlin.String?#kotlin.Int/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/log.html
+$dokka.location:frc.robot.utils/Register.Dash/log/#kotlin.String?#kotlin.String?/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/log.html
+$dokka.location:frc.robot.utils/Register///PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/index.html
+$dokka.location:frc.robot.utils/Register/bind/#frc.robot.utils.Button#edu.wpi.first.wpilibj2.command.Command/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/bind.html
+$dokka.location:frc.robot.utils/Register/bindings/kotlin.collections.Map[frc.robot.utils.Button,edu.wpi.first.wpilibj2.command.button.JoystickButton]#kotlin.Array[kotlin.Pair[frc.robot.utils.Button,edu.wpi.first.wpilibj2.command.Command]]/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/bindings.html
+$dokka.location:frc.robot.utils/Register/cmd/#kotlin.String#edu.wpi.first.wpilibj2.command.Command/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/cmd.html
+$dokka.location:frc.robot.utils/Register/commands/#kotlin.Array[kotlin.Pair[kotlin.String,edu.wpi.first.wpilibj2.command.Command]]/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/commands.html
 $dokka.location:frc.robot.utils/RobotParameters.CoralManipulatorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-coral-manipulator-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.ElevatorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-elevator-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.EndEffectorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-end-effector-parameters/index.html
@@ -207,7 +211,6 @@ $dokka.location:frc.robot/Robot/teleopInit/#/PointingToDeclaration/-reefscape20
 $dokka.location:frc.robot/Robot/testInit/#/PointingToDeclaration/-reefscape2025/frc.robot/-robot/test-init.html
 $dokka.location:frc.robot/RobotContainer///PointingToDeclaration/-reefscape2025/frc.robot/-robot-container/index.html
 $dokka.location:frc.robot/RobotContainer/RobotContainer/#/PointingToDeclaration/-reefscape2025/frc.robot/-robot-container/-robot-container.html
-$dokka.location:frc.robot/RobotContainer/getAutonomousCommand/#/PointingToDeclaration/-reefscape2025/frc.robot/-robot-container/get-autonomous-command.html
 frc.robot
 frc.robot.commands
 frc.robot.commands.sequencing
