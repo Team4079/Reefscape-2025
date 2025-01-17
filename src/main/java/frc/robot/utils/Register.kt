@@ -5,7 +5,25 @@ import edu.wpi.first.util.WPISerializable
 import edu.wpi.first.util.struct.StructSerializable
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.button.JoystickButton
+import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.TEST_MODE
 import org.littletonrobotics.junction.Logger
+
+/**
+ * Type alias for a pair consisting of a command name and a command.
+ */
+typealias NamedCommand = Pair<String, Command>
+
+/**
+ * Type alias for a pair consisting of a button and a command.
+ */
+typealias Binding = Pair<Button, Command>
+
+/**
+ * Type alias for a map of buttons to joystick buttons.
+ */
+typealias ButtonMap = Map<Button, JoystickButton>
+
+typealias Log = Pair<String, Any>
 
 /**
  * Object that provides a utility function to register things.
@@ -71,6 +89,39 @@ object Register {
      */
     object Dash {
         /**
+         * Logs multiple values with their respective keys based on the type of each value.
+         *
+         * @param logs Vararg parameter of pairs where the first element is the key and the second element is the value to log.
+         */
+        @JvmStatic
+        @SafeVarargs
+        fun logs(vararg logs: Log) {
+            logs.forEach { (key, value) ->
+                when (value) {
+                    is Double -> log(key, value)
+                    is Int -> log(key, value)
+                    is Boolean -> log(key, value)
+                    is String -> log(key, value)
+                    is WPISerializable -> log(key, value)
+                    else -> println("Unsupported log type for key $key")
+                }
+            }
+        }
+
+        /**
+         * Creates a [Log] from a string and a value.
+         *
+         * @param string The key associated with the value to log.
+         * @param value The value to be logged.
+         * @return A [Log] consisting of the key and the value.
+         */
+        @JvmStatic
+        fun logPair(
+            string: String,
+            value: Any,
+        ) = Log(string, value)
+
+        /**
          * Logs a double value with a specified key if the system is in test mode.
          *
          * @param key The key associated with the value to log.
@@ -81,7 +132,7 @@ object Register {
             key: String?,
             value: Double,
         ) {
-            if (RobotParameters.SwerveParameters.Thresholds.TEST_MODE) {
+            if (TEST_MODE) {
                 Logger.recordOutput(key, value)
             }
         }
@@ -97,7 +148,7 @@ object Register {
             key: String?,
             value: Int,
         ) {
-            if (RobotParameters.SwerveParameters.Thresholds.TEST_MODE) {
+            if (TEST_MODE) {
                 Logger.recordOutput(key, value)
             }
         }
@@ -113,7 +164,7 @@ object Register {
             key: String?,
             value: Boolean,
         ) {
-            if (RobotParameters.SwerveParameters.Thresholds.TEST_MODE) {
+            if (TEST_MODE) {
                 Logger.recordOutput(key, value)
             }
         }
@@ -129,7 +180,7 @@ object Register {
             key: String?,
             value: String?,
         ) {
-            if (RobotParameters.SwerveParameters.Thresholds.TEST_MODE) {
+            if (TEST_MODE) {
                 Logger.recordOutput(key, value)
             }
         }
@@ -145,7 +196,7 @@ object Register {
             key: String?,
             value: T,
         ) {
-            if (RobotParameters.SwerveParameters.Thresholds.TEST_MODE) {
+            if (TEST_MODE) {
                 Logger.recordOutput(key, value)
             }
         }
@@ -161,24 +212,9 @@ object Register {
             key: String?,
             vararg value: T,
         ) {
-            if (RobotParameters.SwerveParameters.Thresholds.TEST_MODE) {
+            if (TEST_MODE) {
                 Logger.recordOutput(key, *value)
             }
         }
     }
 }
-
-/**
- * Type alias for a pair consisting of a command name and a command.
- */
-typealias NamedCommand = Pair<String, Command>
-
-/**
- * Type alias for a pair consisting of a button and a command.
- */
-typealias Binding = Pair<Button, Command>
-
-/**
- * Type alias for a map of buttons to joystick buttons.
- */
-typealias ButtonMap = Map<Button, JoystickButton>
