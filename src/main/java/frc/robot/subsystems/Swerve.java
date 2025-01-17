@@ -238,11 +238,8 @@ public class Swerve extends SubsystemBase {
     log("Forward speed", forwardSpeed);
     log("Left speed", leftSpeed);
 
-    ChassisSpeeds speeds =
-        !isFieldOriented
-            ? new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed)
-            : ChassisSpeeds.fromFieldRelativeSpeeds(
-                forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation());
+    // Converts to a measure that the robot aktualy understands
+    ChassisSpeeds speeds = isFieldOriented ? ChassisSpeeds.fromFieldRelativeSpeeds(forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation()) : new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed);
 
     speeds = ChassisSpeeds.discretize(speeds, 0.02);
 
