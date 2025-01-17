@@ -27,6 +27,7 @@ import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import java.util.Optional;
+import org.photonvision.*;
 
 public class Swerve extends SubsystemBase {
   private final SwerveDrivePoseEstimator poseEstimator;
@@ -200,17 +201,16 @@ public class Swerve extends SubsystemBase {
     /*
      This method checks whether the bot is in Teleop, and adds it to poseEstimator based on VISION
     */
-    // if (DriverStation.isTeleop()) {
-    //   EstimatedRobotPose estimatedPose =
-    //
-    // PhotonVision.getInstance().getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
-    //   if (estimatedPose != null) {
-    //     double timestamp = estimatedPose.timestampSeconds;
-    //     Pose2d visionMeasurement2d = estimatedPose.estimatedPose.toPose2d();
-    //     poseEstimator.addVisionMeasurement(visionMeasurement2d, timestamp);
-    //     currentPose = poseEstimator.getEstimatedPosition();
-    //   }
-    // }
+    if (DriverStation.isTeleop()) {
+      EstimatedRobotPose estimatedPose =
+          PhotonVision.getInstance().getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
+      if (estimatedPose != null) {
+        double timestamp = estimatedPose.timestampSeconds;
+        Pose2d visionMeasurement2d = estimatedPose.estimatedPose.toPose2d();
+        poseEstimator.addVisionMeasurement(visionMeasurement2d, timestamp);
+        currentPose = poseEstimator.getEstimatedPosition();
+      }
+    }
 
     /*
      Updates the robot position based on movement and rotation from the pidgey and encoders.
