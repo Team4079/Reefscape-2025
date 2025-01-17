@@ -52,6 +52,7 @@ $dokka.location:frc.robot.subsystems/Elevator/getElevatorPosValue/#java.lang.Str
 $dokka.location:frc.robot.subsystems/Elevator/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/get-instance.html
 $dokka.location:frc.robot.subsystems/Elevator/getState/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/get-state.html
 $dokka.location:frc.robot.subsystems/Elevator/getStateDouble/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/get-state-double.html
+$dokka.location:frc.robot.subsystems/Elevator/initializeAlarms/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/initialize-alarms.html
 $dokka.location:frc.robot.subsystems/Elevator/logElevatorState/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/log-elevator-state.html
 $dokka.location:frc.robot.subsystems/Elevator/moveElevator/#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/move-elevator.html
 $dokka.location:frc.robot.subsystems/Elevator/moveElevatorToLevel/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/move-elevator-to-level.html
@@ -130,8 +131,8 @@ $dokka.location:frc.robot.subsystems/SwerveModule/SwerveModule/#int#int#int#doub
 $dokka.location:frc.robot.subsystems/SwerveModule/applyTelePIDValues/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/apply-tele-p-i-d-values.html
 $dokka.location:frc.robot.subsystems/SwerveModule/getPosition/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/get-position.html
 $dokka.location:frc.robot.subsystems/SwerveModule/getState/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/get-state.html
+$dokka.location:frc.robot.subsystems/SwerveModule/initializeAlarms/#int#int#int/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/initialize-alarms.html
 $dokka.location:frc.robot.subsystems/SwerveModule/initializeLoggedNetworkPID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/initialize-logged-network-p-i-d.html
-$dokka.location:frc.robot.subsystems/SwerveModule/intializeAlarms/#int#int#int/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/intialize-alarms.html
 $dokka.location:frc.robot.subsystems/SwerveModule/resetDrivePosition/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/reset-drive-position.html
 $dokka.location:frc.robot.subsystems/SwerveModule/setAutoPID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/set-auto-p-i-d.html
 $dokka.location:frc.robot.subsystems/SwerveModule/setDrivePID/#edu.wpi.first.math.controller.PIDController#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/set-drive-p-i-d.html
