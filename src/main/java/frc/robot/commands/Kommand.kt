@@ -1,13 +1,14 @@
-package frc.robot.utils
+package frc.robot.commands
 
 import com.pathplanner.lib.commands.PathPlannerAuto
 import edu.wpi.first.wpilibj2.command.InstantCommand
 import edu.wpi.first.wpilibj2.command.WaitCommand
-import frc.robot.commands.PadDrive
 import frc.robot.commands.sequencing.AutomaticScore
 import frc.robot.subsystems.CoralManipulator
 import frc.robot.subsystems.Elevator
 import frc.robot.subsystems.Swerve
+import frc.robot.utils.Direction
+import frc.robot.utils.ElevatorState
 import frc.robot.utils.RobotParameters.SwerveParameters
 import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds
 import frc.robot.utils.controller.GamingController
@@ -15,6 +16,8 @@ import frc.robot.utils.controller.GamingController
 /**
  * The [Kommand] object provides factory methods to create various commands
  * used in the robot's operation.
+ *
+ * This is called for instant commands instead of functions
  */
 object Kommand {
     /**
@@ -58,6 +61,15 @@ object Kommand {
      */
     @JvmStatic
     fun score(dir: Direction) = AutomaticScore(dir)
+
+    /**
+     * Creates an [AlignSwerve] command to align the robot in a specified direction.
+     *
+     * @param dir The direction in which to align the robot.
+     * @return An [AlignSwerve] command that aligns the robot.
+     */
+    @JvmStatic
+    fun align(dir: Direction) = AlignSwerve(dir)
 
     /**
      * Creates a [PadDrive] command to control the robot's driving mechanism.
@@ -104,7 +116,4 @@ object Kommand {
      */
     @JvmStatic
     fun waitCmd(seconds: Double) = WaitCommand(seconds)
-
-    @JvmStatic
-    fun trollOm(didOmHaveaHeartAttack: Boolean) = println("hopefully true :D")
 }

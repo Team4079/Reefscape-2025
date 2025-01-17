@@ -1,7 +1,5 @@
 package frc.robot;
 
-import static frc.robot.utils.Kommand.*;
-
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -67,7 +65,7 @@ public class Robot extends LoggedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    autonomousCommand = autonomousCommand();
+    autonomousCommand = robotContainer.getAutonomousCommand();
     autonomousCommand.schedule();
   }
 

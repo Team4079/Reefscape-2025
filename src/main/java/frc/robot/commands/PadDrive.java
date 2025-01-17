@@ -1,11 +1,12 @@
 package frc.robot.commands;
 
 import static frc.robot.utils.Dash.*;
+import static frc.robot.utils.RobotParameters.MotorParameters.*;
+import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 import frc.robot.utils.*;
-import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds;
 import frc.robot.utils.controller.*;
 import kotlin.*;
 
@@ -45,7 +46,7 @@ public class PadDrive extends Command {
     log("Rotation", rotation);
 
     Swerve.getInstance()
-        .setDriveSpeeds(position.getSecond(), position.getFirst(), rotation * 0.8, isFieldOriented);
+        .setDriveSpeeds(position.getSecond(), position.getFirst(), rotation * 0.5, isFieldOriented);
   }
 
   /**
@@ -66,15 +67,11 @@ public class PadDrive extends Command {
    *     the second element is the y-coordinate.
    */
   public static Pair<Double, Double> positionSet(GamingController pad) {
-    double x = -pad.getLeftAnalogXAxis() * RobotParameters.MotorParameters.MAX_SPEED;
-    if (Math.abs(x) < Thresholds.X_DEADZONE) {
-      x = 0.0;
-    }
+    double x = -pad.getLeftAnalogXAxis() * MAX_SPEED;
+    if (Math.abs(x) < X_DEADZONE) x = 0.0;
 
-    double y = -pad.getLeftAnalogYAxis() * RobotParameters.MotorParameters.MAX_SPEED;
-    if (Math.abs(y) < Thresholds.Y_DEADZONE) {
-      y = 0.0;
-    }
+    double y = -pad.getLeftAnalogYAxis() * MAX_SPEED;
+    if (Math.abs(y) < Y_DEADZONE) y = 0.0;
 
     return new Pair<>(x, y);
   }

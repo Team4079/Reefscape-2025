@@ -2,11 +2,11 @@ package frc.robot;
 
 import static frc.robot.utils.Direction.*;
 import static frc.robot.utils.ElevatorState.*;
-import static frc.robot.utils.Kommand.*;
+import static frc.robot.commands.Kommand.*;
 
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.subsystems.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
@@ -28,6 +28,9 @@ public class RobotContainer {
   private final JoystickButton padStart;
   private final JoystickButton padLeftBumper;
   private final JoystickButton padRightBumper;
+
+  public LoggedDashboardChooser<Command> networkChooser =
+      new LoggedDashboardChooser<>("AutoChooser");
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -51,8 +54,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("SetL3", setElevatorState(L3));
     NamedCommands.registerCommand("SetL4", setElevatorState(L4));
 
-    LoggedDashboardChooser<Command> networkChooser = new LoggedDashboardChooser<>("AutoChooser");
-    networkChooser.addDefaultOption("Do Nothing", new InstantCommand());
+    networkChooser.addDefaultOption("Do Nothing", new PathPlannerAuto("Straight Auto"));
   }
 
   /**
@@ -72,5 +74,9 @@ public class RobotContainer {
     // padY.onTrue(setElevatorState(L4));
     padLeftBumper.onTrue(score(LEFT));
     padRightBumper.onTrue(score(RIGHT));
+  }
+
+  public Command getAutonomousCommand() {
+    return networkChooser.get();
   }
 }

@@ -147,8 +147,7 @@ public class SwerveModule {
     steerPosition = steerMotor.getPosition().getValueAsDouble();
 
     swerveModulePosition.angle =
-        Rotation2d.fromRotations(
-            canCoder.getAbsolutePosition().getValueAsDouble());
+        Rotation2d.fromRotations(canCoder.getAbsolutePosition().getValueAsDouble());
     swerveModulePosition.distanceMeters =
         (drivePosition / MotorParameters.DRIVE_MOTOR_GEAR_RATIO * MotorParameters.METERS_PER_REV);
 
@@ -162,8 +161,7 @@ public class SwerveModule {
    *     speed.
    */
   public SwerveModuleState getState() {
-    state.angle = Rotation2d.fromRotations(
-      canCoder.getAbsolutePosition().getValueAsDouble());
+    state.angle = Rotation2d.fromRotations(canCoder.getAbsolutePosition().getValueAsDouble());
     state.speedMetersPerSecond =
         (driveMotor.getRotorVelocity().getValueAsDouble()
             / MotorParameters.DRIVE_MOTOR_GEAR_RATIO
@@ -178,8 +176,8 @@ public class SwerveModule {
    */
   public void setState(SwerveModuleState desiredState) {
     // Get the current angle
-    Rotation2d currentAngle = Rotation2d.fromRotations(
-        canCoder.getAbsolutePosition().getValueAsDouble());
+    Rotation2d currentAngle =
+        Rotation2d.fromRotations(canCoder.getAbsolutePosition().getValueAsDouble());
 
     // Optimize the desired state based on current angle
     desiredState.optimize(currentAngle);
@@ -203,11 +201,13 @@ public class SwerveModule {
         "steer actual angle " + canCoder.getDeviceID(),
         canCoder.getAbsolutePosition().getValueAsDouble());
     log("steer set angle " + canCoder.getDeviceID(), angleToSet);
-    log("desired state after optimize " + canCoder.getDeviceID(), desiredState.angle.getRotations());
+    log(
+        "desired state after optimize " + canCoder.getDeviceID(),
+        desiredState.angle.getRotations());
 
     // Update the state with the optimized values
     state = desiredState;
-}
+  }
 
   /** Stops the swerve module motors. */
   public void stop() {

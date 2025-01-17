@@ -40,7 +40,7 @@ object RobotParameters {
         const val STEER_MOTOR_GEAR_RATIO: Double = 150.0 / 7
         const val DRIVE_MOTOR_GEAR_RATIO: Double = 6.750000000000000
         const val WHEEL_DIAMETER: Double = 0.106
-        const val METERS_PER_REV: Double = WHEEL_DIAMETER * Math.PI * 0.99
+        const val METERS_PER_REV: Double = WHEEL_DIAMETER * Math.PI * 0.975
 
         // Limit Values
         const val DRIVE_SUPPLY_LIMIT: Double = 45.0
@@ -50,7 +50,7 @@ object RobotParameters {
 
     /** Class containing global values related to the swerve drive system.  */
     object SwerveParameters {
-        const val PATHPLANNER_AUTO_NAME: String = "Straight Auto"
+        const val PATHPLANNER_AUTO_NAME: String = "4l4auto"
 
         const val AUTO_ALIGN_SWERVE_LEFT: Double = -0.1
         const val AUTO_ALIGN_SWERVE_RIGHT: Double = 0.1
@@ -60,17 +60,22 @@ object RobotParameters {
             @JvmField
             val STEER_PID_TELE: PIDVController = PIDVController(250.0, 0.000, 20.0, 0.0)
 
-            @JvmField
             // val STEER_PID_AUTO: PIDVController = PIDVController(200.0, 0.000, 20.0, 0.0)
+            @JvmField
             val STEER_PID_AUTO: PIDVController = PIDVController(750.0, 5.000, 15.0, 0.0)
             // val STEER_PID_AUTO: PIDVController = PIDVController(5.0, 0.000, 0.0, 1.0)
 
+            @JvmField
+            val DRIVE_PID_AUTO: PIDVController = PIDVController(5.0, 0.0, 0.0, 0.4)
 
             @JvmField
-            val DRIVE_PID_AUTO: PIDVController = PIDVController(1.0, 0.0, 0.0, 0.6)
-
-            @JvmField
-            val DRIVE_PID_TELE: PIDVController = PIDVController(1.2, 0.0, 0.0, 0.5)
+            val DRIVE_PID_TELE: PIDVController =
+                PIDVController(
+                    5.0,
+                    0.0,
+                    0.0,
+                    0.4,
+                )
 
             @JvmField
             val ROTATIONAL_PID: PIDController = PIDController(0.2, 0.0, 0.0)

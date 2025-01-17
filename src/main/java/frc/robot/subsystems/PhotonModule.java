@@ -40,7 +40,6 @@ public class PhotonModule {
     return camera.getAllUnreadResults();
   }
 
-
   /**
    * Gets the pose estimator associated with this camera.
    *
