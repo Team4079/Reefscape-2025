@@ -10,6 +10,7 @@ import frc.robot.subsystems.Elevator
 import frc.robot.subsystems.Swerve
 import frc.robot.utils.Direction
 import frc.robot.utils.ElevatorState
+import frc.robot.utils.ElevatorState.L4
 import frc.robot.utils.RobotParameters.SwerveParameters
 
 /**
@@ -20,13 +21,22 @@ import frc.robot.utils.RobotParameters.SwerveParameters
  */
 object Kommand {
     /**
+     * Creates an [InstantCommand] that executes the given function.
+     *
+     * @param function The function to execute.
+     * @return An [InstantCommand] that executes the given function.
+     */
+    @JvmStatic
+    fun cmd(function: () -> Unit) = InstantCommand(function)
+
+    /**
      * Creates an [InstantCommand] to set the state of the elevator.
      *
      * @param state The desired state of the elevator.
      * @return An [InstantCommand] that sets the elevator state.
      */
     @JvmStatic
-    fun setElevatorState(state: ElevatorState) = InstantCommand({ Elevator.getInstance().state = state })
+    fun setElevatorState(state: ElevatorState) = cmd { Elevator.getInstance().state = state }
 
     /**
      * Creates an [InstantCommand] to move the elevator to a specific level.
@@ -34,7 +44,7 @@ object Kommand {
      * @return An [InstantCommand] that moves the elevator to a specific level.
      */
     @JvmStatic
-    fun moveElevatorToLevel() = InstantCommand({ Elevator.getInstance().moveElevatorToLevel() })
+    fun moveElevatorToLevel() = cmd { Elevator.getInstance().moveElevatorToLevel() }
 
     /**
      * Creates an [InstantCommand] to start the coral manipulator motors.
@@ -42,7 +52,7 @@ object Kommand {
      * @return An [InstantCommand] that starts the coral manipulator motors.
      */
     @JvmStatic
-    fun startCoralManipulator() = InstantCommand({ CoralManipulator.getInstance().setHasPiece(false) })
+    fun startCoralManipulator() = cmd { CoralManipulator.getInstance().setHasPiece(false) }
 
     /**
      * Creates an [InstantCommand] to stop the coral manipulator motors.
@@ -50,19 +60,20 @@ object Kommand {
      * @return An [InstantCommand] that stops the coral manipulator motors.
      */
     @JvmStatic
-    fun stopCoralManipulator() = InstantCommand({ CoralManipulator.getInstance().stopMotors() })
+    fun stopCoralManipulator() = cmd { CoralManipulator.getInstance().stopMotors() }
 
     /**
      * Creates an [AutomaticScore] command to score in a specified direction.
      *
      * @param dir The direction in which to score.
-     * @param state The desired state of the elevator.
+     * @param state The desired state of the elevator. Defaults to [L4].
      * @return An [AutomaticScore] that performs the scoring action.
      */
     @JvmStatic
+    @JvmOverloads
     fun score(
         dir: Direction,
-        state: ElevatorState,
+        state: ElevatorState = L4,
     ) = AutomaticScore(dir, state)
 
     /**
@@ -89,7 +100,7 @@ object Kommand {
      * @return An [InstantCommand] that resets the Pidgey sensor.
      */
     @JvmStatic
-    fun resetPidgey() = InstantCommand({ Swerve.getInstance().resetPidgey() })
+    fun resetPidgey() = cmd { Swerve.getInstance().resetPidgey() }
 
     /**
      * Creates an [InstantCommand] to set the teleoperation PID.
@@ -97,7 +108,7 @@ object Kommand {
      * @return An [InstantCommand] that sets the teleoperation PID.
      */
     @JvmStatic
-    fun setTelePid() = InstantCommand({ Swerve.getInstance().setTelePID() })
+    fun setTelePid() = cmd { Swerve.getInstance().setTelePID() }
 
     /**
      * Creates a [PathPlannerAuto] command for autonomous operation.

@@ -39,14 +39,15 @@ public class RobotContainer {
 
     configureBindings();
 
-    NamedCommands.registerCommand("scoreLeft", score(LEFT, L4));
-    NamedCommands.registerCommand("scoreRight", score(RIGHT, L4));
+    NamedCommands.registerCommand("scoreLeft", score(LEFT));
+    NamedCommands.registerCommand("scoreRight", score(RIGHT));
     NamedCommands.registerCommand("SetL1", setElevatorState(L1));
     NamedCommands.registerCommand("SetL2", setElevatorState(L2));
     NamedCommands.registerCommand("SetL3", setElevatorState(L3));
     NamedCommands.registerCommand("SetL4", setElevatorState(L4));
 
-    networkChooser.addDefaultOption("Do Nothing", new PathPlannerAuto("Straight Auto"));
+    networkChooser.addDefaultOption("Straight Auto", new PathPlannerAuto("Straight Auto"));
+    networkChooser.addOption("Auto From RobotParams", autonomousCommand());
   }
 
   /**
@@ -62,8 +63,8 @@ public class RobotContainer {
     // buttons.get(B).onTrue(setElevatorState(L2));
     // buttons.get(X).onTrue(setElevatorState(L3));
     // buttons.get(Y).onTrue(setElevatorState(L4));
-    buttons.get(LEFT_BUMPER).onTrue(score(LEFT, L4));
-    buttons.get(RIGHT_BUMPER).onTrue(score(RIGHT, L4));
+    buttons.get(LEFT_BUMPER).onTrue(score(LEFT));
+    buttons.get(RIGHT_BUMPER).onTrue(score(RIGHT));
   }
 
   public Command getAutonomousCommand() {

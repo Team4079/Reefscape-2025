@@ -317,16 +317,28 @@ public class Elevator extends SubsystemBase {
 
   public void initializeAlarms() {
     elevatorLeftDisconnectedAlert =
-            new Alert("Disconnected drive motor " + Integer.toString(MotorParameters.ELEVATOR_MOTOR_LEFT_ID) + ".", Alert.AlertType.kError);
-    elevatorRightDisconnectedAlert = 
-            new Alert("Disconnected turn motor " + Integer.toString(MotorParameters.ELEVATOR_MOTOR_RIGHT_ID) + ".", Alert.AlertType.kError);
+        new Alert(
+            "Disconnected drive motor "
+                + Integer.toString(MotorParameters.ELEVATOR_MOTOR_LEFT_ID)
+                + ".",
+            Alert.AlertType.kError);
+    elevatorRightDisconnectedAlert =
+        new Alert(
+            "Disconnected turn motor "
+                + Integer.toString(MotorParameters.ELEVATOR_MOTOR_RIGHT_ID)
+                + ".",
+            Alert.AlertType.kError);
 
     elevatorLeftDisconnectedAlert.set(!elevatorMotorLeft.isConnected());
     elevatorRightDisconnectedAlert.set(!elevatorMotorRight.isConnected());
 
-    log("Disconnected elevatorMotorLeft " +  Integer.toString(elevatorMotorLeft.getDeviceID()) + ".", elevatorMotorLeft.isConnected());
-    log("Disconnected elevatorMotorRight " + Integer.toString(elevatorMotorRight.getDeviceID()) + ".", elevatorMotorRight.isConnected());
+    log(
+        "Disconnected elevatorMotorLeft " + Integer.toString(elevatorMotorLeft.getDeviceID()) + ".",
+        elevatorMotorLeft.isConnected());
+    log(
+        "Disconnected elevatorMotorRight "
+            + Integer.toString(elevatorMotorRight.getDeviceID())
+            + ".",
+        elevatorMotorRight.isConnected());
   }
 }
-
-
