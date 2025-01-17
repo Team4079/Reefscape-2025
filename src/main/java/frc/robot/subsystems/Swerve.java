@@ -238,15 +238,26 @@ public class Swerve extends SubsystemBase {
    * @param leftSpeed The left speed.
    * @param turnSpeed The turn speed.
    */
-  public void setDriveSpeeds(
-      double forwardSpeed, double leftSpeed, double turnSpeed) {
+  public void setDriveSpeeds(double forwardSpeed, double leftSpeed, double turnSpeed) {
+    setDriveSpeeds(forwardSpeed, leftSpeed, turnSpeed, IS_FIELD_ORIENTED);
+  }
 
+  /**
+   * Sets the drive speeds for the swerve modules.
+   *
+   * @param forwardSpeed The forward speed.
+   * @param leftSpeed The left speed.
+   * @param turnSpeed The turn speed.
+   * @param isFieldOriented Whether the robot is field oriented.
+   */
+  public void setDriveSpeeds(
+      double forwardSpeed, double leftSpeed, double turnSpeed, boolean isFieldOriented) {
     log("Forward speed", forwardSpeed);
     log("Left speed", leftSpeed);
 
     // Converts to a measure that the robot aktualy understands
     ChassisSpeeds speeds =
-        IS_FIELD_ORIENTED
+        isFieldOriented
             ? ChassisSpeeds.fromFieldRelativeSpeeds(
                 forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation())
             : new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed);
