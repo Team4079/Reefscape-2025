@@ -1,8 +1,8 @@
 package frc.robot;
 
+import static frc.robot.commands.Kommand.*;
 import static frc.robot.utils.Direction.*;
 import static frc.robot.utils.ElevatorState.*;
-import static frc.robot.commands.Kommand.*;
 
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
@@ -43,7 +43,7 @@ public class RobotContainer {
     padLeftBumper = new JoystickButton(pad, 5);
     padRightBumper = new JoystickButton(pad, 6);
 
-    Swerve.getInstance().setDefaultCommand(drive(pad, Thresholds.IS_FIELD_ORIENTED));
+    Swerve.getInstance().setDefaultCommand(drive(pad));
 
     configureBindings();
 

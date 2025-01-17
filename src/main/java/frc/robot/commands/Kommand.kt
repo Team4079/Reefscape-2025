@@ -10,7 +10,6 @@ import frc.robot.subsystems.Swerve
 import frc.robot.utils.Direction
 import frc.robot.utils.ElevatorState
 import frc.robot.utils.RobotParameters.SwerveParameters
-import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds
 import frc.robot.utils.controller.GamingController
 
 /**
@@ -75,14 +74,10 @@ object Kommand {
      * Creates a [PadDrive] command to control the robot's driving mechanism.
      *
      * @param controller The gaming controller used to drive the robot.
-     * @param isFieldOriented Whether the driving should be field-oriented.
      * @return A [PadDrive] command to control the robot's driving mechanism.
      */
     @JvmStatic
-    fun drive(
-        controller: GamingController,
-        isFieldOriented: Boolean = Thresholds.IS_FIELD_ORIENTED,
-    ) = PadDrive(controller, isFieldOriented)
+    fun drive(controller: GamingController) = PadDrive(controller)
 
     /**
      * Creates an [InstantCommand] to reset the Pidgey sensor.

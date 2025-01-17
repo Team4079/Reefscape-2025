@@ -13,17 +13,14 @@ import kotlin.*;
 /** Command to control the robot's swerve drive using a Logitech gaming pad. */
 public class PadDrive extends Command {
   private final GamingController pad;
-  private final boolean isFieldOriented;
 
   /**
    * Constructs a new PadDrive command.
    *
    * @param pad The Logitech gaming pad used to control the robot.
-   * @param isFieldOriented Whether the drive is field-oriented.
    */
-  public PadDrive(GamingController pad, boolean isFieldOriented) {
+  public PadDrive(GamingController pad) {
     this.pad = pad;
-    this.isFieldOriented = isFieldOriented;
     addRequirements(Swerve.getInstance());
   }
 
@@ -46,7 +43,7 @@ public class PadDrive extends Command {
     log("Rotation", rotation);
 
     Swerve.getInstance()
-        .setDriveSpeeds(position.getSecond(), position.getFirst(), rotation * 0.5, isFieldOriented);
+        .setDriveSpeeds(position.getSecond(), position.getFirst(), rotation * 0.5);
   }
 
   /**

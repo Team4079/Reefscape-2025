@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import static com.pathplanner.lib.path.PathPlannerPath.fromPathFile;
 import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.*;
 import static frc.robot.utils.Dash.*;
-import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.SHOULD_INVERT;
+import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -237,17 +237,16 @@ public class Swerve extends SubsystemBase {
    * @param forwardSpeed The forward speed.
    * @param leftSpeed The left speed.
    * @param turnSpeed The turn speed.
-   * @param isFieldOriented Whether the drive is field-oriented.
    */
   public void setDriveSpeeds(
-      double forwardSpeed, double leftSpeed, double turnSpeed, boolean isFieldOriented) {
+      double forwardSpeed, double leftSpeed, double turnSpeed) {
 
     log("Forward speed", forwardSpeed);
     log("Left speed", leftSpeed);
 
     // Converts to a measure that the robot aktualy understands
     ChassisSpeeds speeds =
-        isFieldOriented
+        IS_FIELD_ORIENTED
             ? ChassisSpeeds.fromFieldRelativeSpeeds(
                 forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation())
             : new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed);
