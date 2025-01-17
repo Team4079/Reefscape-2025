@@ -20,8 +20,8 @@
         "y": 7.3645485998083045
       },
       "prevControl": {
-        "x": 2.1482715064181708,
-        "y": 6.827432189455362
+        "x": 2.1482718789383575,
+        "y": 6.827432549709191
       },
       "nextControl": null,
       "isLocked": false,
@@ -38,11 +38,11 @@
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
-    "unlimited": true
+    "unlimited": false
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 126.43100000000001
+    "rotation": -54.05345666377222
   },
   "reversed": false,
   "folder": "4L4",

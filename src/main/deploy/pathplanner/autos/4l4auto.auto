@@ -33,18 +33,6 @@
           "data": {
             "pathName": "e4l4"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "f4l4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "g4l4"
-          }
         }
       ]
     }

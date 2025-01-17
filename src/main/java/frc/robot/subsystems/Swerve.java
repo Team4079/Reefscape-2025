@@ -1,11 +1,13 @@
 package frc.robot.subsystems;
 
+import static com.pathplanner.lib.path.PathPlannerPath.fromPathFile;
 import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.*;
 import static frc.robot.utils.Dash.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.SHOULD_INVERT;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
@@ -26,6 +28,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
+
+import java.nio.file.Path;
 import java.util.Optional;
 import org.photonvision.*;
 
@@ -38,7 +42,7 @@ public class Swerve extends SubsystemBase {
   private final SwerveModule[] modules;
   private final PIDVController pid;
   public Pose2d currentPose = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
-  private final PathPlannerPath pathToScore = null;
+  private final PathPlannerPath pathToScore;
 
   Thread swerveLoggingThread =
       new Thread(
@@ -103,6 +107,14 @@ public class Swerve extends SubsystemBase {
     configureAutoBuilder();
     swerveLoggingThread.start();
     swerveLoggingThreadBeforeSet.start();
+
+    try {
+      pathToScore = fromPathFile("Straight Path");
+    }
+    catch(Exception e) {
+      throw new RuntimeException("Failed to load robot config", e);
+    }
+
   }
 
   /**
@@ -305,7 +317,7 @@ public class Swerve extends SubsystemBase {
    * @param pose The new pose.
    */
   public void newPose(Pose2d pose) {
-    poseEstimator.resetPosition(Rotation2d.fromDegrees(getHeading()), getModulePositions(), pose);
+    poseEstimator.resetPosition(getPidgeyRotation(), getModulePositions(), pose);
   }
 
   /**
@@ -412,6 +424,10 @@ public class Swerve extends SubsystemBase {
   }
 
   public Command pathFindToGoal() {
+    return AutoBuilder.pathfindThenFollowPath(pathToScore, constraints);
+  }
+
+  public Command pathFindTest() {
     return AutoBuilder.pathfindThenFollowPath(pathToScore, constraints);
   }
 }

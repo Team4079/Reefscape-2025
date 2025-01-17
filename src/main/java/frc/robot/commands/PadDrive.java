@@ -45,7 +45,7 @@ public class PadDrive extends Command {
     log("Rotation", rotation);
 
     Swerve.getInstance()
-        .setDriveSpeeds(position.getSecond(), position.getFirst(), rotation * 0.8, isFieldOriented);
+        .setDriveSpeeds(position.getSecond(), position.getFirst(), rotation * 0.5, isFieldOriented);
   }
 
   /**
