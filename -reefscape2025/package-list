@@ -100,6 +100,7 @@ $dokka.location:frc.robot.subsystems/Swerve/getPidgeyYaw/#/PointingToDeclaration
 $dokka.location:frc.robot.subsystems/Swerve/getPose/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/get-pose.html
 $dokka.location:frc.robot.subsystems/Swerve/getRotationPidggy/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/get-rotation-pidggy.html
 $dokka.location:frc.robot.subsystems/Swerve/newPose/#edu.wpi.first.math.geometry.Pose2d/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/new-pose.html
+$dokka.location:frc.robot.subsystems/Swerve/pathFindTest/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/path-find-test.html
 $dokka.location:frc.robot.subsystems/Swerve/pathFindToGoal/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/path-find-to-goal.html
 $dokka.location:frc.robot.subsystems/Swerve/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/periodic.html
 $dokka.location:frc.robot.subsystems/Swerve/resetDrive/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/reset-drive.html
@@ -221,6 +222,7 @@ $dokka.location:frc.robot/Robot/teleopInit/#/PointingToDeclaration/-reefscape20
 $dokka.location:frc.robot/Robot/testInit/#/PointingToDeclaration/-reefscape2025/frc.robot/-robot/test-init.html
 $dokka.location:frc.robot/RobotContainer///PointingToDeclaration/-reefscape2025/frc.robot/-robot-container/index.html
 $dokka.location:frc.robot/RobotContainer/RobotContainer/#/PointingToDeclaration/-reefscape2025/frc.robot/-robot-container/-robot-container.html
+$dokka.location:frc.robot/RobotContainer/getAutonomousCommand/#/PointingToDeclaration/-reefscape2025/frc.robot/-robot-container/get-autonomous-command.html
 frc.robot
 frc.robot.commands
 frc.robot.commands.sequencing
