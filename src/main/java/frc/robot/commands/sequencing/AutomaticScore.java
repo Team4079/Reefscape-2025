@@ -1,10 +1,9 @@
 package frc.robot.commands.sequencing;
 
 import static frc.robot.utils.ElevatorState.*;
-import static frc.robot.utils.Kommand.*;
+import static frc.robot.commands.Kommand.*;
 
 import edu.wpi.first.wpilibj2.command.*;
-import frc.robot.commands.AlignSwerve;
 import frc.robot.utils.*;
 
 /**
@@ -16,7 +15,7 @@ import frc.robot.utils.*;
 public class AutomaticScore extends SequentialCommandGroup {
   public AutomaticScore(Direction offsetSide) {
     addCommands(
-        new AlignSwerve(offsetSide),
+        align(offsetSide),
         //        setElevatorState(L4),
         moveElevatorToLevel(),
         startCoralManipulator(),

@@ -2,7 +2,7 @@ package frc.robot;
 
 import static frc.robot.utils.Direction.*;
 import static frc.robot.utils.ElevatorState.*;
-import static frc.robot.utils.Kommand.*;
+import static frc.robot.commands.Kommand.*;
 
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
