@@ -14,20 +14,20 @@ $dokka.location:frc.robot.commands/AlignSwerve/isFinished/#/PointingToDeclaratio
 $dokka.location:frc.robot.commands/Kommand///PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/index.html
 $dokka.location:frc.robot.commands/Kommand/align/#frc.robot.utils.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/align.html
 $dokka.location:frc.robot.commands/Kommand/autonomousCommand/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/autonomous-command.html
-$dokka.location:frc.robot.commands/Kommand/drive/#frc.robot.utils.controller.GamingController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/drive.html
+$dokka.location:frc.robot.commands/Kommand/drive/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/drive.html
 $dokka.location:frc.robot.commands/Kommand/moveElevatorToLevel/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/move-elevator-to-level.html
 $dokka.location:frc.robot.commands/Kommand/resetPidgey/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/reset-pidgey.html
-$dokka.location:frc.robot.commands/Kommand/score/#frc.robot.utils.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/score.html
+$dokka.location:frc.robot.commands/Kommand/score/#frc.robot.utils.Direction#frc.robot.utils.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/score.html
 $dokka.location:frc.robot.commands/Kommand/setElevatorState/#frc.robot.utils.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/set-elevator-state.html
 $dokka.location:frc.robot.commands/Kommand/setTelePid/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/set-tele-pid.html
 $dokka.location:frc.robot.commands/Kommand/startCoralManipulator/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/start-coral-manipulator.html
 $dokka.location:frc.robot.commands/Kommand/stopCoralManipulator/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/stop-coral-manipulator.html
 $dokka.location:frc.robot.commands/Kommand/waitCmd/#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/wait-cmd.html
 $dokka.location:frc.robot.commands/PadDrive///PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/index.html
-$dokka.location:frc.robot.commands/PadDrive/PadDrive/#frc.robot.utils.controller.GamingController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/-pad-drive.html
+$dokka.location:frc.robot.commands/PadDrive/PadDrive/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/-pad-drive.html
 $dokka.location:frc.robot.commands/PadDrive/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/execute.html
 $dokka.location:frc.robot.commands/PadDrive/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/is-finished.html
-$dokka.location:frc.robot.commands/PadDrive/positionSet/#frc.robot.utils.controller.GamingController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/position-set.html
+$dokka.location:frc.robot.commands/PadDrive/positionSet/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/position-set.html
 $dokka.location:frc.robot.subsystems////PointingToDeclaration/-reefscape2025/frc.robot.subsystems/index.html
 $dokka.location:frc.robot.subsystems/Climber///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/index.html
 $dokka.location:frc.robot.subsystems/Climber/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/get-instance.html
@@ -118,6 +118,7 @@ $dokka.location:frc.robot.subsystems/Swerve/periodic/#/PointingToDeclaration/-r
 $dokka.location:frc.robot.subsystems/Swerve/resetDrive/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/reset-drive.html
 $dokka.location:frc.robot.subsystems/Swerve/resetPidgey/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/reset-pidgey.html
 $dokka.location:frc.robot.subsystems/Swerve/setAutoPID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/set-auto-p-i-d.html
+$dokka.location:frc.robot.subsystems/Swerve/setDriveSpeeds/#double#double#double#boolean/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/set-drive-speeds.html
 $dokka.location:frc.robot.subsystems/Swerve/setDriveSpeeds/#double#double#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/set-drive-speeds.html
 $dokka.location:frc.robot.subsystems/Swerve/setModuleStates/#edu.wpi.first.math.kinematics.SwerveModuleState[]/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/set-module-states.html
 $dokka.location:frc.robot.subsystems/Swerve/setTelePID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/set-tele-p-i-d.html
@@ -139,37 +140,19 @@ $dokka.location:frc.robot.subsystems/SwerveModule/setSteerPID/#edu.wpi.first.mat
 $dokka.location:frc.robot.subsystems/SwerveModule/setTelePID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/set-tele-p-i-d.html
 $dokka.location:frc.robot.subsystems/SwerveModule/stop/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/stop.html
 $dokka.location:frc.robot.subsystems/SwerveModule/updateTelePID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/update-tele-p-i-d.html
-$dokka.location:frc.robot.utils.controller////PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/index.html
-$dokka.location:frc.robot.utils.controller/Axis///PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-axis/index.html
-$dokka.location:frc.robot.utils.controller/Button///PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-button/index.html
-$dokka.location:frc.robot.utils.controller/GamingController///PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/index.html
-$dokka.location:frc.robot.utils.controller/GamingController/GamingController/#int/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/-gaming-controller.html
-$dokka.location:frc.robot.utils.controller/GamingController/checkDPad/#double#boolean/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/check-d-pad.html
-$dokka.location:frc.robot.utils.controller/GamingController/checkDPad/#int/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/check-d-pad.html
-$dokka.location:frc.robot.utils.controller/GamingController/dPadIsPressed/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/d-pad-is-pressed.html
-$dokka.location:frc.robot.utils.controller/GamingController/getAButton/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-a-button.html
-$dokka.location:frc.robot.utils.controller/GamingController/getBButton/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-b-button.html
-$dokka.location:frc.robot.utils.controller/GamingController/getBackButton/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-back-button.html
-$dokka.location:frc.robot.utils.controller/GamingController/getDPad/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-d-pad.html
-$dokka.location:frc.robot.utils.controller/GamingController/getDPad/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-d-pad.html
-$dokka.location:frc.robot.utils.controller/GamingController/getDPadDown/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-d-pad-down.html
-$dokka.location:frc.robot.utils.controller/GamingController/getDPadLeft/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-d-pad-left.html
-$dokka.location:frc.robot.utils.controller/GamingController/getDPadRight/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-d-pad-right.html
-$dokka.location:frc.robot.utils.controller/GamingController/getDPadUp/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-d-pad-up.html
-$dokka.location:frc.robot.utils.controller/GamingController/getLeftAnalogXAxis/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-left-analog-x-axis.html
-$dokka.location:frc.robot.utils.controller/GamingController/getLeftAnalogYAxis/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-left-analog-y-axis.html
-$dokka.location:frc.robot.utils.controller/GamingController/getLeftTriggerValue/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-left-trigger-value.html
-$dokka.location:frc.robot.utils.controller/GamingController/getRawAxis/#int/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-raw-axis.html
-$dokka.location:frc.robot.utils.controller/GamingController/getRawButton/#int/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-raw-button.html
-$dokka.location:frc.robot.utils.controller/GamingController/getRightAnalogXAxis/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-right-analog-x-axis.html
-$dokka.location:frc.robot.utils.controller/GamingController/getRightAnalogYAxis/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-right-analog-y-axis.html
-$dokka.location:frc.robot.utils.controller/GamingController/getRightTriggerValue/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-right-trigger-value.html
-$dokka.location:frc.robot.utils.controller/GamingController/getStartButton/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-start-button.html
-$dokka.location:frc.robot.utils.controller/GamingController/getXButton/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-x-button.html
-$dokka.location:frc.robot.utils.controller/GamingController/getYButton/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/get-y-button.html
-$dokka.location:frc.robot.utils.controller/GamingController/setRumble/#float/PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-gaming-controller/set-rumble.html
-$dokka.location:frc.robot.utils.controller/Trigger///PointingToDeclaration/-reefscape2025/frc.robot.utils.controller/-trigger/index.html
 $dokka.location:frc.robot.utils////PointingToDeclaration/-reefscape2025/frc.robot.utils/index.html
+$dokka.location:frc.robot.utils/Button.A///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-button/-a/index.html
+$dokka.location:frc.robot.utils/Button.B///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-button/-b/index.html
+$dokka.location:frc.robot.utils/Button.LEFT_BUMPER///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-button/-l-e-f-t_-b-u-m-p-e-r/index.html
+$dokka.location:frc.robot.utils/Button.RIGHT_BUMPER///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-button/-r-i-g-h-t_-b-u-m-p-e-r/index.html
+$dokka.location:frc.robot.utils/Button.START///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-button/-s-t-a-r-t/index.html
+$dokka.location:frc.robot.utils/Button.X///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-button/-x/index.html
+$dokka.location:frc.robot.utils/Button.Y///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-button/-y/index.html
+$dokka.location:frc.robot.utils/Button///PointingToDeclaration/-reefscape2025/frc.robot.utils/-button/index.html
+$dokka.location:frc.robot.utils/Button/getButtonNumber/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-button/get-button-number.html
+$dokka.location:frc.robot.utils/Button/getEntries/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-button/get-entries.html
+$dokka.location:frc.robot.utils/Button/valueOf/#kotlin.String/PointingToDeclaration/-reefscape2025/frc.robot.utils/-button/value-of.html
+$dokka.location:frc.robot.utils/Button/values/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-button/values.html
 $dokka.location:frc.robot.utils/Dash///PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/index.html
 $dokka.location:frc.robot.utils/Dash/log/#kotlin.String?#TypeParam(bounds=[edu.wpi.first.util.WPISerializable?])/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/log.html
 $dokka.location:frc.robot.utils/Dash/log/#kotlin.String?#kotlin.Array[TypeParam(bounds=[edu.wpi.first.util.struct.StructSerializable?])]/PointingToDeclaration/-reefscape2025/frc.robot.utils/-dash/log.html
@@ -228,4 +211,3 @@ frc.robot.commands
 frc.robot.commands.sequencing
 frc.robot.subsystems
 frc.robot.utils
-frc.robot.utils.controller
