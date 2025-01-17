@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import static frc.robot.utils.Dash.*;
+import static frc.robot.utils.Register.Dash.*;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;

@@ -39,7 +39,7 @@ object RobotParameters {
         const val ENCODER_COUNTS_PER_ROTATION: Double = 1.0
         const val STEER_MOTOR_GEAR_RATIO: Double = 150.0 / 7
         const val DRIVE_MOTOR_GEAR_RATIO: Double = 6.750000000000000
-        const val WHEEL_DIAMETER: Double = 0.106
+        private const val WHEEL_DIAMETER: Double = 0.106
         const val METERS_PER_REV: Double = WHEEL_DIAMETER * Math.PI * 0.975
 
         // Limit Values

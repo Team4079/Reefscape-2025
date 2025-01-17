@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import static frc.robot.utils.Dash.*;
+import static frc.robot.utils.Register.Dash.*;
 
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
@@ -58,7 +58,7 @@ public class Climber extends SubsystemBase {
   private Climber() {
     pivotMotor = new TalonFX(MotorParameters.PIVOT_MOTOR_ID);
 
-    MotorOutputConfigs pivotOutputConfigs = new MotorOutputConfigs();
+    MotorOutputConfigs pivotOutputConfigs = new MotorOutputConfigs(); // TODO: Never used?
 
     Slot0Configs pivotConfigs = new Slot0Configs();
 
@@ -143,18 +143,6 @@ public class Climber extends SubsystemBase {
    */
   public double getPivotPosValue() {
     return pivotMotor.getPosition().getValue().magnitude();
-  }
-
-  /**
-   * Run distance through a best fit line and return the value
-   *
-   * @param distance The distance
-   * @return double, the position of the pivot motor
-   */
-  public double shootPos(double distance) {
-    // Calculates the shoot position based on the distance and line of best fit
-    double y = 0.0;
-    return y;
   }
 
   /** Soft resets the encoders on the elevator motors */

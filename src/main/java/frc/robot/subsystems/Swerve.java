@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import static com.pathplanner.lib.path.PathPlannerPath.fromPathFile;
 import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.*;
-import static frc.robot.utils.Dash.*;
+import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
 
 import com.ctre.phoenix6.hardware.Pigeon2;

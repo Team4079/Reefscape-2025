@@ -4,8 +4,8 @@ import static frc.robot.commands.Kommand.*;
 import static frc.robot.utils.Button.*;
 import static frc.robot.utils.Direction.*;
 import static frc.robot.utils.ElevatorState.*;
+import static frc.robot.utils.Register.*;
 
-import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -25,7 +25,7 @@ import org.littletonrobotics.junction.networktables.*;
 public class RobotContainer {
   private final Map<Button, JoystickButton> buttons = new EnumMap<>(Button.class);
 
-  public static final LoggedDashboardChooser<Command> networkChooser =
+  public final LoggedDashboardChooser<Command> networkChooser =
       new LoggedDashboardChooser<>("AutoChooser");
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -39,12 +39,13 @@ public class RobotContainer {
 
     configureBindings();
 
-    NamedCommands.registerCommand("scoreLeft", score(LEFT));
-    NamedCommands.registerCommand("scoreRight", score(RIGHT));
-    NamedCommands.registerCommand("SetL1", setElevatorState(L1));
-    NamedCommands.registerCommand("SetL2", setElevatorState(L2));
-    NamedCommands.registerCommand("SetL3", setElevatorState(L3));
-    NamedCommands.registerCommand("SetL4", setElevatorState(L4));
+    Register.commands(
+        cmd("scoreLeft", score(LEFT)),
+        cmd("scoreRight", score(RIGHT)),
+        cmd("SetL1", setElevatorState(L1)),
+        cmd("SetL2", setElevatorState(L2)),
+        cmd("SetL3", setElevatorState(L3)),
+        cmd("SetL4", setElevatorState(L4)));
 
     networkChooser.addDefaultOption("Straight Auto", new PathPlannerAuto("Straight Auto"));
     networkChooser.addOption("Auto From RobotParams", autonomousCommand());
@@ -57,17 +58,15 @@ public class RobotContainer {
    * CommandPS4Controller} controllers or {@link CommandJoystick}.
    */
   private void configureBindings() { // TODO: Remap bindings
-    buttons.get(START).onTrue(resetPidgey());
-    buttons.get(Y).onTrue(setTelePid());
-    // buttons.get(A).onTrue(setElevatorState(L1));
-    // buttons.get(B).onTrue(setElevatorState(L2));
-    // buttons.get(X).onTrue(setElevatorState(L3));
-    // buttons.get(Y).onTrue(setElevatorState(L4));
-    buttons.get(LEFT_BUMPER).onTrue(score(LEFT));
-    buttons.get(RIGHT_BUMPER).onTrue(score(RIGHT));
-  }
-
-  public Command getAutonomousCommand() {
-    return networkChooser.get();
+    Register.bindings(
+        buttons,
+        bind(START, resetPidgey()),
+        bind(Y, setTelePid()),
+        //        bind(A, setElevatorState(L1)),
+        //        bind(B, setElevatorState(L2)),
+        //        bind(X, setElevatorState(L3)),
+        //        bind(Y, setElevatorState(L4)),
+        bind(LEFT_BUMPER, score(LEFT)),
+        bind(RIGHT_BUMPER, score(RIGHT)));
   }
 }
