@@ -14,7 +14,7 @@ $dokka.location:frc.robot.commands/AlignSwerve/isFinished/#/PointingToDeclaratio
 $dokka.location:frc.robot.commands/Kommand///PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/index.html
 $dokka.location:frc.robot.commands/Kommand/align/#frc.robot.utils.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/align.html
 $dokka.location:frc.robot.commands/Kommand/autonomousCommand/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/autonomous-command.html
-$dokka.location:frc.robot.commands/Kommand/drive/#frc.robot.utils.controller.GamingController#kotlin.Boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/drive.html
+$dokka.location:frc.robot.commands/Kommand/drive/#frc.robot.utils.controller.GamingController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/drive.html
 $dokka.location:frc.robot.commands/Kommand/moveElevatorToLevel/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/move-elevator-to-level.html
 $dokka.location:frc.robot.commands/Kommand/resetPidgey/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/reset-pidgey.html
 $dokka.location:frc.robot.commands/Kommand/score/#frc.robot.utils.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/score.html
@@ -24,7 +24,7 @@ $dokka.location:frc.robot.commands/Kommand/startCoralManipulator/#/PointingToDec
 $dokka.location:frc.robot.commands/Kommand/stopCoralManipulator/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/stop-coral-manipulator.html
 $dokka.location:frc.robot.commands/Kommand/waitCmd/#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/wait-cmd.html
 $dokka.location:frc.robot.commands/PadDrive///PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/index.html
-$dokka.location:frc.robot.commands/PadDrive/PadDrive/#frc.robot.utils.controller.GamingController#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/-pad-drive.html
+$dokka.location:frc.robot.commands/PadDrive/PadDrive/#frc.robot.utils.controller.GamingController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/-pad-drive.html
 $dokka.location:frc.robot.commands/PadDrive/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/execute.html
 $dokka.location:frc.robot.commands/PadDrive/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/is-finished.html
 $dokka.location:frc.robot.commands/PadDrive/positionSet/#frc.robot.utils.controller.GamingController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/position-set.html
@@ -118,7 +118,7 @@ $dokka.location:frc.robot.subsystems/Swerve/periodic/#/PointingToDeclaration/-r
 $dokka.location:frc.robot.subsystems/Swerve/resetDrive/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/reset-drive.html
 $dokka.location:frc.robot.subsystems/Swerve/resetPidgey/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/reset-pidgey.html
 $dokka.location:frc.robot.subsystems/Swerve/setAutoPID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/set-auto-p-i-d.html
-$dokka.location:frc.robot.subsystems/Swerve/setDriveSpeeds/#double#double#double#boolean/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/set-drive-speeds.html
+$dokka.location:frc.robot.subsystems/Swerve/setDriveSpeeds/#double#double#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/set-drive-speeds.html
 $dokka.location:frc.robot.subsystems/Swerve/setModuleStates/#edu.wpi.first.math.kinematics.SwerveModuleState[]/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/set-module-states.html
 $dokka.location:frc.robot.subsystems/Swerve/setTelePID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/set-tele-p-i-d.html
 $dokka.location:frc.robot.subsystems/Swerve/stop/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/stop.html
