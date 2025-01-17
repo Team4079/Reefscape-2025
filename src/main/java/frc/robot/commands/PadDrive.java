@@ -36,7 +36,7 @@ public class PadDrive extends Command {
     Pair<Double, Double> position = positionSet(pad);
 
     double rotation =
-        (Math.abs(pad.getRightAnalogXAxis()) >= 0.2)
+        (Math.abs(pad.getRightAnalogXAxis()) >= 0.1)
             ? -pad.getRightAnalogXAxis() * RobotParameters.MotorParameters.MAX_ANGULAR_SPEED
             : 0.0;
 

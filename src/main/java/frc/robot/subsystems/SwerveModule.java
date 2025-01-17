@@ -86,6 +86,7 @@ public class SwerveModule {
     driveConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
     driveConfigs.CurrentLimits.StatorCurrentLimit = MotorParameters.DRIVE_STATOR_LIMIT;
     driveConfigs.CurrentLimits.StatorCurrentLimitEnable = true;
+    driveConfigs.Feedback.RotorToSensorRatio = MotorParameters.DRIVE_MOTOR_GEAR_RATIO;
 
     steerConfigs = new TalonFXConfiguration();
 
@@ -173,22 +174,23 @@ public class SwerveModule {
   /**
    * Sets the state of the swerve module.
    *
-   * @param value The desired state of the swerve module.
+   * @param desiredState The desired state of the swerve module.
    */
-  public void setState(SwerveModuleState value) {
-    // Get the current position of the swerve module
-    SwerveModulePosition newPosition = getPosition();
+  public void setState(SwerveModuleState desiredState) {
+    // Get the current angle
+    Rotation2d currentAngle = Rotation2d.fromRotations(
+        canCoder.getAbsolutePosition().getValueAsDouble());
 
-    // Optimize the state based on the current position
-    state = state.optimize(newPosition.angle);
+    // Optimize the desired state based on current angle
+    desiredState.optimize(currentAngle);
 
     // Set the angle for the steer motor
-    double angleToSet = state.angle.getRotations();
+    double angleToSet = desiredState.angle.getRotations();
     steerMotor.setControl(positionSetter.withPosition(angleToSet));
 
     // Set the velocity for the drive motor
     double velocityToSet =
-        (state.speedMetersPerSecond
+        (desiredState.speedMetersPerSecond
             * (MotorParameters.DRIVE_MOTOR_GEAR_RATIO / MotorParameters.METERS_PER_REV));
     driveMotor.setControl(velocitySetter.withVelocity(velocityToSet));
 
@@ -201,11 +203,11 @@ public class SwerveModule {
         "steer actual angle " + canCoder.getDeviceID(),
         canCoder.getAbsolutePosition().getValueAsDouble());
     log("steer set angle " + canCoder.getDeviceID(), angleToSet);
-    log("desired state after optimize " + canCoder.getDeviceID(), state.angle.getRotations());
+    log("desired state after optimize " + canCoder.getDeviceID(), desiredState.angle.getRotations());
 
-    // Update the state
-    state = value;
-  }
+    // Update the state with the optimized values
+    state = desiredState;
+}
 
   /** Stops the swerve module motors. */
   public void stop() {

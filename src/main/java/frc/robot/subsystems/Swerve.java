@@ -10,10 +10,10 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
-import edu.wpi.first.math.controller.*;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Twist2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -164,6 +164,20 @@ public class Swerve extends SubsystemBase {
         new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0.0)));
   }
 
+  private static ChassisSpeeds correctForDynamics(ChassisSpeeds originalSpeeds) {
+      final double dt = 0.02;
+      Pose2d futureRobotPose =
+          new Pose2d(
+              originalSpeeds.vxMetersPerSecond * dt,
+              originalSpeeds.vyMetersPerSecond * dt,
+              Rotation2d.fromRadians(originalSpeeds.omegaRadiansPerSecond * dt));
+      Twist2d twistForPose = new Twist2d(futureRobotPose.getX(), futureRobotPose.getY(), futureRobotPose.getRotation().getDegrees());
+    return new ChassisSpeeds(
+              twistForPose.dx / dt,
+              twistForPose.dy / dt,
+              twistForPose.dtheta / dt);
+  }
+
   /**
    * Configures the AutoBuilder for autonomous driving. READ DOCUMENTATION TO PUT IN CORRECT VALUES
    * Allows PathPlanner to get pose and output robot-relative chassis speeds Needs tuning
@@ -197,7 +211,8 @@ public class Swerve extends SubsystemBase {
    * dashboard values.
    */
   @Override
-  public void periodic() {
+  public void periodic() {  
+
     /*
      This method checks whether the bot is in Teleop, and adds it to poseEstimator based on VISION
     */
@@ -244,12 +259,14 @@ public class Swerve extends SubsystemBase {
             : ChassisSpeeds.fromFieldRelativeSpeeds(
                 forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation());
 
-    // Added in WPILib 2024, fixes skew (apparently) and also discretizes the speeds to make the robot run straighter (allegedly)
     speeds = ChassisSpeeds.discretize(speeds, 0.02);
-    SwerveModuleState[] states2 =
+    // speeds = correctForDynamics(speeds);
+
+    SwerveModuleState[] newStates =
         SwerveParameters.PhysicalParameters.kinematics.toSwerveModuleStates(speeds);
-    SwerveDriveKinematics.desaturateWheelSpeeds(states2, MotorParameters.MAX_SPEED);
-    setModuleStates(states2);
+    SwerveDriveKinematics.desaturateWheelSpeeds(newStates, MotorParameters.MAX_SPEED);
+    
+    setModuleStates(newStates);
   }
 
   /**
@@ -259,7 +276,7 @@ public class Swerve extends SubsystemBase {
    */
   public Rotation2d getPidgeyRotation() {
     return pidgey.getRotation2d();
-  }
+  } 
 
   
   /**
@@ -396,6 +413,7 @@ public class Swerve extends SubsystemBase {
   /** Sets the PID constants for teleoperated driving. */
   public void setTelePID() {
     for (SwerveModule module : modules) {
+      module.setTelePID();
       module.applyTelePIDValues();
     }
   }
