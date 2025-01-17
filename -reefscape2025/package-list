@@ -179,6 +179,8 @@ $dokka.location:frc.robot.utils/Register.Dash/log/#kotlin.String?#kotlin.Boolean
 $dokka.location:frc.robot.utils/Register.Dash/log/#kotlin.String?#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/log.html
 $dokka.location:frc.robot.utils/Register.Dash/log/#kotlin.String?#kotlin.Int/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/log.html
 $dokka.location:frc.robot.utils/Register.Dash/log/#kotlin.String?#kotlin.String?/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/log.html
+$dokka.location:frc.robot.utils/Register.Dash/logPair/#kotlin.String#kotlin.Any/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/log-pair.html
+$dokka.location:frc.robot.utils/Register.Dash/logs/#kotlin.Array[kotlin.Pair[kotlin.String,kotlin.Any]]/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/logs.html
 $dokka.location:frc.robot.utils/Register///PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/index.html
 $dokka.location:frc.robot.utils/Register/bind/#frc.robot.utils.Button#edu.wpi.first.wpilibj2.command.Command/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/bind.html
 $dokka.location:frc.robot.utils/Register/bindings/kotlin.collections.Map[frc.robot.utils.Button,edu.wpi.first.wpilibj2.command.button.JoystickButton]#kotlin.Array[kotlin.Pair[frc.robot.utils.Button,edu.wpi.first.wpilibj2.command.Command]]/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/bindings.html
