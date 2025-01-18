@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import static com.pathplanner.lib.path.PathPlannerPath.fromPathFile;
 import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.*;
 import static frc.robot.utils.Register.Dash.*;
+import static frc.robot.utils.RobotParameters.SwerveParameters.PIDParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
@@ -29,6 +30,7 @@ import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import java.util.Optional;
+import java.util.concurrent.*;
 import org.photonvision.*;
 
 public class Swerve extends SubsystemBase {
@@ -41,34 +43,6 @@ public class Swerve extends SubsystemBase {
   private final PIDVController pid;
   public Pose2d currentPose = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
   private final PathPlannerPath pathToScore;
-
-  Thread swerveLoggingThread =
-      new Thread(
-          () -> {
-            while (true) {
-              log("Swerve Module States", getModuleStates());
-              try {
-                Thread.sleep(100);
-              } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                break;
-              }
-            }
-          });
-
-  Thread swerveLoggingThreadBeforeSet =
-      new Thread(
-          () -> {
-            while (true) {
-              log("Set Swerve Module States", setStates);
-              try {
-                Thread.sleep(100);
-              } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                break;
-              }
-            }
-          });
 
   // from feeder to the goal and align itself
   // The plan is for it to path towards it then we use a set path to align itself with the goal and
@@ -104,13 +78,19 @@ public class Swerve extends SubsystemBase {
     this.poseEstimator = initializePoseEstimator();
     configureAutoBuilder();
     initializePathPlannerLogging();
-    swerveLoggingThread.start();
-    swerveLoggingThreadBeforeSet.start();
+
+    ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    Runnable swerveLoggingTask =
+        () ->
+            logs(
+                log("Swerve Module States", getModuleStates()),
+                log("Set Swerve Module States", setStates));
+    scheduler.scheduleAtFixedRate(swerveLoggingTask, 0, 100, TimeUnit.MILLISECONDS);
 
     try {
       pathToScore = fromPathFile("Straight Path");
     } catch (Exception e) {
-      throw new RuntimeException("Failed to load robot config", e);
+      throw new RobotConfigException("Failed to load robot config", e);
     }
   }
 
@@ -152,10 +132,10 @@ public class Swerve extends SubsystemBase {
    */
   private PIDVController initializePID() {
     return new PIDVController(
-        getNumber("AUTO: P", PIDParameters.DRIVE_PID_AUTO.getP()),
-        getNumber("AUTO: I", PIDParameters.DRIVE_PID_AUTO.getI()),
-        getNumber("AUTO: D", PIDParameters.DRIVE_PID_AUTO.getD()),
-        getNumber("AUTO: V", PIDParameters.DRIVE_PID_AUTO.getV()));
+        getNumber("AUTO: P", DRIVE_PID_AUTO.getP()),
+        getNumber("AUTO: I", DRIVE_PID_AUTO.getI()),
+        getNumber("AUTO: D", DRIVE_PID_AUTO.getD()),
+        getNumber("AUTO: V", DRIVE_PID_AUTO.getV()));
   }
 
   /**
@@ -173,11 +153,13 @@ public class Swerve extends SubsystemBase {
   }
 
   /**
-   * Initializes the PathPlannerLogging. This allows the PathPlanner to log the robot's current pose.
+   * Initializes the PathPlannerLogging. This allows the PathPlanner to log the robot's current
+   * pose.
    */
   private void initializePathPlannerLogging() {
     PathPlannerLogging.setLogCurrentPoseCallback(field::setRobotPose);
-    PathPlannerLogging.setLogTargetPoseCallback(pose -> field.getObject("target pose").setPose(pose));
+    PathPlannerLogging.setLogTargetPoseCallback(
+        pose -> field.getObject("target pose").setPose(pose));
     PathPlannerLogging.setLogActivePathCallback(poses -> field.getObject("path").setPoses(poses));
   }
 
@@ -237,9 +219,11 @@ public class Swerve extends SubsystemBase {
 
     field.setRobotPose(poseEstimator.getEstimatedPosition());
 
-    log("Pidgey Heading", getHeading());
-    log("Pidgey Rotation2D", getPidgeyRotation().getDegrees());
-    log("Robot Pose", field.getRobotPose());
+    logs(
+        log("Pidgey Yaw", getPidgeyYaw()),
+        log("Pidgey Heading", getHeading()),
+        log("Pidgey Rotation2D", pidgey.getRotation2d().getDegrees()),
+        log("Robot Pose", field.getRobotPose()));
   }
 
   /**
@@ -263,8 +247,10 @@ public class Swerve extends SubsystemBase {
    */
   public void setDriveSpeeds(
       double forwardSpeed, double leftSpeed, double turnSpeed, boolean isFieldOriented) {
-    log("Forward speed", forwardSpeed);
-    log("Left speed", leftSpeed);
+    logs(
+        log("Forward speed", forwardSpeed),
+        log("Left speed", leftSpeed),
+        log("Turn speed", turnSpeed));
 
     // Converts to a measure that the robot aktualy understands
     ChassisSpeeds speeds =
@@ -449,5 +435,19 @@ public class Swerve extends SubsystemBase {
 
   public Command pathFindTest() {
     return AutoBuilder.pathfindThenFollowPath(pathToScore, constraints);
+  }
+
+  private static class RobotConfigException extends RuntimeException {
+    public RobotConfigException() {
+      super();
+    }
+
+    public RobotConfigException(String message) {
+      super(message);
+    }
+
+    public RobotConfigException(String message, Throwable cause) {
+      super(message, cause);
+    }
   }
 }

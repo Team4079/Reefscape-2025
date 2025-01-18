@@ -38,9 +38,10 @@ public class PadDrive extends Command {
             ? -pad.getRightX() * RobotParameters.MotorParameters.MAX_ANGULAR_SPEED
             : 0.0;
 
-    log("X Joystick", position.getFirst());
-    log("Y Joystick", position.getSecond());
-    log("Rotation", rotation);
+    logs(
+        log("X Joystick", position.getFirst()),
+        log("Y Joystick", position.getSecond()),
+        log("Rotation", rotation));
 
     Swerve.getInstance().setDriveSpeeds(position.getSecond(), position.getFirst(), rotation * 0.5);
   }

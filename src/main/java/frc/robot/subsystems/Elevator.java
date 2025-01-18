@@ -156,9 +156,12 @@ public class Elevator extends SubsystemBase {
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    log("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
-    log("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
-    logElevatorState();
+    logs(
+        log("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble()),
+        log("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble()),
+        log("Elevator Left Set Speed", elevatorMotorLeft.get()),
+        log("Elevator Right Set Speed", elevatorMotorRight.get()),
+        log(ELEVATOR_STATE_KEY, currentState.toString()));
   }
 
   /** Move the elevator motor to a specific level */
@@ -248,14 +251,6 @@ public class Elevator extends SubsystemBase {
   }
 
   /**
-   * Sets the state of the elevator motor based on the state local variable value To be used in
-   * sequences
-   */
-  public void logElevatorState() {
-    log(ELEVATOR_STATE_KEY, currentState.toString());
-  }
-
-  /**
    * Get the average position of the elevator motors
    *
    * @return double, the average position of the elevator motors
@@ -297,9 +292,6 @@ public class Elevator extends SubsystemBase {
       elevatorMotorLeft.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
       elevatorMotorRight.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
 
-      log("ElevatorLeft Velo", elevatorMotorLeft.get());
-      log("ElevatorRight Velo", elevatorMotorRight.get());
-
     } else {
       stopMotors();
     }
@@ -318,27 +310,22 @@ public class Elevator extends SubsystemBase {
   public void initializeAlarms() {
     elevatorLeftDisconnectedAlert =
         new Alert(
-            "Disconnected drive motor "
-                + Integer.toString(MotorParameters.ELEVATOR_MOTOR_LEFT_ID)
-                + ".",
+            "Disconnected drive motor " + MotorParameters.ELEVATOR_MOTOR_LEFT_ID,
             Alert.AlertType.kError);
     elevatorRightDisconnectedAlert =
         new Alert(
-            "Disconnected turn motor "
-                + Integer.toString(MotorParameters.ELEVATOR_MOTOR_RIGHT_ID)
-                + ".",
+            "Disconnected turn motor " + MotorParameters.ELEVATOR_MOTOR_RIGHT_ID,
             Alert.AlertType.kError);
 
     elevatorLeftDisconnectedAlert.set(!elevatorMotorLeft.isConnected());
     elevatorRightDisconnectedAlert.set(!elevatorMotorRight.isConnected());
 
-    log(
-        "Disconnected elevatorMotorLeft " + Integer.toString(elevatorMotorLeft.getDeviceID()) + ".",
-        elevatorMotorLeft.isConnected());
-    log(
-        "Disconnected elevatorMotorRight "
-            + Integer.toString(elevatorMotorRight.getDeviceID())
-            + ".",
-        elevatorMotorRight.isConnected());
+    logs(
+        log(
+            "Disconnected elevatorMotorLeft " + elevatorMotorLeft.getDeviceID(),
+            elevatorMotorLeft.isConnected()),
+        log(
+            "Disconnected elevatorMotorRight " + elevatorMotorRight.getDeviceID(),
+            elevatorMotorRight.isConnected()));
   }
 }

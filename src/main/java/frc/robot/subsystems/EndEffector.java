@@ -116,7 +116,7 @@ public class EndEffector extends SubsystemBase {
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    log("End Effector Motor Position", endEffectorMotor.getPosition().getValueAsDouble());
+    logs("End Effector Motor Position", endEffectorMotor.getPosition().getValueAsDouble());
   }
 
   /** Stops the arm motor */

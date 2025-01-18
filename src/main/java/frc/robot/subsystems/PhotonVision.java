@@ -89,10 +89,10 @@ public class PhotonVision extends SubsystemBase {
       dist = tag.getBestCameraToTarget().getZ();
     }
 
-    // Update dashboard
-    log("yaw to target", yaw);
-    log("cam ambiguity", targetPoseAmbiguity);
-    log("_targets", currentResult.hasTargets());
+    logs(
+        log("yaw to target", yaw),
+        log("cam ambiguity", targetPoseAmbiguity),
+        log("_targets", currentResult.hasTargets()));
   }
 
   /** Updates the best camera selection based on pose ambiguity of detected targets. */

@@ -98,11 +98,11 @@ object Register {
         fun logs(vararg logs: Log) {
             logs.forEach { (key, value) ->
                 when (value) {
-                    is Double -> log(key, value)
-                    is Int -> log(key, value)
-                    is Boolean -> log(key, value)
-                    is String -> log(key, value)
-                    is WPISerializable -> log(key, value)
+                    is Double -> logs(key, value)
+                    is Int -> logs(key, value)
+                    is Boolean -> logs(key, value)
+                    is String -> logs(key, value)
+                    is WPISerializable -> logs(key, value)
                     else -> println("Unsupported log type for key $key")
                 }
             }
@@ -116,7 +116,7 @@ object Register {
          * @return A [Log] consisting of the key and the value.
          */
         @JvmStatic
-        fun logPair(
+        fun log(
             string: String,
             value: Any,
         ) = Log(string, value)
@@ -128,7 +128,7 @@ object Register {
          * @param value The double value to log.
          */
         @JvmStatic
-        fun log(
+        fun logs(
             key: String?,
             value: Double,
         ) {
@@ -144,7 +144,7 @@ object Register {
          * @param value The integer value to log.
          */
         @JvmStatic
-        fun log(
+        fun logs(
             key: String?,
             value: Int,
         ) {
@@ -160,7 +160,7 @@ object Register {
          * @param value The boolean value to log.
          */
         @JvmStatic
-        fun log(
+        fun logs(
             key: String?,
             value: Boolean,
         ) {
@@ -176,7 +176,7 @@ object Register {
          * @param value The String value to log.
          */
         @JvmStatic
-        fun log(
+        fun logs(
             key: String?,
             value: String?,
         ) {
@@ -192,7 +192,7 @@ object Register {
          * @param value The WPISerializable value to log.
          */
         @JvmStatic
-        fun <T : WPISerializable?> log(
+        fun <T : WPISerializable?> logs(
             key: String?,
             value: T,
         ) {
@@ -208,7 +208,7 @@ object Register {
          * @param value The SwerveModuleState value to log.
          */
         @JvmStatic
-        fun <T : StructSerializable?> log(
+        fun <T : StructSerializable?> logs(
             key: String?,
             vararg value: T,
         ) {

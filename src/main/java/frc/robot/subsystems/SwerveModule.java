@@ -191,17 +191,18 @@ public class SwerveModule {
     driveMotor.setControl(velocitySetter.withVelocity(velocityToSet));
 
     // Log the actual and set values for debugging
-    log(
-        "drive actual speed " + canCoder.getDeviceID(),
-        driveMotor.getVelocity().getValueAsDouble());
-    log("drive set speed " + canCoder.getDeviceID(), velocityToSet);
-    log(
-        "steer actual angle " + canCoder.getDeviceID(),
-        canCoder.getAbsolutePosition().getValueAsDouble());
-    log("steer set angle " + canCoder.getDeviceID(), angleToSet);
-    log(
-        "desired state after optimize " + canCoder.getDeviceID(),
-        desiredState.angle.getRotations());
+    logs(
+        log(
+            "drive actual sped " + canCoder.getDeviceID(),
+            driveMotor.getVelocity().getValueAsDouble()),
+        log("drive set sped " + canCoder.getDeviceID(), velocityToSet),
+        log(
+            "steer actual angle " + canCoder.getDeviceID(),
+            canCoder.getAbsolutePosition().getValueAsDouble()),
+        log("steer set angle " + canCoder.getDeviceID(), angleToSet),
+        log(
+            "desired state after optimize " + canCoder.getDeviceID(),
+            desiredState.angle.getRotations()));
 
     // Update the state with the optimized values
     state = desiredState;
@@ -286,19 +287,20 @@ public class SwerveModule {
 
   public void initializeAlarms(int driveID, int steerID, int canCoderID) {
     driveDisconnectedAlert =
-        new Alert("Disconnected drive motor " + Integer.toString(driveID) + ".", AlertType.kError);
+        new Alert("Disconnected drive motor " + Integer.toString(driveID), AlertType.kError);
     turnDisconnectedAlert =
-        new Alert("Disconnected turn motor " + Integer.toString(steerID) + ".", AlertType.kError);
+        new Alert("Disconnected turn motor " + Integer.toString(steerID), AlertType.kError);
     canCoderDisconnectedAlert =
-        new Alert("Disconnected CANCoder " + Integer.toString(canCoderID) + ".", AlertType.kError);
+        new Alert("Disconnected CANCoder " + Integer.toString(canCoderID), AlertType.kError);
 
     driveDisconnectedAlert.set(!driveMotor.isConnected());
     turnDisconnectedAlert.set(!steerMotor.isConnected());
     canCoderDisconnectedAlert.set(!canCoder.isConnected());
 
-    log("Disconnected drive motor " + Integer.toString(driveID) + ".", driveMotor.isConnected());
-    log("Disconnected steer motor " + Integer.toString(steerID) + ".", steerMotor.isConnected());
-    log("Disconnected CANCoder " + Integer.toString(canCoderID) + ".", canCoder.isConnected());
+    logs(
+        log("Disconnected drive motor " + driveID, driveMotor.isConnected()),
+        log("Disconnected steer motor " + steerID, steerMotor.isConnected()),
+        log("Disconnected CANCoder " + canCoderID, canCoder.isConnected()));
   }
 
   public void updateTelePID() {
