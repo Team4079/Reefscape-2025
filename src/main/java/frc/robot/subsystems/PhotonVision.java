@@ -72,11 +72,13 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    logs(
-        log("going to end", "no")
-    );
-
     updateBestCamera();
+
+    logs(
+        log("does camera exist", cameras.get(0) != null),
+        log("going to end", "no"),
+        log("does bestcamera exist", bestCamera != null)
+    );
     // if (bestCamera == null) return;
 
     if (bestCamera != null) {
@@ -106,7 +108,7 @@ public class PhotonVision extends SubsystemBase {
 
   /** Updates the best camera selection based on pose ambiguity of detected targets. */
   private void updateBestCamera() {
-    bestCamera = getCameraWithLeastAmbiguity();
+    bestCamera = cameras.get(0); // TODO: Fix getCameraWithLeastAmbiguity()
   }
 
   /**
