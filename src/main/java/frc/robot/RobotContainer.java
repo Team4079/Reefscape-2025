@@ -56,7 +56,7 @@ public class RobotContainer {
    * {@link CommandGenericHID}'s subclasses for {@link CommandXboxController}/{@link
    * CommandPS4Controller} controllers or {@link CommandJoystick}.
    */
-  private void configureBindings() { // TODO: Remap bindings
+  private void configureBindings() {
     Register.bindings(
         buttons,
         bind(START, resetPidgey()),

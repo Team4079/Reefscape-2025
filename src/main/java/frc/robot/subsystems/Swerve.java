@@ -44,6 +44,34 @@ public class Swerve extends SubsystemBase {
   public Pose2d currentPose = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
   private final PathPlannerPath pathToScore;
 
+  Thread swerveLoggingThread =
+      new Thread(
+          () -> {
+            while (true) {
+              log("Swerve Module States", getModuleStates());
+              try {
+                Thread.sleep(100);
+              } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break;
+              }
+            }
+          });
+
+  Thread swerveLoggingThreadBeforeSet =
+      new Thread(
+          () -> {
+            while (true) {
+              log("Set Swerve Module States", setStates);
+              try {
+                Thread.sleep(100);
+              } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break;
+              }
+            }
+          });
+
   // from feeder to the goal and align itself
   // The plan is for it to path towards it then we use a set path to align itself
   // with the goal and
@@ -81,13 +109,8 @@ public class Swerve extends SubsystemBase {
     configureAutoBuilder();
     initializePathPlannerLogging();
 
-    ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    Runnable swerveLoggingTask =
-        () ->
-            logs(
-                log("Swerve Module States", getModuleStates()),
-                log("Set Swerve Module States", setStates));
-    scheduler.scheduleAtFixedRate(swerveLoggingTask, 0, 100, TimeUnit.MILLISECONDS);
+    swerveLoggingThread.start();
+    swerveLoggingThreadBeforeSet.start();
 
     try {
       pathToScore = fromPathFile("Straight Path");
