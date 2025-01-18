@@ -179,14 +179,7 @@ public class Swerve extends SubsystemBase {
         PIDParameters.config,
         () -> {
           Optional<Alliance> alliance = DriverStation.getAlliance();
-          if (alliance.isEmpty()) {
-            return false;
-          }
-          if (SHOULD_INVERT) {
-            return alliance.get() == Alliance.Red;
-          } else {
-            return alliance.get() != Alliance.Blue;
-          }
+          return alliance.filter(value -> value == Alliance.Red).isPresent();
         },
         this);
   }
@@ -197,7 +190,6 @@ public class Swerve extends SubsystemBase {
    */
   @Override
   public void periodic() {
-
     /*
      This method checks whether the bot is in Teleop, and adds it to poseEstimator based on VISION
     */
