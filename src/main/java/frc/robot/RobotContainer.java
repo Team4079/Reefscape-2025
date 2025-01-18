@@ -48,7 +48,6 @@ public class RobotContainer {
         cmd("SetL4", setElevatorState(L4)));
 
     networkChooser.addDefaultOption("Straight Auto", new PathPlannerAuto("Straight Auto"));
-    networkChooser.addOption("Auto From RobotParams", autonomousCommand());
   }
 
   /**

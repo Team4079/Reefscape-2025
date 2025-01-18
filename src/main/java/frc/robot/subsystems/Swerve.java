@@ -11,6 +11,7 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.util.PathPlannerLogging;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -102,6 +103,7 @@ public class Swerve extends SubsystemBase {
     this.pidgey.reset();
     this.poseEstimator = initializePoseEstimator();
     configureAutoBuilder();
+    initializePathPlannerLogging();
     swerveLoggingThread.start();
     swerveLoggingThreadBeforeSet.start();
 
@@ -168,6 +170,15 @@ public class Swerve extends SubsystemBase {
         Rotation2d.fromDegrees(getHeading()),
         getModulePositions(),
         new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0.0)));
+  }
+
+  /**
+   * Initializes the PathPlannerLogging. This allows the PathPlanner to log the robot's current pose.
+   */
+  private void initializePathPlannerLogging() {
+    PathPlannerLogging.setLogCurrentPoseCallback(field::setRobotPose);
+    PathPlannerLogging.setLogTargetPoseCallback(pose -> field.getObject("target pose").setPose(pose));
+    PathPlannerLogging.setLogActivePathCallback(poses -> field.getObject("path").setPoses(poses));
   }
 
   /**
