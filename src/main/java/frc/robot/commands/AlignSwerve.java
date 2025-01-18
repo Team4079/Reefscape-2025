@@ -3,6 +3,7 @@ package frc.robot.commands;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PIDParameters.*;
 
 import edu.wpi.first.math.controller.*;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 import frc.robot.utils.*;
@@ -15,6 +16,7 @@ public class AlignSwerve extends Command {
   private PIDController rotationalController;
   private PIDController yController;
   private PIDController disController;
+  private Timer timer;
   private double
       offset; // double offset is the left/right offset from the april tag to make it properly
 
@@ -29,10 +31,10 @@ public class AlignSwerve extends Command {
   public AlignSwerve(Direction offsetSide) {
     switch (offsetSide) {
       case LEFT:
-        this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_LEFT;
+        this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_LEFT_OFFSET;
         break;
       case RIGHT:
-        this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_RIGHT;
+        this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_RIGHT_OFFSET;
         break;
       case CENTER:
         this.offset = 0;
@@ -87,6 +89,10 @@ public class AlignSwerve extends Command {
     disController = new PIDController(DIST_PID.getP(), DIST_PID.getI(), DIST_PID.getD());
     disController.setTolerance(1.5);
     disController.setSetpoint(0);
+
+    timer = new Timer();
+    timer.reset();
+    timer.start();
   }
 
   /**
@@ -105,6 +111,10 @@ public class AlignSwerve extends Command {
             yController.calculate(y) + offset,
             rotationalController.calculate(yaw),
             false);
+
+    if (PhotonVision.getInstance().hasTag()) {
+      timer.reset();
+    }
   }
 
   /**
@@ -121,9 +131,7 @@ public class AlignSwerve extends Command {
    */
   @Override
   public boolean isFinished() {
-    // TODO: Make this return true when this Command no longer needs to run
-    // execute()
-    return false;
+    return timer.hasElapsed(1.0);
   }
 
   /**

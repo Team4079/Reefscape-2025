@@ -61,6 +61,7 @@ public class RobotContainer {
         buttons,
         bind(START, resetPidgey()),
         bind(Y, setTelePid()),
+        bind(A, align(CENTER)),
         // bind(A, setElevatorState(L1)),
         // bind(B, setElevatorState(L2)),
         // bind(X, setElevatorState(L3)),

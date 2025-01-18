@@ -72,27 +72,36 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    updateBestCamera();
-    if (bestCamera == null) return;
-
-    List<PhotonPipelineResult> results = bestCamera.getAllUnreadResults();
-    currentResult = results.isEmpty() ? null : results.get(0);
-
-    if (currentResult == null) return;
-
-    currentTarget = currentResult.getBestTarget();
-    targetPoseAmbiguity = currentTarget != null ? currentTarget.getPoseAmbiguity() : 7157.0;
-
-    for (PhotonTrackedTarget tag : currentResult.getTargets()) {
-      yaw = tag.getYaw();
-      y = tag.getBestCameraToTarget().getX();
-      dist = tag.getBestCameraToTarget().getZ();
-    }
-
     logs(
-        log("yaw to target", yaw),
-        log("cam ambiguity", targetPoseAmbiguity),
-        log("_targets", currentResult.hasTargets()));
+        log("going to end", "no")
+    );
+
+    updateBestCamera();
+    // if (bestCamera == null) return;
+
+    if (bestCamera != null) {
+      List<PhotonPipelineResult> results = bestCamera.getAllUnreadResults();
+      currentResult = results.isEmpty() ? null : results.get(0);
+
+    // if (currentResult == null) return;
+      if (currentResult != null) {
+        currentTarget = currentResult.getBestTarget();
+        targetPoseAmbiguity = currentTarget != null ? currentTarget.getPoseAmbiguity() : 7157.0;
+
+        for (PhotonTrackedTarget tag : currentResult.getTargets()) {
+          yaw = tag.getYaw();
+          y = tag.getBestCameraToTarget().getX();
+          dist = tag.getBestCameraToTarget().getZ();
+        }
+
+        logs(
+            log("yaw to target", yaw),
+            log("cam ambiguity", targetPoseAmbiguity),
+            log("_targets", currentResult.hasTargets()),
+            log("going to end", "yes")
+        );
+      }
+    }
   }
 
   /** Updates the best camera selection based on pose ambiguity of detected targets. */

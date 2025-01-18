@@ -52,8 +52,8 @@ object RobotParameters {
     object SwerveParameters {
         const val PATHPLANNER_AUTO_NAME: String = "4l4auto"
 
-        const val AUTO_ALIGN_SWERVE_LEFT: Double = -0.1
-        const val AUTO_ALIGN_SWERVE_RIGHT: Double = 0.1
+        const val AUTO_ALIGN_SWERVE_LEFT_OFFSET: Double = -0.1
+        const val AUTO_ALIGN_SWERVE_RIGHT_OFFSET: Double = 0.1
 
         /** Class containing PID constants for the swerve drive system.  */
         object PIDParameters {
