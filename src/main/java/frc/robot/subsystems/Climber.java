@@ -184,6 +184,7 @@ public class Climber extends SubsystemBase {
   }
 
   // public void recalibrateEncoders() {
-  //   PivotGlobalValues.offset = PivotGlobalValues.PIVOT_NEUTRAL_ANGLE - getAbsoluteEncoder();
+  // PivotGlobalValues.offset = PivotGlobalValues.PIVOT_NEUTRAL_ANGLE -
+  // getAbsoluteEncoder();
   // }
 }

@@ -61,10 +61,10 @@ public class RobotContainer {
         buttons,
         bind(START, resetPidgey()),
         bind(Y, setTelePid()),
-        //        bind(A, setElevatorState(L1)),
-        //        bind(B, setElevatorState(L2)),
-        //        bind(X, setElevatorState(L3)),
-        //        bind(Y, setElevatorState(L4)),
+        // bind(A, setElevatorState(L1)),
+        // bind(B, setElevatorState(L2)),
+        // bind(X, setElevatorState(L3)),
+        // bind(Y, setElevatorState(L4)),
         bind(LEFT_BUMPER, score(LEFT)),
         bind(RIGHT_BUMPER, score(RIGHT)));
   }

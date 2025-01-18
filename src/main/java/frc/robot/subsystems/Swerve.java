@@ -45,9 +45,11 @@ public class Swerve extends SubsystemBase {
   private final PathPlannerPath pathToScore;
 
   // from feeder to the goal and align itself
-  // The plan is for it to path towards it then we use a set path to align itself with the goal and
+  // The plan is for it to path towards it then we use a set path to align itself
+  // with the goal and
   // be more accurate
-  // Use this https://pathplanner.dev/pplib-pathfinding.html#pathfind-then-follow-path
+  // Use this
+  // https://pathplanner.dev/pplib-pathfinding.html#pathfind-then-follow-path
   PathConstraints constraints =
       new PathConstraints(2.0, 3.0, Units.degreesToRadians(540), Units.degreesToRadians(720));
 
@@ -191,8 +193,9 @@ public class Swerve extends SubsystemBase {
   @Override
   public void periodic() {
     /*
-     This method checks whether the bot is in Teleop, and adds it to poseEstimator based on VISION
-    */
+     * This method checks whether the bot is in Teleop, and adds it to poseEstimator
+     * based on VISION
+     */
     if (DriverStation.isTeleop()) {
       EstimatedRobotPose estimatedPose =
           PhotonVision.getInstance().getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
@@ -205,8 +208,9 @@ public class Swerve extends SubsystemBase {
     }
 
     /*
-     Updates the robot position based on movement and rotation from the pidgey and encoders.
-    */
+     * Updates the robot position based on movement and rotation from the pidgey and
+     * encoders.
+     */
     poseEstimator.update(getPidgeyRotation(), getModulePositions());
 
     field.setRobotPose(poseEstimator.getEstimatedPosition());

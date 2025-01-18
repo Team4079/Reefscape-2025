@@ -111,8 +111,9 @@ public class SwerveModule {
     CANcoderConfiguration canCoderConfiguration = new CANcoderConfiguration();
 
     /*
-     * Sets the CANCoder direction, absolute sensor range, and magnet offset for the CANCoder Make
-     * sure the magnet offset is ACCURATE and based on when the wheel is straight!
+     * Sets the CANCoder direction, absolute sensor range, and magnet offset for the
+     * CANCoder Make sure the magnet offset is ACCURATE and based on when the wheel
+     * is straight!
      */
     canCoderConfiguration.MagnetSensor.SensorDirection =
         SensorDirectionValue.CounterClockwise_Positive;

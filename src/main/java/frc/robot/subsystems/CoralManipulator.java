@@ -161,12 +161,15 @@ public class CoralManipulator extends SubsystemBase {
 
     if (!coralSensor.get() && CoralManipulatorParameters.hasPiece) {
       if (this.motorsRunning) {
-        // Stop the motors if the manipulator has a piece, but the sensor no longer detects it
-        // May require a delay of 100-500ms to prevent the motors from stopping too early
+        // Stop the motors if the manipulator has a piece, but the sensor no longer
+        // detects it
+        // May require a delay of 100-500ms to prevent the motors from stopping too
+        // early
         this.stopMotors();
       }
     } else {
-      // Will run if the sensor doesn't detect the piece, and it doesn't have a piece concurrently
+      // Will run if the sensor doesn't detect the piece, and it doesn't have a piece
+      // concurrently
       // Will also run if the coral sensor detects a piece, and it has a piece
       if (!this.motorsRunning) {
         this.startMotors();
