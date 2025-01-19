@@ -51,7 +51,7 @@ public class PhotonVision extends SubsystemBase {
    */
   private PhotonVision() {
     // Initialize cameras with their positions
-    AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
+    AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
 
     // First camera setup
     Transform3d camera1Pos =

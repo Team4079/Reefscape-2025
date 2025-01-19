@@ -59,4 +59,23 @@ public class PhotonModule {
   public Transform3d getCameraPosition() {
     return cameraPos;
   }
+
+  /**
+   * Gets the estimated robot pose based on the latest vision processing results.
+   *
+   * This method retrieves all unread pipeline results from the camera and checks if there is a
+   * multi-tag result available. If a multi-tag result is present, it extracts and returns the
+   * translation component of the estimated pose. If no multi-tag result is available, it returns
+   * a default Translation3d object.
+   *
+   * @return Translation3d The estimated robot pose as a Translation3d object. If no multi-tag
+   * result is available, returns a default Translation3d object.
+   */
+  public Translation3d getEstimatedRobotPose() {
+    List<PhotonPipelineResult> currentResult = camera.getAllUnreadResults();
+    if (currentResult.get(0).multitagResult.isPresent()) {
+        return currentResult.get(0).getMultiTagResult().get().estimatedPose.best.getTranslation();
+    }
+    return new Translation3d();
+  }
 }
