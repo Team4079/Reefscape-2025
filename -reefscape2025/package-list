@@ -86,6 +86,7 @@ $dokka.location:frc.robot.subsystems/PhotonModule///PointingToDeclaration/-reef
 $dokka.location:frc.robot.subsystems/PhotonModule/PhotonModule/#java.lang.String#edu.wpi.first.math.geometry.Transform3d#edu.wpi.first.apriltag.AprilTagFieldLayout/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/-photon-module.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getAllUnreadResults/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-all-unread-results.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getCameraPosition/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-camera-position.html
+$dokka.location:frc.robot.subsystems/PhotonModule/getEstimatedRobotPose/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-estimated-robot-pose.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getPoseEstimator/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-pose-estimator.html
 $dokka.location:frc.robot.subsystems/PhotonVision///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/index.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getCurrentTarget/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-current-target.html
