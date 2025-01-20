@@ -14,6 +14,7 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
+import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters.*;
 
@@ -32,6 +33,8 @@ public class Climber extends SubsystemBase {
   private final VelocityVoltage vel_voltage;
 
   private final VoltageOut voltageOut;
+
+  private Alert pivotMotorDisconnectedAlert;
 
   // private double absPos = 0;
 
@@ -112,6 +115,8 @@ public class Climber extends SubsystemBase {
     new PositionDutyCycle(0);
 
     pivotMotor.setPosition(0);
+
+    initializeAlarms();
   }
 
   // This method will be called once per scheduler run
@@ -187,4 +192,13 @@ public class Climber extends SubsystemBase {
   // PivotGlobalValues.offset = PivotGlobalValues.PIVOT_NEUTRAL_ANGLE -
   // getAbsoluteEncoder();
   // }
+
+  public void initializeAlarms() {
+    pivotMotorDisconnectedAlert =
+            new Alert("Disconnected pivot motor " + Integer.toString(MotorParameters.PIVOT_MOTOR_ID), Alert.AlertType.kError);
+
+    pivotMotorDisconnectedAlert.set(!pivotMotor.isConnected());
+
+    log("Disconnected pivotMotor " + pivotMotor.getDeviceID(), pivotMotor.isConnected());
+  }
 }

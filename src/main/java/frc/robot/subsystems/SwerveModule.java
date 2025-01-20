@@ -288,9 +288,9 @@ public class SwerveModule {
 
   public void initializeAlarms(int driveID, int steerID, int canCoderID) {
     driveDisconnectedAlert =
-        new Alert("Disconnected drive motor " + Integer.toString(driveID), AlertType.kError);
+        new Alert("Disconnected drive motor " + Integer.toString(MotorParameters.FRONT_LEFT_DRIVE_ID), AlertType.kError);
     turnDisconnectedAlert =
-        new Alert("Disconnected turn motor " + Integer.toString(steerID), AlertType.kError);
+        new Alert("Disconnected turn motor " + Integer.toString(MotorParameters.FRONT_LEFT_STEER_ID), AlertType.kError);
     canCoderDisconnectedAlert =
         new Alert("Disconnected CANCoder " + Integer.toString(canCoderID), AlertType.kError);
 
@@ -298,10 +298,9 @@ public class SwerveModule {
     turnDisconnectedAlert.set(!steerMotor.isConnected());
     canCoderDisconnectedAlert.set(!canCoder.isConnected());
 
-    logs(
-        log("Disconnected drive motor " + driveID, driveMotor.isConnected()),
-        log("Disconnected steer motor " + steerID, steerMotor.isConnected()),
-        log("Disconnected CANCoder " + canCoderID, canCoder.isConnected()));
+    log("Disconnected drive motor " + driveID, driveMotor.isConnected());
+    log("Disconnected steer motor " + steerID, steerMotor.isConnected());
+    log("Disconnected CANCoder " + canCoderID, canCoder.isConnected());
   }
 
   public void updateTelePID() {

@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+//import static frc.robot.utils.Dash.log;
 import static frc.robot.utils.Register.Dash.*;
 
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
@@ -14,6 +15,7 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
+import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters.*;
 
@@ -31,6 +33,8 @@ public class EndEffector extends SubsystemBase {
   private final VelocityVoltage vel_voltage;
 
   private final VoltageOut voltageOut;
+
+  private Alert endEffectorMotorDisconnectedAlert;
 
   // private double absPos = 0;
 
@@ -111,6 +115,8 @@ public class EndEffector extends SubsystemBase {
     new PositionDutyCycle(0);
 
     endEffectorMotor.setPosition(0);
+
+    initializeAlarms();
   }
 
   // This method will be called once per scheduler run
@@ -163,5 +169,14 @@ public class EndEffector extends SubsystemBase {
     } else {
       this.stopMotor();
     }
+  }
+
+  public void initializeAlarms() {
+    endEffectorMotorDisconnectedAlert =
+            new Alert("Disconnected end effector motor " + Integer.toString(MotorParameters.END_EFFECTOR_MOTOR_ID), Alert.AlertType.kError);
+
+    endEffectorMotorDisconnectedAlert.set(!endEffectorMotor.isConnected());
+
+    log("Disconnected endEffectorMotor " + endEffectorMotor.getDeviceID(), endEffectorMotor.isConnected());
   }
 }
