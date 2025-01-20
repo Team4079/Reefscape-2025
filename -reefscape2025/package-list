@@ -33,6 +33,7 @@ $dokka.location:frc.robot.subsystems////PointingToDeclaration/-reefscape2025/fr
 $dokka.location:frc.robot.subsystems/Climber///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/index.html
 $dokka.location:frc.robot.subsystems/Climber/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/get-instance.html
 $dokka.location:frc.robot.subsystems/Climber/getPivotPosValue/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/get-pivot-pos-value.html
+$dokka.location:frc.robot.subsystems/Climber/initializeAlarms/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/initialize-alarms.html
 $dokka.location:frc.robot.subsystems/Climber/movePivot/#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/move-pivot.html
 $dokka.location:frc.robot.subsystems/Climber/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/periodic.html
 $dokka.location:frc.robot.subsystems/Climber/resetEncoders/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/reset-encoders.html
@@ -42,6 +43,7 @@ $dokka.location:frc.robot.subsystems/Climber/stopMotor/#/PointingToDeclaration/
 $dokka.location:frc.robot.subsystems/Climber/toggleSoftStop/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-climber/toggle-soft-stop.html
 $dokka.location:frc.robot.subsystems/CoralManipulator///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-coral-manipulator/index.html
 $dokka.location:frc.robot.subsystems/CoralManipulator/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-coral-manipulator/get-instance.html
+$dokka.location:frc.robot.subsystems/CoralManipulator/initializeAlarms/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-coral-manipulator/initialize-alarms.html
 $dokka.location:frc.robot.subsystems/CoralManipulator/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-coral-manipulator/periodic.html
 $dokka.location:frc.robot.subsystems/CoralManipulator/setHasPiece/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-coral-manipulator/set-has-piece.html
 $dokka.location:frc.robot.subsystems/CoralManipulator/startMotors/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-coral-manipulator/start-motors.html
@@ -65,6 +67,7 @@ $dokka.location:frc.robot.subsystems/Elevator/toggleSoftStop/#/PointingToDeclara
 $dokka.location:frc.robot.subsystems/EndEffector///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-end-effector/index.html
 $dokka.location:frc.robot.subsystems/EndEffector/getEndEffectorPosValue/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-end-effector/get-end-effector-pos-value.html
 $dokka.location:frc.robot.subsystems/EndEffector/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-end-effector/get-instance.html
+$dokka.location:frc.robot.subsystems/EndEffector/initializeAlarms/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-end-effector/initialize-alarms.html
 $dokka.location:frc.robot.subsystems/EndEffector/moveArm/#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-end-effector/move-arm.html
 $dokka.location:frc.robot.subsystems/EndEffector/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-end-effector/periodic.html
 $dokka.location:frc.robot.subsystems/EndEffector/resetEncoders/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-end-effector/reset-encoders.html
