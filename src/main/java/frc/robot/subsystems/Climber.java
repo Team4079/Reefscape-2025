@@ -199,6 +199,7 @@ public class Climber extends SubsystemBase {
 
     pivotMotorDisconnectedAlert.set(!pivotMotor.isConnected());
 
-    log("Disconnected pivotMotor " + pivotMotor.getDeviceID(), pivotMotor.isConnected());
+    logs (
+      log("Disconnected pivotMotor " + pivotMotor.getDeviceID(), pivotMotor.isConnected()));
   }
 }

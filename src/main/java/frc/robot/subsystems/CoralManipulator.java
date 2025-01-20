@@ -27,6 +27,7 @@ import frc.robot.utils.RobotParameters.MotorParameters;
 
 //import static frc.robot.utils.Dash.log;
 import static frc.robot.utils.Register.Dash.log;
+import static frc.robot.utils.Register.Dash.logs;
 
 public class CoralManipulator extends SubsystemBase {
   private final TalonFX coralManipulatorMotorUp;
@@ -217,7 +218,8 @@ public class CoralManipulator extends SubsystemBase {
     coralManipulatorUpDisconnectedAlert.set(!coralManipulatorMotorUp.isConnected());
     coralManipulatorDownDisconnectedAlert.set(!coralManipulatorMotorDown.isConnected());
 
-    log("Disconnected coralManipulatorMotorUp " + coralManipulatorMotorUp.getDeviceID(), coralManipulatorMotorUp.isConnected());
-    log("Disconnected coralManipulatorMotorDown " + coralManipulatorMotorDown.getDeviceID(), coralManipulatorMotorDown.isConnected());
+    logs (
+      log("Disconnected coralManipulatorMotorUp " + coralManipulatorMotorUp.getDeviceID(), coralManipulatorMotorUp.isConnected()),
+      log("Disconnected coralManipulatorMotorDown " + coralManipulatorMotorDown.getDeviceID(), coralManipulatorMotorDown.isConnected()));
   }
 }

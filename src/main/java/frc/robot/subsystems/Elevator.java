@@ -318,7 +318,8 @@ public class Elevator extends SubsystemBase {
     elevatorLeftDisconnectedAlert.set(!elevatorMotorLeft.isConnected());
     elevatorRightDisconnectedAlert.set(!elevatorMotorRight.isConnected());
 
-    log("Disconnected elevatorMotorLeft " + elevatorMotorLeft.getDeviceID(), elevatorMotorLeft.isConnected());
-    log("Disconnected elevatorMotorRight " + elevatorMotorRight.getDeviceID(), elevatorMotorRight.isConnected());
+    logs (
+      log("Disconnected elevatorMotorLeft " + elevatorMotorLeft.getDeviceID(), elevatorMotorLeft.isConnected()),
+      log("Disconnected elevatorMotorRight " + elevatorMotorRight.getDeviceID(), elevatorMotorRight.isConnected()));
   }
 }

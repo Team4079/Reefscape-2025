@@ -177,6 +177,7 @@ public class EndEffector extends SubsystemBase {
 
     endEffectorMotorDisconnectedAlert.set(!endEffectorMotor.isConnected());
 
-    log("Disconnected endEffectorMotor " + endEffectorMotor.getDeviceID(), endEffectorMotor.isConnected());
+    logs (
+      log("Disconnected endEffectorMotor " + endEffectorMotor.getDeviceID(), endEffectorMotor.isConnected()));
   }
 }

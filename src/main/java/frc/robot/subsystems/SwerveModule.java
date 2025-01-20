@@ -131,7 +131,7 @@ public class SwerveModule {
     steerPosition = steerMotor.getPosition().getValueAsDouble();
 
     initializeLoggedNetworkPID();
-    initializeAlarms(driveId, steerId, canCoderID);
+    initializeAlarms(canCoderID);
   }
 
   /**
@@ -286,7 +286,7 @@ public class SwerveModule {
     steerV = new LoggedNetworkNumber("/Tuning/Steer V", steerConfigs.Slot0.kV);
   }
 
-  public void initializeAlarms(int driveID, int steerID, int canCoderID) {
+  public void initializeAlarms(int canCoderID) {
     driveDisconnectedAlert =
         new Alert("Disconnected drive motor " + Integer.toString(MotorParameters.FRONT_LEFT_DRIVE_ID), AlertType.kError);
     turnDisconnectedAlert =
@@ -298,9 +298,10 @@ public class SwerveModule {
     turnDisconnectedAlert.set(!steerMotor.isConnected());
     canCoderDisconnectedAlert.set(!canCoder.isConnected());
 
-    log("Disconnected drive motor " + driveID, driveMotor.isConnected());
-    log("Disconnected steer motor " + steerID, steerMotor.isConnected());
-    log("Disconnected CANCoder " + canCoderID, canCoder.isConnected());
+    logs (
+      log("Disconnected drive motor " + MotorParameters.FRONT_LEFT_DRIVE_ID, driveMotor.isConnected()),
+      log("Disconnected steer motor " + MotorParameters.FRONT_LEFT_STEER_ID, steerMotor.isConnected()),
+      log("Disconnected CANCoder " + canCoderID, canCoder.isConnected()));
   }
 
   public void updateTelePID() {
