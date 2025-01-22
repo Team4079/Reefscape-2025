@@ -90,6 +90,7 @@ $dokka.location:frc.robot.subsystems/PhotonModule/PhotonModule/#java.lang.String
 $dokka.location:frc.robot.subsystems/PhotonModule/getAllUnreadResults/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-all-unread-results.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getCameraPosition/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-camera-position.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getEstimatedRobotPose/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-estimated-robot-pose.html
+$dokka.location:frc.robot.subsystems/PhotonModule/getLatestResult/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-latest-result.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getPoseEstimator/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-pose-estimator.html
 $dokka.location:frc.robot.subsystems/PhotonVision///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/index.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getCurrentTarget/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-current-target.html
@@ -173,6 +174,8 @@ $dokka.location:frc.robot.utils/PIDVController/PIDVController/#double#double#dou
 $dokka.location:frc.robot.utils/PIDVController/PIDVController/#edu.wpi.first.math.controller.PIDController#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d-v-controller/-p-i-d-v-controller.html
 $dokka.location:frc.robot.utils/PIDVController/getV/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d-v-controller/get-v.html
 $dokka.location:frc.robot.utils/PIDVController/setV/#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d-v-controller/set-v.html
+$dokka.location:frc.robot.utils/PhotonModuleListKt///PointingToDeclaration/-reefscape2025/frc.robot.utils/-photon-module-list-kt/index.html
+$dokka.location:frc.robot.utils/PhotonModuleListKt/getBestResultPair/kotlin.collections.List[frc.robot.subsystems.PhotonModule]#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-photon-module-list-kt/get-best-result-pair.html
 $dokka.location:frc.robot.utils/Register.Dash///PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/index.html
 $dokka.location:frc.robot.utils/Register.Dash/log/#kotlin.String#kotlin.Any/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/log.html
 $dokka.location:frc.robot.utils/Register.Dash/logs/#kotlin.Array[kotlin.Pair[kotlin.String,kotlin.Any]]/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/logs.html

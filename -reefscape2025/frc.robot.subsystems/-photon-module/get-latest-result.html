@@ -2,7 +2,7 @@
 <html class="no-js">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>getEstimatedRobotPose</title>
+    <title>getLatestResult</title>
     <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
     <script>var pathToRoot = "../../../";</script>
     <script>document.documentElement.classList.replace("no-js","js");</script>
@@ -104,12 +104,12 @@
                 </div>
             </div>
             <div id="main">
-<div class="main-content" data-page-type="member" id="content" pageIds="Reefscape2025::frc.robot.subsystems/PhotonModule/getEstimatedRobotPose/#/PointingToDeclaration//-251573632">
-  <div class="breadcrumbs"><a href="../../../index.html">Reefscape2025</a><span class="delimiter">/</span><a href="../index.html">frc.robot.subsystems</a><span class="delimiter">/</span><a href="index.html">PhotonModule</a><span class="delimiter">/</span><span class="current">getEstimatedRobotPose</span></div>
+<div class="main-content" data-page-type="member" id="content" pageIds="Reefscape2025::frc.robot.subsystems/PhotonModule/getLatestResult/#/PointingToDeclaration//-251573632">
+  <div class="breadcrumbs"><a href="../../../index.html">Reefscape2025</a><span class="delimiter">/</span><a href="../index.html">frc.robot.subsystems</a><span class="delimiter">/</span><a href="index.html">PhotonModule</a><span class="delimiter">/</span><span class="current">getLatestResult</span></div>
   <div class="cover ">
-    <h1 class="cover"><span>get</span><wbr></wbr><span>Estimated</span><wbr></wbr><span>Robot</span><wbr></wbr><span><span>Pose</span></span></h1>
+    <h1 class="cover"><span>get</span><wbr></wbr><span>Latest</span><wbr></wbr><span><span>Result</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Translation3d///PointingToDeclaration/">Translation3d</span> <a href="get-estimated-robot-pose.html"><span class="token function">getEstimatedRobotPose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><p class="paragraph">Gets the estimated robot pose based on the latest vision processing results. </p><p class="paragraph">This method retrieves all unread pipeline results from the camera and checks if there is a multi-tag result available. If a multi-tag result is present, it extracts and returns the translation component of the estimated pose. If no multi-tag result is available, it returns a default Translation3d object.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">Translation3d The estimated robot pose as a Translation3d object. If no multi-tag result is available, returns a default Translation3d object.</p></span></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span><span data-unresolved-link="org.photonvision.targeting/PhotonPipelineResult///PointingToDeclaration/">PhotonPipelineResult</span> <a href="get-latest-result.html"><span class="token function">getLatestResult</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><p class="paragraph">Gets the latest unread pipeline result from the camera.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">PhotonPipelineResult The latest unread vision processing result, or null if no results are available.</p></span></div></div>
 </div>
     <div class="footer">
         <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
