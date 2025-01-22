@@ -86,6 +86,7 @@ public class PhotonVision extends SubsystemBase {
 
       log("has current target", currentResult != null);
 
+      // REMEMBER: MOVEMENT IS BINDED TO A! DON'T FORGET NERD
       if (currentResult != null) {
         currentTarget = currentResult.getBestTarget();
 
