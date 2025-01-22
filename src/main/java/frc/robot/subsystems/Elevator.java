@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-//import static frc.robot.utils.Dash.log;
+// import static frc.robot.utils.Dash.log;
 import static frc.robot.utils.Register.Dash.*;
 
 import com.ctre.phoenix6.configs.*;
@@ -311,15 +311,25 @@ public class Elevator extends SubsystemBase {
 
   public void initializeAlarms() {
     elevatorLeftDisconnectedAlert =
-            new Alert("Disconnected left elevator motor " + Integer.toString(MotorParameters.ELEVATOR_MOTOR_LEFT_ID), Alert.AlertType.kError);
+        new Alert(
+            "Disconnected left elevator motor "
+                + Integer.toString(MotorParameters.ELEVATOR_MOTOR_LEFT_ID),
+            Alert.AlertType.kError);
     elevatorRightDisconnectedAlert =
-            new Alert("Disconnected right elevator motor " + Integer.toString(MotorParameters.ELEVATOR_MOTOR_RIGHT_ID), Alert.AlertType.kError);
+        new Alert(
+            "Disconnected right elevator motor "
+                + Integer.toString(MotorParameters.ELEVATOR_MOTOR_RIGHT_ID),
+            Alert.AlertType.kError);
 
     elevatorLeftDisconnectedAlert.set(!elevatorMotorLeft.isConnected());
     elevatorRightDisconnectedAlert.set(!elevatorMotorRight.isConnected());
 
-    logs (
-      log("Disconnected elevatorMotorLeft " + elevatorMotorLeft.getDeviceID(), elevatorMotorLeft.isConnected()),
-      log("Disconnected elevatorMotorRight " + elevatorMotorRight.getDeviceID(), elevatorMotorRight.isConnected()));
+    logs(
+        log(
+            "Disconnected elevatorMotorLeft " + elevatorMotorLeft.getDeviceID(),
+            elevatorMotorLeft.isConnected()),
+        log(
+            "Disconnected elevatorMotorRight " + elevatorMotorRight.getDeviceID(),
+            elevatorMotorRight.isConnected()));
   }
 }

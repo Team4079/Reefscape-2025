@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import static frc.robot.utils.Register.Dash.log;
+import static frc.robot.utils.Register.Dash.logs;
+
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
@@ -24,10 +27,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters;
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters;
 import frc.robot.utils.RobotParameters.MotorParameters;
-
-//import static frc.robot.utils.Dash.log;
-import static frc.robot.utils.Register.Dash.log;
-import static frc.robot.utils.Register.Dash.logs;
 
 public class CoralManipulator extends SubsystemBase {
   private final TalonFX coralManipulatorMotorUp;
@@ -211,15 +210,25 @@ public class CoralManipulator extends SubsystemBase {
 
   public void initializeAlarms() {
     coralManipulatorUpDisconnectedAlert =
-            new Alert("Disconnected coral up motor " + Integer.toString(MotorParameters.CORAL_MANIPULATOR_MOTOR_UP_ID), Alert.AlertType.kError);
+        new Alert(
+            "Disconnected coral up motor "
+                + Integer.toString(MotorParameters.CORAL_MANIPULATOR_MOTOR_UP_ID),
+            Alert.AlertType.kError);
     coralManipulatorDownDisconnectedAlert =
-            new Alert("Disconnected coral down motor " + Integer.toString(MotorParameters.CORAL_MANIPULATOR_MOTOR_DOWN_ID), Alert.AlertType.kError);
+        new Alert(
+            "Disconnected coral down motor "
+                + Integer.toString(MotorParameters.CORAL_MANIPULATOR_MOTOR_DOWN_ID),
+            Alert.AlertType.kError);
 
     coralManipulatorUpDisconnectedAlert.set(!coralManipulatorMotorUp.isConnected());
     coralManipulatorDownDisconnectedAlert.set(!coralManipulatorMotorDown.isConnected());
 
-    logs (
-      log("Disconnected coralManipulatorMotorUp " + coralManipulatorMotorUp.getDeviceID(), coralManipulatorMotorUp.isConnected()),
-      log("Disconnected coralManipulatorMotorDown " + coralManipulatorMotorDown.getDeviceID(), coralManipulatorMotorDown.isConnected()));
+    logs(
+        log(
+            "Disconnected coralManipulatorMotorUp " + coralManipulatorMotorUp.getDeviceID(),
+            coralManipulatorMotorUp.isConnected()),
+        log(
+            "Disconnected coralManipulatorMotorDown " + coralManipulatorMotorDown.getDeviceID(),
+            coralManipulatorMotorDown.isConnected()));
   }
 }

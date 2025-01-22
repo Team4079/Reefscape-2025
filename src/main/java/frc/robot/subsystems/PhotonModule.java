@@ -3,8 +3,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.apriltag.*;
 import edu.wpi.first.math.geometry.*;
 import java.util.*;
-
-import frc.robot.utils.*;
 import org.photonvision.*;
 import org.photonvision.targeting.*;
 
@@ -17,7 +15,6 @@ public class PhotonModule {
   private final PhotonCamera camera;
   private final PhotonPoseEstimator photonPoseEstimator;
   private final Transform3d cameraPos;
-  private double ambiguity;
 
   /**
    * Creates a new CameraModule with the specified parameters.
@@ -32,7 +29,6 @@ public class PhotonModule {
     this.photonPoseEstimator =
         new PhotonPoseEstimator(
             fieldLayout, PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, cameraPos);
-    this.ambiguity = 0;
   }
 
   /**
@@ -65,19 +61,33 @@ public class PhotonModule {
   /**
    * Gets the estimated robot pose based on the latest vision processing results.
    *
-   * This method retrieves all unread pipeline results from the camera and checks if there is a
+   * <p>This method retrieves all unread pipeline results from the camera and checks if there is a
    * multi-tag result available. If a multi-tag result is present, it extracts and returns the
-   * translation component of the estimated pose. If no multi-tag result is available, it returns
-   * a default Translation3d object.
+   * translation component of the estimated pose. If no multi-tag result is available, it returns a
+   * default Translation3d object.
    *
    * @return Translation3d The estimated robot pose as a Translation3d object. If no multi-tag
-   * result is available, returns a default Translation3d object.
+   *     result is available, returns a default Translation3d object.
    */
   public Translation3d getEstimatedRobotPose() {
     List<PhotonPipelineResult> currentResult = camera.getAllUnreadResults();
     if (currentResult.get(0).multitagResult.isPresent()) {
-        return currentResult.get(0).getMultiTagResult().get().estimatedPose.best.getTranslation();
+      return currentResult.get(0).getMultiTagResult().get().estimatedPose.best.getTranslation();
     }
     return new Translation3d();
+  }
+
+  /**
+   * Gets the latest unread pipeline result from the camera.
+   *
+   * @return PhotonPipelineResult The latest unread vision processing result, or null if no results
+   *     are available.
+   */
+  public PhotonPipelineResult getLatestResult() {
+    if (getAllUnreadResults().isEmpty()) {
+      return null;
+    } else {
+      return getAllUnreadResults().get(0);
+    }
   }
 }

@@ -195,11 +195,12 @@ public class Climber extends SubsystemBase {
 
   public void initializeAlarms() {
     climberMotorDisconnectedAlert =
-            new Alert("Disconnected pivot motor " + MotorParameters.CLIMBER_MOTOR_ID, Alert.AlertType.kError);
+        new Alert(
+            "Disconnected pivot motor " + MotorParameters.CLIMBER_MOTOR_ID, Alert.AlertType.kError);
 
     climberMotorDisconnectedAlert.set(!climberMotor.isConnected());
 
-    logs (
-      log("Disconnected climberMotor " + climberMotor.getDeviceID(), climberMotor.isConnected()));
+    logs(
+        log("Disconnected climberMotor " + climberMotor.getDeviceID(), climberMotor.isConnected()));
   }
 }

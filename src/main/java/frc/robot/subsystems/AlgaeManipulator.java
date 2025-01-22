@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-//import static frc.robot.utils.Dash.log;
+// import static frc.robot.utils.Dash.log;
 import static frc.robot.utils.Register.Dash.*;
 
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
@@ -20,9 +20,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters.*;
 
 /**
- * The PivotSubsystem class is a subsystem that interfaces with the arm system to provide
- * control over the arm motors. This subsystem is a Singleton, meaning that only one instance of
- * this class is created and shared across the entire robot code.
+ * The PivotSubsystem class is a subsystem that interfaces with the arm system to provide control
+ * over the arm motors. This subsystem is a Singleton, meaning that only one instance of this class
+ * is created and shared across the entire robot code.
  */
 public class AlgaeManipulator extends SubsystemBase {
   /** Creates a new end effector. */
@@ -150,7 +150,7 @@ public class AlgaeManipulator extends SubsystemBase {
   public void toggleSoftStop() {
     AlgaeManipulatorParameters.isSoftLimitEnabled = !AlgaeManipulatorParameters.isSoftLimitEnabled;
     algaeManipulatorMotorSoftLimitConfig.ReverseSoftLimitEnable =
-            AlgaeManipulatorParameters.isSoftLimitEnabled;
+        AlgaeManipulatorParameters.isSoftLimitEnabled;
     // leftSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     algaeManipulatorMotorSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
@@ -173,11 +173,16 @@ public class AlgaeManipulator extends SubsystemBase {
 
   public void initializeAlarms() {
     algaeManipulatorMotorDisconnectedAlert =
-            new Alert("Disconnected end effector motor " + Integer.toString(MotorParameters.ALGAE_MANIPULATOR_MOTOR_ID), Alert.AlertType.kError);
+        new Alert(
+            "Disconnected end effector motor "
+                + Integer.toString(MotorParameters.ALGAE_MANIPULATOR_MOTOR_ID),
+            Alert.AlertType.kError);
 
     algaeManipulatorMotorDisconnectedAlert.set(!algaeManipulatorMotor.isConnected());
 
-    logs (
-      log("Disconnected algaeManipulatorMotor " + algaeManipulatorMotor.getDeviceID(), algaeManipulatorMotor.isConnected()));
+    logs(
+        log(
+            "Disconnected algaeManipulatorMotor " + algaeManipulatorMotor.getDeviceID(),
+            algaeManipulatorMotor.isConnected()));
   }
 }

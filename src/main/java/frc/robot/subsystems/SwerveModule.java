@@ -134,11 +134,11 @@ public class SwerveModule {
     steerVelocity = steerMotor.getVelocity().getValueAsDouble();
     steerPosition = steerMotor.getPosition().getValueAsDouble();
     driveDisconnectedAlert =
-            new Alert("Disconnected drive motor " + Integer.toString(driveId), AlertType.kError);
+        new Alert("Disconnected drive motor " + Integer.toString(driveId), AlertType.kError);
     turnDisconnectedAlert =
-            new Alert("Disconnected turn motor " + Integer.toString(steerId), AlertType.kError);
+        new Alert("Disconnected turn motor " + Integer.toString(steerId), AlertType.kError);
     canCoderDisconnectedAlert =
-            new Alert("Disconnected CANCoder " + Integer.toString(canCoderID), AlertType.kError);
+        new Alert("Disconnected CANCoder " + Integer.toString(canCoderID), AlertType.kError);
 
     initializeLoggedNetworkPID();
     driveIdNum = driveId;
@@ -216,10 +216,9 @@ public class SwerveModule {
         log(
             "desired state after optimize " + canCoder.getDeviceID(),
             desiredState.angle.getRotations()),
-            log("Disconnected drive motor " + driveIdNum, driveMotor.isConnected()),
-            log("Disconnected steer motor " + steerIdNum, steerMotor.isConnected()),
-            log("Disconnected CANCoder " + canCoderIdNum, canCoder.isConnected())
-    );
+        log("Disconnected drive motor " + driveIdNum, driveMotor.isConnected()),
+        log("Disconnected steer motor " + steerIdNum, steerMotor.isConnected()),
+        log("Disconnected CANCoder " + canCoderIdNum, canCoder.isConnected()));
 
     // Update the state with the optimized values
     state = desiredState;

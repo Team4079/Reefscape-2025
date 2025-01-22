@@ -5,8 +5,10 @@ import static frc.robot.utils.Register.Dash.*;
 import edu.wpi.first.apriltag.*;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import java.util.*;
+import kotlin.*;
 import org.photonvision.*;
 import org.photonvision.targeting.*;
 
@@ -21,14 +23,10 @@ import org.photonvision.targeting.*;
  */
 public class PhotonVision extends SubsystemBase {
   private final List<PhotonModule> cameras = new ArrayList<>();
-  private PhotonModule bestCamera;
-  private PhotonPipelineResult currentResult;
-  private PhotonTrackedTarget currentTarget;
   private double yaw = -15.0;
   private double y = 0.0;
   private double dist = 0.0;
-
-//  private double targetPoseAmbiguity = 7157.0;
+  private Pair<PhotonModule, PhotonPipelineResult> bestResultPair;
 
   // Singleton instance
   private static final PhotonVision INSTANCE = new PhotonVision();
@@ -72,68 +70,35 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    updateBestCamera();
+    updateBestPair();
 
     logs(
         log("does camera exist", cameras.get(0) != null),
-        log("does best camera exist", bestCamera != null)
-    );
-    // if (bestCamera == null) return;
+        log("does best camera exist", bestResultPair.getFirst() != null));
 
-    if (bestCamera != null) {
-      List<PhotonPipelineResult> results = bestCamera.getAllUnreadResults();
-      currentResult = results.isEmpty() ? null : results.get(0);
+    if (bestResultPair.getFirst() != null) {
+      log("has current target", bestResultPair.getSecond() != null);
 
-      log("has current target", currentResult != null);
-
-      // REMEMBER: MOVEMENT IS BINDED TO A! DON'T FORGET NERD
-      if (currentResult != null) {
-        currentTarget = currentResult.getBestTarget();
-
-        for (PhotonTrackedTarget tag : currentResult.getTargets()) {
+      // REMEMBER: MOVEMENT IS BOUND TO A! DON'T FORGET NERD
+      if (bestResultPair.getSecond() != null) {
+        for (PhotonTrackedTarget tag : bestResultPair.getSecond().getTargets()) {
           yaw = tag.getYaw();
           y = tag.getBestCameraToTarget().getX();
           dist = tag.getBestCameraToTarget().getZ();
         }
 
-        logs(
-            log("yaw to target", yaw),
-            log("_targets", currentResult.hasTargets())
-        );
+        logs(log("yaw to target", yaw), log("_targets", bestResultPair.getSecond().hasTargets()));
       }
     }
   }
 
-  /** Updates the best camera selection based on pose ambiguity of detected targets. */
-  private void updateBestCamera() {
-    bestCamera = cameras.get(0); // TODO: Fix getCameraWithLeastAmbiguity()
-  }
-
   /**
-   * Selects the camera with the least pose ambiguity from all available cameras.
-   *
-   * @return The CameraModule with the lowest pose ambiguity, or null if no cameras have valid
-   *     targets
+   * Updates the best result pair by selecting the best camera and its result based on pose
+   * ambiguity.
    */
-//  private PhotonModule getCameraWithLeastAmbiguity() {
-//    PhotonModule best = null;
-//    double bestAmbiguity = Double.MAX_VALUE;
-//
-//    for (PhotonModule cam : cameras) {
-//      PhotonPipelineResult result = cam.getAllUnreadResults().isEmpty() ? null : cam.getAllUnreadResults().get(0);
-//
-//      if (result != null && result.hasTargets()) {
-//        PhotonTrackedTarget target = result.getBestTarget();
-//        double ambiguity = target.getPoseAmbiguity();
-//        if (ambiguity < bestAmbiguity) {
-//          best = cam;
-//          bestAmbiguity = ambiguity;
-//        }
-//      }
-//    }
-//
-//    return best;
-//  }
+  private void updateBestPair() {
+    bestResultPair = PhotonModuleListKt.getBestResultPair(cameras);
+  }
 
   /**
    * Checks if there is a visible AprilTag.
@@ -144,7 +109,7 @@ public class PhotonVision extends SubsystemBase {
    * @return true if there is a visible tag, false otherwise
    */
   public boolean hasTag() {
-    return currentResult != null && currentResult.hasTargets();
+    return bestResultPair.getSecond() != null && bestResultPair.getSecond().hasTargets();
   }
 
   /**
@@ -154,11 +119,13 @@ public class PhotonVision extends SubsystemBase {
    * @return The estimated robot pose, or null if no pose could be estimated
    */
   public EstimatedRobotPose getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
-    if (bestCamera == null) return null;
+    if (bestResultPair == null) return null;
 
-    PhotonPoseEstimator estimator = bestCamera.getPoseEstimator();
+    PhotonPoseEstimator estimator = bestResultPair.getFirst().getPoseEstimator();
     estimator.setReferencePose(prevEstimatedRobotPose);
-    return currentResult != null ? estimator.update(currentResult).orElse(null) : null;
+    return bestResultPair.getSecond() != null
+        ? estimator.update(bestResultPair.getSecond()).orElse(null)
+        : null;
   }
 
   /**
@@ -168,10 +135,11 @@ public class PhotonVision extends SubsystemBase {
    */
   @SuppressWarnings("java:S3655")
   public Transform3d getEstimatedGlobalPose() {
-    if (currentResult == null || currentResult.getMultiTagResult().isEmpty()) {
+    if (bestResultPair.getSecond() == null
+        || bestResultPair.getSecond().getMultiTagResult().isEmpty()) {
       return new Transform3d(0.0, 0.0, 0.0, new Rotation3d());
     }
-    return currentResult.getMultiTagResult().get().estimatedPose.best;
+    return bestResultPair.getSecond().getMultiTagResult().get().estimatedPose.best;
   }
 
   /**
@@ -228,20 +196,11 @@ public class PhotonVision extends SubsystemBase {
   }
 
   /**
-   * Gets the current target pose ambiguity.
-   *
-   * @return The target pose ambiguity value
-   */
-//  public double getTargetPoseAmbiguity() {
-//    return targetPoseAmbiguity;
-//  }
-
-  /**
    * Gets the current tracked target.
    *
    * @return The current PhotonTrackedTarget, or null if no target is tracked
    */
   public PhotonTrackedTarget getCurrentTarget() {
-    return currentTarget;
+    return bestResultPair.getSecond().getBestTarget();
   }
 }
