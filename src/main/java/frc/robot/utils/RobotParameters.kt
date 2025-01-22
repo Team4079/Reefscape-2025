@@ -27,9 +27,9 @@ object RobotParameters {
         const val BACK_RIGHT_CAN_CODER_ID: Int = 12
         const val ELEVATOR_MOTOR_LEFT_ID: Int = 13
         const val ELEVATOR_MOTOR_RIGHT_ID: Int = 14
-        const val PIVOT_MOTOR_ID: Int = 15
+        const val CLIMBER_MOTOR_ID: Int = 15
         const val PIDGEY_ID: Int = 16
-        const val END_EFFECTOR_MOTOR_ID: Int = 17
+        const val ALGAE_MANIPULATOR_MOTOR_ID: Int = 17
         const val CORAL_MANIPULATOR_MOTOR_UP_ID: Int = 18
         const val CORAL_MANIPULATOR_MOTOR_DOWN_ID: Int = 19
 
@@ -180,22 +180,22 @@ object RobotParameters {
         var isSoftLimitEnabled: Boolean = false
     }
 
-    /** Class containing constants for the pivot subsystem.  */
-    object PivotParameters {
-        const val PIVOT_PID_P: Double = 0.001
-        const val PIVOT_PID_I: Double = 0.0
-        const val PIVOT_PID_D: Double = 0.0
-        const val PIVOT_PID_V: Double = 0.0
+    /** Class containing constants for the CLIMBER subsystem.  */
+    object ClimberParameters {
+        const val CLIMBER_PID_P: Double = 0.001
+        const val CLIMBER_PID_I: Double = 0.0
+        const val CLIMBER_PID_D: Double = 0.0
+        const val CLIMBER_PID_V: Double = 0.0
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false
     }
 
-    object EndEffectorParameters {
-        const val END_EFFECTOR_PID_P: Double = 0.001
-        const val END_EFFECTOR_PID_I: Double = 0.0
-        const val END_EFFECTOR_PID_D: Double = 0.0
-        const val END_EFFECTOR_PID_V: Double = 0.0
+    object AlgaeManipulatorParameters {
+        const val ALGAE_MANIPULATOR_PID_P: Double = 0.001
+        const val ALGAE_MANIPULATOR_PID_I: Double = 0.0
+        const val ALGAE_MANIPULATOR_PID_D: Double = 0.0
+        const val ALGAE_MANIPULATOR_PID_V: Double = 0.0
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false

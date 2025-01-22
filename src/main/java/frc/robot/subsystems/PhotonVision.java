@@ -28,7 +28,7 @@ public class PhotonVision extends SubsystemBase {
   private double y = 0.0;
   private double dist = 0.0;
 
-  private double targetPoseAmbiguity = 7157.0;
+//  private double targetPoseAmbiguity = 7157.0;
 
   // Singleton instance
   private static final PhotonVision INSTANCE = new PhotonVision();
@@ -76,8 +76,7 @@ public class PhotonVision extends SubsystemBase {
 
     logs(
         log("does camera exist", cameras.get(0) != null),
-        log("going to end", "no"),
-        log("does bestcamera exist", bestCamera != null)
+        log("does best camera exist", bestCamera != null)
     );
     // if (bestCamera == null) return;
 
@@ -85,10 +84,10 @@ public class PhotonVision extends SubsystemBase {
       List<PhotonPipelineResult> results = bestCamera.getAllUnreadResults();
       currentResult = results.isEmpty() ? null : results.get(0);
 
-    // if (currentResult == null) return;
+      log("has current target", currentResult != null);
+
       if (currentResult != null) {
         currentTarget = currentResult.getBestTarget();
-        targetPoseAmbiguity = currentTarget != null ? currentTarget.getPoseAmbiguity() : 7157.0;
 
         for (PhotonTrackedTarget tag : currentResult.getTargets()) {
           yaw = tag.getYaw();
@@ -98,9 +97,7 @@ public class PhotonVision extends SubsystemBase {
 
         logs(
             log("yaw to target", yaw),
-            log("cam ambiguity", targetPoseAmbiguity),
-            log("_targets", currentResult.hasTargets()),
-            log("going to end", "yes")
+            log("_targets", currentResult.hasTargets())
         );
       }
     }
@@ -117,25 +114,25 @@ public class PhotonVision extends SubsystemBase {
    * @return The CameraModule with the lowest pose ambiguity, or null if no cameras have valid
    *     targets
    */
-  private PhotonModule getCameraWithLeastAmbiguity() {
-    PhotonModule bestCam = null;
-    double bestAmbiguity = Double.MAX_VALUE;
-
-    for (PhotonModule camera : cameras) {
-      List<PhotonPipelineResult> results = camera.getAllUnreadResults();
-      for (PhotonPipelineResult result : results) {
-        if (result.hasTargets()) {
-          PhotonTrackedTarget target = result.getBestTarget();
-          if (target != null && target.getPoseAmbiguity() < bestAmbiguity) {
-            bestAmbiguity = target.getPoseAmbiguity();
-            bestCam = camera;
-          }
-        }
-      }
-    }
-
-    return bestCam;
-  }
+//  private PhotonModule getCameraWithLeastAmbiguity() {
+//    PhotonModule best = null;
+//    double bestAmbiguity = Double.MAX_VALUE;
+//
+//    for (PhotonModule cam : cameras) {
+//      PhotonPipelineResult result = cam.getAllUnreadResults().isEmpty() ? null : cam.getAllUnreadResults().get(0);
+//
+//      if (result != null && result.hasTargets()) {
+//        PhotonTrackedTarget target = result.getBestTarget();
+//        double ambiguity = target.getPoseAmbiguity();
+//        if (ambiguity < bestAmbiguity) {
+//          best = cam;
+//          bestAmbiguity = ambiguity;
+//        }
+//      }
+//    }
+//
+//    return best;
+//  }
 
   /**
    * Checks if there is a visible AprilTag.
@@ -234,9 +231,9 @@ public class PhotonVision extends SubsystemBase {
    *
    * @return The target pose ambiguity value
    */
-  public double getTargetPoseAmbiguity() {
-    return targetPoseAmbiguity;
-  }
+//  public double getTargetPoseAmbiguity() {
+//    return targetPoseAmbiguity;
+//  }
 
   /**
    * Gets the current tracked target.

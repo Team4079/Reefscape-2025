@@ -17,6 +17,7 @@ public class PhotonModule {
   private final PhotonCamera camera;
   private final PhotonPoseEstimator photonPoseEstimator;
   private final Transform3d cameraPos;
+  private double ambiguity;
 
   /**
    * Creates a new CameraModule with the specified parameters.
@@ -31,6 +32,7 @@ public class PhotonModule {
     this.photonPoseEstimator =
         new PhotonPoseEstimator(
             fieldLayout, PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, cameraPos);
+    this.ambiguity = 0;
   }
 
   /**
