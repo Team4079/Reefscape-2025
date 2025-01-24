@@ -85,6 +85,14 @@ public class PhotonModule {
     return new Translation3d();
   }
 
+/**
+ * Updates the estimated standard deviations based on the provided estimated pose and list of tracked targets.
+ *
+ * <p>This method calculates the number of visible tags and their average distance to the estimated pose.
+ * It then uses this information to adjust the standard deviations used for robot pose estimation.
+ * @param estimatedPose An Optional containing the estimated robot pose.
+ * @param targets A list of PhotonTrackedTarget objects representing the tracked targets.
+ */
   public void updateEstimatedStdDevs(Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
     if (estimatedPose.isEmpty()) {
       currentStdDev = PhotonVisionConstants.SINGLE_TARGET_STD_DEV;
@@ -120,5 +128,13 @@ public class PhotonModule {
       currentStdDev = stdDevs.times(1 + (avgDistance * avgDistance / 30));
     }
   }
-
+  
+  /**
+   * Gets the current standard deviations used for robot pose estimation.
+   *
+   * @return Matrix<N3, N1> The current standard deviations as a Matrix object
+   */
+  public Matrix<N3, N1> getCurrentStdDevs() {
+    return currentStdDev;
+  }
 }
