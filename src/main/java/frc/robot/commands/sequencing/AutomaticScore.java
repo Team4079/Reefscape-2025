@@ -1,7 +1,7 @@
 package frc.robot.commands.sequencing;
 
-import static frc.robot.utils.ElevatorState.*;
 import static frc.robot.commands.Kommand.*;
+import static frc.robot.utils.ElevatorState.*;
 
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.utils.*;
@@ -13,13 +13,13 @@ import frc.robot.utils.*;
  * first level.
  */
 public class AutomaticScore extends SequentialCommandGroup {
-  public AutomaticScore(Direction offsetSide) {
+  public AutomaticScore(Direction offsetSide, ElevatorState state) {
     addCommands(
         align(offsetSide),
-        //        setElevatorState(L4),
+        setElevatorState(state),
         moveElevatorToLevel(),
         startCoralManipulator(),
-        waitCmd(1),
+        waitCmd(0.1),
         setElevatorState(L1),
         moveElevatorToLevel());
   }

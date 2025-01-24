@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import static frc.robot.utils.Dash.*;
+import static frc.robot.utils.Register.Dash.*;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -52,6 +52,10 @@ public class SwerveModule {
   private Alert driveDisconnectedAlert;
   private Alert turnDisconnectedAlert;
   private Alert canCoderDisconnectedAlert;
+
+  private int driveIdNum;
+  private int steerIdNum;
+  private int canCoderIdNum;
 
   /**
    * Constructs a new SwerveModule.
@@ -111,11 +115,10 @@ public class SwerveModule {
     CANcoderConfiguration canCoderConfiguration = new CANcoderConfiguration();
 
     /*
-     * Sets the CANCoder direction, absolute sensor range, and magnet offset for the CANCoder Make
-     * sure the magnet offset is ACCURATE and based on when the wheel is straight!
+     * Sets the CANCoder direction, absolute sensor range, and magnet offset for the
+     * CANCoder Make sure the magnet offset is ACCURATE and based on when the wheel
+     * is straight!
      */
-    // canCoderConfiguration.MagnetSensor.AbsoluteSensorDiscontinuityPoint = 0.5; TODO: Change
-    // default value
     canCoderConfiguration.MagnetSensor.SensorDirection =
         SensorDirectionValue.CounterClockwise_Positive;
     canCoderConfiguration.MagnetSensor.MagnetOffset =
@@ -130,9 +133,17 @@ public class SwerveModule {
     drivePosition = driveMotor.getPosition().getValueAsDouble();
     steerVelocity = steerMotor.getVelocity().getValueAsDouble();
     steerPosition = steerMotor.getPosition().getValueAsDouble();
+    driveDisconnectedAlert =
+        new Alert("Disconnected drive motor " + Integer.toString(driveId), AlertType.kError);
+    turnDisconnectedAlert =
+        new Alert("Disconnected turn motor " + Integer.toString(steerId), AlertType.kError);
+    canCoderDisconnectedAlert =
+        new Alert("Disconnected CANCoder " + Integer.toString(canCoderID), AlertType.kError);
 
     initializeLoggedNetworkPID();
-    intializeAlarms(driveId, steerId, canCoderID);
+    driveIdNum = driveId;
+    steerIdNum = steerId;
+    canCoderIdNum = canCoderID;
   }
 
   /**
@@ -193,17 +204,21 @@ public class SwerveModule {
     driveMotor.setControl(velocitySetter.withVelocity(velocityToSet));
 
     // Log the actual and set values for debugging
-    log(
-        "drive actual speed " + canCoder.getDeviceID(),
-        driveMotor.getVelocity().getValueAsDouble());
-    log("drive set speed " + canCoder.getDeviceID(), velocityToSet);
-    log(
-        "steer actual angle " + canCoder.getDeviceID(),
-        canCoder.getAbsolutePosition().getValueAsDouble());
-    log("steer set angle " + canCoder.getDeviceID(), angleToSet);
-    log(
-        "desired state after optimize " + canCoder.getDeviceID(),
-        desiredState.angle.getRotations());
+    logs(
+        log(
+            "drive actual sped " + canCoder.getDeviceID(),
+            driveMotor.getVelocity().getValueAsDouble()),
+        log("drive set sped " + canCoder.getDeviceID(), velocityToSet),
+        log(
+            "steer actual angle " + canCoder.getDeviceID(),
+            canCoder.getAbsolutePosition().getValueAsDouble()),
+        log("steer set angle " + canCoder.getDeviceID(), angleToSet),
+        log(
+            "desired state after optimize " + canCoder.getDeviceID(),
+            desiredState.angle.getRotations()),
+        log("Disconnected drive motor " + driveIdNum, driveMotor.isConnected()),
+        log("Disconnected steer motor " + steerIdNum, steerMotor.isConnected()),
+        log("Disconnected CANCoder " + canCoderIdNum, canCoder.isConnected()));
 
     // Update the state with the optimized values
     state = desiredState;
@@ -284,19 +299,6 @@ public class SwerveModule {
     steerI = new LoggedNetworkNumber("/Tuning/Steer I", steerConfigs.Slot0.kI);
     steerD = new LoggedNetworkNumber("/Tuning/Steer D", steerConfigs.Slot0.kD);
     steerV = new LoggedNetworkNumber("/Tuning/Steer V", steerConfigs.Slot0.kV);
-  }
-
-  public void intializeAlarms(int driveID, int steerID, int canCoderID) {
-    driveDisconnectedAlert =
-        new Alert("Disconnected drive motor " + Integer.toString(driveID) + ".", AlertType.kError);
-    turnDisconnectedAlert =
-        new Alert("Disconnected turn motor " + Integer.toString(steerID) + ".", AlertType.kError);
-    canCoderDisconnectedAlert =
-        new Alert("Disconnected CANCoder " + Integer.toString(canCoderID) + ".", AlertType.kError);
-
-    driveDisconnectedAlert.set(!driveMotor.isConnected());
-    turnDisconnectedAlert.set(!steerMotor.isConnected());
-    canCoderDisconnectedAlert.set(!canCoder.isConnected());
   }
 
   public void updateTelePID() {

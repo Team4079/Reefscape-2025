@@ -4,9 +4,15 @@ import com.ctre.phoenix6.signals.InvertedValue
 import com.pathplanner.lib.config.PIDConstants
 import com.pathplanner.lib.config.RobotConfig
 import com.pathplanner.lib.controllers.PPHolonomicDriveController
+import edu.wpi.first.math.Matrix
+import edu.wpi.first.math.VecBuilder
 import edu.wpi.first.math.controller.PIDController
+import edu.wpi.first.math.geometry.Pose2d
+import edu.wpi.first.math.geometry.Rotation2d
 import edu.wpi.first.math.geometry.Translation2d
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
+import edu.wpi.first.math.numbers.N1
+import edu.wpi.first.math.numbers.N3
 
 /** Class containing global values for the robot.  */
 object RobotParameters {
@@ -27,9 +33,9 @@ object RobotParameters {
         const val BACK_RIGHT_CAN_CODER_ID: Int = 12
         const val ELEVATOR_MOTOR_LEFT_ID: Int = 13
         const val ELEVATOR_MOTOR_RIGHT_ID: Int = 14
-        const val PIVOT_MOTOR_ID: Int = 15
+        const val CLIMBER_MOTOR_ID: Int = 15
         const val PIDGEY_ID: Int = 16
-        const val END_EFFECTOR_MOTOR_ID: Int = 17
+        const val ALGAE_MANIPULATOR_MOTOR_ID: Int = 17
         const val CORAL_MANIPULATOR_MOTOR_UP_ID: Int = 18
         const val CORAL_MANIPULATOR_MOTOR_DOWN_ID: Int = 19
 
@@ -39,7 +45,7 @@ object RobotParameters {
         const val ENCODER_COUNTS_PER_ROTATION: Double = 1.0
         const val STEER_MOTOR_GEAR_RATIO: Double = 150.0 / 7
         const val DRIVE_MOTOR_GEAR_RATIO: Double = 6.750000000000000
-        const val WHEEL_DIAMETER: Double = 0.106
+        private const val WHEEL_DIAMETER: Double = 0.106
         const val METERS_PER_REV: Double = WHEEL_DIAMETER * Math.PI * 0.975
 
         // Limit Values
@@ -52,8 +58,10 @@ object RobotParameters {
     object SwerveParameters {
         const val PATHPLANNER_AUTO_NAME: String = "4l4auto"
 
-        const val AUTO_ALIGN_SWERVE_LEFT: Double = -0.1
-        const val AUTO_ALIGN_SWERVE_RIGHT: Double = 0.1
+        const val AUTO_ALIGN_SWERVE_LEFT_OFFSET: Double = -0.1
+        const val AUTO_ALIGN_SWERVE_RIGHT_OFFSET: Double = 0.1
+        @JvmField
+        var RobotPosition: Pose2d = Pose2d(0.0, 0.0, Rotation2d(0.0, 0.0))
 
         /** Class containing PID constants for the swerve drive system.  */
         object PIDParameters {
@@ -150,6 +158,11 @@ object RobotParameters {
         const val CAMERA_TWO_HEIGHT_METER: Double = 0.61
         const val CAMERA_TWO_ANGLE_DEG: Double = 37.5
         const val OFFSET_TOWARD_MID_RIGHT: Double = 15.0
+        // THESE NEED TO BE REPLACED WITH TESTED VALUES PLS (BUT I KNOW WE WONT HAVE TIME FOR THIS)
+        @JvmField
+        val SINGLE_TARGET_STD_DEV: Matrix<N3, N1> = VecBuilder.fill(4.0, 4.0, 8.0)
+        @JvmField
+        val MULTI_TARGET_STD_DEV : Matrix<N3, N1> = VecBuilder.fill(0.5, 0.5, 1.0)
     }
 
     /** Class containing constants for the elevator subsystem.  */
@@ -174,22 +187,22 @@ object RobotParameters {
         var isSoftLimitEnabled: Boolean = false
     }
 
-    /** Class containing constants for the pivot subsystem.  */
-    object PivotParameters {
-        const val PIVOT_PID_P: Double = 0.001
-        const val PIVOT_PID_I: Double = 0.0
-        const val PIVOT_PID_D: Double = 0.0
-        const val PIVOT_PID_V: Double = 0.0
+    /** Class containing constants for the CLIMBER subsystem.  */
+    object ClimberParameters {
+        const val CLIMBER_PID_P: Double = 0.001
+        const val CLIMBER_PID_I: Double = 0.0
+        const val CLIMBER_PID_D: Double = 0.0
+        const val CLIMBER_PID_V: Double = 0.0
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false
     }
 
-    object EndEffectorParameters {
-        const val END_EFFECTOR_PID_P: Double = 0.001
-        const val END_EFFECTOR_PID_I: Double = 0.0
-        const val END_EFFECTOR_PID_D: Double = 0.0
-        const val END_EFFECTOR_PID_V: Double = 0.0
+    object AlgaeManipulatorParameters {
+        const val ALGAE_MANIPULATOR_PID_P: Double = 0.001
+        const val ALGAE_MANIPULATOR_PID_I: Double = 0.0
+        const val ALGAE_MANIPULATOR_PID_D: Double = 0.0
+        const val ALGAE_MANIPULATOR_PID_V: Double = 0.0
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false

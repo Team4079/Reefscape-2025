@@ -1,17 +1,19 @@
 package frc.robot;
 
+import static frc.robot.commands.Kommand.*;
+import static frc.robot.utils.Button.*;
 import static frc.robot.utils.Direction.*;
 import static frc.robot.utils.ElevatorState.*;
-import static frc.robot.commands.Kommand.*;
+import static frc.robot.utils.Register.*;
 
-import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.subsystems.*;
-import frc.robot.utils.RobotParameters.SwerveParameters.*;
-import frc.robot.utils.controller.*;
-import frc.robot.utils.controller.Trigger;
+import frc.robot.utils.*;
+import java.util.EnumMap;
+import java.util.Map;
 import org.littletonrobotics.junction.networktables.*;
 
 /**
@@ -21,62 +23,50 @@ import org.littletonrobotics.junction.networktables.*;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  private final JoystickButton padA;
-  private final JoystickButton padB;
-  private final JoystickButton padX;
-  private final JoystickButton padY;
-  private final JoystickButton padStart;
-  private final JoystickButton padLeftBumper;
-  private final JoystickButton padRightBumper;
+  private final Map<Button, JoystickButton> buttons = new EnumMap<>(Button.class);
 
-  public LoggedDashboardChooser<Command> networkChooser =
+  public final LoggedDashboardChooser<Command> networkChooser =
       new LoggedDashboardChooser<>("AutoChooser");
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    GamingController pad = new GamingController(0);
-    padStart = new JoystickButton(pad, 8);
-    padA = new JoystickButton(pad, 1);
-    padB = new JoystickButton(pad, 2);
-    padX = new JoystickButton(pad, 3);
-    padY = new JoystickButton(pad, 4);
-    padLeftBumper = new JoystickButton(pad, 5);
-    padRightBumper = new JoystickButton(pad, 6);
+    XboxController pad = new XboxController(0);
 
-    Swerve.getInstance().setDefaultCommand(drive(pad, Thresholds.IS_FIELD_ORIENTED));
+    Button.getEntries()
+        .forEach(button -> buttons.put(button, new JoystickButton(pad, button.getButtonNumber())));
+
+    Swerve.getInstance().setDefaultCommand(drive(pad));
 
     configureBindings();
 
-    NamedCommands.registerCommand("scoreLeft", score(LEFT));
-    NamedCommands.registerCommand("scoreRight", score(RIGHT));
-    NamedCommands.registerCommand("SetL1", setElevatorState(L1));
-    NamedCommands.registerCommand("SetL2", setElevatorState(L2));
-    NamedCommands.registerCommand("SetL3", setElevatorState(L3));
-    NamedCommands.registerCommand("SetL4", setElevatorState(L4));
+    Register.commands(
+        cmd("scoreLeft", score(LEFT)),
+        cmd("scoreRight", score(RIGHT)),
+        cmd("SetL1", setElevatorState(L1)),
+        cmd("SetL2", setElevatorState(L2)),
+        cmd("SetL3", setElevatorState(L3)),
+        cmd("SetL4", setElevatorState(L4)));
 
-    networkChooser.addDefaultOption("Do Nothing", new PathPlannerAuto("Straight Auto"));
+    networkChooser.addDefaultOption("Straight Auto", new PathPlannerAuto("Straight Auto"));
   }
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
-   * {@link Trigger} or our {@link JoystickButton} constructor with an arbitrary predicate, or via
-   * the named factories in {@link CommandGenericHID}'s subclasses for {@link
-   * CommandXboxController}/{@link CommandPS4Controller} controllers or {@link CommandJoystick}.
+   * {@link JoystickButton} constructor with an arbitrary predicate, or via the named factories in
+   * {@link CommandGenericHID}'s subclasses for {@link CommandXboxController}/{@link
+   * CommandPS4Controller} controllers or {@link CommandJoystick}.
    */
-
-  // TODO: Remap bindings
   private void configureBindings() {
-    padStart.onTrue(resetPidgey()); // Prev Button: padB
-    padY.onTrue(setTelePid());
-    // padA.onTrue(setElevatorState(L1));
-    // padB.onTrue(setElevatorState(L2));
-    // padX.onTrue(setElevatorState(L3));
-    // padY.onTrue(setElevatorState(L4));
-    padLeftBumper.onTrue(score(LEFT));
-    padRightBumper.onTrue(score(RIGHT));
-  }
-
-  public Command getAutonomousCommand() {
-    return networkChooser.get();
+    Register.bindings(
+        buttons,
+        bind(START, resetPidgey()),
+        bind(Y, setTelePid()),
+        bind(A, align(CENTER)),
+        // bind(A, setElevatorState(L1)),
+        // bind(B, setElevatorState(L2)),
+        // bind(X, setElevatorState(L3)),
+        // bind(Y, setElevatorState(L4)),
+        bind(LEFT_BUMPER, score(LEFT)),
+        bind(RIGHT_BUMPER, score(RIGHT)));
   }
 }

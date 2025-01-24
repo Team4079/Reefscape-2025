@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import static frc.robot.utils.Register.Dash.log;
+import static frc.robot.utils.Register.Dash.logs;
+
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
@@ -18,6 +21,7 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters;
@@ -36,6 +40,9 @@ public class CoralManipulator extends SubsystemBase {
   private final DigitalInput coralSensor;
 
   private boolean motorsRunning = false;
+
+  private Alert coralManipulatorUpDisconnectedAlert;
+  private Alert coralManipulatorDownDisconnectedAlert;
 
   /**
    * The Singleton instance of this CoralManipulatorSubsystem. Code should use the {@link
@@ -139,6 +146,8 @@ public class CoralManipulator extends SubsystemBase {
     voltageOut = new VoltageOut(0);
 
     new PositionDutyCycle(0);
+
+    initializeAlarms();
   }
 
   @Override
@@ -161,12 +170,15 @@ public class CoralManipulator extends SubsystemBase {
 
     if (!coralSensor.get() && CoralManipulatorParameters.hasPiece) {
       if (this.motorsRunning) {
-        // Stop the motors if the manipulator has a piece, but the sensor no longer detects it
-        // May require a delay of 100-500ms to prevent the motors from stopping too early
+        // Stop the motors if the manipulator has a piece, but the sensor no longer
+        // detects it
+        // May require a delay of 100-500ms to prevent the motors from stopping too
+        // early
         this.stopMotors();
       }
     } else {
-      // Will run if the sensor doesn't detect the piece, and it doesn't have a piece concurrently
+      // Will run if the sensor doesn't detect the piece, and it doesn't have a piece
+      // concurrently
       // Will also run if the coral sensor detects a piece, and it has a piece
       if (!this.motorsRunning) {
         this.startMotors();
@@ -194,5 +206,29 @@ public class CoralManipulator extends SubsystemBase {
 
   public void setHasPiece(boolean hasPiece) {
     CoralManipulatorParameters.hasPiece = hasPiece;
+  }
+
+  public void initializeAlarms() {
+    coralManipulatorUpDisconnectedAlert =
+        new Alert(
+            "Disconnected coral up motor "
+                + Integer.toString(MotorParameters.CORAL_MANIPULATOR_MOTOR_UP_ID),
+            Alert.AlertType.kError);
+    coralManipulatorDownDisconnectedAlert =
+        new Alert(
+            "Disconnected coral down motor "
+                + Integer.toString(MotorParameters.CORAL_MANIPULATOR_MOTOR_DOWN_ID),
+            Alert.AlertType.kError);
+
+    coralManipulatorUpDisconnectedAlert.set(!coralManipulatorMotorUp.isConnected());
+    coralManipulatorDownDisconnectedAlert.set(!coralManipulatorMotorDown.isConnected());
+
+    logs(
+        log(
+            "Disconnected coralManipulatorMotorUp " + coralManipulatorMotorUp.getDeviceID(),
+            coralManipulatorMotorUp.isConnected()),
+        log(
+            "Disconnected coralManipulatorMotorDown " + coralManipulatorMotorDown.getDeviceID(),
+            coralManipulatorMotorDown.isConnected()));
   }
 }

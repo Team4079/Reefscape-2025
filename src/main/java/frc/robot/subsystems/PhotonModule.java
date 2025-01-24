@@ -1,8 +1,13 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.apriltag.*;
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.*;
 import java.util.*;
+
+import edu.wpi.first.math.numbers.*;
+import frc.robot.utils.RobotParameters.*;
 import org.photonvision.*;
 import org.photonvision.targeting.*;
 
@@ -15,9 +20,11 @@ public class PhotonModule {
   private final PhotonCamera camera;
   private final PhotonPoseEstimator photonPoseEstimator;
   private final Transform3d cameraPos;
+  private Matrix<N3, N1> currentStdDev;
+  private Matrix<N3, N1> estimatedStdDev;
 
   /**
-   * Creates a new CameraModule with the specified parameters.git p
+   * Creates a new CameraModule with the specified parameters.
    *
    * @param cameraName The name of the camera in the Photonvision interface
    * @param cameraPos The 3D transform representing the camera's position relative to the robot
@@ -29,6 +36,7 @@ public class PhotonModule {
     this.photonPoseEstimator =
         new PhotonPoseEstimator(
             fieldLayout, PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, cameraPos);
+    photonPoseEstimator.setMultiTagFallbackStrategy(PhotonPoseEstimator.PoseStrategy.LOWEST_AMBIGUITY);
   }
 
   /**
@@ -56,5 +64,86 @@ public class PhotonModule {
    */
   public Transform3d getCameraPosition() {
     return cameraPos;
+  }
+
+  /**
+   * Gets the estimated robot pose based on the latest vision processing results.
+   *
+   * <p>This method retrieves all unread pipeline results from the camera and checks if there is a
+   * multi-tag result available. If a multi-tag result is present, it extracts and returns the
+   * translation component of the estimated pose. If no multi-tag result is available, it returns a
+   * default Translation3d object.
+   *
+   * @return Translation3d The estimated robot pose as a Translation3d object. If no multi-tag
+   *     result is available, returns a default Translation3d object.
+   */
+  public Translation3d getEstimatedRobotPose() {
+    List<PhotonPipelineResult> currentResult = camera.getAllUnreadResults();
+    if (currentResult.get(0).multitagResult.isPresent()) {
+      updateEstimatedStdDevs(photonPoseEstimator.update(currentResult.get(0)), currentResult.get(0).getTargets());
+      return currentResult.get(0).getMultiTagResult().get().estimatedPose.best.getTranslation();
+    }
+    return new Translation3d();
+  }
+
+/**
+ * Updates the estimated standard deviations based on the provided estimated pose and list of tracked targets.
+ *
+ * <p>This method calculates the number of visible tags and their average distance to the estimated pose.
+ * It then uses this information to adjust the standard deviations used for robot pose estimation.
+ * @param estimatedPose An Optional containing the estimated robot pose.
+ * @param targets A list of PhotonTrackedTarget objects representing the tracked targets.
+ */
+  public void updateEstimatedStdDevs(Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
+    if (estimatedPose.isEmpty()) {
+      currentStdDev = PhotonVisionConstants.SINGLE_TARGET_STD_DEV;
+      return;
+    }
+    int numTags = 0;
+    double totalDistance = 0;
+
+    // Calculate the number of visible tags and their average distance to the estimated pose
+    for (var target : targets) {
+      var tagPoseOptional = photonPoseEstimator.getFieldTags().getTagPose(target.getFiducialId());
+      if (tagPoseOptional.isEmpty()) continue;
+
+      numTags++;
+      var tagPose = tagPoseOptional.get().toPose2d().getTranslation();
+      var estimatedTranslation = estimatedPose.get().estimatedPose.toPose2d().getTranslation();
+      totalDistance += tagPose.getDistance(estimatedTranslation);
+    }
+
+    if (numTags == 0) {
+      currentStdDev = PhotonVisionConstants.SINGLE_TARGET_STD_DEV;
+      return;
+    }
+
+    double avgDistance = totalDistance / numTags;
+    var stdDevs = (numTags > 1) ? PhotonVisionConstants.MULTI_TARGET_STD_DEV : PhotonVisionConstants.SINGLE_TARGET_STD_DEV;
+
+    if (numTags == 1 && avgDistance > 4) {
+      currentStdDev = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+      System.out.println("I blame Om!!!");
+    } else {
+      currentStdDev = stdDevs.times(1 + (avgDistance * avgDistance / 30));
+    }
+  }
+
+  /**
+   * Gets the current standard deviations used for robot pose estimation.
+   *
+   * @return Matrix<N3, N1> The current standard deviations as a Matrix object
+   */
+  public Matrix<N3, N1> getCurrentStdDevs() {
+    return currentStdDev;
+  }
+
+  /**
+   * Gets the name of the camera associated with this module.
+   *
+   * @return String The name of the camera
+   */
+  public String getCameraName() {
+    return camera.getName();
   }
 }

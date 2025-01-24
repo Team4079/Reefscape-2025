@@ -1,6 +1,7 @@
 package frc.robot.commands
 
 import com.pathplanner.lib.commands.PathPlannerAuto
+import edu.wpi.first.wpilibj.XboxController
 import edu.wpi.first.wpilibj2.command.InstantCommand
 import edu.wpi.first.wpilibj2.command.WaitCommand
 import frc.robot.commands.sequencing.AutomaticScore
@@ -9,9 +10,8 @@ import frc.robot.subsystems.Elevator
 import frc.robot.subsystems.Swerve
 import frc.robot.utils.Direction
 import frc.robot.utils.ElevatorState
+import frc.robot.utils.ElevatorState.L4
 import frc.robot.utils.RobotParameters.SwerveParameters
-import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds
-import frc.robot.utils.controller.GamingController
 
 /**
  * The [Kommand] object provides factory methods to create various commands
@@ -21,13 +21,22 @@ import frc.robot.utils.controller.GamingController
  */
 object Kommand {
     /**
+     * Creates an [InstantCommand] that executes the given function.
+     *
+     * @param function The function to execute.
+     * @return An [InstantCommand] that executes the given function.
+     */
+    @JvmStatic
+    fun cmd(function: () -> Unit) = InstantCommand(function)
+
+    /**
      * Creates an [InstantCommand] to set the state of the elevator.
      *
      * @param state The desired state of the elevator.
      * @return An [InstantCommand] that sets the elevator state.
      */
     @JvmStatic
-    fun setElevatorState(state: ElevatorState) = InstantCommand({ Elevator.getInstance().state = state })
+    fun setElevatorState(state: ElevatorState) = cmd { Elevator.getInstance().state = state }
 
     /**
      * Creates an [InstantCommand] to move the elevator to a specific level.
@@ -35,7 +44,7 @@ object Kommand {
      * @return An [InstantCommand] that moves the elevator to a specific level.
      */
     @JvmStatic
-    fun moveElevatorToLevel() = InstantCommand({ Elevator.getInstance().moveElevatorToLevel() })
+    fun moveElevatorToLevel() = cmd { Elevator.getInstance().moveElevatorToLevel() }
 
     /**
      * Creates an [InstantCommand] to start the coral manipulator motors.
@@ -43,7 +52,7 @@ object Kommand {
      * @return An [InstantCommand] that starts the coral manipulator motors.
      */
     @JvmStatic
-    fun startCoralManipulator() = InstantCommand({ CoralManipulator.getInstance().setHasPiece(false) })
+    fun startCoralManipulator() = cmd { CoralManipulator.getInstance().setHasPiece(false) }
 
     /**
      * Creates an [InstantCommand] to stop the coral manipulator motors.
@@ -51,16 +60,21 @@ object Kommand {
      * @return An [InstantCommand] that stops the coral manipulator motors.
      */
     @JvmStatic
-    fun stopCoralManipulator() = InstantCommand({ CoralManipulator.getInstance().stopMotors() })
+    fun stopCoralManipulator() = cmd { CoralManipulator.getInstance().stopMotors() }
 
     /**
-     * Wraps [AutomaticScore] to score in a specified direction.
+     * Creates an [AutomaticScore] command to score in a specified direction.
      *
      * @param dir The direction in which to score.
+     * @param state The desired state of the elevator. Defaults to [L4].
      * @return An [AutomaticScore] that performs the scoring action.
      */
     @JvmStatic
-    fun score(dir: Direction) = AutomaticScore(dir)
+    @JvmOverloads
+    fun score(
+        dir: Direction,
+        state: ElevatorState = L4,
+    ) = AutomaticScore(dir, state)
 
     /**
      * Creates an [AlignSwerve] command to align the robot in a specified direction.
@@ -75,14 +89,10 @@ object Kommand {
      * Creates a [PadDrive] command to control the robot's driving mechanism.
      *
      * @param controller The gaming controller used to drive the robot.
-     * @param isFieldOriented Whether the driving should be field-oriented.
      * @return A [PadDrive] command to control the robot's driving mechanism.
      */
     @JvmStatic
-    fun drive(
-        controller: GamingController,
-        isFieldOriented: Boolean = Thresholds.IS_FIELD_ORIENTED,
-    ) = PadDrive(controller, isFieldOriented)
+    fun drive(controller: XboxController) = PadDrive(controller)
 
     /**
      * Creates an [InstantCommand] to reset the Pidgey sensor.
@@ -90,7 +100,7 @@ object Kommand {
      * @return An [InstantCommand] that resets the Pidgey sensor.
      */
     @JvmStatic
-    fun resetPidgey() = InstantCommand({ Swerve.getInstance().resetPidgey() })
+    fun resetPidgey() = cmd { Swerve.getInstance().resetPidgey() }
 
     /**
      * Creates an [InstantCommand] to set the teleoperation PID.
@@ -98,7 +108,7 @@ object Kommand {
      * @return An [InstantCommand] that sets the teleoperation PID.
      */
     @JvmStatic
-    fun setTelePid() = InstantCommand({ Swerve.getInstance().setTelePID() })
+    fun setTelePid() = cmd { Swerve.getInstance().setTelePID() }
 
     /**
      * Creates a [PathPlannerAuto] command for autonomous operation.

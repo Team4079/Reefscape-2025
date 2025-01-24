@@ -1,12 +1,15 @@
 package frc.robot.subsystems;
 
-import static frc.robot.utils.Dash.*;
+import static frc.robot.utils.Register.Dash.*;
 
 import edu.wpi.first.apriltag.*;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import java.util.*;
+import java.util.function.*;
+import kotlin.*;
 import org.photonvision.*;
 import org.photonvision.targeting.*;
 
@@ -21,14 +24,11 @@ import org.photonvision.targeting.*;
  */
 public class PhotonVision extends SubsystemBase {
   private final List<PhotonModule> cameras = new ArrayList<>();
-  private PhotonModule bestCamera;
-  private PhotonPipelineResult currentResult;
-  private PhotonTrackedTarget currentTarget;
   private double yaw = -15.0;
   private double y = 0.0;
   private double dist = 0.0;
-
-  private double targetPoseAmbiguity = 7157.0;
+  private Supplier<Pair<PhotonModule, PhotonPipelineResult>> bestResultPair =
+      () -> PhotonModuleListKt.getBestResultPair(cameras);
 
   // Singleton instance
   private static final PhotonVision INSTANCE = new PhotonVision();
@@ -51,7 +51,7 @@ public class PhotonVision extends SubsystemBase {
    */
   private PhotonVision() {
     // Initialize cameras with their positions
-    AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
+    AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
 
     // First camera setup
     Transform3d camera1Pos =
@@ -72,58 +72,27 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    updateBestCamera();
-    if (bestCamera == null) return;
 
-    List<PhotonPipelineResult> results = bestCamera.getAllUnreadResults();
-    currentResult = results.isEmpty() ? null : results.get(0);
+    logs(
+        log("does camera exist", cameras.get(0) != null),
+        log("does best camera exist", bestResultPair.get() != null));
 
-    if (currentResult == null) return;
+    if (bestResultPair.get() != null) {
+      log("has current target", bestResultPair.get().getSecond() != null);
 
-    currentTarget = currentResult.getBestTarget();
-    targetPoseAmbiguity = currentTarget != null ? currentTarget.getPoseAmbiguity() : 7157.0;
-
-    for (PhotonTrackedTarget tag : currentResult.getTargets()) {
-      yaw = tag.getYaw();
-      y = tag.getBestCameraToTarget().getX();
-      dist = tag.getBestCameraToTarget().getZ();
-    }
-
-    // Update dashboard
-    log("yaw to target", yaw);
-    log("cam ambiguity", targetPoseAmbiguity);
-    log("_targets", currentResult.hasTargets());
-  }
-
-  /** Updates the best camera selection based on pose ambiguity of detected targets. */
-  private void updateBestCamera() {
-    bestCamera = getCameraWithLeastAmbiguity();
-  }
-
-  /**
-   * Selects the camera with the least pose ambiguity from all available cameras.
-   *
-   * @return The CameraModule with the lowest pose ambiguity, or null if no cameras have valid
-   *     targets
-   */
-  private PhotonModule getCameraWithLeastAmbiguity() {
-    PhotonModule bestCam = null;
-    double bestAmbiguity = Double.MAX_VALUE;
-
-    for (PhotonModule camera : cameras) {
-      List<PhotonPipelineResult> results = camera.getAllUnreadResults();
-      for (PhotonPipelineResult result : results) {
-        if (result.hasTargets()) {
-          PhotonTrackedTarget target = result.getBestTarget();
-          if (target != null && target.getPoseAmbiguity() < bestAmbiguity) {
-            bestAmbiguity = target.getPoseAmbiguity();
-            bestCam = camera;
-          }
+      // REMEMBER: MOVEMENT IS BOUND TO A! DON'T FORGET NERD
+      if (bestResultPair.get().getSecond() != null) {
+        for (PhotonTrackedTarget tag : bestResultPair.get().getSecond().getTargets()) {
+          yaw = tag.getYaw();
+          y = tag.getBestCameraToTarget().getX();
+          dist = tag.getBestCameraToTarget().getZ();
         }
+
+        logs(
+            log("yaw to target", yaw),
+            log("_targets", bestResultPair.get().getSecond().hasTargets()));
       }
     }
-
-    return bestCam;
   }
 
   /**
@@ -135,7 +104,8 @@ public class PhotonVision extends SubsystemBase {
    * @return true if there is a visible tag, false otherwise
    */
   public boolean hasTag() {
-    return currentResult != null && currentResult.hasTargets();
+    return bestResultPair.get().getSecond() != null
+        && bestResultPair.get().getSecond().hasTargets();
   }
 
   /**
@@ -145,11 +115,13 @@ public class PhotonVision extends SubsystemBase {
    * @return The estimated robot pose, or null if no pose could be estimated
    */
   public EstimatedRobotPose getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
-    if (bestCamera == null) return null;
+    if (bestResultPair.get() == null) return null;
 
-    PhotonPoseEstimator estimator = bestCamera.getPoseEstimator();
+    PhotonPoseEstimator estimator = bestResultPair.get().getFirst().getPoseEstimator();
     estimator.setReferencePose(prevEstimatedRobotPose);
-    return currentResult != null ? estimator.update(currentResult).orElse(null) : null;
+    return bestResultPair.get().getSecond() != null
+        ? estimator.update(bestResultPair.get().getSecond()).orElse(null)
+        : null;
   }
 
   /**
@@ -159,10 +131,11 @@ public class PhotonVision extends SubsystemBase {
    */
   @SuppressWarnings("java:S3655")
   public Transform3d getEstimatedGlobalPose() {
-    if (currentResult == null || currentResult.getMultiTagResult().isEmpty()) {
+    if (bestResultPair.get().getSecond() == null
+        || bestResultPair.get().getSecond().getMultiTagResult().isEmpty()) {
       return new Transform3d(0.0, 0.0, 0.0, new Rotation3d());
     }
-    return currentResult.getMultiTagResult().get().estimatedPose.best;
+    return bestResultPair.get().getSecond().getMultiTagResult().get().estimatedPose.best;
   }
 
   /**
@@ -174,31 +147,6 @@ public class PhotonVision extends SubsystemBase {
     Transform3d pose = getEstimatedGlobalPose();
     return Math.sqrt(
         Math.pow(pose.getTranslation().getX(), 2) + Math.pow(pose.getTranslation().getY(), 2));
-  }
-
-  /**
-   * Calculates the pivot position based on the distance to the AprilTag. Uses a polynomial function
-   * tuned for optimal positioning.
-   *
-   * @return The calculated pivot position
-   */
-  public double getPivotPosition() {
-    // 10/14/2024 outside tuning
-    // Desmos: https://www.desmos.com/calculator/naalukjxze
-    double r = getDistanceAprilTag() + 0.6;
-    double f = -1.39223; // power 5
-    double e = 20.9711; // power 4
-    double d = -122.485; // power 3
-    double c = 342.783; // power 2
-    double b = -447.743; // power 1
-    double a = 230.409; // constant
-
-    return (f * Math.pow(r, 5.0))
-        + (e * Math.pow(r, 4.0))
-        + (d * Math.pow(r, 3.0))
-        + (c * Math.pow(r, 2.0))
-        + (b * r)
-        + a;
   }
 
   /**
@@ -219,20 +167,22 @@ public class PhotonVision extends SubsystemBase {
   }
 
   /**
-   * Gets the current target pose ambiguity.
-   *
-   * @return The target pose ambiguity value
-   */
-  public double getTargetPoseAmbiguity() {
-    return targetPoseAmbiguity;
-  }
-
-  /**
    * Gets the current tracked target.
    *
    * @return The current PhotonTrackedTarget, or null if no target is tracked
    */
   public PhotonTrackedTarget getCurrentTarget() {
-    return currentTarget;
+    return bestResultPair.get().getSecond().getBestTarget();
+  }
+
+  /**
+   * Logs the current standard deviations for each camera to the console.
+   */
+  public void logStdDev() {
+    for (PhotonModule camera : cameras) {
+      camera.getEstimatedRobotPose();
+      logs(
+          log(String.format("Camera [%s]", camera.getCameraName()), camera.getCurrentStdDevs()));
+    }
   }
 }

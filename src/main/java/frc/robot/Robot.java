@@ -38,12 +38,13 @@ public class Robot extends LoggedRobot {
     } else {
       setUseTiming(false); // Run as fast as possible
       String logPath =
-          LogFileUtil
-              .findReplayLog(); // Pull the replay log from AdvantageScope (or prompt the user)
+          LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or prompt
+      // the
+      // user)
       Logger.setReplaySource(new WPILOGReader(logPath)); // Read replay log
       Logger.addDataReceiver(
-          new WPILOGWriter(
-              LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save outputs to a new log
+          new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save outputs to a
+      // new log
     }
 
     Logger.start();
@@ -65,7 +66,7 @@ public class Robot extends LoggedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    autonomousCommand = robotContainer.getAutonomousCommand();
+    autonomousCommand = robotContainer.networkChooser.get();
     autonomousCommand.schedule();
   }
 

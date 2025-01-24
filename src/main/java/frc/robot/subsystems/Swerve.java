@@ -2,8 +2,9 @@ package frc.robot.subsystems;
 
 import static com.pathplanner.lib.path.PathPlannerPath.fromPathFile;
 import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.*;
-import static frc.robot.utils.Dash.*;
-import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.SHOULD_INVERT;
+import static frc.robot.utils.Register.Dash.*;
+import static frc.robot.utils.RobotParameters.SwerveParameters.PIDParameters.*;
+import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -11,6 +12,7 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.util.PathPlannerLogging;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -28,6 +30,7 @@ import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import java.util.Optional;
+import java.util.concurrent.*;
 import org.photonvision.*;
 
 public class Swerve extends SubsystemBase {
@@ -70,9 +73,11 @@ public class Swerve extends SubsystemBase {
           });
 
   // from feeder to the goal and align itself
-  // The plan is for it to path towards it then we use a set path to align itself with the goal and
+  // The plan is for it to path towards it then we use a set path to align itself
+  // with the goal and
   // be more accurate
-  // Use this https://pathplanner.dev/pplib-pathfinding.html#pathfind-then-follow-path
+  // Use this
+  // https://pathplanner.dev/pplib-pathfinding.html#pathfind-then-follow-path
   PathConstraints constraints =
       new PathConstraints(2.0, 3.0, Units.degreesToRadians(540), Units.degreesToRadians(720));
 
@@ -102,13 +107,15 @@ public class Swerve extends SubsystemBase {
     this.pidgey.reset();
     this.poseEstimator = initializePoseEstimator();
     configureAutoBuilder();
+    initializePathPlannerLogging();
+
     swerveLoggingThread.start();
     swerveLoggingThreadBeforeSet.start();
 
     try {
       pathToScore = fromPathFile("Straight Path");
     } catch (Exception e) {
-      throw new RuntimeException("Failed to load robot config", e);
+      throw new RobotConfigException("Failed to load robot config", e);
     }
   }
 
@@ -150,10 +157,10 @@ public class Swerve extends SubsystemBase {
    */
   private PIDVController initializePID() {
     return new PIDVController(
-        getNumber("AUTO: P", PIDParameters.DRIVE_PID_AUTO.getP()),
-        getNumber("AUTO: I", PIDParameters.DRIVE_PID_AUTO.getI()),
-        getNumber("AUTO: D", PIDParameters.DRIVE_PID_AUTO.getD()),
-        getNumber("AUTO: V", PIDParameters.DRIVE_PID_AUTO.getV()));
+        getNumber("AUTO: P", DRIVE_PID_AUTO.getP()),
+        getNumber("AUTO: I", DRIVE_PID_AUTO.getI()),
+        getNumber("AUTO: D", DRIVE_PID_AUTO.getD()),
+        getNumber("AUTO: V", DRIVE_PID_AUTO.getV()));
   }
 
   /**
@@ -173,6 +180,17 @@ public class Swerve extends SubsystemBase {
   }
 
   /**
+   * Initializes the PathPlannerLogging. This allows the PathPlanner to log the robot's current
+   * pose.
+   */
+  private void initializePathPlannerLogging() {
+    PathPlannerLogging.setLogCurrentPoseCallback(field::setRobotPose);
+    PathPlannerLogging.setLogTargetPoseCallback(
+        pose -> field.getObject("target pose").setPose(pose));
+    PathPlannerLogging.setLogActivePathCallback(poses -> field.getObject("path").setPoses(poses));
+  }
+
+  /**
    * Configures the AutoBuilder for autonomous driving. READ DOCUMENTATION TO PUT IN CORRECT VALUES
    * Allows PathPlanner to get pose and output robot-relative chassis speeds Needs tuning
    */
@@ -188,14 +206,7 @@ public class Swerve extends SubsystemBase {
         PIDParameters.config,
         () -> {
           Optional<Alliance> alliance = DriverStation.getAlliance();
-          if (alliance.isEmpty()) {
-            return false;
-          }
-          if (SHOULD_INVERT) {
-            return alliance.get() == Alliance.Red;
-          } else {
-            return alliance.get() != Alliance.Blue;
-          }
+          return alliance.filter(value -> value == Alliance.Red).isPresent();
         },
         this);
   }
@@ -206,10 +217,10 @@ public class Swerve extends SubsystemBase {
    */
   @Override
   public void periodic() {
-
     /*
-     This method checks whether the bot is in Teleop, and adds it to poseEstimator based on VISION
-    */
+     * This method checks whether the bot is in Teleop, and adds it to poseEstimator
+     * based on VISION
+     */
     if (DriverStation.isTeleop()) {
       EstimatedRobotPose estimatedPose =
           PhotonVision.getInstance().getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
@@ -218,19 +229,23 @@ public class Swerve extends SubsystemBase {
         Pose2d visionMeasurement2d = estimatedPose.estimatedPose.toPose2d();
         poseEstimator.addVisionMeasurement(visionMeasurement2d, timestamp);
         currentPose = poseEstimator.getEstimatedPosition();
+        SwerveParameters.RobotPosition = currentPose;
       }
     }
 
     /*
-     Updates the robot position based on movement and rotation from the pidgey and encoders.
-    */
+     * Updates the robot position based on movement and rotation from the pidgey and
+     * encoders.
+     */
     poseEstimator.update(getPidgeyRotation(), getModulePositions());
 
     field.setRobotPose(poseEstimator.getEstimatedPosition());
 
-    log("Pidgey Heading", getHeading());
-    log("Pidgey Rotation2D", getPidgeyRotation().getDegrees());
-    log("Robot Pose", field.getRobotPose());
+    logs(
+        log("Pidgey Yaw", getPidgeyYaw()),
+        log("Pidgey Heading", getHeading()),
+        log("Pidgey Rotation2D", pidgey.getRotation2d().getDegrees()),
+        log("Robot Pose", field.getRobotPose()));
   }
 
   /**
@@ -239,13 +254,25 @@ public class Swerve extends SubsystemBase {
    * @param forwardSpeed The forward speed.
    * @param leftSpeed The left speed.
    * @param turnSpeed The turn speed.
-   * @param isFieldOriented Whether the drive is field-oriented.
+   */
+  public void setDriveSpeeds(double forwardSpeed, double leftSpeed, double turnSpeed) {
+    setDriveSpeeds(forwardSpeed, leftSpeed, turnSpeed, IS_FIELD_ORIENTED);
+  }
+
+  /**
+   * Sets the drive speeds for the swerve modules.
+   *
+   * @param forwardSpeed The forward speed.
+   * @param leftSpeed The left speed.
+   * @param turnSpeed The turn speed.
+   * @param isFieldOriented Whether the robot is field oriented.
    */
   public void setDriveSpeeds(
       double forwardSpeed, double leftSpeed, double turnSpeed, boolean isFieldOriented) {
-
-    log("Forward speed", forwardSpeed);
-    log("Left speed", leftSpeed);
+    logs(
+        log("Forward speed", forwardSpeed),
+        log("Left speed", leftSpeed),
+        log("Turn speed", turnSpeed));
 
     // Converts to a measure that the robot aktualy understands
     ChassisSpeeds speeds =
@@ -430,5 +457,19 @@ public class Swerve extends SubsystemBase {
 
   public Command pathFindTest() {
     return AutoBuilder.pathfindThenFollowPath(pathToScore, constraints);
+  }
+
+  private static class RobotConfigException extends RuntimeException {
+    public RobotConfigException() {
+      super();
+    }
+
+    public RobotConfigException(String message) {
+      super(message);
+    }
+
+    public RobotConfigException(String message, Throwable cause) {
+      super(message, cause);
+    }
   }
 }
