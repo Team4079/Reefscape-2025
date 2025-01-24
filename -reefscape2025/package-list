@@ -88,6 +88,7 @@ $dokka.location:frc.robot.subsystems/LED/setTan/#/PointingToDeclaration/-reefsc
 $dokka.location:frc.robot.subsystems/PhotonModule///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/index.html
 $dokka.location:frc.robot.subsystems/PhotonModule/PhotonModule/#java.lang.String#edu.wpi.first.math.geometry.Transform3d#edu.wpi.first.apriltag.AprilTagFieldLayout/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/-photon-module.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getAllUnreadResults/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-all-unread-results.html
+$dokka.location:frc.robot.subsystems/PhotonModule/getCameraName/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-camera-name.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getCameraPosition/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-camera-position.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getCurrentStdDevs/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-current-std-devs.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getEstimatedRobotPose/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-estimated-robot-pose.html
@@ -100,10 +101,10 @@ $dokka.location:frc.robot.subsystems/PhotonVision/getDistanceAprilTag/#/Pointing
 $dokka.location:frc.robot.subsystems/PhotonVision/getEstimatedGlobalPose/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-estimated-global-pose.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getEstimatedGlobalPose/#edu.wpi.first.math.geometry.Pose2d/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-estimated-global-pose.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-instance.html
-$dokka.location:frc.robot.subsystems/PhotonVision/getPivotPosition/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-pivot-position.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getY/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-y.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getYaw/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-yaw.html
 $dokka.location:frc.robot.subsystems/PhotonVision/hasTag/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/has-tag.html
+$dokka.location:frc.robot.subsystems/PhotonVision/logStdDev/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/log-std-dev.html
 $dokka.location:frc.robot.subsystems/PhotonVision/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/periodic.html
 $dokka.location:frc.robot.subsystems/Swerve///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/index.html
 $dokka.location:frc.robot.subsystems/Swerve/chassisSpeedsDrive/#edu.wpi.first.math.kinematics.ChassisSpeeds/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/chassis-speeds-drive.html
