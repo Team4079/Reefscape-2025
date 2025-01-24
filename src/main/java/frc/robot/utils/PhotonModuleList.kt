@@ -21,4 +21,4 @@ fun List<PhotonModule>.getBestResultPair(): Pair<PhotonModule, PhotonPipelineRes
                 .getOrNull(0)
                 ?.takeIf { it.hasTargets() }
                 ?.let { module to it }
-        }.minByOrNull { it.second.bestTarget.poseAmbiguity }
+        }.minByOrNull { it.first.currentStdDevs.normF() }
