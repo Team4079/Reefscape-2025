@@ -80,6 +80,7 @@ public class PhotonModule {
   public Translation3d getEstimatedRobotPose() {
     List<PhotonPipelineResult> currentResult = camera.getAllUnreadResults();
     if (currentResult.get(0).multitagResult.isPresent()) {
+      updateEstimatedStdDevs(photonPoseEstimator.update(currentResult.get(0)), currentResult.get(0).getTargets());
       return currentResult.get(0).getMultiTagResult().get().estimatedPose.best.getTranslation();
     }
     return new Translation3d();
@@ -98,7 +99,6 @@ public class PhotonModule {
       currentStdDev = PhotonVisionConstants.SINGLE_TARGET_STD_DEV;
       return;
     }
-
     int numTags = 0;
     double totalDistance = 0;
 

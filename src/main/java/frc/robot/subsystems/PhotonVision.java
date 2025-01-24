@@ -72,6 +72,7 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
+
     logs(
         log("does camera exist", cameras.get(0) != null),
         log("does best camera exist", bestResultPair.get() != null));
@@ -179,6 +180,7 @@ public class PhotonVision extends SubsystemBase {
    */
   public void logStdDev() {
     for (PhotonModule camera : cameras) {
+      camera.getEstimatedRobotPose();
       logs(
           log(String.format("Camera [%s]", camera.getCameraName()), camera.getCurrentStdDevs()));
     }

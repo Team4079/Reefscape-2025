@@ -7,6 +7,8 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController
 import edu.wpi.first.math.Matrix
 import edu.wpi.first.math.VecBuilder
 import edu.wpi.first.math.controller.PIDController
+import edu.wpi.first.math.geometry.Pose2d
+import edu.wpi.first.math.geometry.Rotation2d
 import edu.wpi.first.math.geometry.Translation2d
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.numbers.N1
@@ -58,6 +60,8 @@ object RobotParameters {
 
         const val AUTO_ALIGN_SWERVE_LEFT_OFFSET: Double = -0.1
         const val AUTO_ALIGN_SWERVE_RIGHT_OFFSET: Double = 0.1
+        @JvmField
+        var RobotPosition: Pose2d = Pose2d(0.0, 0.0, Rotation2d(0.0, 0.0))
 
         /** Class containing PID constants for the swerve drive system.  */
         object PIDParameters {

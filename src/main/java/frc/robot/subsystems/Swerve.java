@@ -227,6 +227,7 @@ public class Swerve extends SubsystemBase {
         Pose2d visionMeasurement2d = estimatedPose.estimatedPose.toPose2d();
         poseEstimator.addVisionMeasurement(visionMeasurement2d, timestamp);
         currentPose = poseEstimator.getEstimatedPosition();
+        SwerveParameters.RobotPosition = currentPose;
       }
     }
 
