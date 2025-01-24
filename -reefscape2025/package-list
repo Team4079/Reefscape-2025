@@ -91,6 +91,7 @@ $dokka.location:frc.robot.subsystems/PhotonModule/getAllUnreadResults/#/Pointing
 $dokka.location:frc.robot.subsystems/PhotonModule/getCameraPosition/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-camera-position.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getEstimatedRobotPose/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-estimated-robot-pose.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getPoseEstimator/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-pose-estimator.html
+$dokka.location:frc.robot.subsystems/PhotonModule/updateEstimatedStdDevs/#java.util.Optional<org.photonvision.EstimatedRobotPose>#java.util.List<org.photonvision.targeting.PhotonTrackedTarget>/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/update-estimated-std-devs.html
 $dokka.location:frc.robot.subsystems/PhotonVision///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/index.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getCurrentTarget/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-current-target.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getDist/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-dist.html
