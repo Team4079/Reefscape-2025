@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import static frc.robot.utils.PhotonModuleListKt.*;
 import static frc.robot.utils.Register.Dash.*;
 
 import edu.wpi.first.apriltag.*;
@@ -27,8 +28,8 @@ public class PhotonVision extends SubsystemBase {
   private double yaw = -15.0;
   private double y = 0.0;
   private double dist = 0.0;
-  private Supplier<Pair<PhotonModule, PhotonPipelineResult>> bestResultPair =
-      () -> PhotonModuleListKt.getBestResultPair(cameras);
+  private final Supplier<List<Pair<PhotonModule, PhotonPipelineResult>>> results =
+      () -> PhotonModuleListKt.getDecentResultPairs(cameras);
 
   // Singleton instance
   private static final PhotonVision INSTANCE = new PhotonVision();
@@ -72,25 +73,19 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
+    logs("decent result pairs exist", results.get() != null);
 
-    logs(
-        log("does camera exist", cameras.get(0) != null),
-        log("does best camera exist", bestResultPair.get() != null));
-
-    if (bestResultPair.get() != null) {
-      log("has current target", bestResultPair.get().getSecond() != null);
+    if (results.get() != null) {
+      log("best target list is empty", results.get().isEmpty());
 
       // REMEMBER: MOVEMENT IS BOUND TO A! DON'T FORGET NERD
-      if (bestResultPair.get().getSecond() != null) {
-        for (PhotonTrackedTarget tag : bestResultPair.get().getSecond().getTargets()) {
-          yaw = tag.getYaw();
-          y = tag.getBestCameraToTarget().getX();
-          dist = tag.getBestCameraToTarget().getZ();
-        }
+      if (!results.get().isEmpty()) {
+        PhotonTrackedTarget bestTarget = results.get().getFirst().getSecond().getBestTarget();
+        yaw = bestTarget.getYaw();
+        y = bestTarget.getBestCameraToTarget().getX();
+        dist = bestTarget.getBestCameraToTarget().getZ();
 
-        logs(
-            log("yaw to target", yaw),
-            log("_targets", bestResultPair.get().getSecond().hasTargets()));
+        logs(log("yaw to target", yaw), log("_targets", hasTargets(results.get())));
       }
     }
   }
@@ -104,8 +99,7 @@ public class PhotonVision extends SubsystemBase {
    * @return true if there is a visible tag, false otherwise
    */
   public boolean hasTag() {
-    return bestResultPair.get().getSecond() != null
-        && bestResultPair.get().getSecond().hasTargets();
+    return results.get() != null && hasTargets(results.get());
   }
 
   /**
@@ -114,39 +108,18 @@ public class PhotonVision extends SubsystemBase {
    * @param prevEstimatedRobotPose The previous estimated pose of the robot
    * @return The estimated robot pose, or null if no pose could be estimated
    */
-  public EstimatedRobotPose getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
-    if (bestResultPair.get() == null) return null;
+  public List<EstimatedRobotPose> getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
+    if (results.get() == null) return Collections.emptyList();
 
-    PhotonPoseEstimator estimator = bestResultPair.get().getFirst().getPoseEstimator();
-    estimator.setReferencePose(prevEstimatedRobotPose);
-    return bestResultPair.get().getSecond() != null
-        ? estimator.update(bestResultPair.get().getSecond()).orElse(null)
-        : null;
-  }
+    List<EstimatedRobotPose> poses = new ArrayList<>();
 
-  /**
-   * Gets the estimated global pose of the robot as a Transform3d.
-   *
-   * @return The estimated global pose as a Transform3d
-   */
-  @SuppressWarnings("java:S3655")
-  public Transform3d getEstimatedGlobalPose() {
-    if (bestResultPair.get().getSecond() == null
-        || bestResultPair.get().getSecond().getMultiTagResult().isEmpty()) {
-      return new Transform3d(0.0, 0.0, 0.0, new Rotation3d());
+    for (Pair<PhotonModule, PhotonPipelineResult> pair : results.get()) {
+      PhotonPoseEstimator estimator = pair.getFirst().getPoseEstimator();
+      estimator.setReferencePose(prevEstimatedRobotPose);
+      estimator.update(pair.getSecond()).ifPresent(poses::add);
     }
-    return bestResultPair.get().getSecond().getMultiTagResult().get().estimatedPose.best;
-  }
 
-  /**
-   * Calculates the straight-line distance to the currently tracked AprilTag.
-   *
-   * @return The distance to the AprilTag in meters
-   */
-  public double getDistanceAprilTag() {
-    Transform3d pose = getEstimatedGlobalPose();
-    return Math.sqrt(
-        Math.pow(pose.getTranslation().getX(), 2) + Math.pow(pose.getTranslation().getY(), 2));
+    return poses;
   }
 
   /**
@@ -158,31 +131,21 @@ public class PhotonVision extends SubsystemBase {
     return yaw;
   }
 
+  /**
+   * Gets the current distance to the target.
+   *
+   * @return The distance in meters
+   */
   public double getDist() {
     return dist;
   }
 
+  /**
+   * Gets the current Y position of the target.
+   *
+   * @return The Y position in meters
+   */
   public double getY() {
     return y;
-  }
-
-  /**
-   * Gets the current tracked target.
-   *
-   * @return The current PhotonTrackedTarget, or null if no target is tracked
-   */
-  public PhotonTrackedTarget getCurrentTarget() {
-    return bestResultPair.get().getSecond().getBestTarget();
-  }
-
-  /**
-   * Logs the current standard deviations for each camera to the console.
-   */
-  public void logStdDev() {
-    for (PhotonModule camera : cameras) {
-      camera.getEstimatedRobotPose();
-      logs(
-          log(String.format("Camera [%s]", camera.getCameraName()), camera.getCurrentStdDevs()));
-    }
   }
 }

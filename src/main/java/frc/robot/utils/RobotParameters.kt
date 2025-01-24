@@ -60,8 +60,9 @@ object RobotParameters {
 
         const val AUTO_ALIGN_SWERVE_LEFT_OFFSET: Double = -0.1
         const val AUTO_ALIGN_SWERVE_RIGHT_OFFSET: Double = 0.1
+
         @JvmField
-        var RobotPosition: Pose2d = Pose2d(0.0, 0.0, Rotation2d(0.0, 0.0))
+        var robotPos: Pose2d = Pose2d(0.0, 0.0, Rotation2d(0.0, 0.0))
 
         /** Class containing PID constants for the swerve drive system.  */
         object PIDParameters {
@@ -158,11 +159,13 @@ object RobotParameters {
         const val CAMERA_TWO_HEIGHT_METER: Double = 0.61
         const val CAMERA_TWO_ANGLE_DEG: Double = 37.5
         const val OFFSET_TOWARD_MID_RIGHT: Double = 15.0
+
         // THESE NEED TO BE REPLACED WITH TESTED VALUES PLS (BUT I KNOW WE WONT HAVE TIME FOR THIS)
         @JvmField
         val SINGLE_TARGET_STD_DEV: Matrix<N3, N1> = VecBuilder.fill(4.0, 4.0, 8.0)
+
         @JvmField
-        val MULTI_TARGET_STD_DEV : Matrix<N3, N1> = VecBuilder.fill(0.5, 0.5, 1.0)
+        val MULTI_TARGET_STD_DEV: Matrix<N3, N1> = VecBuilder.fill(0.5, 0.5, 1.0)
     }
 
     /** Class containing constants for the elevator subsystem.  */

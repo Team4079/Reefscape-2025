@@ -1,9 +1,7 @@
 package frc.robot.subsystems;
 
 import static com.pathplanner.lib.path.PathPlannerPath.fromPathFile;
-import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.*;
 import static frc.robot.utils.Register.Dash.*;
-import static frc.robot.utils.RobotParameters.SwerveParameters.PIDParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
@@ -13,6 +11,7 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.PathPlannerLogging;
+import edu.wpi.first.math.*;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -30,7 +29,6 @@ import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import java.util.Optional;
-import java.util.concurrent.*;
 import org.photonvision.*;
 
 public class Swerve extends SubsystemBase {
@@ -40,8 +38,6 @@ public class Swerve extends SubsystemBase {
   private final SwerveModuleState[] states = new SwerveModuleState[4];
   private SwerveModuleState[] setStates = new SwerveModuleState[4];
   private final SwerveModule[] modules;
-  private final PIDVController pid;
-  public Pose2d currentPose = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
   private final PathPlannerPath pathToScore;
 
   Thread swerveLoggingThread =
@@ -103,7 +99,6 @@ public class Swerve extends SubsystemBase {
    */
   private Swerve() {
     this.modules = initializeModules();
-    this.pid = initializePID();
     this.pidgey.reset();
     this.poseEstimator = initializePoseEstimator();
     configureAutoBuilder();
@@ -148,19 +143,6 @@ public class Swerve extends SubsystemBase {
           MotorParameters.BACK_RIGHT_CAN_CODER_ID,
           SwerveParameters.Thresholds.CANCODER_VAL12)
     };
-  }
-
-  /**
-   * Initializes the PID controller.
-   *
-   * @return PIDController, A new PID object with values from the SmartDashboard.
-   */
-  private PIDVController initializePID() {
-    return new PIDVController(
-        getNumber("AUTO: P", DRIVE_PID_AUTO.getP()),
-        getNumber("AUTO: I", DRIVE_PID_AUTO.getI()),
-        getNumber("AUTO: D", DRIVE_PID_AUTO.getD()),
-        getNumber("AUTO: V", DRIVE_PID_AUTO.getV()));
   }
 
   /**
@@ -222,14 +204,14 @@ public class Swerve extends SubsystemBase {
      * based on VISION
      */
     if (DriverStation.isTeleop()) {
-      EstimatedRobotPose estimatedPose =
-          PhotonVision.getInstance().getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
-      if (estimatedPose != null) {
-        double timestamp = estimatedPose.timestampSeconds;
-        Pose2d visionMeasurement2d = estimatedPose.estimatedPose.toPose2d();
-        poseEstimator.addVisionMeasurement(visionMeasurement2d, timestamp);
-        currentPose = poseEstimator.getEstimatedPosition();
-        SwerveParameters.RobotPosition = currentPose;
+      for (EstimatedRobotPose pose :
+          PhotonVision.getInstance().getEstimatedGlobalPose(poseEstimator.getEstimatedPosition())) {
+        if (pose != null) {
+          double timestamp = pose.timestampSeconds;
+          Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
+          poseEstimator.addVisionMeasurement(visionMeasurement2d, timestamp);
+          SwerveParameters.robotPos = poseEstimator.getEstimatedPosition();
+        }
       }
     }
 

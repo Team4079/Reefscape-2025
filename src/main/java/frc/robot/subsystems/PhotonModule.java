@@ -1,13 +1,14 @@
 package frc.robot.subsystems;
 
+import static org.photonvision.PhotonPoseEstimator.PoseStrategy.*;
+
 import edu.wpi.first.apriltag.*;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.*;
-import java.util.*;
-
 import edu.wpi.first.math.numbers.*;
 import frc.robot.utils.RobotParameters.*;
+import java.util.*;
 import org.photonvision.*;
 import org.photonvision.targeting.*;
 
@@ -21,7 +22,6 @@ public class PhotonModule {
   private final PhotonPoseEstimator photonPoseEstimator;
   private final Transform3d cameraPos;
   private Matrix<N3, N1> currentStdDev;
-  private Matrix<N3, N1> estimatedStdDev;
 
   /**
    * Creates a new CameraModule with the specified parameters.
@@ -34,9 +34,9 @@ public class PhotonModule {
     this.camera = new PhotonCamera(cameraName);
     this.cameraPos = cameraPos;
     this.photonPoseEstimator =
-        new PhotonPoseEstimator(
-            fieldLayout, PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, cameraPos);
-    photonPoseEstimator.setMultiTagFallbackStrategy(PhotonPoseEstimator.PoseStrategy.LOWEST_AMBIGUITY);
+        new PhotonPoseEstimator(fieldLayout, MULTI_TAG_PNP_ON_COPROCESSOR, cameraPos);
+    photonPoseEstimator.setMultiTagFallbackStrategy(
+        PhotonPoseEstimator.PoseStrategy.LOWEST_AMBIGUITY);
   }
 
   /**
@@ -60,41 +60,25 @@ public class PhotonModule {
   /**
    * Gets the camera's position relative to the robot.
    *
-   * @return Transform3d, The Transform3d representing the camera's position
+   * @return {@link Transform3d}, The {@link Transform3d} representing the camera's position
    */
   public Transform3d getCameraPosition() {
     return cameraPos;
   }
 
   /**
-   * Gets the estimated robot pose based on the latest vision processing results.
+   * Updates the estimated standard deviations based on the provided estimated pose and list of
+   * tracked targets.
    *
-   * <p>This method retrieves all unread pipeline results from the camera and checks if there is a
-   * multi-tag result available. If a multi-tag result is present, it extracts and returns the
-   * translation component of the estimated pose. If no multi-tag result is available, it returns a
-   * default Translation3d object.
+   * <p>This method calculates the number of visible tags and their average distance to the
+   * estimated pose. It then uses this information to adjust the standard deviations used for robot
+   * pose estimation.
    *
-   * @return Translation3d The estimated robot pose as a Translation3d object. If no multi-tag
-   *     result is available, returns a default Translation3d object.
+   * @param estimatedPose An Optional containing the estimated robot pose.
+   * @param targets A list of PhotonTrackedTarget objects representing the tracked targets.
    */
-  public Translation3d getEstimatedRobotPose() {
-    List<PhotonPipelineResult> currentResult = camera.getAllUnreadResults();
-    if (currentResult.get(0).multitagResult.isPresent()) {
-      updateEstimatedStdDevs(photonPoseEstimator.update(currentResult.get(0)), currentResult.get(0).getTargets());
-      return currentResult.get(0).getMultiTagResult().get().estimatedPose.best.getTranslation();
-    }
-    return new Translation3d();
-  }
-
-/**
- * Updates the estimated standard deviations based on the provided estimated pose and list of tracked targets.
- *
- * <p>This method calculates the number of visible tags and their average distance to the estimated pose.
- * It then uses this information to adjust the standard deviations used for robot pose estimation.
- * @param estimatedPose An Optional containing the estimated robot pose.
- * @param targets A list of PhotonTrackedTarget objects representing the tracked targets.
- */
-  public void updateEstimatedStdDevs(Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
+  public void updateEstimatedStdDevs(
+      Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
     if (estimatedPose.isEmpty()) {
       currentStdDev = PhotonVisionConstants.SINGLE_TARGET_STD_DEV;
       return;
@@ -119,7 +103,10 @@ public class PhotonModule {
     }
 
     double avgDistance = totalDistance / numTags;
-    var stdDevs = (numTags > 1) ? PhotonVisionConstants.MULTI_TARGET_STD_DEV : PhotonVisionConstants.SINGLE_TARGET_STD_DEV;
+    var stdDevs =
+        (numTags > 1)
+            ? PhotonVisionConstants.MULTI_TARGET_STD_DEV
+            : PhotonVisionConstants.SINGLE_TARGET_STD_DEV;
 
     if (numTags == 1 && avgDistance > 4) {
       currentStdDev = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
