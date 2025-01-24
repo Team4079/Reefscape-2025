@@ -128,7 +128,7 @@ public class PhotonModule {
       currentStdDev = stdDevs.times(1 + (avgDistance * avgDistance / 30));
     }
   }
-  
+
   /**
    * Gets the current standard deviations used for robot pose estimation.
    *
@@ -136,5 +136,14 @@ public class PhotonModule {
    */
   public Matrix<N3, N1> getCurrentStdDevs() {
     return currentStdDev;
+  }
+
+  /**
+   * Gets the name of the camera associated with this module.
+   *
+   * @return String The name of the camera
+   */
+  public String getCameraName() {
+    return camera.getName();
   }
 }

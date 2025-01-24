@@ -149,31 +149,6 @@ public class PhotonVision extends SubsystemBase {
   }
 
   /**
-   * Calculates the pivot position based on the distance to the AprilTag. Uses a polynomial function
-   * tuned for optimal positioning.
-   *
-   * @return The calculated pivot position
-   */
-  public double getPivotPosition() {
-    // 10/14/2024 outside tuning
-    // Desmos: https://www.desmos.com/calculator/naalukjxze
-    double r = getDistanceAprilTag() + 0.6;
-    double f = -1.39223; // power 5
-    double e = 20.9711; // power 4
-    double d = -122.485; // power 3
-    double c = 342.783; // power 2
-    double b = -447.743; // power 1
-    double a = 230.409; // constant
-
-    return (f * Math.pow(r, 5.0))
-        + (e * Math.pow(r, 4.0))
-        + (d * Math.pow(r, 3.0))
-        + (c * Math.pow(r, 2.0))
-        + (b * r)
-        + a;
-  }
-
-  /**
    * Gets the current yaw angle to the target.
    *
    * @return The yaw angle in degrees
@@ -197,5 +172,15 @@ public class PhotonVision extends SubsystemBase {
    */
   public PhotonTrackedTarget getCurrentTarget() {
     return bestResultPair.get().getSecond().getBestTarget();
+  }
+
+  /**
+   * Logs the current standard deviations for each camera to the console.
+   */
+  public void logStdDev() {
+    for (PhotonModule camera : cameras) {
+      logs(
+          log(String.format("Camera [%s]", camera.getCameraName()), camera.getCurrentStdDevs()));
+    }
   }
 }
