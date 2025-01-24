@@ -4,9 +4,13 @@ import com.ctre.phoenix6.signals.InvertedValue
 import com.pathplanner.lib.config.PIDConstants
 import com.pathplanner.lib.config.RobotConfig
 import com.pathplanner.lib.controllers.PPHolonomicDriveController
+import edu.wpi.first.math.Matrix
+import edu.wpi.first.math.VecBuilder
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.geometry.Translation2d
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
+import edu.wpi.first.math.numbers.N1
+import edu.wpi.first.math.numbers.N3
 
 /** Class containing global values for the robot.  */
 object RobotParameters {
@@ -156,6 +160,11 @@ object RobotParameters {
         const val CAMERA_TWO_HEIGHT_METER: Double = 0.61
         const val CAMERA_TWO_ANGLE_DEG: Double = 37.5
         const val OFFSET_TOWARD_MID_RIGHT: Double = 15.0
+        // THESE NEED TO BE REPLACED WITH TESTED VALUES PLS (BUT I KNOW WE WONT HAVE TIME FOR THIS)
+        @JvmField
+        val SINGLE_TARGET_STD_DEV: Matrix<N3, N1> = VecBuilder.fill(4.0, 4.0, 8.0)
+        @JvmField
+        val MULTI_TARGET_STD_DEV : Matrix<N3, N1> = VecBuilder.fill(0.5, 0.5, 1.0)
     }
 
     /** Class containing constants for the elevator subsystem.  */

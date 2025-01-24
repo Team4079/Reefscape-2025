@@ -1,8 +1,13 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.apriltag.*;
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.*;
 import java.util.*;
+
+import edu.wpi.first.math.numbers.*;
+import frc.robot.utils.RobotParameters.*;
 import org.photonvision.*;
 import org.photonvision.targeting.*;
 
@@ -15,6 +20,8 @@ public class PhotonModule {
   private final PhotonCamera camera;
   private final PhotonPoseEstimator photonPoseEstimator;
   private final Transform3d cameraPos;
+  private Matrix<N3, N1> currentStdDev;
+  private Matrix<N3, N1> estimatedStdDev;
 
   /**
    * Creates a new CameraModule with the specified parameters.
@@ -29,6 +36,7 @@ public class PhotonModule {
     this.photonPoseEstimator =
         new PhotonPoseEstimator(
             fieldLayout, PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, cameraPos);
+    photonPoseEstimator.setMultiTagFallbackStrategy(PhotonPoseEstimator.PoseStrategy.LOWEST_AMBIGUITY);
   }
 
   /**
@@ -76,4 +84,41 @@ public class PhotonModule {
     }
     return new Translation3d();
   }
+
+  public void updateEstimatedStdDevs(Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
+    if (estimatedPose.isEmpty()) {
+      currentStdDev = PhotonVisionConstants.SINGLE_TARGET_STD_DEV;
+      return;
+    }
+
+    int numTags = 0;
+    double totalDistance = 0;
+
+    // Calculate the number of visible tags and their average distance to the estimated pose
+    for (var target : targets) {
+      var tagPoseOptional = photonPoseEstimator.getFieldTags().getTagPose(target.getFiducialId());
+      if (tagPoseOptional.isEmpty()) continue;
+
+      numTags++;
+      var tagPose = tagPoseOptional.get().toPose2d().getTranslation();
+      var estimatedTranslation = estimatedPose.get().estimatedPose.toPose2d().getTranslation();
+      totalDistance += tagPose.getDistance(estimatedTranslation);
+    }
+
+    if (numTags == 0) {
+      currentStdDev = PhotonVisionConstants.SINGLE_TARGET_STD_DEV;
+      return;
+    }
+
+    double avgDistance = totalDistance / numTags;
+    var stdDevs = (numTags > 1) ? PhotonVisionConstants.MULTI_TARGET_STD_DEV : PhotonVisionConstants.SINGLE_TARGET_STD_DEV;
+
+    if (numTags == 1 && avgDistance > 4) {
+      currentStdDev = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+      System.out.println("I blame Om!!!");
+    } else {
+      currentStdDev = stdDevs.times(1 + (avgDistance * avgDistance / 30));
+    }
+  }
+
 }
