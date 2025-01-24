@@ -76,18 +76,4 @@ public class PhotonModule {
     }
     return new Translation3d();
   }
-
-  /**
-   * Gets the latest unread pipeline result from the camera.
-   *
-   * @return PhotonPipelineResult The latest unread vision processing result, or null if no results
-   *     are available.
-   */
-  public PhotonPipelineResult getLatestResult() {
-    if (getAllUnreadResults().isEmpty()) {
-      return null;
-    } else {
-      return getAllUnreadResults().get(0);
-    }
-  }
 }

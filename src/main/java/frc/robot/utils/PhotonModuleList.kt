@@ -17,5 +17,8 @@ import org.photonvision.targeting.PhotonPipelineResult
 fun List<PhotonModule>.getBestResultPair(): Pair<PhotonModule, PhotonPipelineResult>? =
     this
         .mapNotNull { module ->
-            module.latestResult?.takeIf { it.hasTargets() }?.let { module to it }
+            module.allUnreadResults
+                .getOrNull(0)
+                ?.takeIf { it.hasTargets() }
+                ?.let { module to it }
         }.minByOrNull { it.second.bestTarget.poseAmbiguity }

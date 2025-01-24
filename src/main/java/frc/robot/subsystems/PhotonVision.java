@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import java.util.*;
+import java.util.function.*;
 import kotlin.*;
 import org.photonvision.*;
 import org.photonvision.targeting.*;
@@ -26,7 +27,8 @@ public class PhotonVision extends SubsystemBase {
   private double yaw = -15.0;
   private double y = 0.0;
   private double dist = 0.0;
-  private Pair<PhotonModule, PhotonPipelineResult> bestResultPair;
+  private Supplier<Pair<PhotonModule, PhotonPipelineResult>> bestResultPair =
+      () -> PhotonModuleListKt.getBestResultPair(cameras);
 
   // Singleton instance
   private static final PhotonVision INSTANCE = new PhotonVision();
@@ -70,34 +72,26 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    updateBestPair();
-
     logs(
         log("does camera exist", cameras.get(0) != null),
-        log("does best camera exist", bestResultPair.getFirst() != null));
+        log("does best camera exist", bestResultPair.get() != null));
 
-    if (bestResultPair.getFirst() != null) {
-      log("has current target", bestResultPair.getSecond() != null);
+    if (bestResultPair.get() != null) {
+      log("has current target", bestResultPair.get().getSecond() != null);
 
       // REMEMBER: MOVEMENT IS BOUND TO A! DON'T FORGET NERD
-      if (bestResultPair.getSecond() != null) {
-        for (PhotonTrackedTarget tag : bestResultPair.getSecond().getTargets()) {
+      if (bestResultPair.get().getSecond() != null) {
+        for (PhotonTrackedTarget tag : bestResultPair.get().getSecond().getTargets()) {
           yaw = tag.getYaw();
           y = tag.getBestCameraToTarget().getX();
           dist = tag.getBestCameraToTarget().getZ();
         }
 
-        logs(log("yaw to target", yaw), log("_targets", bestResultPair.getSecond().hasTargets()));
+        logs(
+            log("yaw to target", yaw),
+            log("_targets", bestResultPair.get().getSecond().hasTargets()));
       }
     }
-  }
-
-  /**
-   * Updates the best result pair by selecting the best camera and its result based on pose
-   * ambiguity.
-   */
-  private void updateBestPair() {
-    bestResultPair = PhotonModuleListKt.getBestResultPair(cameras);
   }
 
   /**
@@ -109,7 +103,8 @@ public class PhotonVision extends SubsystemBase {
    * @return true if there is a visible tag, false otherwise
    */
   public boolean hasTag() {
-    return bestResultPair.getSecond() != null && bestResultPair.getSecond().hasTargets();
+    return bestResultPair.get().getSecond() != null
+        && bestResultPair.get().getSecond().hasTargets();
   }
 
   /**
@@ -119,12 +114,12 @@ public class PhotonVision extends SubsystemBase {
    * @return The estimated robot pose, or null if no pose could be estimated
    */
   public EstimatedRobotPose getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
-    if (bestResultPair == null) return null;
+    if (bestResultPair.get() == null) return null;
 
-    PhotonPoseEstimator estimator = bestResultPair.getFirst().getPoseEstimator();
+    PhotonPoseEstimator estimator = bestResultPair.get().getFirst().getPoseEstimator();
     estimator.setReferencePose(prevEstimatedRobotPose);
-    return bestResultPair.getSecond() != null
-        ? estimator.update(bestResultPair.getSecond()).orElse(null)
+    return bestResultPair.get().getSecond() != null
+        ? estimator.update(bestResultPair.get().getSecond()).orElse(null)
         : null;
   }
 
@@ -135,11 +130,11 @@ public class PhotonVision extends SubsystemBase {
    */
   @SuppressWarnings("java:S3655")
   public Transform3d getEstimatedGlobalPose() {
-    if (bestResultPair.getSecond() == null
-        || bestResultPair.getSecond().getMultiTagResult().isEmpty()) {
+    if (bestResultPair.get().getSecond() == null
+        || bestResultPair.get().getSecond().getMultiTagResult().isEmpty()) {
       return new Transform3d(0.0, 0.0, 0.0, new Rotation3d());
     }
-    return bestResultPair.getSecond().getMultiTagResult().get().estimatedPose.best;
+    return bestResultPair.get().getSecond().getMultiTagResult().get().estimatedPose.best;
   }
 
   /**
@@ -201,6 +196,6 @@ public class PhotonVision extends SubsystemBase {
    * @return The current PhotonTrackedTarget, or null if no target is tracked
    */
   public PhotonTrackedTarget getCurrentTarget() {
-    return bestResultPair.getSecond().getBestTarget();
+    return bestResultPair.get().getSecond().getBestTarget();
   }
 }
