@@ -167,7 +167,9 @@ public class Swerve extends SubsystemBase {
         SwerveParameters.PhysicalParameters.kinematics,
         Rotation2d.fromDegrees(getHeading()),
         getModulePositions(),
-        new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0.0)));
+        new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0.0)),
+        VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
+        VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)));
   }
 
   /**
