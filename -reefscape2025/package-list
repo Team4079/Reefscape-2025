@@ -95,7 +95,6 @@ $dokka.location:frc.robot.subsystems/PhotonModule/getPoseEstimator/#/PointingToD
 $dokka.location:frc.robot.subsystems/PhotonModule/updateEstimatedStdDevs/#java.util.Optional<org.photonvision.EstimatedRobotPose>#java.util.List<org.photonvision.targeting.PhotonTrackedTarget>/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/update-estimated-std-devs.html
 $dokka.location:frc.robot.subsystems/PhotonVision///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/index.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getDist/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-dist.html
-$dokka.location:frc.robot.subsystems/PhotonVision/getEstimatedGlobalPose/#edu.wpi.first.math.geometry.Pose2d/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-estimated-global-pose.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-instance.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getY/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-y.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getYaw/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-yaw.html
@@ -173,11 +172,14 @@ $dokka.location:frc.robot.utils/PIDVController/getV/#/PointingToDeclaration/-re
 $dokka.location:frc.robot.utils/PIDVController/setV/#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d-v-controller/set-v.html
 $dokka.location:frc.robot.utils/PhotonModuleListKt///PointingToDeclaration/-reefscape2025/frc.robot.utils/-photon-module-list-kt/index.html
 $dokka.location:frc.robot.utils/PhotonModuleListKt/getDecentResultPairs/kotlin.collections.List[frc.robot.subsystems.PhotonModule]#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-photon-module-list-kt/get-decent-result-pairs.html
+$dokka.location:frc.robot.utils/PhotonModuleListKt/getEstimatedPose/kotlin.Pair[frc.robot.subsystems.PhotonModule,org.photonvision.targeting.PhotonPipelineResult]#edu.wpi.first.math.geometry.Pose2d?/PointingToDeclaration/-reefscape2025/frc.robot.utils/-photon-module-list-kt/get-estimated-pose.html
 $dokka.location:frc.robot.utils/PhotonModuleListKt/hasMultiTag/kotlin.collections.List[kotlin.Pair[frc.robot.subsystems.PhotonModule,org.photonvision.targeting.PhotonPipelineResult]]#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-photon-module-list-kt/has-multi-tag.html
 $dokka.location:frc.robot.utils/PhotonModuleListKt/hasTargets/kotlin.collections.List[kotlin.Pair[frc.robot.subsystems.PhotonModule,org.photonvision.targeting.PhotonPipelineResult]]#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-photon-module-list-kt/has-targets.html
+$dokka.location:frc.robot.utils/Register.Dash.Logger///PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/-logger/index.html
+$dokka.location:frc.robot.utils/Register.Dash.Logger/invoke/#kotlin.String#kotlin.Any/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/-logger/invoke.html
 $dokka.location:frc.robot.utils/Register.Dash///PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/index.html
-$dokka.location:frc.robot.utils/Register.Dash/log/#kotlin.String#kotlin.Any/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/log.html
 $dokka.location:frc.robot.utils/Register.Dash/logs/#kotlin.Array[kotlin.Pair[kotlin.String,kotlin.Any]]/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/logs.html
+$dokka.location:frc.robot.utils/Register.Dash/logs/#kotlin.Function1[frc.robot.utils.Register.Dash.Logger,kotlin.Unit]/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/logs.html
 $dokka.location:frc.robot.utils/Register.Dash/logs/#kotlin.String?#TypeParam(bounds=[edu.wpi.first.util.WPISerializable?])/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/logs.html
 $dokka.location:frc.robot.utils/Register.Dash/logs/#kotlin.String?#kotlin.Array[TypeParam(bounds=[edu.wpi.first.util.struct.StructSerializable?])]/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/logs.html
 $dokka.location:frc.robot.utils/Register.Dash/logs/#kotlin.String?#kotlin.Boolean/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/logs.html
