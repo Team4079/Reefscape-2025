@@ -76,7 +76,6 @@ public class Robot extends LoggedRobot {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
-    setTelePid();
   }
 
   /** This function is called once when test mode is initialized. */

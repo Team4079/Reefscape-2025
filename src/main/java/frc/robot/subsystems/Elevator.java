@@ -1,7 +1,9 @@
 package frc.robot.subsystems;
 
 // import static frc.robot.utils.Dash.log;
+import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.Register.Dash.*;
+import static frc.robot.utils.RobotParameters.MotorParameters.*;
 
 import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.*;
@@ -58,8 +60,8 @@ public class Elevator extends SubsystemBase {
    * instance.
    */
   private Elevator() {
-    elevatorMotorLeft = new TalonFX(MotorParameters.ELEVATOR_MOTOR_LEFT_ID);
-    elevatorMotorRight = new TalonFX(MotorParameters.ELEVATOR_MOTOR_RIGHT_ID);
+    elevatorMotorLeft = new TalonFX(ELEVATOR_MOTOR_LEFT_ID);
+    elevatorMotorRight = new TalonFX(ELEVATOR_MOTOR_RIGHT_ID);
 
     MotorOutputConfigs elevatorConfigs = new MotorOutputConfigs();
 
@@ -158,11 +160,15 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     logs(
-        log("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble()),
-        log("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble()),
-        log("Elevator Left Set Speed", elevatorMotorLeft.get()),
-        log("Elevator Right Set Speed", elevatorMotorRight.get()),
-        log(ELEVATOR_STATE_KEY, currentState.toString()));
+        log -> {
+          log.invoke("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
+          log.invoke(
+              "Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
+          log.invoke("Elevator Left Set Speed", elevatorMotorLeft.get());
+          log.invoke("Elevator Right Set Speed", elevatorMotorRight.get());
+          log.invoke(ELEVATOR_STATE_KEY, currentState.toString());
+          return null;
+        });
   }
 
   /** Move the elevator motor to a specific level */
@@ -311,25 +317,22 @@ public class Elevator extends SubsystemBase {
 
   public void initializeAlarms() {
     elevatorLeftDisconnectedAlert =
-        new Alert(
-            "Disconnected left elevator motor "
-                + Integer.toString(MotorParameters.ELEVATOR_MOTOR_LEFT_ID),
-            Alert.AlertType.kError);
+        new Alert("Disconnected left elevator motor " + ELEVATOR_MOTOR_LEFT_ID, kError);
     elevatorRightDisconnectedAlert =
-        new Alert(
-            "Disconnected right elevator motor "
-                + Integer.toString(MotorParameters.ELEVATOR_MOTOR_RIGHT_ID),
-            Alert.AlertType.kError);
+        new Alert("Disconnected right elevator motor " + ELEVATOR_MOTOR_RIGHT_ID, kError);
 
     elevatorLeftDisconnectedAlert.set(!elevatorMotorLeft.isConnected());
     elevatorRightDisconnectedAlert.set(!elevatorMotorRight.isConnected());
 
     logs(
-        log(
-            "Disconnected elevatorMotorLeft " + elevatorMotorLeft.getDeviceID(),
-            elevatorMotorLeft.isConnected()),
-        log(
-            "Disconnected elevatorMotorRight " + elevatorMotorRight.getDeviceID(),
-            elevatorMotorRight.isConnected()));
+        log -> {
+          log.invoke(
+              "Disconnected elevatorMotorLeft" + elevatorMotorLeft.getDeviceID(),
+              elevatorMotorLeft.isConnected());
+          log.invoke(
+              "Disconnected elevatorMotorRight" + elevatorMotorRight.getDeviceID(),
+              elevatorMotorRight.isConnected());
+          return null;
+        });
   }
 }

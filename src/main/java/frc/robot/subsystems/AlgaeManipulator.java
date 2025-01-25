@@ -1,7 +1,9 @@
 package frc.robot.subsystems;
 
 // import static frc.robot.utils.Dash.log;
+import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.Register.Dash.*;
+import static frc.robot.utils.RobotParameters.MotorParameters.*;
 
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
@@ -59,7 +61,7 @@ public class AlgaeManipulator extends SubsystemBase {
    * Singleton. Code should use the {@link #getInstance()} method to get the singleton instance.
    */
   private AlgaeManipulator() {
-    algaeManipulatorMotor = new TalonFX(MotorParameters.ALGAE_MANIPULATOR_MOTOR_ID);
+    algaeManipulatorMotor = new TalonFX(ALGAE_MANIPULATOR_MOTOR_ID);
 
     MotorOutputConfigs algaeManipulatorMotorOutputConfigs = new MotorOutputConfigs();
 
@@ -173,16 +175,12 @@ public class AlgaeManipulator extends SubsystemBase {
 
   public void initializeAlarms() {
     algaeManipulatorMotorDisconnectedAlert =
-        new Alert(
-            "Disconnected end effector motor "
-                + Integer.toString(MotorParameters.ALGAE_MANIPULATOR_MOTOR_ID),
-            Alert.AlertType.kError);
+        new Alert("Disconnected end effector motor " + ALGAE_MANIPULATOR_MOTOR_ID, kError);
 
     algaeManipulatorMotorDisconnectedAlert.set(!algaeManipulatorMotor.isConnected());
 
     logs(
-        log(
-            "Disconnected algaeManipulatorMotor " + algaeManipulatorMotor.getDeviceID(),
-            algaeManipulatorMotor.isConnected()));
+        "Disconnected algaeManipulatorMotor " + algaeManipulatorMotor.getDeviceID(),
+        algaeManipulatorMotor.isConnected());
   }
 }

@@ -4,8 +4,9 @@
 
 package frc.robot.subsystems;
 
-import static frc.robot.utils.Register.Dash.log;
+import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.Register.Dash.logs;
+import static frc.robot.utils.RobotParameters.MotorParameters.*;
 
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
@@ -26,7 +27,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters;
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters;
-import frc.robot.utils.RobotParameters.MotorParameters;
 
 public class CoralManipulator extends SubsystemBase {
   private final TalonFX coralManipulatorMotorUp;
@@ -67,8 +67,8 @@ public class CoralManipulator extends SubsystemBase {
    * singleton instance.
    */
   private CoralManipulator() {
-    coralManipulatorMotorUp = new TalonFX(MotorParameters.CORAL_MANIPULATOR_MOTOR_UP_ID);
-    coralManipulatorMotorDown = new TalonFX(MotorParameters.CORAL_MANIPULATOR_MOTOR_DOWN_ID);
+    coralManipulatorMotorUp = new TalonFX(CORAL_MANIPULATOR_MOTOR_UP_ID);
+    coralManipulatorMotorDown = new TalonFX(CORAL_MANIPULATOR_MOTOR_DOWN_ID);
 
     coralSensor = new DigitalInput(CoralManipulatorParameters.CORAL_SENSOR_ID);
 
@@ -210,25 +210,22 @@ public class CoralManipulator extends SubsystemBase {
 
   public void initializeAlarms() {
     coralManipulatorUpDisconnectedAlert =
-        new Alert(
-            "Disconnected coral up motor "
-                + Integer.toString(MotorParameters.CORAL_MANIPULATOR_MOTOR_UP_ID),
-            Alert.AlertType.kError);
+        new Alert("Disconnected coral up motor " + CORAL_MANIPULATOR_MOTOR_UP_ID, kError);
     coralManipulatorDownDisconnectedAlert =
-        new Alert(
-            "Disconnected coral down motor "
-                + Integer.toString(MotorParameters.CORAL_MANIPULATOR_MOTOR_DOWN_ID),
-            Alert.AlertType.kError);
+        new Alert("Disconnected coral down motor " + CORAL_MANIPULATOR_MOTOR_DOWN_ID, kError);
 
     coralManipulatorUpDisconnectedAlert.set(!coralManipulatorMotorUp.isConnected());
     coralManipulatorDownDisconnectedAlert.set(!coralManipulatorMotorDown.isConnected());
 
     logs(
-        log(
-            "Disconnected coralManipulatorMotorUp " + coralManipulatorMotorUp.getDeviceID(),
-            coralManipulatorMotorUp.isConnected()),
-        log(
-            "Disconnected coralManipulatorMotorDown " + coralManipulatorMotorDown.getDeviceID(),
-            coralManipulatorMotorDown.isConnected()));
+        log -> {
+          log.invoke(
+              "Disconnected coralManipulatorMotorUp " + coralManipulatorMotorUp.getDeviceID(),
+              coralManipulatorMotorUp.isConnected());
+          log.invoke(
+              "Disconnected coralManipulatorMotorDown " + coralManipulatorMotorDown.getDeviceID(),
+              coralManipulatorMotorDown.isConnected());
+          return null;
+        });
   }
 }

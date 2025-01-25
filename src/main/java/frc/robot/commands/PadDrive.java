@@ -7,7 +7,6 @@ import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
-import frc.robot.utils.*;
 import kotlin.*;
 
 /** Command to control the robot's swerve drive using a Logitech gaming pad. */
@@ -33,15 +32,15 @@ public class PadDrive extends Command {
   public void execute() {
     Pair<Double, Double> position = positionSet(pad);
 
-    double rotation =
-        (Math.abs(pad.getRightX()) >= 0.1)
-            ? -pad.getRightX() * RobotParameters.MotorParameters.MAX_ANGULAR_SPEED
-            : 0.0;
+    double rotation = Math.abs(pad.getRightX()) >= 0.1 ? -pad.getRightX() * MAX_ANGULAR_SPEED : 0.0;
 
     logs(
-        log("X Joystick", position.getFirst()),
-        log("Y Joystick", position.getSecond()),
-        log("Rotation", rotation));
+        log -> {
+          log.invoke("X Joystick", position.getFirst());
+          log.invoke("Y Joystick", position.getSecond());
+          log.invoke("Rotation", rotation);
+          return null;
+        });
 
     Swerve.getInstance().setDriveSpeeds(position.getSecond(), position.getFirst(), rotation * 0.5);
   }

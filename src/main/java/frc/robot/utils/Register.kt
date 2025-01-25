@@ -6,7 +6,6 @@ import edu.wpi.first.util.struct.StructSerializable
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.button.JoystickButton
 import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.TEST_MODE
-import org.littletonrobotics.junction.Logger
 
 /**
  * Type alias for a pair consisting of a command name and a command.
@@ -89,6 +88,29 @@ object Register {
      */
     object Dash {
         /**
+         * Logs multiple values within the provided block context.
+         *
+         * This function captures logs generated within the block and logs them all at once
+         * after the block has been executed. It uses a custom `LogContext` to temporarily
+         * override the log method to capture logs instead of immediately logging them.
+         *
+         * @param block The block of code within which logs will be captured.
+         */
+        @JvmStatic
+        fun logs(block: Logger.() -> Unit) {
+            val capturedLogs = mutableListOf<Log>()
+
+            val context =
+                Logger { s, v ->
+                    Log(s, v).also { capturedLogs.add(it) }
+                }
+
+            context.block()
+
+            logs(*capturedLogs.toTypedArray())
+        }
+
+        /**
          * Logs multiple values with their respective keys based on the type of each value.
          *
          * @param logs Vararg parameter of pairs where the first element is the key and the second element is the value to log.
@@ -109,17 +131,21 @@ object Register {
         }
 
         /**
-         * Creates a [Log] from a string and a value.
-         *
-         * @param string The key associated with the value to log.
-         * @param value The value to be logged.
-         * @return A [Log] consisting of the key and the value.
+         * Functional interface for creating log pairs.
          */
-        @JvmStatic
-        fun log(
-            string: String,
-            value: Any,
-        ) = Log(string, value)
+        fun interface Logger {
+            /**
+             * Creates a [Log] from a string and a value.
+             *
+             * @param string The key associated with the value to log.
+             * @param value The value to be logged.
+             * @return A [Log] consisting of the key and the value.
+             */
+            operator fun invoke(
+                string: String,
+                value: Any,
+            ): Log
+        }
 
         /**
          * Logs a double value with a specified key if the system is in test mode.
@@ -133,7 +159,8 @@ object Register {
             value: Double,
         ) {
             if (TEST_MODE) {
-                Logger.recordOutput(key, value)
+                org.littletonrobotics.junction.Logger
+                    .recordOutput(key, value)
             }
         }
 
@@ -149,7 +176,8 @@ object Register {
             value: Int,
         ) {
             if (TEST_MODE) {
-                Logger.recordOutput(key, value)
+                org.littletonrobotics.junction.Logger
+                    .recordOutput(key, value)
             }
         }
 
@@ -165,7 +193,8 @@ object Register {
             value: Boolean,
         ) {
             if (TEST_MODE) {
-                Logger.recordOutput(key, value)
+                org.littletonrobotics.junction.Logger
+                    .recordOutput(key, value)
             }
         }
 
@@ -181,7 +210,8 @@ object Register {
             value: String?,
         ) {
             if (TEST_MODE) {
-                Logger.recordOutput(key, value)
+                org.littletonrobotics.junction.Logger
+                    .recordOutput(key, value)
             }
         }
 
@@ -197,7 +227,8 @@ object Register {
             value: T,
         ) {
             if (TEST_MODE) {
-                Logger.recordOutput(key, value)
+                org.littletonrobotics.junction.Logger
+                    .recordOutput(key, value)
             }
         }
 
@@ -213,7 +244,8 @@ object Register {
             vararg value: T,
         ) {
             if (TEST_MODE) {
-                Logger.recordOutput(key, *value)
+                org.littletonrobotics.junction.Logger
+                    .recordOutput(key, *value)
             }
         }
     }

@@ -1,6 +1,8 @@
 package frc.robot.utils
 
+import edu.wpi.first.math.geometry.Pose2d
 import frc.robot.subsystems.PhotonModule
+import org.photonvision.EstimatedRobotPose
 import org.photonvision.targeting.PhotonPipelineResult
 
 /**
@@ -42,3 +44,20 @@ fun List<Pair<PhotonModule, PhotonPipelineResult>>.hasTargets(): Boolean = this.
  * @return Boolean True if any pair has multi-tag results, false otherwise.
  */
 fun List<Pair<PhotonModule, PhotonPipelineResult>>.hasMultiTag(): Boolean = this.any { it.second.multiTagResult.isPresent }
+
+/**
+ * Extension function for a Pair of PhotonModule and PhotonPipelineResult to get estimated poses.
+ *
+ * This function sets the reference pose for the pose estimator of the PhotonModule and updates it
+ * with the PhotonPipelineResult. If an estimated robot pose is present, it adds it to the list of poses.
+ *
+ * @receiver Pair<PhotonModule, PhotonPipelineResult> The pair of PhotonModule and PhotonPipelineResult.
+ * @param prevEstimatedRobotPose Pose2d? The previous estimated robot pose to set as reference.
+ * @return List<EstimatedRobotPose> The list of estimated robot poses.
+ */
+fun Pair<PhotonModule, PhotonPipelineResult>.getEstimatedPose(prevEstimatedRobotPose: Pose2d?): EstimatedRobotPose? {
+    first.poseEstimator.apply {
+        setReferencePose(prevEstimatedRobotPose)
+        return update(second).orElse(null)
+    }
+}

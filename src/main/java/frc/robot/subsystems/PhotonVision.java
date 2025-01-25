@@ -11,7 +11,6 @@ import frc.robot.utils.RobotParameters.*;
 import java.util.*;
 import java.util.function.*;
 import kotlin.*;
-import org.photonvision.*;
 import org.photonvision.targeting.*;
 
 /**
@@ -28,7 +27,7 @@ public class PhotonVision extends SubsystemBase {
   private double yaw = -15.0;
   private double y = 0.0;
   private double dist = 0.0;
-  private final Supplier<List<Pair<PhotonModule, PhotonPipelineResult>>> results =
+  public final Supplier<List<Pair<PhotonModule, PhotonPipelineResult>>> resultPairs =
       () -> PhotonModuleListKt.getDecentResultPairs(cameras);
 
   // Singleton instance
@@ -73,19 +72,23 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    logs("decent result pairs exist", results.get() != null);
+    logs("decent result pairs exist", resultPairs.get() != null);
 
-    if (results.get() != null) {
-      log("best target list is empty", results.get().isEmpty());
+    if (resultPairs.get() != null) {
+      logs("best target list is empty", resultPairs.get().isEmpty());
 
       // REMEMBER: MOVEMENT IS BOUND TO A! DON'T FORGET NERD
-      if (!results.get().isEmpty()) {
-        PhotonTrackedTarget bestTarget = results.get().getFirst().getSecond().getBestTarget();
+      if (!resultPairs.get().isEmpty()) {
+        PhotonTrackedTarget bestTarget = resultPairs.get().get(0).getSecond().getBestTarget();
         yaw = bestTarget.getYaw();
         y = bestTarget.getBestCameraToTarget().getX();
         dist = bestTarget.getBestCameraToTarget().getZ();
 
-        logs(log("yaw to target", yaw), log("_targets", hasTargets(results.get())));
+        logs(log -> {
+          log.invoke("yaw to target", yaw);
+          log.invoke("_targets", hasTargets(resultPairs.get()));
+          return null;
+        });
       }
     }
   }
@@ -99,27 +102,7 @@ public class PhotonVision extends SubsystemBase {
    * @return true if there is a visible tag, false otherwise
    */
   public boolean hasTag() {
-    return results.get() != null && hasTargets(results.get());
-  }
-
-  /**
-   * Gets the estimated global pose of the robot using the best available camera.
-   *
-   * @param prevEstimatedRobotPose The previous estimated pose of the robot
-   * @return The estimated robot pose, or null if no pose could be estimated
-   */
-  public List<EstimatedRobotPose> getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
-    if (results.get() == null) return Collections.emptyList();
-
-    List<EstimatedRobotPose> poses = new ArrayList<>();
-
-    for (Pair<PhotonModule, PhotonPipelineResult> pair : results.get()) {
-      PhotonPoseEstimator estimator = pair.getFirst().getPoseEstimator();
-      estimator.setReferencePose(prevEstimatedRobotPose);
-      estimator.update(pair.getSecond()).ifPresent(poses::add);
-    }
-
-    return poses;
+    return resultPairs.get() != null && hasTargets(resultPairs.get());
   }
 
   /**
