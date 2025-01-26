@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import static edu.wpi.first.math.VecBuilder.*;
 import static org.photonvision.PhotonPoseEstimator.PoseStrategy.*;
 
 import edu.wpi.first.apriltag.*;
@@ -109,8 +110,7 @@ public class PhotonModule {
             : PhotonVisionConstants.SINGLE_TARGET_STD_DEV;
 
     if (numTags == 1 && avgDistance > 4) {
-      currentStdDev = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
-      System.out.println("I blame Om!!!");
+      currentStdDev = fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
     } else {
       currentStdDev = stdDevs.times(1 + (avgDistance * avgDistance / 30));
     }

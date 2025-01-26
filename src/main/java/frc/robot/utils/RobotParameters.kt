@@ -162,10 +162,10 @@ object RobotParameters {
 
         // THESE NEED TO BE REPLACED WITH TESTED VALUES PLS (BUT I KNOW WE WONT HAVE TIME FOR THIS)
         @JvmField
-        val SINGLE_TARGET_STD_DEV: Matrix<N3, N1> = VecBuilder.fill(4.0, 4.0, 8.0)
+        val SINGLE_TARGET_STD_DEV: Matrix<N3, N1> = VecBuilder.fill(1.0, 1.0, 10.0)
 
         @JvmField
-        val MULTI_TARGET_STD_DEV: Matrix<N3, N1> = VecBuilder.fill(0.5, 0.5, 1.0)
+        val MULTI_TARGET_STD_DEV: Matrix<N3, N1> = VecBuilder.fill(0.3, 0.3, 3.0)
     }
 
     /** Class containing constants for the elevator subsystem.  */
