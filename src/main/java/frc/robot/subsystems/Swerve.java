@@ -33,6 +33,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.photonvision.*;
 
+import java.util.Optional;
+
 public class Swerve extends SubsystemBase {
   private final SwerveDrivePoseEstimator poseEstimator;
   private final Field2d field = new Field2d();
@@ -197,6 +199,7 @@ public class Swerve extends SubsystemBase {
               pair -> {
                 EstimatedRobotPose pose =
                     getEstimatedPose(pair, poseEstimator.getEstimatedPosition());
+                updateStdDev(pair, Optional.ofNullable(pose));
                 if (pose != null) {
                   double timestamp = pose.timestampSeconds;
                   Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();

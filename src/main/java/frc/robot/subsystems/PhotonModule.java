@@ -5,7 +5,6 @@ import static org.photonvision.PhotonPoseEstimator.PoseStrategy.*;
 
 import edu.wpi.first.apriltag.*;
 import edu.wpi.first.math.Matrix;
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.numbers.*;
 import frc.robot.utils.RobotParameters.*;
