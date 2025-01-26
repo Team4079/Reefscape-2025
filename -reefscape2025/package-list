@@ -178,6 +178,7 @@ $dokka.location:frc.robot.utils/PIDVController/getV/#/PointingToDeclaration/-re
 $dokka.location:frc.robot.utils/PIDVController/setV/#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d-v-controller/set-v.html
 $dokka.location:frc.robot.utils/Register.Dash///PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/index.html
 $dokka.location:frc.robot.utils/Register.Dash/log/#kotlin.String#kotlin.Any/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/log.html
+$dokka.location:frc.robot.utils/Register.Dash/logMeta/#kotlin.String?#kotlin.String?/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/log-meta.html
 $dokka.location:frc.robot.utils/Register.Dash/logs/#java.lang.Runnable/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/logs.html
 $dokka.location:frc.robot.utils/Register.Dash/logs/#kotlin.Array[kotlin.Pair[kotlin.String,kotlin.Any]]/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/logs.html
 $dokka.location:frc.robot.utils/Register.Dash/logs/#kotlin.String?#TypeParam(bounds=[edu.wpi.first.util.WPISerializable?])/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/-dash/logs.html
@@ -195,6 +196,7 @@ $dokka.location:frc.robot.utils/RobotParameters.AlgaeManipulatorParameters///Poi
 $dokka.location:frc.robot.utils/RobotParameters.ClimberParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-climber-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.CoralManipulatorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-coral-manipulator-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.ElevatorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-elevator-parameters/index.html
+$dokka.location:frc.robot.utils/RobotParameters.MiscellaneousInfo///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-miscellaneous-info/index.html
 $dokka.location:frc.robot.utils/RobotParameters.MotorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-motor-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.PhotonVisionConstants///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-photon-vision-constants/index.html
 $dokka.location:frc.robot.utils/RobotParameters.SwerveParameters.PIDParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-swerve-parameters/-p-i-d-parameters/index.html
