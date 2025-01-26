@@ -7,7 +7,7 @@ import static edu.wpi.first.math.geometry.Rotation2d.*;
 import static edu.wpi.first.math.kinematics.ChassisSpeeds.*;
 import static edu.wpi.first.math.kinematics.SwerveDriveKinematics.*;
 import static edu.wpi.first.math.util.Units.*;
-import static frc.robot.utils.PhotonModuleListKt.*;
+import static frc.robot.utils.ExtensionsKt.*;
 import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.*;
@@ -216,12 +216,11 @@ public class Swerve extends SubsystemBase {
     field.setRobotPose(poseEstimator.getEstimatedPosition());
 
     logs(
-        log -> {
-          log.invoke("Pidgey Yaw", getPidgeyYaw());
-          log.invoke("Pidgey Heading", getHeading());
-          log.invoke("Pidgey Rotation2D", pidgey.getRotation2d().getDegrees());
-          log.invoke("Robot Pose", field.getRobotPose());
-          return null;
+        () -> {
+          log("Pidgey Yaw", getPidgeyYaw());
+          log("Pidgey Heading", getHeading());
+          log("Pidgey Rotation2D", pidgey.getRotation2d().getDegrees());
+          log("Robot Pose", field.getRobotPose());
         });
   }
 
@@ -246,12 +245,12 @@ public class Swerve extends SubsystemBase {
    */
   public void setDriveSpeeds(
       double forwardSpeed, double leftSpeed, double turnSpeed, boolean isFieldOriented) {
-    logs(log -> {
-      log.invoke("Forward speed", forwardSpeed);
-      log.invoke("Left speed", leftSpeed);
-      log.invoke("Turn speed", turnSpeed);
-      return null;
-    });
+    logs(
+        () -> {
+          log("Forward speed", forwardSpeed);
+          log("Left speed", leftSpeed);
+          log("Turn speed", turnSpeed);
+        });
 
     // Converts to a measure that the robot aktualy understands
     ChassisSpeeds speeds =

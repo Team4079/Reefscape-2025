@@ -35,11 +35,10 @@ public class PadDrive extends Command {
     double rotation = Math.abs(pad.getRightX()) >= 0.1 ? -pad.getRightX() * MAX_ANGULAR_SPEED : 0.0;
 
     logs(
-        log -> {
-          log.invoke("X Joystick", position.getFirst());
-          log.invoke("Y Joystick", position.getSecond());
-          log.invoke("Rotation", rotation);
-          return null;
+        () -> {
+          log("X Joystick", position.getFirst());
+          log("Y Joystick", position.getSecond());
+          log("Rotation", rotation);
         });
 
     Swerve.getInstance().setDriveSpeeds(position.getSecond(), position.getFirst(), rotation * 0.5);

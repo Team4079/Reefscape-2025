@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import static edu.wpi.first.wpilibj.Alert.AlertType.*;
-import static frc.robot.utils.Register.Dash.logs;
+import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
 
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
@@ -218,14 +218,13 @@ public class CoralManipulator extends SubsystemBase {
     coralManipulatorDownDisconnectedAlert.set(!coralManipulatorMotorDown.isConnected());
 
     logs(
-        log -> {
-          log.invoke(
+        () -> {
+          log(
               "Disconnected coralManipulatorMotorUp " + coralManipulatorMotorUp.getDeviceID(),
               coralManipulatorMotorUp.isConnected());
-          log.invoke(
+          log(
               "Disconnected coralManipulatorMotorDown " + coralManipulatorMotorDown.getDeviceID(),
               coralManipulatorMotorDown.isConnected());
-          return null;
         });
   }
 }

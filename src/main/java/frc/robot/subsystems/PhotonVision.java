@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import static frc.robot.utils.PhotonModuleListKt.*;
+import static frc.robot.utils.ExtensionsKt.*;
 import static frc.robot.utils.Register.Dash.*;
 
 import edu.wpi.first.apriltag.*;
@@ -28,7 +28,7 @@ public class PhotonVision extends SubsystemBase {
   private double y = 0.0;
   private double dist = 0.0;
   public final Supplier<List<Pair<PhotonModule, PhotonPipelineResult>>> resultPairs =
-      () -> PhotonModuleListKt.getDecentResultPairs(cameras);
+      () -> ExtensionsKt.getDecentResultPairs(cameras);
 
   // Singleton instance
   private static final PhotonVision INSTANCE = new PhotonVision();
@@ -84,11 +84,11 @@ public class PhotonVision extends SubsystemBase {
         y = bestTarget.getBestCameraToTarget().getX();
         dist = bestTarget.getBestCameraToTarget().getZ();
 
-        logs(log -> {
-          log.invoke("yaw to target", yaw);
-          log.invoke("_targets", hasTargets(resultPairs.get()));
-          return null;
-        });
+        logs(
+            () -> {
+              log("yaw to target", yaw);
+              log("_targets", hasTargets(resultPairs.get()));
+            });
       }
     }
   }

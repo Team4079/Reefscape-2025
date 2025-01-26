@@ -87,6 +87,22 @@ object Register {
      * values, retrieve double values, create pairs, and perform test logging.
      */
     object Dash {
+        private val capturedLogs = mutableListOf<Log>()
+
+        /**
+         * Logs a key-value pair.
+         *
+         * @param string The key associated with the value to log.
+         * @param value The value to log.
+         */
+        @JvmStatic
+        fun log(
+            string: String,
+            value: Any,
+        ) {
+            capturedLogs.add(Log(string, value))
+        }
+
         /**
          * Logs multiple values within the provided block context.
          *
@@ -97,15 +113,10 @@ object Register {
          * @param block The block of code within which logs will be captured.
          */
         @JvmStatic
-        fun logs(block: Logger.() -> Unit) {
-            val capturedLogs = mutableListOf<Log>()
+        fun logs(block: Runnable) {
+            capturedLogs.clear()
 
-            val context =
-                Logger { s, v ->
-                    Log(s, v).also { capturedLogs.add(it) }
-                }
-
-            context.block()
+            block.run()
 
             logs(*capturedLogs.toTypedArray())
         }
@@ -128,23 +139,6 @@ object Register {
                     else -> println("Unsupported log type for key $key")
                 }
             }
-        }
-
-        /**
-         * Functional interface for creating log pairs.
-         */
-        fun interface Logger {
-            /**
-             * Creates a [Log] from a string and a value.
-             *
-             * @param string The key associated with the value to log.
-             * @param value The value to be logged.
-             * @return A [Log] consisting of the key and the value.
-             */
-            operator fun invoke(
-                string: String,
-                value: Any,
-            ): Log
         }
 
         /**

@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-// import static frc.robot.utils.Dash.log;
 import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
@@ -25,8 +24,8 @@ public class Elevator extends SubsystemBase {
   private final TalonFX elevatorMotorLeft;
   private final TalonFX elevatorMotorRight;
 
-  private final PositionTorqueCurrentFOC pos_request;
-  private final VelocityTorqueCurrentFOC vel_voltage;
+  private final PositionTorqueCurrentFOC posRequest;
+  private final VelocityTorqueCurrentFOC velocityRequest;
 
   private final SoftwareLimitSwitchConfigs leftSoftLimitConfig;
   private final SoftwareLimitSwitchConfigs rightSoftLimitConfig;
@@ -34,9 +33,6 @@ public class Elevator extends SubsystemBase {
   private final VoltageOut voltageOut;
 
   private ElevatorState currentState = frc.robot.utils.ElevatorState.L1;
-
-  private Alert elevatorLeftDisconnectedAlert;
-  private Alert elevatorRightDisconnectedAlert;
 
   /**
    * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
@@ -142,10 +138,8 @@ public class Elevator extends SubsystemBase {
     elevatorMotorLeft.getConfigurator().apply(leftSoftLimitConfig);
     elevatorMotorRight.getConfigurator().apply(rightSoftLimitConfig);
 
-    // absoluteEncoder = new DigitalInput(9);
-
-    vel_voltage = new VelocityTorqueCurrentFOC(0);
-    pos_request = new PositionTorqueCurrentFOC(0);
+    velocityRequest = new VelocityTorqueCurrentFOC(0);
+    posRequest = new PositionTorqueCurrentFOC(0);
     voltageOut = new VoltageOut(0);
 
     new PositionDutyCycle(0);
@@ -160,14 +154,12 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     logs(
-        log -> {
-          log.invoke("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
-          log.invoke(
-              "Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
-          log.invoke("Elevator Left Set Speed", elevatorMotorLeft.get());
-          log.invoke("Elevator Right Set Speed", elevatorMotorRight.get());
-          log.invoke(ELEVATOR_STATE_KEY, currentState.toString());
-          return null;
+        () -> {
+          log("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
+          log("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
+          log("Elevator Left Set Speed", elevatorMotorLeft.get());
+          log("Elevator Right Set Speed", elevatorMotorRight.get());
+          log(ELEVATOR_STATE_KEY, currentState.toString());
         });
   }
 
@@ -205,8 +197,8 @@ public class Elevator extends SubsystemBase {
    * @param right Right motor position
    */
   public void setElevatorPosition(double left, double right) {
-    elevatorMotorLeft.setControl(pos_request.withPosition(left));
-    elevatorMotorRight.setControl(pos_request.withPosition(right));
+    elevatorMotorLeft.setControl(posRequest.withPosition(left));
+    elevatorMotorRight.setControl(posRequest.withPosition(right));
   }
 
   /** Sets the elevator state */
@@ -297,8 +289,8 @@ public class Elevator extends SubsystemBase {
   public void moveElevator(double velocity) {
     final double deadband = 0.001;
     if (Math.abs(velocity) >= deadband) {
-      elevatorMotorLeft.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
-      elevatorMotorRight.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
+      elevatorMotorLeft.setControl(velocityRequest.withVelocity(velocity * 500 * 0.75));
+      elevatorMotorRight.setControl(velocityRequest.withVelocity(velocity * 500 * 0.75));
 
     } else {
       stopMotors();
@@ -311,28 +303,27 @@ public class Elevator extends SubsystemBase {
    * @param pos double, the position to set the elevator motor to
    */
   public void setElevatorPosition(double pos) {
-    elevatorMotorLeft.setControl(pos_request.withVelocity(pos));
-    elevatorMotorRight.setControl(pos_request.withVelocity(pos));
+    elevatorMotorLeft.setControl(posRequest.withVelocity(pos));
+    elevatorMotorRight.setControl(posRequest.withVelocity(pos));
   }
 
   public void initializeAlarms() {
-    elevatorLeftDisconnectedAlert =
+    Alert elevatorLeftDisconnectedAlert =
         new Alert("Disconnected left elevator motor " + ELEVATOR_MOTOR_LEFT_ID, kError);
-    elevatorRightDisconnectedAlert =
+    Alert elevatorRightDisconnectedAlert =
         new Alert("Disconnected right elevator motor " + ELEVATOR_MOTOR_RIGHT_ID, kError);
 
     elevatorLeftDisconnectedAlert.set(!elevatorMotorLeft.isConnected());
     elevatorRightDisconnectedAlert.set(!elevatorMotorRight.isConnected());
 
     logs(
-        log -> {
-          log.invoke(
+        () -> {
+          log(
               "Disconnected elevatorMotorLeft" + elevatorMotorLeft.getDeviceID(),
               elevatorMotorLeft.isConnected());
-          log.invoke(
+          log(
               "Disconnected elevatorMotorRight" + elevatorMotorRight.getDeviceID(),
               elevatorMotorRight.isConnected());
-          return null;
         });
   }
 }
