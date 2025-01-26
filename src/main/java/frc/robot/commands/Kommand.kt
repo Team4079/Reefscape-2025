@@ -131,8 +131,15 @@ object Kommand {
     @JvmStatic
     fun waitCmd(seconds: Double) = WaitCommand(seconds)
 
+    /**
+     * Creates a pathfinding command to move to a specified pose.
+     *
+     * @param targetPose The target pose to move to.
+     * @param endVelocity The end velocity for the pathfinding. Defaults to 0.0.
+     * @return A command that performs the pathfinding operation.
+     */
     @JvmStatic
-    fun createPathfindingCmd(targetPose: Pose2d, endVelocity: Double): Command {
+    fun createPathfindingCmd(targetPose: Pose2d, endVelocity: Double = 0.0): Command {
         return AutoBuilder.pathfindToPose(
             targetPose,
             PATH_CONSTRAINTS,
