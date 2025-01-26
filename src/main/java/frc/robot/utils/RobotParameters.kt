@@ -13,6 +13,9 @@ import edu.wpi.first.math.geometry.Translation2d
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.numbers.N1
 import edu.wpi.first.math.numbers.N3
+import frc.robot.utils.Register.Dash.log
+import frc.robot.utils.Register.Dash.logMeta
+import frc.robot.utils.Register.Dash.logs
 
 /** Class containing global values for the robot.  */
 object RobotParameters {
@@ -135,7 +138,6 @@ object RobotParameters {
             @JvmField
             val STEER_MOTOR_INVERTED: InvertedValue = InvertedValue.Clockwise_Positive
             const val JOYSTICK_DEADBAND: Double = 0.05
-            const val USING_VISION: Boolean = false
             const val AUTO_ALIGN: Boolean = false
             const val MOTOR_DEADBAND: Double = 0.05
             const val IS_FIELD_ORIENTED: Boolean = true
@@ -222,5 +224,22 @@ object RobotParameters {
 
         @JvmField
         var hasPiece: Boolean = false
+    }
+
+    /** Yes I know Om you are gonna rename it */
+    object MiscellaneousInfo {
+        const val ROBOT_NAME: String = "Fridgebot Pro Max"
+        const val TEAM_NUMBER: String = "4079"
+        const val TEAM_NAME: String = "Quantum Leap"
+        const val COMPETITION: String = "Build Season"
+
+        init {
+            logs {
+                logMeta("Robot Name", ROBOT_NAME)
+                logMeta("Team Number", TEAM_NUMBER)
+                logMeta("Team Name", TEAM_NAME)
+                logMeta("Competition", COMPETITION)
+            }
+        }
     }
 }

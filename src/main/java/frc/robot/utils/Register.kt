@@ -6,6 +6,7 @@ import edu.wpi.first.util.struct.StructSerializable
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.button.JoystickButton
 import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.TEST_MODE
+import java.util.logging.Logger
 
 /**
  * Type alias for a pair consisting of a command name and a command.
@@ -227,7 +228,7 @@ object Register {
         }
 
         /**
-         * Logs a SwerveModuleState value with a specified key if the system is in test mode.
+         * Logs a StructSerializable value with a specified key if the system is in test mode.
          *
          * @param key The key associated with the value to log.
          * @param value The SwerveModuleState value to log.
@@ -240,6 +241,23 @@ object Register {
             if (TEST_MODE) {
                 org.littletonrobotics.junction.Logger
                     .recordOutput(key, *value)
+            }
+        }
+
+        /**
+         * Logs a SwerveModuleState value with a specified key if the system is in test mode.
+         *
+         * @param key The key associated with the value to log.
+         * @param value The SwerveModuleState value to log.
+         */
+        @JvmStatic
+        fun logMeta(
+            key: String?,
+            value: String?,
+        ) {
+            if (TEST_MODE) {
+                org.littletonrobotics.junction.Logger
+                    .recordMetadata(key, value)
             }
         }
     }
