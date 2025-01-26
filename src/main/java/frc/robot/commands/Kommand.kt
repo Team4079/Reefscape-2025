@@ -1,7 +1,10 @@
 package frc.robot.commands
 
+import com.pathplanner.lib.auto.AutoBuilder
 import com.pathplanner.lib.commands.PathPlannerAuto
+import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.wpilibj.XboxController
+import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.InstantCommand
 import edu.wpi.first.wpilibj2.command.WaitCommand
 import frc.robot.commands.sequencing.AutomaticScore
@@ -12,6 +15,7 @@ import frc.robot.utils.Direction
 import frc.robot.utils.ElevatorState
 import frc.robot.utils.ElevatorState.L4
 import frc.robot.utils.RobotParameters.SwerveParameters
+import frc.robot.utils.RobotParameters.SwerveParameters.PIDParameters.PATH_CONSTRAINTS
 
 /**
  * The [Kommand] object provides factory methods to create various commands
@@ -126,4 +130,13 @@ object Kommand {
      */
     @JvmStatic
     fun waitCmd(seconds: Double) = WaitCommand(seconds)
+
+    @JvmStatic
+    fun createPathfindingCmd(targetPose: Pose2d, endVelocity: Double): Command {
+        return AutoBuilder.pathfindToPose(
+            targetPose,
+            PATH_CONSTRAINTS,
+            endVelocity, // Goal end velocity in meters/sec
+        )
+    }
 }

@@ -131,4 +131,19 @@ public class PhotonVision extends SubsystemBase {
   public double getY() {
     return y;
   }
+
+  /**
+   * Logs the standard deviation of the camera's estimated pose.
+   *
+   * <p>This method is useful for debugging and understanding the accuracy of the camera's pose
+   * estimation.
+   */
+  public void logStdDev() {
+    for (PhotonModule camera : cameras) {
+      logs(
+              () -> {
+                log(String.format("Camera [%s]", camera.getCameraName()), camera.getCurrentStdDevs());
+              });
+    }
+  }
 }

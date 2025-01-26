@@ -4,16 +4,19 @@ import com.ctre.phoenix6.signals.InvertedValue
 import com.pathplanner.lib.config.PIDConstants
 import com.pathplanner.lib.config.RobotConfig
 import com.pathplanner.lib.controllers.PPHolonomicDriveController
+import com.pathplanner.lib.path.PathConstraints
 import edu.wpi.first.math.Matrix
 import edu.wpi.first.math.VecBuilder
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.geometry.Pose2d
-import edu.wpi.first.math.geometry.Rotation2d.fromDegrees
+import edu.wpi.first.math.geometry.Rotation2d
+import edu.wpi.first.math.geometry.Rotation2d.*
 import edu.wpi.first.math.geometry.Translation2d
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.numbers.N1
 import edu.wpi.first.math.numbers.N3
-import edu.wpi.first.units.Units
+import edu.wpi.first.math.util.Units.*
+import edu.wpi.first.units.Units.*
 import edu.wpi.first.units.measure.Distance
 import edu.wpi.first.wpilibj.DriverStation
 import frc.robot.utils.Register.Dash.log
@@ -96,13 +99,18 @@ object RobotParameters {
 
             @JvmField
             val DIST_PID: PIDController = PIDController(0.2, 0.0, 0.0)
-            val PASS_ROTATIONAL_PID: PIDController = PIDController(0.1, 0.0, 0.0)
 
             var pathFollower: PPHolonomicDriveController =
                 PPHolonomicDriveController(
                     PIDConstants(5.0, 0.00, 0.0), // translation
                     PIDConstants(5.0, 0.0, 0.0), // rotation
                 )
+
+            @JvmField
+            val PATH_CONSTRAINTS: PathConstraints = PathConstraints(
+                3.0, 4.0,
+                degreesToRadians(540.0), degreesToRadians(720.0)
+            )
 
             @JvmField
             var config: RobotConfig? = null
