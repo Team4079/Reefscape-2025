@@ -13,7 +13,6 @@ import static frc.robot.utils.RobotParameters.MotorParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PhysicalParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
-import static frc.robot.utils.RobotParameters.MiscellaneousInfo.*
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
