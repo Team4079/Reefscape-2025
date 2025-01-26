@@ -15,6 +15,7 @@ $dokka.location:frc.robot.commands/Kommand///PointingToDeclaration/-reefscape20
 $dokka.location:frc.robot.commands/Kommand/align/#frc.robot.utils.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/align.html
 $dokka.location:frc.robot.commands/Kommand/autonomousCommand/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/autonomous-command.html
 $dokka.location:frc.robot.commands/Kommand/cmd/#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/cmd.html
+$dokka.location:frc.robot.commands/Kommand/createPathfindingCmd/#edu.wpi.first.math.geometry.Pose2d#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/create-pathfinding-cmd.html
 $dokka.location:frc.robot.commands/Kommand/drive/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/drive.html
 $dokka.location:frc.robot.commands/Kommand/moveElevatorToLevel/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/move-elevator-to-level.html
 $dokka.location:frc.robot.commands/Kommand/resetPidgey/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/reset-pidgey.html
@@ -99,6 +100,7 @@ $dokka.location:frc.robot.subsystems/PhotonVision/getInstance/#/PointingToDeclar
 $dokka.location:frc.robot.subsystems/PhotonVision/getY/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-y.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getYaw/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-yaw.html
 $dokka.location:frc.robot.subsystems/PhotonVision/hasTag/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/has-tag.html
+$dokka.location:frc.robot.subsystems/PhotonVision/logStdDev/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/log-std-dev.html
 $dokka.location:frc.robot.subsystems/PhotonVision/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/periodic.html
 $dokka.location:frc.robot.subsystems/Swerve///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/index.html
 $dokka.location:frc.robot.subsystems/Swerve/chassisSpeedsDrive/#edu.wpi.first.math.kinematics.ChassisSpeeds/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/chassis-speeds-drive.html
@@ -171,6 +173,13 @@ $dokka.location:frc.robot.utils/ExtensionsKt/getEstimatedPose/kotlin.Pair[frc.ro
 $dokka.location:frc.robot.utils/ExtensionsKt/hasMultiTag/kotlin.collections.List[kotlin.Pair[frc.robot.subsystems.PhotonModule,org.photonvision.targeting.PhotonPipelineResult]]#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions-kt/has-multi-tag.html
 $dokka.location:frc.robot.utils/ExtensionsKt/hasTargets/kotlin.collections.List[kotlin.Pair[frc.robot.subsystems.PhotonModule,org.photonvision.targeting.PhotonPipelineResult]]#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions-kt/has-targets.html
 $dokka.location:frc.robot.utils/ExtensionsKt/updateStdDev/kotlin.Pair[frc.robot.subsystems.PhotonModule,org.photonvision.targeting.PhotonPipelineResult]#java.util.Optional[org.photonvision.EstimatedRobotPose]/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions-kt/update-std-dev.html
+$dokka.location:frc.robot.utils/LocalADStarAK///PointingToDeclaration/-reefscape2025/frc.robot.utils/-local-a-d-star-a-k/index.html
+$dokka.location:frc.robot.utils/LocalADStarAK/LocalADStarAK/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-local-a-d-star-a-k/-local-a-d-star-a-k.html
+$dokka.location:frc.robot.utils/LocalADStarAK/getCurrentPath/#com.pathplanner.lib.path.PathConstraints#com.pathplanner.lib.path.GoalEndState/PointingToDeclaration/-reefscape2025/frc.robot.utils/-local-a-d-star-a-k/get-current-path.html
+$dokka.location:frc.robot.utils/LocalADStarAK/isNewPathAvailable/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-local-a-d-star-a-k/is-new-path-available.html
+$dokka.location:frc.robot.utils/LocalADStarAK/setDynamicObstacles/#java.util.List<edu.wpi.first.math.Pair<edu.wpi.first.math.geometry.Translation2d,edu.wpi.first.math.geometry.Translation2d>>#edu.wpi.first.math.geometry.Translation2d/PointingToDeclaration/-reefscape2025/frc.robot.utils/-local-a-d-star-a-k/set-dynamic-obstacles.html
+$dokka.location:frc.robot.utils/LocalADStarAK/setGoalPosition/#edu.wpi.first.math.geometry.Translation2d/PointingToDeclaration/-reefscape2025/frc.robot.utils/-local-a-d-star-a-k/set-goal-position.html
+$dokka.location:frc.robot.utils/LocalADStarAK/setStartPosition/#edu.wpi.first.math.geometry.Translation2d/PointingToDeclaration/-reefscape2025/frc.robot.utils/-local-a-d-star-a-k/set-start-position.html
 $dokka.location:frc.robot.utils/PIDVController///PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d-v-controller/index.html
 $dokka.location:frc.robot.utils/PIDVController/PIDVController/#double#double#double#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d-v-controller/-p-i-d-v-controller.html
 $dokka.location:frc.robot.utils/PIDVController/PIDVController/#edu.wpi.first.math.controller.PIDController#double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-p-i-d-v-controller/-p-i-d-v-controller.html
@@ -210,7 +219,6 @@ $dokka.location:frc.robot.utils/RobotParameters.MiscellaneousInfo///PointingToDe
 $dokka.location:frc.robot.utils/RobotParameters.MotorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-motor-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.PhotonVisionConstants///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-photon-vision-constants/index.html
 $dokka.location:frc.robot.utils/RobotParameters.SwerveParameters.PIDParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-swerve-parameters/-p-i-d-parameters/index.html
-$dokka.location:frc.robot.utils/RobotParameters.SwerveParameters.PIDParameters/getPASS_ROTATIONAL_PID/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-swerve-parameters/-p-i-d-parameters/get-p-a-s-s_-r-o-t-a-t-i-o-n-a-l_-p-i-d.html
 $dokka.location:frc.robot.utils/RobotParameters.SwerveParameters.PIDParameters/getPathFollower/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-swerve-parameters/-p-i-d-parameters/get-path-follower.html
 $dokka.location:frc.robot.utils/RobotParameters.SwerveParameters.PIDParameters/setPathFollower/#com.pathplanner.lib.controllers.PPHolonomicDriveController/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-swerve-parameters/-p-i-d-parameters/set-path-follower.html
 $dokka.location:frc.robot.utils/RobotParameters.SwerveParameters.PhysicalParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-swerve-parameters/-physical-parameters/index.html
