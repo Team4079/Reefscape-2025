@@ -8,14 +8,19 @@ import edu.wpi.first.math.Matrix
 import edu.wpi.first.math.VecBuilder
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.geometry.Pose2d
-import edu.wpi.first.math.geometry.Rotation2d
+import edu.wpi.first.math.geometry.Rotation2d.fromDegrees
 import edu.wpi.first.math.geometry.Translation2d
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.numbers.N1
 import edu.wpi.first.math.numbers.N3
+import edu.wpi.first.units.Units
+import edu.wpi.first.units.measure.Distance
+import edu.wpi.first.wpilibj.DriverStation
 import frc.robot.utils.Register.Dash.log
 import frc.robot.utils.Register.Dash.logMeta
 import frc.robot.utils.Register.Dash.logs
+import edu.wpi.first.wpilibj.DriverStation.Alliance
+import java.util.*
 
 /** Class containing global values for the robot.  */
 object RobotParameters {
@@ -224,6 +229,82 @@ object RobotParameters {
 
         @JvmField
         var hasPiece: Boolean = false
+    }
+
+    object ConstField {
+        var alliance: Optional<Alliance>? = DriverStation.getAlliance()
+        val FIELD_LENGTH_METERS = 17.3744 // 57 feet + 6 7/8 inches
+        val FIELD_WIDTH_METERS = 8.2296   // 26 feet + 5 inches
+
+        val FIELD_LENGTH: Distance = Units.Feet.of(57.0).plus(Units.Inches.of(6.0 + 7.0 / 8.0))
+        val FIELD_WIDTH: Distance = Units.Feet.of(26.0).plus(Units.Inches.of(5.0))
+
+        /**
+         * All poses on the field, defined by their location on the BLUE Alliance.
+         */
+        object Poses {
+
+            // Blue Alliance Reef Poses (THESE VALUES ARE PROBABLY WRONG)
+            private val REEF_A_BLUE = Pose2d(2.860, 4.187, fromDegrees(0.0))
+            private val REEF_B_BLUE = Pose2d(2.860, 3.857, fromDegrees(0.0))
+            private val REEF_C_BLUE = Pose2d(3.527, 2.694, fromDegrees(60.0))
+            private val REEF_D_BLUE = Pose2d(3.813, 2.535, fromDegrees(60.0))
+            private val REEF_E_BLUE = Pose2d(5.160, 2.529, fromDegrees(120.0))
+            private val REEF_F_BLUE = Pose2d(5.445, 2.694, fromDegrees(120.0))
+            private val REEF_G_BLUE = Pose2d(6.119, 3.857, fromDegrees(180.0))
+            private val REEF_H_BLUE = Pose2d(6.119, 4.187, fromDegrees(180.0))
+            private val REEF_I_BLUE = Pose2d(5.452, 5.343, fromDegrees(-120.0))
+            private val REEF_J_BLUE = Pose2d(5.166, 5.527, fromDegrees(-120.0))
+            private val REEF_K_BLUE = Pose2d(3.826, 5.508, fromDegrees(-60.0))
+            private val REEF_L_BLUE = Pose2d(3.534, 5.368, fromDegrees(-60.0))
+
+            // Red Alliance Reef Poses
+            private val REEF_A_RED = Pose2d(14.5144, 4.0426, fromDegrees(180.0))
+            private val REEF_B_RED = Pose2d(14.5144, 4.3726, fromDegrees(180.0))
+            private val REEF_C_RED = Pose2d(13.8474, 5.5356, fromDegrees(240.0))
+            private val REEF_D_RED = Pose2d(13.5614, 5.6946, fromDegrees(240.0))
+            private val REEF_E_RED = Pose2d(12.2144, 5.7006, fromDegrees(300.0))
+            private val REEF_F_RED = Pose2d(11.9294, 5.5356, fromDegrees(300.0))
+            private val REEF_G_RED = Pose2d(11.2554, 4.3726, fromDegrees(0.0))
+            private val REEF_H_RED = Pose2d(11.2554, 4.0426, fromDegrees(0.0))
+            private val REEF_I_RED = Pose2d(11.9224, 2.8866, fromDegrees(60.0))
+            private val REEF_J_RED = Pose2d(12.2084, 2.7026, fromDegrees(60.0))
+            private val REEF_K_RED = Pose2d(13.5484, 2.7206, fromDegrees(120.0))
+            private val REEF_L_RED = Pose2d(13.8404, 2.8606, fromDegrees(120.0))
+
+            val BLUE_REEF_POSES =
+                listOf(
+                    REEF_A_BLUE,
+                    REEF_B_BLUE,
+                    REEF_C_BLUE,
+                    REEF_D_BLUE,
+                    REEF_E_BLUE,
+                    REEF_F_BLUE,
+                    REEF_G_BLUE,
+                    REEF_H_BLUE,
+                    REEF_I_BLUE,
+                    REEF_J_BLUE,
+                    REEF_K_BLUE,
+                    REEF_L_BLUE
+                )
+
+            val RED_REEF_POSES =
+                listOf(
+                    REEF_A_RED,
+                    REEF_B_RED,
+                    REEF_C_RED,
+                    REEF_D_RED,
+                    REEF_E_RED,
+                    REEF_F_RED,
+                    REEF_G_RED,
+                    REEF_H_RED,
+                    REEF_I_RED,
+                    REEF_J_RED,
+                    REEF_K_RED,
+                    REEF_L_RED
+                )
+
+        }
     }
 
     /** Yes I know Om you are gonna rename it */
