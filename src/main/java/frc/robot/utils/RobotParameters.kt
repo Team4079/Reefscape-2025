@@ -10,20 +10,16 @@ import edu.wpi.first.math.VecBuilder
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.math.geometry.Rotation2d
-import edu.wpi.first.math.geometry.Rotation2d.*
+import edu.wpi.first.math.geometry.Rotation2d.fromDegrees
 import edu.wpi.first.math.geometry.Translation2d
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.numbers.N1
 import edu.wpi.first.math.numbers.N3
-import edu.wpi.first.math.util.Units.*
-import edu.wpi.first.units.Units.*
+import edu.wpi.first.math.util.Units.degreesToRadians
+import edu.wpi.first.units.Units.Feet
+import edu.wpi.first.units.Units.Inches
 import edu.wpi.first.units.measure.Distance
-import edu.wpi.first.wpilibj.DriverStation
-import frc.robot.utils.Register.Dash.log
-import frc.robot.utils.Register.Dash.logMeta
-import frc.robot.utils.Register.Dash.logs
-import edu.wpi.first.wpilibj.DriverStation.Alliance
-import java.util.*
+import frc.robot.utils.Register.Dash.metaLogs
 
 /** Class containing global values for the robot.  */
 object RobotParameters {
@@ -80,10 +76,8 @@ object RobotParameters {
             @JvmField
             val STEER_PID_TELE: PIDVController = PIDVController(750.0, 5.000, 15.0, 0.0)
 
-            // val STEER_PID_AUTO: PIDVController = PIDVController(200.0, 0.000, 20.0, 0.0)
             @JvmField
             val STEER_PID_AUTO: PIDVController = PIDVController(750.0, 5.000, 15.0, 0.0)
-            // val STEER_PID_AUTO: PIDVController = PIDVController(5.0, 0.000, 0.0, 1.0)
 
             @JvmField
             val DRIVE_PID_AUTO: PIDVController = PIDVController(5.0, 0.0, 0.0, 0.4)
@@ -107,10 +101,13 @@ object RobotParameters {
                 )
 
             @JvmField
-            val PATH_CONSTRAINTS: PathConstraints = PathConstraints(
-                3.0, 4.0,
-                degreesToRadians(540.0), degreesToRadians(720.0)
-            )
+            val PATH_CONSTRAINTS: PathConstraints =
+                PathConstraints(
+                    3.0,
+                    4.0,
+                    degreesToRadians(540.0),
+                    degreesToRadians(720.0),
+                )
 
             @JvmField
             var config: RobotConfig? = null
@@ -240,18 +237,16 @@ object RobotParameters {
     }
 
     object ConstField {
-        var alliance: Optional<Alliance>? = DriverStation.getAlliance()
         val FIELD_LENGTH_METERS = 17.3744 // 57 feet + 6 7/8 inches
-        val FIELD_WIDTH_METERS = 8.2296   // 26 feet + 5 inches
+        val FIELD_WIDTH_METERS = 8.2296 // 26 feet + 5 inches
 
-        val FIELD_LENGTH: Distance = Units.Feet.of(57.0).plus(Units.Inches.of(6.0 + 7.0 / 8.0))
-        val FIELD_WIDTH: Distance = Units.Feet.of(26.0).plus(Units.Inches.of(5.0))
+        val FIELD_LENGTH: Distance = Feet.of(57.0).plus(Inches.of(6.0 + 7.0 / 8.0))
+        val FIELD_WIDTH: Distance = Feet.of(26.0).plus(Inches.of(5.0))
 
         /**
          * All poses on the field, defined by their location on the BLUE Alliance.
          */
         object Poses {
-
             // Blue Alliance Reef Poses (THESE VALUES ARE PROBABLY WRONG)
             private val REEF_A_BLUE = Pose2d(2.860, 4.187, fromDegrees(0.0))
             private val REEF_B_BLUE = Pose2d(2.860, 3.857, fromDegrees(0.0))
@@ -293,7 +288,7 @@ object RobotParameters {
                     REEF_I_BLUE,
                     REEF_J_BLUE,
                     REEF_K_BLUE,
-                    REEF_L_BLUE
+                    REEF_L_BLUE,
                 )
 
             val RED_REEF_POSES =
@@ -309,26 +304,24 @@ object RobotParameters {
                     REEF_I_RED,
                     REEF_J_RED,
                     REEF_K_RED,
-                    REEF_L_RED
+                    REEF_L_RED,
                 )
-
         }
     }
 
     /** Yes I know Om you are gonna rename it */
-    object MiscellaneousInfo {
+    object Info {
         const val ROBOT_NAME: String = "Fridgebot Pro Max"
         const val TEAM_NUMBER: String = "4079"
         const val TEAM_NAME: String = "Quantum Leap"
         const val COMPETITION: String = "Build Season"
 
-        init {
-            logs {
-                logMeta("Robot Name", ROBOT_NAME)
-                logMeta("Team Number", TEAM_NUMBER)
-                logMeta("Team Name", TEAM_NAME)
-                logMeta("Competition", COMPETITION)
-            }
+        @JvmStatic
+        fun logInfo() {
+            metaLogs("Robot Name", ROBOT_NAME)
+            metaLogs("Team Number", TEAM_NUMBER)
+            metaLogs("Team Name", TEAM_NAME)
+            metaLogs("Competition", COMPETITION)
         }
     }
 }

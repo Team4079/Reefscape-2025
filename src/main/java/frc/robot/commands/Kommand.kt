@@ -139,11 +139,14 @@ object Kommand {
      * @return A command that performs the pathfinding operation.
      */
     @JvmStatic
-    fun createPathfindingCmd(targetPose: Pose2d, endVelocity: Double = 0.0): Command {
-        return AutoBuilder.pathfindToPose(
+    @JvmOverloads
+    fun createPathfindingCmd(
+        targetPose: Pose2d,
+        endVelocity: Double = 0.0,
+    ): Command =
+        AutoBuilder.pathfindToPose(
             targetPose,
             PATH_CONSTRAINTS,
             endVelocity, // Goal end velocity in meters/sec
         )
-    }
 }

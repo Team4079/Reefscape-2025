@@ -31,10 +31,9 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.RobotParameters.MiscellaneousInfo;
-import org.photonvision.*;
-
+import frc.robot.utils.RobotParameters.Info;
 import java.util.Optional;
+import org.photonvision.*;
 
 public class Swerve extends SubsystemBase {
   private final SwerveDrivePoseEstimator poseEstimator;
@@ -118,7 +117,7 @@ public class Swerve extends SubsystemBase {
       throw new RobotConfigException("Failed to load robot config", e);
     }
 
-    MiscellaneousInfo.INSTANCE.toString();
+    Info.logInfo();
   }
 
   /**

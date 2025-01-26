@@ -4,7 +4,7 @@ import edu.wpi.first.math.geometry.Pose2d
 import frc.robot.subsystems.PhotonModule
 import org.photonvision.EstimatedRobotPose
 import org.photonvision.targeting.PhotonPipelineResult
-import java.util.*
+import java.util.Optional
 
 /**
  * Extension function for a list of PhotonModule objects to get the best PhotonPipelineResult.
@@ -72,6 +72,5 @@ fun Pair<PhotonModule, PhotonPipelineResult>.getEstimatedPose(prevEstimatedRobot
  * @receiver Pair<PhotonModule, PhotonPipelineResult> The pair of PhotonModule and PhotonPipelineResult.
  * @param estimatedRobotPose Optional<EstimatedRobotPose> The estimated robot pose to use for updating the standard deviations.
  */
-fun Pair<PhotonModule, PhotonPipelineResult>.updateStdDev(estimatedRobotPose: Optional<EstimatedRobotPose>){
+fun Pair<PhotonModule, PhotonPipelineResult>.updateStdDev(estimatedRobotPose: Optional<EstimatedRobotPose>) =
     first.updateEstimatedStdDevs(estimatedRobotPose, second.getTargets())
-}

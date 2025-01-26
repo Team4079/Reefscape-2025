@@ -89,6 +89,7 @@ public class PhotonVision extends SubsystemBase {
               log("yaw to target", yaw);
               log("_targets", hasTargets(resultPairs.get()));
             });
+        logStdDev();
       }
     }
   }
@@ -139,11 +140,8 @@ public class PhotonVision extends SubsystemBase {
    * estimation.
    */
   public void logStdDev() {
-    for (PhotonModule camera : cameras) {
-      logs(
-              () -> {
-                log(String.format("Camera [%s]", camera.getCameraName()), camera.getCurrentStdDevs());
-              });
-    }
+    cameras.forEach(
+        camera ->
+            logs("Camera [%s]".formatted(camera.getCameraName()), camera.getCurrentStdDevs()));
   }
 }

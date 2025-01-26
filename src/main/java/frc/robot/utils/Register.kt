@@ -6,7 +6,7 @@ import edu.wpi.first.util.struct.StructSerializable
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.button.JoystickButton
 import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.TEST_MODE
-import java.util.logging.Logger
+import org.littletonrobotics.junction.Logger
 
 /**
  * Type alias for a pair consisting of a command name and a command.
@@ -154,7 +154,7 @@ object Register {
             value: Double,
         ) {
             if (TEST_MODE) {
-                org.littletonrobotics.junction.Logger
+                Logger
                     .recordOutput(key, value)
             }
         }
@@ -171,7 +171,7 @@ object Register {
             value: Int,
         ) {
             if (TEST_MODE) {
-                org.littletonrobotics.junction.Logger
+                Logger
                     .recordOutput(key, value)
             }
         }
@@ -188,7 +188,7 @@ object Register {
             value: Boolean,
         ) {
             if (TEST_MODE) {
-                org.littletonrobotics.junction.Logger
+                Logger
                     .recordOutput(key, value)
             }
         }
@@ -205,7 +205,7 @@ object Register {
             value: String?,
         ) {
             if (TEST_MODE) {
-                org.littletonrobotics.junction.Logger
+                Logger
                     .recordOutput(key, value)
             }
         }
@@ -222,8 +222,7 @@ object Register {
             value: T,
         ) {
             if (TEST_MODE) {
-                org.littletonrobotics.junction.Logger
-                    .recordOutput(key, value)
+                Logger.recordOutput(key, value)
             }
         }
 
@@ -239,8 +238,7 @@ object Register {
             vararg value: T,
         ) {
             if (TEST_MODE) {
-                org.littletonrobotics.junction.Logger
-                    .recordOutput(key, *value)
+                Logger.recordOutput(key, *value)
             }
         }
 
@@ -251,13 +249,12 @@ object Register {
          * @param value The SwerveModuleState value to log.
          */
         @JvmStatic
-        fun logMeta(
+        fun metaLogs(
             key: String?,
             value: String?,
         ) {
             if (TEST_MODE) {
-                org.littletonrobotics.junction.Logger
-                    .recordMetadata(key, value)
+                Logger.recordMetadata(key, value)
             }
         }
     }
