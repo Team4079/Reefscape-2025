@@ -62,7 +62,7 @@ public class Swerve extends SubsystemBase {
       new Thread(
           () -> {
             while (true) {
-              logs("Set Swerve Module States", setStates);
+              logs("Set Swerve Module States", getSetModuleStates());
               try {
                 Thread.sleep(100);
               } catch (InterruptedException e) {
@@ -365,6 +365,17 @@ public class Swerve extends SubsystemBase {
     for (int i = 0; i < modules.length; i++) {
       moduleStates[i] = modules[i].getState();
     }
+    return moduleStates;
+  }
+
+  /**
+   * Gets the states of the swerve modules.
+   *
+   * @return SwerveModuleState[], The states of the swerve modules.
+   */
+  public SwerveModuleState[] getSetModuleStates() {
+    SwerveModuleState[] moduleStates = new SwerveModuleState[4];
+    System.arraycopy(setStates, 0, moduleStates, 0, setStates.length);
     return moduleStates;
   }
 

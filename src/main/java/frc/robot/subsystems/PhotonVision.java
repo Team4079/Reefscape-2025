@@ -61,9 +61,15 @@ public class PhotonVision extends SubsystemBase {
                 0.0,
                 Math.toRadians(360 - PhotonVisionConstants.CAMERA_ONE_ANGLE_DEG),
                 Math.toRadians(180.0)));
-    cameras.add(new PhotonModule("Camera", camera1Pos, fieldLayout));
-
-    // Add additional cameras here as needed
+    Transform3d camera2Pos =
+        new Transform3d(
+            new Translation3d(0.31, 0.0, PhotonVisionConstants.CAMERA_TWO_HEIGHT_METER),
+            new Rotation3d(
+                0.0,
+                Math.toRadians(360 - PhotonVisionConstants.CAMERA_TWO_ANGLE_DEG),
+                Math.toRadians(180.0)));
+    cameras.add(new PhotonModule("Camera1", camera1Pos, fieldLayout));
+    cameras.add(new PhotonModule("Camera2", camera2Pos, fieldLayout));
   }
 
   /**
@@ -72,14 +78,15 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    logs("decent result pairs exist", resultPairs.get() != null);
+    List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair = resultPairs.get();
+    logs("decent result pairs exist", currentResultPair != null);
 
-    if (resultPairs.get() != null) {
-      logs("best target list is empty", resultPairs.get().isEmpty());
+    if (currentResultPair != null) {
+      logs("best target list is empty", currentResultPair.isEmpty());
 
       // REMEMBER: MOVEMENT IS BOUND TO A! DON'T FORGET NERD
-      if (!resultPairs.get().isEmpty()) {
-        PhotonTrackedTarget bestTarget = resultPairs.get().get(0).getSecond().getBestTarget();
+      if (!currentResultPair.isEmpty()) {
+        PhotonTrackedTarget bestTarget = currentResultPair.get(0).getSecond().getBestTarget();
         yaw = bestTarget.getYaw();
         y = bestTarget.getBestCameraToTarget().getX();
         dist = bestTarget.getBestCameraToTarget().getZ();
@@ -87,7 +94,7 @@ public class PhotonVision extends SubsystemBase {
         logs(
             () -> {
               log("yaw to target", yaw);
-              log("_targets", hasTargets(resultPairs.get()));
+              log("_targets", hasTargets(currentResultPair));
             });
         logStdDev();
       }
@@ -142,6 +149,6 @@ public class PhotonVision extends SubsystemBase {
   public void logStdDev() {
     cameras.forEach(
         camera ->
-            logs("Camera [%s]".formatted(camera.getCameraName()), camera.getCurrentStdDevs()));
+            logs("Camera [%s] Std Dev".formatted(camera.getCameraName()), camera.getCurrentStdDevs()));
   }
 }
