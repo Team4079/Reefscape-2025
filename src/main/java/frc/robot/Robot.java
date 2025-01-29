@@ -4,6 +4,7 @@ import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.utils.LocalADStarAK;
@@ -24,6 +25,8 @@ import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 public class Robot extends LoggedRobot {
   private Command autonomousCommand;
   private RobotContainer robotContainer;
+
+  private Timer garbageTimer;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -53,6 +56,7 @@ public class Robot extends LoggedRobot {
 
     Logger.start();
     PathfindingCommand.warmupCommand().schedule();
+    garbageTimer = new Timer();
     robotContainer = new RobotContainer();
   }
 
@@ -66,6 +70,9 @@ public class Robot extends LoggedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+    if (garbageTimer.advanceIfElapsed(5)) {
+        System.gc();
+    }
   }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
