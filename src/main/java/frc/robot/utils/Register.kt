@@ -88,6 +88,40 @@ object Register {
      * values, retrieve double values, create pairs, and perform test logging.
      */
     object Dash {
+        private val capturedLogs = mutableListOf<Log>()
+
+        /**
+         * Logs a key-value pair.
+         *
+         * @param string The key associated with the value to log.
+         * @param value The value to log.
+         */
+        @JvmStatic
+        fun log(
+            string: String,
+            value: Any,
+        ) {
+            capturedLogs.add(Log(string, value))
+        }
+
+        /**
+         * Logs multiple values within the provided block context.
+         *
+         * This function captures logs generated within the block and logs them all at once
+         * after the block has been executed. It uses a custom `LogContext` to temporarily
+         * override the log method to capture logs instead of immediately logging them.
+         *
+         * @param block The block of code within which logs will be captured.
+         */
+        @JvmStatic
+        fun logs(block: Runnable) {
+            capturedLogs.clear()
+
+            block.run()
+
+            logs(*capturedLogs.toTypedArray())
+        }
+
         /**
          * Logs multiple values with their respective keys based on the type of each value.
          *
@@ -109,19 +143,6 @@ object Register {
         }
 
         /**
-         * Creates a [Log] from a string and a value.
-         *
-         * @param string The key associated with the value to log.
-         * @param value The value to be logged.
-         * @return A [Log] consisting of the key and the value.
-         */
-        @JvmStatic
-        fun log(
-            string: String,
-            value: Any,
-        ) = Log(string, value)
-
-        /**
          * Logs a double value with a specified key if the system is in test mode.
          *
          * @param key The key associated with the value to log.
@@ -133,7 +154,8 @@ object Register {
             value: Double,
         ) {
             if (TEST_MODE) {
-                Logger.recordOutput(key, value)
+                Logger
+                    .recordOutput(key, value)
             }
         }
 
@@ -149,7 +171,8 @@ object Register {
             value: Int,
         ) {
             if (TEST_MODE) {
-                Logger.recordOutput(key, value)
+                Logger
+                    .recordOutput(key, value)
             }
         }
 
@@ -165,7 +188,8 @@ object Register {
             value: Boolean,
         ) {
             if (TEST_MODE) {
-                Logger.recordOutput(key, value)
+                Logger
+                    .recordOutput(key, value)
             }
         }
 
@@ -181,7 +205,8 @@ object Register {
             value: String?,
         ) {
             if (TEST_MODE) {
-                Logger.recordOutput(key, value)
+                Logger
+                    .recordOutput(key, value)
             }
         }
 
@@ -202,7 +227,7 @@ object Register {
         }
 
         /**
-         * Logs a SwerveModuleState value with a specified key if the system is in test mode.
+         * Logs a StructSerializable value with a specified key if the system is in test mode.
          *
          * @param key The key associated with the value to log.
          * @param value The SwerveModuleState value to log.
@@ -214,6 +239,22 @@ object Register {
         ) {
             if (TEST_MODE) {
                 Logger.recordOutput(key, *value)
+            }
+        }
+
+        /**
+         * Logs a SwerveModuleState value with a specified key if the system is in test mode.
+         *
+         * @param key The key associated with the value to log.
+         * @param value The SwerveModuleState value to log.
+         */
+        @JvmStatic
+        fun metaLogs(
+            key: String?,
+            value: String?,
+        ) {
+            if (TEST_MODE) {
+                Logger.recordMetadata(key, value)
             }
         }
     }

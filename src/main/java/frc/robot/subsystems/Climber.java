@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
+import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.Register.Dash.*;
+import static frc.robot.utils.RobotParameters.MotorParameters.*;
 
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
@@ -59,7 +61,7 @@ public class Climber extends SubsystemBase {
    * a Singleton. Code should use the {@link #getInstance()} method to get the singleton instance.
    */
   private Climber() {
-    climberMotor = new TalonFX(MotorParameters.CLIMBER_MOTOR_ID);
+    climberMotor = new TalonFX(CLIMBER_MOTOR_ID);
 
     MotorOutputConfigs pivotOutputConfigs = new MotorOutputConfigs(); // TODO: Never used?
 
@@ -193,14 +195,16 @@ public class Climber extends SubsystemBase {
   // getAbsoluteEncoder();
   // }
 
+  /**
+   * Initializes alarms for the climber motor. This method sets up an alert for a disconnected
+   * climber motor and logs the connection status.
+   */
   public void initializeAlarms() {
     climberMotorDisconnectedAlert =
-        new Alert(
-            "Disconnected pivot motor " + MotorParameters.CLIMBER_MOTOR_ID, Alert.AlertType.kError);
+        new Alert("Disconnected pivot motor " + CLIMBER_MOTOR_ID, kError);
 
     climberMotorDisconnectedAlert.set(!climberMotor.isConnected());
 
-    logs(
-        log("Disconnected climberMotor " + climberMotor.getDeviceID(), climberMotor.isConnected()));
+    logs("Disconnected climberMotor " + climberMotor.getDeviceID(), climberMotor.isConnected());
   }
 }

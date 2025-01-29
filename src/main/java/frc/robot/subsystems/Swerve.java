@@ -1,9 +1,17 @@
 package frc.robot.subsystems;
 
 import static com.pathplanner.lib.path.PathPlannerPath.fromPathFile;
-import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.*;
+import static com.pathplanner.lib.util.PathPlannerLogging.*;
+import static edu.wpi.first.math.VecBuilder.*;
+import static edu.wpi.first.math.geometry.Rotation2d.*;
+import static edu.wpi.first.math.kinematics.ChassisSpeeds.*;
+import static edu.wpi.first.math.kinematics.SwerveDriveKinematics.*;
+import static edu.wpi.first.math.util.Units.*;
+import static frc.robot.utils.ExtensionsKt.*;
 import static frc.robot.utils.Register.Dash.*;
-import static frc.robot.utils.RobotParameters.SwerveParameters.PIDParameters.*;
+import static frc.robot.utils.RobotParameters.MotorParameters.*;
+import static frc.robot.utils.RobotParameters.SwerveParameters.*;
+import static frc.robot.utils.RobotParameters.SwerveParameters.PhysicalParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
@@ -12,43 +20,35 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
-import com.pathplanner.lib.util.PathPlannerLogging;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.*;
-import frc.robot.utils.RobotParameters.*;
-import frc.robot.utils.RobotParameters.SwerveParameters.*;
+import frc.robot.utils.RobotParameters.Info;
 import java.util.Optional;
-import java.util.concurrent.*;
 import org.photonvision.*;
 
 public class Swerve extends SubsystemBase {
   private final SwerveDrivePoseEstimator poseEstimator;
   private final Field2d field = new Field2d();
-  private final Pigeon2 pidgey = new Pigeon2(RobotParameters.MotorParameters.PIDGEY_ID);
+  private final Pigeon2 pidgey = new Pigeon2(PIDGEY_ID);
   private final SwerveModuleState[] states = new SwerveModuleState[4];
   private SwerveModuleState[] setStates = new SwerveModuleState[4];
   private final SwerveModule[] modules;
-  private final PIDVController pid;
-  public Pose2d currentPose = new Pose2d(0.0, 0.0, new Rotation2d(0.0));
   private final PathPlannerPath pathToScore;
 
   Thread swerveLoggingThread =
       new Thread(
           () -> {
             while (true) {
-              log("Swerve Module States", getModuleStates());
+              logs("Swerve Module States", getModuleStates());
               try {
                 Thread.sleep(100);
               } catch (InterruptedException e) {
@@ -62,7 +62,7 @@ public class Swerve extends SubsystemBase {
       new Thread(
           () -> {
             while (true) {
-              log("Set Swerve Module States", setStates);
+              logs("Set Swerve Module States", getSetModuleStates());
               try {
                 Thread.sleep(100);
               } catch (InterruptedException e) {
@@ -79,7 +79,7 @@ public class Swerve extends SubsystemBase {
   // Use this
   // https://pathplanner.dev/pplib-pathfinding.html#pathfind-then-follow-path
   PathConstraints constraints =
-      new PathConstraints(2.0, 3.0, Units.degreesToRadians(540), Units.degreesToRadians(720));
+      new PathConstraints(2.0, 3.0, degreesToRadians(540), degreesToRadians(720));
 
   /**
    * The Singleton instance of this SwerveSubsystem. Code should use the {@link #getInstance()}
@@ -103,7 +103,6 @@ public class Swerve extends SubsystemBase {
    */
   private Swerve() {
     this.modules = initializeModules();
-    this.pid = initializePID();
     this.pidgey.reset();
     this.poseEstimator = initializePoseEstimator();
     configureAutoBuilder();
@@ -117,6 +116,8 @@ public class Swerve extends SubsystemBase {
     } catch (Exception e) {
       throw new RobotConfigException("Failed to load robot config", e);
     }
+
+    Info.logInfo();
   }
 
   /**
@@ -128,39 +129,14 @@ public class Swerve extends SubsystemBase {
   private SwerveModule[] initializeModules() {
     return new SwerveModule[] {
       new SwerveModule(
-          MotorParameters.FRONT_LEFT_DRIVE_ID,
-          MotorParameters.FRONT_LEFT_STEER_ID,
-          MotorParameters.FRONT_LEFT_CAN_CODER_ID,
-          SwerveParameters.Thresholds.CANCODER_VAL9),
+          FRONT_LEFT_DRIVE_ID, FRONT_LEFT_STEER_ID, FRONT_LEFT_CAN_CODER_ID, CANCODER_VAL9),
       new SwerveModule(
-          MotorParameters.FRONT_RIGHT_DRIVE_ID,
-          MotorParameters.FRONT_RIGHT_STEER_ID,
-          MotorParameters.FRONT_RIGHT_CAN_CODER_ID,
-          SwerveParameters.Thresholds.CANCODER_VAL10),
+          FRONT_RIGHT_DRIVE_ID, FRONT_RIGHT_STEER_ID, FRONT_RIGHT_CAN_CODER_ID, CANCODER_VAL10),
       new SwerveModule(
-          MotorParameters.BACK_LEFT_DRIVE_ID,
-          MotorParameters.BACK_LEFT_STEER_ID,
-          MotorParameters.BACK_LEFT_CAN_CODER_ID,
-          SwerveParameters.Thresholds.CANCODER_VAL11),
+          BACK_LEFT_DRIVE_ID, BACK_LEFT_STEER_ID, BACK_LEFT_CAN_CODER_ID, CANCODER_VAL11),
       new SwerveModule(
-          MotorParameters.BACK_RIGHT_DRIVE_ID,
-          MotorParameters.BACK_RIGHT_STEER_ID,
-          MotorParameters.BACK_RIGHT_CAN_CODER_ID,
-          SwerveParameters.Thresholds.CANCODER_VAL12)
+          BACK_RIGHT_DRIVE_ID, BACK_RIGHT_STEER_ID, BACK_RIGHT_CAN_CODER_ID, CANCODER_VAL12)
     };
-  }
-
-  /**
-   * Initializes the PID controller.
-   *
-   * @return PIDController, A new PID object with values from the SmartDashboard.
-   */
-  private PIDVController initializePID() {
-    return new PIDVController(
-        getNumber("AUTO: P", DRIVE_PID_AUTO.getP()),
-        getNumber("AUTO: I", DRIVE_PID_AUTO.getI()),
-        getNumber("AUTO: D", DRIVE_PID_AUTO.getD()),
-        getNumber("AUTO: V", DRIVE_PID_AUTO.getV()));
   }
 
   /**
@@ -171,10 +147,12 @@ public class Swerve extends SubsystemBase {
    */
   private SwerveDrivePoseEstimator initializePoseEstimator() {
     return new SwerveDrivePoseEstimator(
-        SwerveParameters.PhysicalParameters.kinematics,
-        Rotation2d.fromDegrees(getHeading()),
+        kinematics,
+        fromDegrees(getHeading()),
         getModulePositions(),
-        new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0.0)));
+        new Pose2d(0.0, 0.0, fromDegrees(0.0)),
+        fill(0.05, 0.05, degreesToRadians(5)),
+        fill(0.5, 0.5, degreesToRadians(30)));
   }
 
   /**
@@ -182,10 +160,9 @@ public class Swerve extends SubsystemBase {
    * pose.
    */
   private void initializePathPlannerLogging() {
-    PathPlannerLogging.setLogCurrentPoseCallback(field::setRobotPose);
-    PathPlannerLogging.setLogTargetPoseCallback(
-        pose -> field.getObject("target pose").setPose(pose));
-    PathPlannerLogging.setLogActivePathCallback(poses -> field.getObject("path").setPoses(poses));
+    setLogCurrentPoseCallback(field::setRobotPose);
+    setLogTargetPoseCallback(pose -> field.getObject("target pose").setPose(pose));
+    setLogActivePathCallback(poses -> field.getObject("path").setPoses(poses));
   }
 
   /**
@@ -202,10 +179,7 @@ public class Swerve extends SubsystemBase {
         new PPHolonomicDriveController(
             new PIDConstants(5.0, 0.0, 0.0), new PIDConstants(5.0, 0.0, 0.0)),
         PIDParameters.config,
-        () -> {
-          Optional<Alliance> alliance = DriverStation.getAlliance();
-          return alliance.filter(value -> value == Alliance.Red).isPresent();
-        },
+        () -> DriverStation.getAlliance().filter(value -> value == Alliance.Red).isPresent(),
         this);
   }
 
@@ -219,15 +193,23 @@ public class Swerve extends SubsystemBase {
      * This method checks whether the bot is in Teleop, and adds it to poseEstimator
      * based on VISION
      */
-       if (DriverStation.isTeleop()) {
-    EstimatedRobotPose estimatedPose =
-        PhotonVision.getInstance().getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
-    if (estimatedPose != null) {
-      double timestamp = estimatedPose.timestampSeconds;
-      Pose2d visionMeasurement2d = estimatedPose.estimatedPose.toPose2d();
-      poseEstimator.addVisionMeasurement(visionMeasurement2d, timestamp);
-      currentPose = poseEstimator.getEstimatedPosition();
-           }
+    if (DriverStation.isTeleop()) {
+      PhotonVision.getInstance()
+          .resultPairs
+          .get()
+          .forEach(
+              pair -> {
+                EstimatedRobotPose pose =
+                    getEstimatedPose(pair, poseEstimator.getEstimatedPosition());
+                updateStdDev(pair, Optional.ofNullable(pose));
+                if (pose != null) {
+                  double timestamp = pose.timestampSeconds;
+                  Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
+                  poseEstimator.addVisionMeasurement(
+                      visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
+                  robotPos = poseEstimator.getEstimatedPosition();
+                }
+              });
     }
 
     /*
@@ -239,10 +221,12 @@ public class Swerve extends SubsystemBase {
     field.setRobotPose(poseEstimator.getEstimatedPosition());
 
     logs(
-        log("Pidgey Yaw", getPidgeyYaw()),
-        log("Pidgey Heading", getHeading()),
-        log("Pidgey Rotation2D", pidgey.getRotation2d().getDegrees()),
-        log("Robot Pose", field.getRobotPose()));
+        () -> {
+          log("Pidgey Yaw", getPidgeyYaw());
+          log("Pidgey Heading", getHeading());
+          log("Pidgey Rotation2D", pidgey.getRotation2d().getDegrees());
+          log("Robot Pose", field.getRobotPose());
+        });
   }
 
   /**
@@ -267,22 +251,22 @@ public class Swerve extends SubsystemBase {
   public void setDriveSpeeds(
       double forwardSpeed, double leftSpeed, double turnSpeed, boolean isFieldOriented) {
     logs(
-        log("Forward speed", forwardSpeed),
-        log("Left speed", leftSpeed),
-        log("Turn speed", turnSpeed));
+        () -> {
+          log("Forward speed", forwardSpeed);
+          log("Left speed", leftSpeed);
+          log("Turn speed", turnSpeed);
+        });
 
     // Converts to a measure that the robot aktualy understands
     ChassisSpeeds speeds =
         isFieldOriented
-            ? ChassisSpeeds.fromFieldRelativeSpeeds(
-                forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation())
+            ? fromFieldRelativeSpeeds(forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation())
             : new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed);
 
-    speeds = ChassisSpeeds.discretize(speeds, 0.02);
+    speeds = discretize(speeds, 0.02);
 
-    SwerveModuleState[] newStates =
-        SwerveParameters.PhysicalParameters.kinematics.toSwerveModuleStates(speeds);
-    SwerveDriveKinematics.desaturateWheelSpeeds(newStates, MotorParameters.MAX_SPEED);
+    SwerveModuleState[] newStates = kinematics.toSwerveModuleStates(speeds);
+    desaturateWheelSpeeds(newStates, MAX_SPEED);
 
     setModuleStates(newStates);
   }
@@ -331,9 +315,7 @@ public class Swerve extends SubsystemBase {
   /** Resets the pose of the robot to zero. */
   public void zeroPose() {
     poseEstimator.resetPosition(
-        Rotation2d.fromDegrees(getHeading()),
-        getModulePositions(),
-        new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0.0)));
+        fromDegrees(getHeading()), getModulePositions(), new Pose2d(0.0, 0.0, fromDegrees(0.0)));
   }
 
   /**
@@ -351,8 +333,7 @@ public class Swerve extends SubsystemBase {
    * @return ChassisSpeeds, The chassis speeds for autonomous driving.
    */
   public ChassisSpeeds getAutoSpeeds() {
-    SwerveDriveKinematics k = SwerveParameters.PhysicalParameters.kinematics;
-    return k.toChassisSpeeds(getModuleStates());
+    return kinematics.toChassisSpeeds(getModuleStates());
   }
 
   /**
@@ -361,7 +342,7 @@ public class Swerve extends SubsystemBase {
    * @return Rotation2d, The rotation of the Pigeon2 IMU for PID control.
    */
   public Rotation2d getRotationPidggy() {
-    return Rotation2d.fromDegrees(-pidgey.getRotation2d().getDegrees());
+    return fromDegrees(-pidgey.getRotation2d().getDegrees());
   }
 
   /**
@@ -370,8 +351,7 @@ public class Swerve extends SubsystemBase {
    * @param chassisSpeeds The chassis speeds.
    */
   public void chassisSpeedsDrive(ChassisSpeeds chassisSpeeds) {
-    SwerveModuleState[] newStates =
-        SwerveParameters.PhysicalParameters.kinematics.toSwerveModuleStates(chassisSpeeds);
+    SwerveModuleState[] newStates = kinematics.toSwerveModuleStates(chassisSpeeds);
     setModuleStates(newStates);
   }
 
@@ -385,6 +365,17 @@ public class Swerve extends SubsystemBase {
     for (int i = 0; i < modules.length; i++) {
       moduleStates[i] = modules[i].getState();
     }
+    return moduleStates;
+  }
+
+  /**
+   * Gets the states of the swerve modules.
+   *
+   * @return SwerveModuleState[], The states of the swerve modules.
+   */
+  public SwerveModuleState[] getSetModuleStates() {
+    SwerveModuleState[] moduleStates = new SwerveModuleState[4];
+    System.arraycopy(setStates, 0, moduleStates, 0, setStates.length);
     return moduleStates;
   }
 
@@ -457,14 +448,6 @@ public class Swerve extends SubsystemBase {
   }
 
   private static class RobotConfigException extends RuntimeException {
-    public RobotConfigException() {
-      super();
-    }
-
-    public RobotConfigException(String message) {
-      super(message);
-    }
-
     public RobotConfigException(String message, Throwable cause) {
       super(message, cause);
     }

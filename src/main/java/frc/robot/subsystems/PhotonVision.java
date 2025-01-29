@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import static frc.robot.utils.ExtensionsKt.*;
 import static frc.robot.utils.Register.Dash.*;
 
 import edu.wpi.first.apriltag.*;
@@ -8,8 +9,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import java.util.*;
+import java.util.function.*;
 import kotlin.*;
-import org.photonvision.*;
 import org.photonvision.targeting.*;
 
 /**
@@ -26,7 +27,8 @@ public class PhotonVision extends SubsystemBase {
   private double yaw = -15.0;
   private double y = 0.0;
   private double dist = 0.0;
-  private Pair<PhotonModule, PhotonPipelineResult> bestResultPair;
+  public final Supplier<List<Pair<PhotonModule, PhotonPipelineResult>>> resultPairs =
+      () -> ExtensionsKt.getDecentResultPairs(cameras);
 
   // Singleton instance
   private static final PhotonVision INSTANCE = new PhotonVision();
@@ -59,9 +61,23 @@ public class PhotonVision extends SubsystemBase {
                 0.0,
                 Math.toRadians(360 - PhotonVisionConstants.CAMERA_ONE_ANGLE_DEG),
                 Math.toRadians(180.0)));
+    Transform3d camera2Pos =
+        new Transform3d(
+            new Translation3d(0.31, 0.0, PhotonVisionConstants.CAMERA_TWO_HEIGHT_METER),
+            new Rotation3d(
+                0.0,
+                Math.toRadians(360 - PhotonVisionConstants.CAMERA_TWO_ANGLE_DEG),
+                Math.toRadians(180.0)));
+    Transform3d camera3Pos =
+        new Transform3d(
+            new Translation3d(0.31, 0.0, PhotonVisionConstants.CAMERA_TWO_HEIGHT_METER),
+            new Rotation3d(
+                0.0,
+                Math.toRadians(360 - PhotonVisionConstants.CAMERA_TWO_ANGLE_DEG),
+                Math.toRadians(180.0)));
     cameras.add(new PhotonModule("Camera1", camera1Pos, fieldLayout));
-
-    // Add additional cameras here as needed
+    cameras.add(new PhotonModule("Camera2", camera2Pos, fieldLayout));
+    cameras.add(new PhotonModule("Camera3", camera3Pos, fieldLayout));
   }
 
   /**
@@ -70,30 +86,28 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
-//    updateBestPair();
+    // REMOVE ALL THIS CAUSE WE DON"T USE BEST CAMERA ANYMORE
+    // List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair = resultPairs.get();
+    // logs("decent result pairs exist", currentResultPair != null);
 
-//    if (bestResultPair.getFirst() != null) {
-//      log("has current target", bestResultPair.getSecond() != null);
-//
-//      // REMEMBER: MOVEMENT IS BOUND TO A! DON'T FORGET NERD
-//      if (bestResultPair.getSecond() != null) {
-//        for (PhotonTrackedTarget tag : bestResultPair.getSecond().getTargets()) {
-//          yaw = tag.getYaw();
-//          y = tag.getBestCameraToTarget().getX();
-//          dist = tag.getBestCameraToTarget().getZ();
-//        }
-//
-//        logs(log("yaw to target", yaw), log("_targets", bestResultPair.getSecond().hasTargets()));
-//      }
-//    }
-  }
+    // if (currentResultPair != null) {
+    //   logs("best target list is empty", currentResultPair.isEmpty());
 
-  /**
-   * Updates the best result pair by selecting the best camera and its result based on pose
-   * ambiguity.
-   */
-  private void updateBestPair() {
-    bestResultPair = PhotonModuleListKt.getBestResultPair(cameras);
+    //   // REMEMBER: MOVEMENT IS BOUND TO A! DON'T FORGET NERD
+    //   if (!currentResultPair.isEmpty()) {
+    //     PhotonTrackedTarget bestTarget = currentResultPair.get(0).getSecond().getBestTarget();
+    //     yaw = bestTarget.getYaw();
+    //     y = bestTarget.getBestCameraToTarget().getX();
+    //     dist = bestTarget.getBestCameraToTarget().getZ();
+
+    //     logs(
+    //         () -> {
+    //           log("yaw to target", yaw);
+    //           log("_targets", hasTargets(currentResultPair));
+    //         });
+    //     logStdDev();
+    //   }
+    // }
   }
 
   /**
@@ -105,73 +119,7 @@ public class PhotonVision extends SubsystemBase {
    * @return true if there is a visible tag, false otherwise
    */
   public boolean hasTag() {
-    return bestResultPair.getSecond() != null && bestResultPair.getSecond().hasTargets();
-  }
-
-  /**
-   * Gets the estimated global pose of the robot using the best available camera.
-   *
-   * @param prevEstimatedRobotPose The previous estimated pose of the robot
-   * @return The estimated robot pose, or null if no pose could be estimated
-   */
-  public EstimatedRobotPose getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
-    if (bestResultPair == null) return null;
-
-    PhotonPoseEstimator estimator = bestResultPair.getFirst().getPoseEstimator();
-    estimator.setReferencePose(prevEstimatedRobotPose);
-    return bestResultPair.getSecond() != null
-        ? estimator.update(bestResultPair.getSecond()).orElse(null)
-        : null;
-  }
-
-  /**
-   * Gets the estimated global pose of the robot as a Transform3d.
-   *
-   * @return The estimated global pose as a Transform3d
-   */
-  @SuppressWarnings("java:S3655")
-  public Transform3d getEstimatedGlobalPose() {
-    if (bestResultPair.getSecond() == null
-        || bestResultPair.getSecond().getMultiTagResult().isEmpty()) {
-      return new Transform3d(0.0, 0.0, 0.0, new Rotation3d());
-    }
-    return bestResultPair.getSecond().getMultiTagResult().get().estimatedPose.best;
-  }
-
-  /**
-   * Calculates the straight-line distance to the currently tracked AprilTag.
-   *
-   * @return The distance to the AprilTag in meters
-   */
-  public double getDistanceAprilTag() {
-    Transform3d pose = getEstimatedGlobalPose();
-    return Math.sqrt(
-        Math.pow(pose.getTranslation().getX(), 2) + Math.pow(pose.getTranslation().getY(), 2));
-  }
-
-  /**
-   * Calculates the pivot position based on the distance to the AprilTag. Uses a polynomial function
-   * tuned for optimal positioning.
-   *
-   * @return The calculated pivot position
-   */
-  public double getPivotPosition() {
-    // 10/14/2024 outside tuning
-    // Desmos: https://www.desmos.com/calculator/naalukjxze
-    double r = getDistanceAprilTag() + 0.6;
-    double f = -1.39223; // power 5
-    double e = 20.9711; // power 4
-    double d = -122.485; // power 3
-    double c = 342.783; // power 2
-    double b = -447.743; // power 1
-    double a = 230.409; // constant
-
-    return (f * Math.pow(r, 5.0))
-        + (e * Math.pow(r, 4.0))
-        + (d * Math.pow(r, 3.0))
-        + (c * Math.pow(r, 2.0))
-        + (b * r)
-        + a;
+    return resultPairs.get() != null && hasTargets(resultPairs.get());
   }
 
   /**
@@ -183,20 +131,36 @@ public class PhotonVision extends SubsystemBase {
     return yaw;
   }
 
+  /**
+   * Gets the current distance to the target.
+   *
+   * @return The distance in meters
+   */
   public double getDist() {
     return dist;
   }
 
+  /**
+   * Gets the current Y position of the target.
+   *
+   * @return The Y position in meters
+   */
   public double getY() {
     return y;
   }
 
   /**
-   * Gets the current tracked target.
+   * Logs the standard deviation of the camera's estimated pose.
    *
-   * @return The current PhotonTrackedTarget, or null if no target is tracked
+   * <p>This method is useful for debugging and understanding the accuracy of the camera's pose
+   * estimation.
    */
-  public PhotonTrackedTarget getCurrentTarget() {
-    return bestResultPair.getSecond().getBestTarget();
+  public void logStdDev() {
+    cameras.forEach(
+        camera -> {
+            if (camera.getCurrentStdDevs() != null) {
+              logs("Camera %s Std Dev NormF".formatted(camera.getCameraName()), camera.getCurrentStdDevs().normF());
+            }
+        });
   }
 }

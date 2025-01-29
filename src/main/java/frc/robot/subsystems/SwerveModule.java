@@ -205,20 +205,16 @@ public class SwerveModule {
 
     // Log the actual and set values for debugging
     logs(
-        log(
-            "drive actual sped " + canCoder.getDeviceID(),
-            driveMotor.getVelocity().getValueAsDouble()),
-        log("drive set sped " + canCoder.getDeviceID(), velocityToSet),
-        log(
-            "steer actual angle " + canCoder.getDeviceID(),
-            canCoder.getAbsolutePosition().getValueAsDouble()),
-        log("steer set angle " + canCoder.getDeviceID(), angleToSet),
-        log(
-            "desired state after optimize " + canCoder.getDeviceID(),
-            desiredState.angle.getRotations()),
-        log("Disconnected drive motor " + driveIdNum, driveMotor.isConnected()),
-        log("Disconnected steer motor " + steerIdNum, steerMotor.isConnected()),
-        log("Disconnected CANCoder " + canCoderIdNum, canCoder.isConnected()));
+        () -> {
+          log("drive actual sped", driveMotor.getVelocity().getValueAsDouble());
+          log("drive set sped", velocityToSet);
+          log("steer actual angle", canCoder.getAbsolutePosition().getValueAsDouble());
+          log("steer set angle", angleToSet);
+          log("desired state after optimize", desiredState.angle.getRotations());
+          log("Disconnected drive motor " + driveIdNum, driveMotor.isConnected());
+          log("Disconnected steer motor " + steerIdNum, steerMotor.isConnected());
+          log("Disconnected CANCoder " + canCoderIdNum, canCoder.isConnected());
+        });
 
     // Update the state with the optimized values
     state = desiredState;

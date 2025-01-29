@@ -1,9 +1,12 @@
 package frc.robot;
 
+import com.pathplanner.lib.commands.PathfindingCommand;
+import com.pathplanner.lib.pathfinding.Pathfinding;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.utils.LocalADStarAK;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -29,6 +32,7 @@ public class Robot extends LoggedRobot {
   @Override
   public void robotInit() {
     Logger.recordMetadata("Reefscape", "Logging"); // Set a metadata value
+    Pathfinding.setPathfinder(new LocalADStarAK());
 
     if (isReal()) {
       // Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
@@ -48,6 +52,7 @@ public class Robot extends LoggedRobot {
     }
 
     Logger.start();
+    PathfindingCommand.warmupCommand().schedule();
     robotContainer = new RobotContainer();
   }
 
