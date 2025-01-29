@@ -68,8 +68,16 @@ public class PhotonVision extends SubsystemBase {
                 0.0,
                 Math.toRadians(360 - PhotonVisionConstants.CAMERA_TWO_ANGLE_DEG),
                 Math.toRadians(180.0)));
+    Transform3d camera3Pos =
+        new Transform3d(
+            new Translation3d(0.31, 0.0, PhotonVisionConstants.CAMERA_TWO_HEIGHT_METER),
+            new Rotation3d(
+                0.0,
+                Math.toRadians(360 - PhotonVisionConstants.CAMERA_TWO_ANGLE_DEG),
+                Math.toRadians(180.0)));
     cameras.add(new PhotonModule("Camera1", camera1Pos, fieldLayout));
     cameras.add(new PhotonModule("Camera2", camera2Pos, fieldLayout));
+    cameras.add(new PhotonModule("Camera3", camera3Pos, fieldLayout));
   }
 
   /**
@@ -148,7 +156,10 @@ public class PhotonVision extends SubsystemBase {
    */
   public void logStdDev() {
     cameras.forEach(
-        camera ->
-            logs("Camera [%s] Std Dev".formatted(camera.getCameraName()), camera.getCurrentStdDevs()));
+        camera -> {
+            if (camera.getCurrentStdDevs() != null) {
+              logs("Camera %s Std Dev NormF".formatted(camera.getCameraName()), camera.getCurrentStdDevs().normF());
+            }
+        });
   }
 }
