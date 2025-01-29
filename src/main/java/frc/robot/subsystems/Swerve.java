@@ -219,15 +219,15 @@ public class Swerve extends SubsystemBase {
      * This method checks whether the bot is in Teleop, and adds it to poseEstimator
      * based on VISION
      */
-    if (DriverStation.isTeleop()) {
-      EstimatedRobotPose estimatedPose =
-          PhotonVision.getInstance().getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
-      if (estimatedPose != null) {
-        double timestamp = estimatedPose.timestampSeconds;
-        Pose2d visionMeasurement2d = estimatedPose.estimatedPose.toPose2d();
-        poseEstimator.addVisionMeasurement(visionMeasurement2d, timestamp);
-        currentPose = poseEstimator.getEstimatedPosition();
-      }
+       if (DriverStation.isTeleop()) {
+    EstimatedRobotPose estimatedPose =
+        PhotonVision.getInstance().getEstimatedGlobalPose(poseEstimator.getEstimatedPosition());
+    if (estimatedPose != null) {
+      double timestamp = estimatedPose.timestampSeconds;
+      Pose2d visionMeasurement2d = estimatedPose.estimatedPose.toPose2d();
+      poseEstimator.addVisionMeasurement(visionMeasurement2d, timestamp);
+      currentPose = poseEstimator.getEstimatedPosition();
+           }
     }
 
     /*

@@ -59,7 +59,7 @@ public class PhotonVision extends SubsystemBase {
                 0.0,
                 Math.toRadians(360 - PhotonVisionConstants.CAMERA_ONE_ANGLE_DEG),
                 Math.toRadians(180.0)));
-    cameras.add(new PhotonModule("Camera", camera1Pos, fieldLayout));
+    cameras.add(new PhotonModule("Camera1", camera1Pos, fieldLayout));
 
     // Add additional cameras here as needed
   }
@@ -70,26 +70,22 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    updateBestPair();
+//    updateBestPair();
 
-    logs(
-        log("does camera exist", cameras.get(0) != null),
-        log("does best camera exist", bestResultPair.getFirst() != null));
-
-    if (bestResultPair.getFirst() != null) {
-      log("has current target", bestResultPair.getSecond() != null);
-
-      // REMEMBER: MOVEMENT IS BOUND TO A! DON'T FORGET NERD
-      if (bestResultPair.getSecond() != null) {
-        for (PhotonTrackedTarget tag : bestResultPair.getSecond().getTargets()) {
-          yaw = tag.getYaw();
-          y = tag.getBestCameraToTarget().getX();
-          dist = tag.getBestCameraToTarget().getZ();
-        }
-
-        logs(log("yaw to target", yaw), log("_targets", bestResultPair.getSecond().hasTargets()));
-      }
-    }
+//    if (bestResultPair.getFirst() != null) {
+//      log("has current target", bestResultPair.getSecond() != null);
+//
+//      // REMEMBER: MOVEMENT IS BOUND TO A! DON'T FORGET NERD
+//      if (bestResultPair.getSecond() != null) {
+//        for (PhotonTrackedTarget tag : bestResultPair.getSecond().getTargets()) {
+//          yaw = tag.getYaw();
+//          y = tag.getBestCameraToTarget().getX();
+//          dist = tag.getBestCameraToTarget().getZ();
+//        }
+//
+//        logs(log("yaw to target", yaw), log("_targets", bestResultPair.getSecond().hasTargets()));
+//      }
+//    }
   }
 
   /**
