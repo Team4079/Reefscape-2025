@@ -193,24 +193,22 @@ public class Swerve extends SubsystemBase {
      * This method checks whether the bot is in Teleop, and adds it to poseEstimator
      * based on VISION
      */
-    if (DriverStation.isTeleop()) {
-      PhotonVision.getInstance()
-          .resultPairs
-          .get()
-          .forEach(
-              pair -> {
-                EstimatedRobotPose pose =
-                    getEstimatedPose(pair, poseEstimator.getEstimatedPosition());
-                updateStdDev(pair, Optional.ofNullable(pose));
-                if (pose != null) {
-                  double timestamp = pose.timestampSeconds;
-                  Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
-                  poseEstimator.addVisionMeasurement(
-                      visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
-                  robotPos = poseEstimator.getEstimatedPosition();
-                }
-              });
-    }
+    PhotonVision.getInstance()
+        .resultPairs
+        .get()
+        .forEach(
+            pair -> {
+              EstimatedRobotPose pose =
+                  getEstimatedPose(pair, poseEstimator.getEstimatedPosition());
+              updateStdDev(pair, Optional.ofNullable(pose));
+              if (pose != null) {
+                double timestamp = pose.timestampSeconds;
+                Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
+                poseEstimator.addVisionMeasurement(
+                    visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
+                robotPos = poseEstimator.getEstimatedPosition();
+              }
+            });
 
     /*
      * Updates the robot position based on movement and rotation from the pidgey and

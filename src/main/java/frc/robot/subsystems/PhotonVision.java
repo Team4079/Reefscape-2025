@@ -68,16 +68,8 @@ public class PhotonVision extends SubsystemBase {
                 0.0,
                 Math.toRadians(360 - PhotonVisionConstants.CAMERA_TWO_ANGLE_DEG),
                 Math.toRadians(180.0)));
-    Transform3d camera3Pos =
-        new Transform3d(
-            new Translation3d(0.31, 0.0, PhotonVisionConstants.CAMERA_TWO_HEIGHT_METER),
-            new Rotation3d(
-                0.0,
-                Math.toRadians(360 - PhotonVisionConstants.CAMERA_TWO_ANGLE_DEG),
-                Math.toRadians(180.0)));
     cameras.add(new PhotonModule("Camera1", camera1Pos, fieldLayout));
     cameras.add(new PhotonModule("Camera2", camera2Pos, fieldLayout));
-    cameras.add(new PhotonModule("Camera3", camera3Pos, fieldLayout));
   }
 
   /**
@@ -86,28 +78,34 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    // REMOVE ALL THIS CAUSE WE DON"T USE BEST CAMERA ANYMORE
-    // List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair = resultPairs.get();
-    // logs("decent result pairs exist", currentResultPair != null);
+    List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair = resultPairs.get();
 
-    // if (currentResultPair != null) {
-    //   logs("best target list is empty", currentResultPair.isEmpty());
+    logs(() -> {
+       log("Does any camera exist", cameras.get(0) != null);
+       log("Does any result pair exist", currentResultPair != null);
+       log("Has tag", hasTag());
+       if (currentResultPair != null) {
+         log("result pairs have targets", hasTargets(currentResultPair));
+       }
+    });
 
-    //   // REMEMBER: MOVEMENT IS BOUND TO A! DON'T FORGET NERD
-    //   if (!currentResultPair.isEmpty()) {
-    //     PhotonTrackedTarget bestTarget = currentResultPair.get(0).getSecond().getBestTarget();
-    //     yaw = bestTarget.getYaw();
-    //     y = bestTarget.getBestCameraToTarget().getX();
-    //     dist = bestTarget.getBestCameraToTarget().getZ();
+    if (currentResultPair != null) {
+      logs("best target list is empty", currentResultPair.isEmpty());
 
-    //     logs(
-    //         () -> {
-    //           log("yaw to target", yaw);
-    //           log("_targets", hasTargets(currentResultPair));
-    //         });
-    //     logStdDev();
-    //   }
-    // }
+      if (!currentResultPair.isEmpty()) {
+        PhotonTrackedTarget bestTarget = currentResultPair.get(0).getSecond().getBestTarget();
+        yaw = bestTarget.getYaw();
+        y = bestTarget.getBestCameraToTarget().getX();
+        dist = bestTarget.getBestCameraToTarget().getZ();
+
+        logs(
+            () -> {
+              log("yaw to target", yaw);
+              log("_targets", hasTargets(currentResultPair));
+            });
+        logStdDev();
+      }
+    }
   }
 
   /**
