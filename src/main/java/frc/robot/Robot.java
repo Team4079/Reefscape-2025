@@ -34,29 +34,43 @@ public class Robot extends LoggedRobot {
    */
   @Override
   public void robotInit() {
-    Logger.recordMetadata("Reefscape", "Logging"); // Set a metadata value
+    // Set a metadata value
+    Logger.recordMetadata("Reefscape", "Logging");
+
+    // Set the pathfinder
     Pathfinding.setPathfinder(new LocalADStarAK());
 
     if (isReal()) {
-      // Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
-      Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
+      // Log to NetworkTables
+      Logger.addDataReceiver(new NT4Publisher());
+
       // WARNING: PowerDistribution resource leak
-      new PowerDistribution(1, ModuleType.kRev); // Enables power distribution logging
+      // Enables power distribution logging
+      new PowerDistribution(1, ModuleType.kRev);
     } else {
-      setUseTiming(false); // Run as fast as possible
-      String logPath =
-          LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or prompt
-      // the
-      // user)
-      Logger.setReplaySource(new WPILOGReader(logPath)); // Read replay log
-      Logger.addDataReceiver(
-          new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save outputs to a
-      // new log
+      // Run as fast as possible
+      setUseTiming(false);
+
+      // Pull the replay log from AdvantageScope (or prompt the user)
+      String logPath = LogFileUtil.findReplayLog();
+
+      // Read replay log
+      Logger.setReplaySource(new WPILOGReader(logPath));
+
+      // Save outputs to a new log
+      Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));
     }
 
+    // Start the logger
     Logger.start();
+
+    // Schedule the warmup command
     PathfindingCommand.warmupCommand().schedule();
+
+    // Initialize the garbage timer
     garbageTimer = new Timer();
+
+    // Initialize the robot container
     robotContainer = new RobotContainer();
   }
 
@@ -70,9 +84,7 @@ public class Robot extends LoggedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    if (garbageTimer.advanceIfElapsed(5)) {
-        System.gc();
-    }
+    if (garbageTimer.advanceIfElapsed(5)) System.gc();
   }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
@@ -85,9 +97,7 @@ public class Robot extends LoggedRobot {
   /** This function is called once when teleop mode is initialized. */
   @Override
   public void teleopInit() {
-    if (autonomousCommand != null) {
-      autonomousCommand.cancel();
-    }
+    if (autonomousCommand != null) autonomousCommand.cancel();
   }
 
   /** This function is called once when test mode is initialized. */

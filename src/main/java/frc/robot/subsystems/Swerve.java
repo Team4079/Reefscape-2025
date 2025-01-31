@@ -209,9 +209,9 @@ public class Swerve extends SubsystemBase {
   }
 
   /**
-   * Updates the robot's position using vision measurements from PhotonVision.
-   * This method retrieves the latest vision results, estimates the robot's pose,
-   * updates the standard deviations, and adds the vision measurement to the pose estimator.
+   * Updates the robot's position using vision measurements from PhotonVision. This method retrieves
+   * the latest vision results, estimates the robot's pose, updates the standard deviations, and
+   * adds the vision measurement to the pose estimator.
    */
   private void updatePos() {
     PhotonVision.getInstance()
