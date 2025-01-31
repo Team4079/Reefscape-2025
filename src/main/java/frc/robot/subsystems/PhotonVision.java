@@ -117,7 +117,8 @@ public class PhotonVision extends SubsystemBase {
    * @return true if there is a visible tag, false otherwise
    */
   public boolean hasTag() {
-    return resultPairs.get() != null && hasTargets(resultPairs.get());
+    List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair = resultPairs.get();
+    return currentResultPair != null && hasTargets(currentResultPair);
   }
 
   /**
