@@ -189,26 +189,7 @@ public class Swerve extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    /*
-     * This method checks whether the bot is in Teleop, and adds it to poseEstimator
-     * based on VISION
-     */
-    PhotonVision.getInstance()
-        .resultPairs
-        .get()
-        .forEach(
-            pair -> {
-              EstimatedRobotPose pose =
-                  getEstimatedPose(pair, poseEstimator.getEstimatedPosition());
-              updateStdDev(pair, Optional.ofNullable(pose));
-              if (pose != null) {
-                double timestamp = pose.timestampSeconds;
-                Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
-                poseEstimator.addVisionMeasurement(
-                    visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
-                robotPos = poseEstimator.getEstimatedPosition();
-              }
-            });
+    updatePos();
 
     /*
      * Updates the robot position based on movement and rotation from the pidgey and
@@ -225,6 +206,30 @@ public class Swerve extends SubsystemBase {
           log("Pidgey Rotation2D", pidgey.getRotation2d().getDegrees());
           log("Robot Pose", field.getRobotPose());
         });
+  }
+
+  /**
+   * Updates the robot's position using vision measurements from PhotonVision.
+   * This method retrieves the latest vision results, estimates the robot's pose,
+   * updates the standard deviations, and adds the vision measurement to the pose estimator.
+   */
+  private void updatePos() {
+    PhotonVision.getInstance()
+        .resultPairs
+        .get()
+        .forEach(
+            pair -> {
+              EstimatedRobotPose pose =
+                  getEstimatedPose(pair, poseEstimator.getEstimatedPosition());
+              updateStdDev(pair, Optional.ofNullable(pose));
+              if (pose != null) {
+                double timestamp = pose.timestampSeconds;
+                Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
+                poseEstimator.addVisionMeasurement(
+                    visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
+                robotPos = poseEstimator.getEstimatedPosition();
+              }
+            });
   }
 
   /**
