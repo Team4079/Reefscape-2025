@@ -105,12 +105,12 @@ public class AlignSwerve extends Command {
     y = PhotonVision.getInstance().getY();
     dist = PhotonVision.getInstance().getDist();
 
-    Swerve.getInstance()
-        .setDriveSpeeds(
-            disController.calculate(dist),
-            yController.calculate(y) + offset,
-            rotationalController.calculate(yaw),
-            false);
+//    Swerve.getInstance()
+//        .setDriveSpeeds(
+//            disController.calculate(dist),
+//            yController.calculate(y) + offset,
+//            rotationalController.calculate(yaw),
+//            false);
 
     if (PhotonVision.getInstance().hasTag()) {
       timer.reset();

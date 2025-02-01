@@ -27,7 +27,7 @@ public class PhotonVision extends SubsystemBase {
   private double yaw = -15.0;
   private double y = 0.0;
   private double dist = 0.0;
-  public final Supplier<List<Pair<PhotonModule, PhotonPipelineResult>>> resultPairs =
+  public Supplier<List<Pair<PhotonModule, PhotonPipelineResult>>> resultPairs =
       () -> ExtensionsKt.getDecentResultPairs(cameras);
 
   // Singleton instance
@@ -66,6 +66,8 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
+    resultPairs =
+            () -> ExtensionsKt.getDecentResultPairs(cameras);
     List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair = resultPairs.get();
 
     logs(
@@ -100,6 +102,14 @@ public class PhotonVision extends SubsystemBase {
    */
   public boolean hasTag() {
     List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair = resultPairs.get();
+
+    logs(
+            () -> {
+              log("resultPairs get", resultPairs.get().isEmpty());
+              log("currentResultPair not null", currentResultPair != null);
+              log("hasTargets currentResultPair", hasTargets(currentResultPair));
+            });
+
     return currentResultPair != null && hasTargets(currentResultPair);
   }
 
