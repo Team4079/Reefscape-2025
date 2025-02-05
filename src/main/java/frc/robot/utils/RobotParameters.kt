@@ -326,4 +326,8 @@ object RobotParameters {
             metaLogs("Competition", COMPETITION)
         }
     }
+
+    object LED_Values {
+        const val LED_COUNT: Int = 120
+    }
 }
