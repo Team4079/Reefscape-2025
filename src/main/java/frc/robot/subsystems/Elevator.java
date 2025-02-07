@@ -31,6 +31,7 @@ public class Elevator extends SubsystemBase {
   private final SoftwareLimitSwitchConfigs rightSoftLimitConfig;
 
   private final VoltageOut voltageOut;
+  private final PositionTorqueCurrentFOC posRequest;
 
   private ElevatorState currentState = frc.robot.utils.ElevatorState.L1;
 
@@ -139,10 +140,8 @@ public class Elevator extends SubsystemBase {
     elevatorMotorRight.getConfigurator().apply(rightSoftLimitConfig);
 
     velocityRequest = new VelocityTorqueCurrentFOC(0);
-    posRequest = new PositionTorqueCurrentFOC(0);
     voltageOut = new VoltageOut(0);
-
-    new PositionDutyCycle(0);
+    posRequest = new PositionTorqueCurrentFOC(0);
 
     elevatorMotorLeft.setPosition(0);
     elevatorMotorRight.setPosition(0);
@@ -154,13 +153,13 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     logs(
-        () -> {
-          log("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
-          log("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
-          log("Elevator Left Set Speed", elevatorMotorLeft.get());
-          log("Elevator Right Set Speed", elevatorMotorRight.get());
-          log(ELEVATOR_STATE_KEY, currentState.toString());
-        });
+            () -> {
+              log("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
+              log("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
+              log("Elevator Left Set Speed", elevatorMotorLeft.get());
+              log("Elevator Right Set Speed", elevatorMotorRight.get());
+              log(ELEVATOR_STATE_KEY, currentState.toString());
+            });
   }
 
   /** Move the elevator motor to a specific level */
@@ -185,6 +184,7 @@ public class Elevator extends SubsystemBase {
   public void stopMotors() {
     elevatorMotorLeft.stopMotor();
     elevatorMotorRight.stopMotor();
+    // TODO THIS IS NOT LIKELY TO BE ENOUGH TO STOP THE MOTORS
     voltageOut.Output = -0.014;
     elevatorMotorLeft.setControl(voltageOut);
     elevatorMotorRight.setControl(voltageOut);
@@ -244,7 +244,7 @@ public class Elevator extends SubsystemBase {
     } else {
       // This returns if the motor is not "left" or "right"
       System.out.println(
-          "getElevatorPosValue: Invalid motor type, motor type should only be 'left' or 'right'");
+              "getElevatorPosValue: Invalid motor type, motor type should only be 'left' or 'right'");
       return -1.0;
     }
   }
@@ -268,13 +268,9 @@ public class Elevator extends SubsystemBase {
   public void toggleSoftStop() {
     ElevatorParameters.isSoftLimitEnabled = !ElevatorParameters.isSoftLimitEnabled;
     leftSoftLimitConfig.ReverseSoftLimitEnable = ElevatorParameters.isSoftLimitEnabled;
-    // leftSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     leftSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
-    // rightSoftLimitConfig.ForwardSoftLimitEnable =
-    // elevatorGlobalValues.soft_limit_enabled;
     rightSoftLimitConfig.ReverseSoftLimitEnable = ElevatorParameters.isSoftLimitEnabled;
-    // rightSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
     rightSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
     elevatorMotorLeft.getConfigurator().apply(leftSoftLimitConfig);
@@ -289,8 +285,9 @@ public class Elevator extends SubsystemBase {
   public void moveElevator(double velocity) {
     final double deadband = 0.001;
     if (Math.abs(velocity) >= deadband) {
-      elevatorMotorLeft.setControl(velocityRequest.withVelocity(velocity));
-      elevatorMotorRight.setControl(velocityRequest.withVelocity(velocity));
+      // TODO THESE MAY BE NEGATIVE DO NOT MURDER THE MOTORS SOFTWARE PLS!!!!!!!!!!!!!!!!!!!!!!!
+      elevatorMotorLeft.set(velocity);
+      elevatorMotorRight.set(velocity);
 
     } else {
       stopMotors();
@@ -309,21 +306,21 @@ public class Elevator extends SubsystemBase {
 
   public void initializeAlarms() {
     Alert elevatorLeftDisconnectedAlert =
-        new Alert("Disconnected left elevator motor " + ELEVATOR_MOTOR_LEFT_ID, kError);
+            new Alert("Disconnected left elevator motor " + ELEVATOR_MOTOR_LEFT_ID, kError);
     Alert elevatorRightDisconnectedAlert =
-        new Alert("Disconnected right elevator motor " + ELEVATOR_MOTOR_RIGHT_ID, kError);
+            new Alert("Disconnected right elevator motor " + ELEVATOR_MOTOR_RIGHT_ID, kError);
 
     elevatorLeftDisconnectedAlert.set(!elevatorMotorLeft.isConnected());
     elevatorRightDisconnectedAlert.set(!elevatorMotorRight.isConnected());
 
     logs(
-        () -> {
-          log(
-              "Disconnected elevatorMotorLeft" + elevatorMotorLeft.getDeviceID(),
-              elevatorMotorLeft.isConnected());
-          log(
-              "Disconnected elevatorMotorRight" + elevatorMotorRight.getDeviceID(),
-              elevatorMotorRight.isConnected());
-        });
+            () -> {
+              log(
+                      "Disconnected elevatorMotorLeft" + elevatorMotorLeft.getDeviceID(),
+                      elevatorMotorLeft.isConnected());
+              log(
+                      "Disconnected elevatorMotorRight" + elevatorMotorRight.getDeviceID(),
+                      elevatorMotorRight.isConnected());
+            });
   }
 }
