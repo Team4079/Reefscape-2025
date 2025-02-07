@@ -289,8 +289,8 @@ public class Elevator extends SubsystemBase {
   public void moveElevator(double velocity) {
     final double deadband = 0.001;
     if (Math.abs(velocity) >= deadband) {
-      elevatorMotorLeft.setControl(velocityRequest.withVelocity(velocity * 500 * 0.75));
-      elevatorMotorRight.setControl(velocityRequest.withVelocity(velocity * 500 * 0.75));
+      elevatorMotorLeft.setControl(velocityRequest.withVelocity(velocity));
+      elevatorMotorRight.setControl(velocityRequest.withVelocity(velocity));
 
     } else {
       stopMotors();
