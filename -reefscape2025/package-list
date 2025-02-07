@@ -30,6 +30,11 @@ $dokka.location:frc.robot.commands/PadDrive/PadDrive/#edu.wpi.first.wpilibj.Xbox
 $dokka.location:frc.robot.commands/PadDrive/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/execute.html
 $dokka.location:frc.robot.commands/PadDrive/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/is-finished.html
 $dokka.location:frc.robot.commands/PadDrive/positionSet/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/position-set.html
+$dokka.location:frc.robot.commands/PadElevator///PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-elevator/index.html
+$dokka.location:frc.robot.commands/PadElevator/PadElevator/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-elevator/-pad-elevator.html
+$dokka.location:frc.robot.commands/PadElevator/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-elevator/execute.html
+$dokka.location:frc.robot.commands/PadElevator/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-elevator/is-finished.html
+$dokka.location:frc.robot.commands/PadElevator/positionSet/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-elevator/position-set.html
 $dokka.location:frc.robot.subsystems////PointingToDeclaration/-reefscape2025/frc.robot.subsystems/index.html
 $dokka.location:frc.robot.subsystems/AlgaeManipulator///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-algae-manipulator/index.html
 $dokka.location:frc.robot.subsystems/AlgaeManipulator/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-algae-manipulator/get-instance.html
