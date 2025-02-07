@@ -167,7 +167,7 @@ public class AlgaeManipulator extends SubsystemBase {
   public void moveArm(double velocity) {
     final double deadband = 0.001;
     if (Math.abs(velocity) >= deadband) {
-      algaeManipulatorMotor.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
+      algaeManipulatorMotor.setControl(vel_voltage.withVelocity(velocity));
     } else {
       this.stopMotor();
     }
