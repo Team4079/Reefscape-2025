@@ -53,9 +53,9 @@ public class SwerveModule {
   private Alert turnDisconnectedAlert;
   private Alert canCoderDisconnectedAlert;
 
-  private int driveIdNum;
-  private int steerIdNum;
-  private int canCoderIdNum;
+  private final int driveIdNum;
+  private final int steerIdNum;
+  private final int canCoderIdNum;
 
   /**
    * Constructs a new SwerveModule.
