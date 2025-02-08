@@ -70,6 +70,7 @@ $dokka.location:frc.robot.subsystems/Elevator/getInstance/#/PointingToDeclaratio
 $dokka.location:frc.robot.subsystems/Elevator/getState/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/get-state.html
 $dokka.location:frc.robot.subsystems/Elevator/getStateDouble/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/get-state-double.html
 $dokka.location:frc.robot.subsystems/Elevator/initializeAlarms/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/initialize-alarms.html
+$dokka.location:frc.robot.subsystems/Elevator/initizalizeLoggedNetworkPID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/initizalize-logged-network-p-i-d.html
 $dokka.location:frc.robot.subsystems/Elevator/moveElevator/#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/move-elevator.html
 $dokka.location:frc.robot.subsystems/Elevator/moveElevatorToLevel/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/move-elevator-to-level.html
 $dokka.location:frc.robot.subsystems/Elevator/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/periodic.html
@@ -79,6 +80,7 @@ $dokka.location:frc.robot.subsystems/Elevator/setElevatorPosition/#double/Pointi
 $dokka.location:frc.robot.subsystems/Elevator/setState/#frc.robot.utils.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/set-state.html
 $dokka.location:frc.robot.subsystems/Elevator/stopMotors/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/stop-motors.html
 $dokka.location:frc.robot.subsystems/Elevator/toggleSoftStop/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/toggle-soft-stop.html
+$dokka.location:frc.robot.subsystems/Elevator/updateElevatorPID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/update-elevator-p-i-d.html
 $dokka.location:frc.robot.subsystems/LED///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/index.html
 $dokka.location:frc.robot.subsystems/LED/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/get-instance.html
 $dokka.location:frc.robot.subsystems/LED/highTideFlow/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/high-tide-flow.html
