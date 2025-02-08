@@ -175,7 +175,7 @@ public class Climber extends SubsystemBase {
   public void movePivot(double velocity) {
     double deadband = 0.001;
     if (Math.abs(velocity) >= deadband) {
-      climberMotor.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
+      climberMotor.setControl(vel_voltage.withVelocity(velocity));
     } else {
       this.stopMotor();
     }
