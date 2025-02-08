@@ -123,7 +123,7 @@ object RobotParameters {
 
         /** Class containing physical dimensions and kinematics for the swerve drive system.  */
         object PhysicalParameters {
-            const val ROBOT_SIZE: Double = 0.43105229381
+            const val ROBOT_SIZE: Double = 0.431
             private val ROBOT_WIDTH: Double = 0.7112
             private val SWERVE_LENGTH: Double = ROBOT_WIDTH / 2
             private val FRONT_LEFT: Translation2d = Translation2d(SWERVE_LENGTH, SWERVE_LENGTH)
