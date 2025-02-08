@@ -120,13 +120,13 @@ public class Elevator extends SubsystemBase {
     elevatorMotorRight.getConfigurator().apply(rightMotorRampConfig);
 
     // on
-    leftSoftLimitConfig.ForwardSoftLimitEnable = true;
-    leftSoftLimitConfig.ReverseSoftLimitEnable = true;
+    leftSoftLimitConfig.ForwardSoftLimitEnable = false;
+    leftSoftLimitConfig.ReverseSoftLimitEnable = false;
     leftSoftLimitConfig.ForwardSoftLimitThreshold = 40;
     leftSoftLimitConfig.ReverseSoftLimitThreshold = 0.2;
 
-    rightSoftLimitConfig.ForwardSoftLimitEnable = true;
-    rightSoftLimitConfig.ReverseSoftLimitEnable = true;
+    rightSoftLimitConfig.ForwardSoftLimitEnable = false;
+    rightSoftLimitConfig.ReverseSoftLimitEnable = false;
     rightSoftLimitConfig.ForwardSoftLimitThreshold = 40;
     rightSoftLimitConfig.ReverseSoftLimitThreshold = 0.2;
 
