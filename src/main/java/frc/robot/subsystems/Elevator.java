@@ -148,6 +148,7 @@ public class Elevator extends SubsystemBase {
     elevatorRightConfigurator.apply(elevatorRightConfigs);
 
     initializeAlarms();
+    initizalizeLoggedNetworkPID();
   }
 
   // This method will be called once per scheduler run
@@ -332,5 +333,25 @@ public class Elevator extends SubsystemBase {
 
   public void updateElevatorPID() {
     ElevatorParameters.ELEVATOR_PIDV.setP(elevatorP.get());
+    ElevatorParameters.ELEVATOR_PIDV.setI(elevatorI.get());
+    ElevatorParameters.ELEVATOR_PIDV.setD(elevatorD.get());
+    ElevatorParameters.ELEVATOR_PIDV.setV(elevatorV.get());
+
+    applyElevatorPIDValues();
+  }
+
+  public void applyElevatorPIDValues() {
+    elevatorLeftConfigs.Slot0.kP = elevatorP.get();
+    elevatorLeftConfigs.Slot0.kI = elevatorI.get();
+    elevatorLeftConfigs.Slot0.kD = elevatorD.get();
+    elevatorLeftConfigs.Slot0.kV = elevatorV.get();
+
+    elevatorRightConfigs.Slot0.kP = elevatorP.get();
+    elevatorRightConfigs.Slot0.kI = elevatorI.get();
+    elevatorRightConfigs.Slot0.kD = elevatorD.get();
+    elevatorRightConfigs.Slot0.kV = elevatorV.get();
+
+    elevatorMotorLeft.getConfigurator().apply(elevatorLeftConfigs);
+    elevatorMotorRight.getConfigurator().apply(elevatorRightConfigs);
   }
 }
