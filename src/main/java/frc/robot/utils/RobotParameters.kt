@@ -184,15 +184,9 @@ object RobotParameters {
 
     /** Class containing constants for the elevator subsystem.  */
     object ElevatorParameters {
-        const val ELEVATOR_PID_LEFT_P: Double = 0.0001
-        const val ELEVATOR_PID_LEFT_I: Double = 0.0
-        const val ELEVATOR_PID_LEFT_D: Double = 0.0
-        const val ELEVATOR_PID_LEFT_V: Double = 0.0
 
-        const val ELEVATOR_PID_RIGHT_P: Double = 0.0001
-        const val ELEVATOR_PID_RIGHT_I: Double = 0.0
-        const val ELEVATOR_PID_RIGHT_D: Double = 0.0
-        const val ELEVATOR_PID_RIGHT_V: Double = 0.0
+        @JvmField
+        val ELEVATOR_PIDV: PIDVController = PIDVController(0.0001, 0.0, 0.0, 0.0)
 
         // Elevator Positions
         const val L1: Double = 1.0
@@ -325,5 +319,9 @@ object RobotParameters {
             metaLogs("Team Name", TEAM_NAME)
             metaLogs("Competition", COMPETITION)
         }
+    }
+
+    object LED_Values {
+        const val LED_COUNT: Int = 120
     }
 }
