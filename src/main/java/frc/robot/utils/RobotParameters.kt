@@ -19,6 +19,7 @@ import edu.wpi.first.math.util.Units.degreesToRadians
 import edu.wpi.first.units.Units.Feet
 import edu.wpi.first.units.Units.Inches
 import edu.wpi.first.units.measure.Distance
+import edu.wpi.first.wpilibj.DriverStation
 import frc.robot.utils.Register.Dash.metaLogs
 
 /** Class containing global values for the robot.  */
@@ -160,7 +161,7 @@ object RobotParameters {
             const val ON_BALANCE_ANGLE_THRESHOLD: Double = 5.0
 
             // Testing boolean for logging (to not slow down the robot)
-            const val TEST_MODE: Boolean = true
+            val TEST_MODE: Boolean = DriverStation.isFMSAttached()
         }
     }
 
@@ -309,7 +310,9 @@ object RobotParameters {
         const val ROBOT_NAME: String = "Fridgebot Pro Max"
         const val TEAM_NUMBER: String = "4079"
         const val TEAM_NAME: String = "Quantum Leap"
-        const val COMPETITION: String = "Build Season"
+        val COMPETITION: String = DriverStation.getEventName()
+        val MATCH_NUMBER: String = DriverStation.getMatchNumber().toString()
+        val ALLIANCE: String = DriverStation.getAlliance().toString()
 
         @JvmStatic
         fun logInfo() {
@@ -317,6 +320,8 @@ object RobotParameters {
             metaLogs("Team Number", TEAM_NUMBER)
             metaLogs("Team Name", TEAM_NAME)
             metaLogs("Competition", COMPETITION)
+            metaLogs("Match Number", MATCH_NUMBER)
+            metaLogs("Alliance", ALLIANCE)
         }
     }
 

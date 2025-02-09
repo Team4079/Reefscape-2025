@@ -47,7 +47,7 @@ public class Swerve extends SubsystemBase {
   Thread swerveLoggingThread =
       new Thread(
           () -> {
-            while (true) {
+            while (DriverStation.isEnabled()) {
               logs("Swerve Module States", getModuleStates());
               try {
                 Thread.sleep(100);
