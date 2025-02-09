@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
-import static frc.robot.utils.Dash.*;
+import static edu.wpi.first.wpilibj.Alert.AlertType.*;
+import static frc.robot.utils.Register.Dash.*;
+import static frc.robot.utils.RobotParameters.MotorParameters.*;
 
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
@@ -14,6 +16,7 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
+import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters.*;
 
@@ -24,22 +27,16 @@ import frc.robot.utils.RobotParameters.*;
  */
 public class Climber extends SubsystemBase {
   /** Creates a new Pivot. */
-  private TalonFX pivotMotor;
+  private final TalonFX climberMotor;
 
-  // Configurations
-  private TalonFXConfiguration pivotMotorConfiguration;
-  private Slot0Configs pivotConfigs;
-  private MotorOutputConfigs pivotOutputConfigs;
-  private CurrentLimitsConfigs pivotMotorCurrentConfig;
-  private ClosedLoopRampsConfigs pivotMotorRampConfig;
-  private SoftwareLimitSwitchConfigs pivotMotorSoftLimitConfig;
+  private final SoftwareLimitSwitchConfigs climberMotorSoftLimitConfig;
 
-  private PositionVoltage pos_reqest;
-  private VelocityVoltage vel_voltage;
+  private final PositionVoltage pos_request;
+  private final VelocityVoltage vel_voltage;
 
-  private VoltageOut voltageOut;
+  private final VoltageOut voltageOut;
 
-  private double deadband = 0.001;
+  private Alert climberMotorDisconnectedAlert;
 
   // private double absPos = 0;
 
@@ -64,85 +61,86 @@ public class Climber extends SubsystemBase {
    * a Singleton. Code should use the {@link #getInstance()} method to get the singleton instance.
    */
   private Climber() {
-    pivotMotor = new TalonFX(MotorParameters.PIVOT_MOTOR_ID);
+    climberMotor = new TalonFX(CLIMBER_MOTOR_ID);
 
-    pivotOutputConfigs = new MotorOutputConfigs();
+    MotorOutputConfigs pivotOutputConfigs = new MotorOutputConfigs(); // TODO: Never used?
 
-    pivotConfigs = new Slot0Configs();
+    Slot0Configs pivotConfigs = new Slot0Configs();
 
-    pivotMotorConfiguration = new TalonFXConfiguration();
+    // Configurations
+    TalonFXConfiguration climberMotorConfiguration = new TalonFXConfiguration();
 
-    pivotMotor.getConfigurator().apply(pivotMotorConfiguration);
-    pivotMotor.getConfigurator().apply(pivotConfigs);
+    climberMotor.getConfigurator().apply(climberMotorConfiguration);
+    climberMotor.getConfigurator().apply(pivotConfigs);
 
     pivotOutputConfigs.NeutralMode = NeutralModeValue.Brake;
 
-    pivotConfigs.kP = PivotParameters.PIVOT_PID_P;
-    pivotConfigs.kI = PivotParameters.PIVOT_PID_I;
-    pivotConfigs.kD = PivotParameters.PIVOT_PID_D;
-    pivotConfigs.kV = PivotParameters.PIVOT_PID_V;
+    pivotConfigs.kP = ClimberParameters.CLIMBER_PID_P;
+    pivotConfigs.kI = ClimberParameters.CLIMBER_PID_I;
+    pivotConfigs.kD = ClimberParameters.CLIMBER_PID_D;
+    pivotConfigs.kV = ClimberParameters.CLIMBER_PID_V;
     // pivotConfigs.kF = PivotConstants.PIVOT_PID_F;
 
-    pivotMotor.getConfigurator().apply(pivotConfigs);
+    climberMotor.getConfigurator().apply(pivotConfigs);
 
-    pivotMotorCurrentConfig = new CurrentLimitsConfigs();
-    pivotMotorRampConfig = new ClosedLoopRampsConfigs();
-    pivotMotorSoftLimitConfig = new SoftwareLimitSwitchConfigs();
+    CurrentLimitsConfigs climberMotorCurrentConfig = new CurrentLimitsConfigs();
+    ClosedLoopRampsConfigs climberMotorRampConfig = new ClosedLoopRampsConfigs();
+    climberMotorSoftLimitConfig = new SoftwareLimitSwitchConfigs();
 
-    pivotMotorCurrentConfig.SupplyCurrentLimit = 100;
-    pivotMotorCurrentConfig.SupplyCurrentLimitEnable = true;
-    pivotMotorCurrentConfig.StatorCurrentLimit = 100;
-    pivotMotorCurrentConfig.StatorCurrentLimitEnable = true;
+    climberMotorCurrentConfig.SupplyCurrentLimit = 100;
+    climberMotorCurrentConfig.SupplyCurrentLimitEnable = true;
+    climberMotorCurrentConfig.StatorCurrentLimit = 100;
+    climberMotorCurrentConfig.StatorCurrentLimitEnable = true;
 
-    pivotMotor.getConfigurator().apply(pivotMotorCurrentConfig);
+    climberMotor.getConfigurator().apply(climberMotorCurrentConfig);
 
-    pivotMotorRampConfig.DutyCycleClosedLoopRampPeriod = 0.1;
+    climberMotorRampConfig.DutyCycleClosedLoopRampPeriod = 0.1;
 
-    pivotMotor.getConfigurator().apply(pivotMotorRampConfig);
+    climberMotor.getConfigurator().apply(climberMotorRampConfig);
 
-    pivotMotorSoftLimitConfig.ForwardSoftLimitEnable = true;
-    pivotMotorSoftLimitConfig.ReverseSoftLimitEnable = true;
-    pivotMotorSoftLimitConfig.ForwardSoftLimitThreshold = 40;
-    pivotMotorSoftLimitConfig.ReverseSoftLimitThreshold = 0.2;
+    climberMotorSoftLimitConfig.ForwardSoftLimitEnable = true;
+    climberMotorSoftLimitConfig.ReverseSoftLimitEnable = true;
+    climberMotorSoftLimitConfig.ForwardSoftLimitThreshold = 40;
+    climberMotorSoftLimitConfig.ReverseSoftLimitThreshold = 0.2;
 
-    pivotMotorConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    climberMotorConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
-    pivotMotorConfiguration.SoftwareLimitSwitch = pivotMotorSoftLimitConfig;
+    climberMotorConfiguration.SoftwareLimitSwitch = climberMotorSoftLimitConfig;
 
-    pivotMotor.getConfigurator().apply(pivotMotorSoftLimitConfig);
+    climberMotor.getConfigurator().apply(climberMotorSoftLimitConfig);
 
     // absoluteEncoder = new DigitalInput(9);
 
     vel_voltage = new VelocityVoltage(0);
-    pos_reqest = new PositionVoltage(0);
+    pos_request = new PositionVoltage(0);
     voltageOut = new VoltageOut(0);
     new PositionDutyCycle(0);
 
-    pivotMotor.setPosition(0);
+    climberMotor.setPosition(0);
+
+    initializeAlarms();
   }
 
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    log("Pivot Motor Position", pivotMotor.getPosition().getValueAsDouble());
-    log("Pivot SoftLimit", this.getSoftLimit());
+    logs("Pivot Motor Position", climberMotor.getPosition().getValueAsDouble());
   }
 
   /** Stops the pivot motor */
   public void stopMotor() {
-    pivotMotor.stopMotor();
+    climberMotor.stopMotor();
     voltageOut.Output = -0.014;
-    pivotMotor.setControl(voltageOut);
+    climberMotor.setControl(voltageOut);
   }
 
   /**
    * Set the position of the left and right pivot motors
    *
    * @param motorPos Motor position
-   * @return void
    */
   public void setMotorPosition(double motorPos) {
-    pivotMotor.setControl(pos_reqest.withPosition(motorPos));
+    climberMotor.setControl(pos_request.withPosition(motorPos));
   }
 
   /**
@@ -151,53 +149,33 @@ public class Climber extends SubsystemBase {
    * @return double, the position of the elevator motor
    */
   public double getPivotPosValue() {
-    return pivotMotor.getPosition().getValue().magnitude();
+    return climberMotor.getPosition().getValue().magnitude();
   }
 
-  /**
-   * Run distance through a best fit line and return the value
-   *
-   * @param distance The distance
-   * @return double, the position of the pivot motor
-   */
-  public double shootPos(double distance) {
-    // Calculates the shoot position based on the distance and line of best fit
-    double y = 0.0;
-    return y;
-  }
-
-  /**
-   * Soft resets the encoders on the elevator motors
-   *
-   * @return void
-   */
+  /** Soft resets the encoders on the elevator motors */
   public void resetEncoders() {
-    pivotMotor.setPosition(0);
+    climberMotor.setPosition(0);
   }
 
-  /**
-   * Toggles the soft stop for the elevator motor
-   *
-   * @return void
-   */
+  /** Toggles the soft stop for the elevator motor */
   public void toggleSoftStop() {
-    PivotParameters.SOFT_LIMIT_ENABLED = !PivotParameters.SOFT_LIMIT_ENABLED;
-    pivotMotorSoftLimitConfig.ReverseSoftLimitEnable = PivotParameters.SOFT_LIMIT_ENABLED;
+    ClimberParameters.isSoftLimitEnabled = !ClimberParameters.isSoftLimitEnabled;
+    climberMotorSoftLimitConfig.ReverseSoftLimitEnable = ClimberParameters.isSoftLimitEnabled;
     // leftSoftLimitConfig.ForwardSoftLimitThreshold = 1100;
-    pivotMotorSoftLimitConfig.ReverseSoftLimitThreshold = 0;
+    climberMotorSoftLimitConfig.ReverseSoftLimitThreshold = 0;
 
-    pivotMotor.getConfigurator().apply(pivotMotorSoftLimitConfig);
+    climberMotor.getConfigurator().apply(climberMotorSoftLimitConfig);
   }
 
   /**
    * Move the pivot motor based on the velocity
    *
    * @param velocity double, The velocity to move the pivot motor
-   * @return void
    */
   public void movePivot(double velocity) {
+    double deadband = 0.001;
     if (Math.abs(velocity) >= deadband) {
-      pivotMotor.setControl(vel_voltage.withVelocity(velocity * 500 * 0.75));
+      climberMotor.setControl(vel_voltage.withVelocity(velocity));
     } else {
       this.stopMotor();
     }
@@ -207,31 +185,26 @@ public class Climber extends SubsystemBase {
    * Set the pivot motor to a specific position
    *
    * @param pos double, The position to set the pivot motor to
-   * @return void
    */
   public void setPivot(double pos) {
-    pivotMotor.setControl(vel_voltage.withVelocity(pos));
-  }
-
-  /**
-   * Toggles the soft limit for the elevator motor
-   *
-   * @return void
-   */
-  public void toggleLimit() {
-    PivotParameters.IS_SOFTLIMIT = !PivotParameters.IS_SOFTLIMIT;
+    climberMotor.setControl(vel_voltage.withVelocity(pos));
   }
 
   // public void recalibrateEncoders() {
-  //   PivotGlobalValues.offset = PivotGlobalValues.PIVOT_NEUTRAL_ANGLE - getAbsoluteEncoder();
+  // PivotGlobalValues.offset = PivotGlobalValues.PIVOT_NEUTRAL_ANGLE -
+  // getAbsoluteEncoder();
   // }
 
   /**
-   * Get the soft limit for the pivot motor
-   *
-   * @return boolean, The soft limit state for the pivot motor
+   * Initializes alarms for the climber motor. This method sets up an alert for a disconnected
+   * climber motor and logs the connection status.
    */
-  public boolean getSoftLimit() {
-    return PivotParameters.IS_SOFTLIMIT;
+  public void initializeAlarms() {
+    climberMotorDisconnectedAlert =
+        new Alert("Disconnected pivot motor " + CLIMBER_MOTOR_ID, kError);
+
+    climberMotorDisconnectedAlert.set(!climberMotor.isConnected());
+
+    logs("Disconnected climberMotor " + climberMotor.getDeviceID(), climberMotor.isConnected());
   }
 }

@@ -1,7 +1,13 @@
 package frc.robot.subsystems;
 
+import static edu.wpi.first.math.VecBuilder.*;
+import static org.photonvision.PhotonPoseEstimator.PoseStrategy.*;
+
 import edu.wpi.first.apriltag.*;
+import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.geometry.*;
+import edu.wpi.first.math.numbers.*;
+import frc.robot.utils.RobotParameters.*;
 import java.util.*;
 import org.photonvision.*;
 import org.photonvision.targeting.*;
@@ -15,6 +21,7 @@ public class PhotonModule {
   private final PhotonCamera camera;
   private final PhotonPoseEstimator photonPoseEstimator;
   private final Transform3d cameraPos;
+  private Matrix<N3, N1> currentStdDev;
 
   /**
    * Creates a new CameraModule with the specified parameters.
@@ -27,8 +34,9 @@ public class PhotonModule {
     this.camera = new PhotonCamera(cameraName);
     this.cameraPos = cameraPos;
     this.photonPoseEstimator =
-        new PhotonPoseEstimator(
-            fieldLayout, PhotonPoseEstimator.PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, cameraPos);
+        new PhotonPoseEstimator(fieldLayout, MULTI_TAG_PNP_ON_COPROCESSOR, cameraPos);
+    photonPoseEstimator.setMultiTagFallbackStrategy(
+        PhotonPoseEstimator.PoseStrategy.LOWEST_AMBIGUITY);
   }
 
   /**
@@ -43,7 +51,7 @@ public class PhotonModule {
   /**
    * Gets the pose estimator associated with this camera.
    *
-   * @return The PhotonPoseEstimator object used for robot pose estimation
+   * @return PhotonPoseEstimator, The PhotonPoseEstimator object used for robot pose estimation
    */
   public PhotonPoseEstimator getPoseEstimator() {
     return photonPoseEstimator;
@@ -52,9 +60,76 @@ public class PhotonModule {
   /**
    * Gets the camera's position relative to the robot.
    *
-   * @return The Transform3d representing the camera's position
+   * @return {@link Transform3d}, The {@link Transform3d} representing the camera's position
    */
   public Transform3d getCameraPosition() {
     return cameraPos;
+  }
+
+  /**
+   * Updates the estimated standard deviations based on the provided estimated pose and list of
+   * tracked targets.
+   *
+   * <p>This method calculates the number of visible tags and their average distance to the
+   * estimated pose. It then uses this information to adjust the standard deviations used for robot
+   * pose estimation.
+   *
+   * @param estimatedPose An Optional containing the estimated robot pose.
+   * @param targets A list of PhotonTrackedTarget objects representing the tracked targets.
+   */
+  public void updateEstimatedStdDevs(
+      Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
+    if (estimatedPose.isEmpty()) {
+      currentStdDev = PhotonVisionConstants.SINGLE_TARGET_STD_DEV;
+      return;
+    }
+    int numTags = 0;
+    double totalDistance = 0;
+
+    // Calculate the number of visible tags and their average distance to the estimated pose
+    for (var target : targets) {
+      var tagPoseOptional = photonPoseEstimator.getFieldTags().getTagPose(target.getFiducialId());
+      if (tagPoseOptional.isEmpty()) continue;
+
+      numTags++;
+      var tagPose = tagPoseOptional.get().toPose2d().getTranslation();
+      var estimatedTranslation = estimatedPose.get().estimatedPose.toPose2d().getTranslation();
+      totalDistance += tagPose.getDistance(estimatedTranslation);
+    }
+
+    if (numTags == 0) {
+      currentStdDev = PhotonVisionConstants.SINGLE_TARGET_STD_DEV;
+      return;
+    }
+
+    double avgDistance = totalDistance / numTags;
+    var stdDevs =
+        (numTags > 1)
+            ? PhotonVisionConstants.MULTI_TARGET_STD_DEV
+            : PhotonVisionConstants.SINGLE_TARGET_STD_DEV;
+
+    if (numTags == 1 && avgDistance > 4) {
+      currentStdDev = fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+    } else {
+      currentStdDev = stdDevs.times(1 + (avgDistance * avgDistance / 30));
+    }
+  }
+
+  /**
+   * Gets the current standard deviations used for robot pose estimation.
+   *
+   * @return Matrix<N3, N1> The current standard deviations as a Matrix object
+   */
+  public Matrix<N3, N1> getCurrentStdDevs() {
+    return currentStdDev;
+  }
+
+  /**
+   * Gets the name of the camera associated with this module.
+   *
+   * @return String The name of the camera
+   */
+  public String getCameraName() {
+    return camera.getName();
   }
 }

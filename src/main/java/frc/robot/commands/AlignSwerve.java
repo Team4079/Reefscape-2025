@@ -3,6 +3,7 @@ package frc.robot.commands;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PIDParameters.*;
 
 import edu.wpi.first.math.controller.*;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.*;
 import frc.robot.utils.*;
@@ -15,10 +16,11 @@ public class AlignSwerve extends Command {
   private PIDController rotationalController;
   private PIDController yController;
   private PIDController disController;
+  private Timer timer;
   private double
-      offset; // double offset is the left/right offset from the april tag to make it properly align
-  // with the L4 branches
-  private double tolerance = 0.4;
+      offset; // double offset is the left/right offset from the april tag to make it properly
+
+  // align
 
   /**
    * Creates a new AlignSwerve using the Direction Enum.
@@ -28,12 +30,11 @@ public class AlignSwerve extends Command {
    */
   public AlignSwerve(Direction offsetSide) {
     switch (offsetSide) {
-      // TODO: Placeholder for the offset amount, figure out the correct value
       case LEFT:
-        this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_LEFT;
+        this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_LEFT_OFFSET;
         break;
       case RIGHT:
-        this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_RIGHT;
+        this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_RIGHT_OFFSET;
         break;
       case CENTER:
         this.offset = 0;
@@ -51,6 +52,7 @@ public class AlignSwerve extends Command {
    * @param offsetAmount The amount to offset the alignment by.
    */
   public AlignSwerve(Direction offsetSide, double offsetAmount) {
+    // TODO: Placeholder for the offset amount, figure out the correct value
     switch (offsetSide) {
       case LEFT:
         this.offset = -offsetAmount;
@@ -75,6 +77,8 @@ public class AlignSwerve extends Command {
 
     rotationalController =
         new PIDController(ROTATIONAL_PID.getP(), ROTATIONAL_PID.getI(), ROTATIONAL_PID.getD());
+    // with the L4 branches
+    final double tolerance = 0.4;
     rotationalController.setTolerance(tolerance);
     rotationalController.setSetpoint(0);
 
@@ -85,6 +89,10 @@ public class AlignSwerve extends Command {
     disController = new PIDController(DIST_PID.getP(), DIST_PID.getI(), DIST_PID.getD());
     disController.setTolerance(1.5);
     disController.setSetpoint(0);
+
+    timer = new Timer();
+    timer.reset();
+    timer.start();
   }
 
   /**
@@ -100,9 +108,13 @@ public class AlignSwerve extends Command {
     Swerve.getInstance()
         .setDriveSpeeds(
             disController.calculate(dist),
-            yController.calculate(y),
+            yController.calculate(y) + offset,
             rotationalController.calculate(yaw),
             false);
+
+    if (PhotonVision.getInstance().hasTag()) {
+      timer.reset();
+    }
   }
 
   /**
@@ -119,15 +131,14 @@ public class AlignSwerve extends Command {
    */
   @Override
   public boolean isFinished() {
-    // TODO: Make this return true when this Command no longer needs to run execute()
-    return false;
+    return timer.hasElapsed(1.0);
   }
 
   /**
    * The action to take when the command ends. Called when either the command finishes normally --
-   * that is it is called when {@link #isFinished()} returns true -- or when it is
-   * interrupted/canceled. This is where you may want to wrap up loose ends, like shutting off a
-   * motor that was being used in the command.
+   * that is called when {@link #isFinished()} returns true -- or when it is interrupted/canceled.
+   * This is where you may want to wrap up loose ends, like shutting off a motor that was being used
+   * in the command.
    *
    * @param interrupted whether the command was interrupted/canceled
    */

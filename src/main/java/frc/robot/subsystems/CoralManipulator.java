@@ -4,6 +4,10 @@
 
 package frc.robot.subsystems;
 
+import static edu.wpi.first.wpilibj.Alert.AlertType.*;
+import static frc.robot.utils.Register.Dash.*;
+import static frc.robot.utils.RobotParameters.MotorParameters.*;
+
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
@@ -18,40 +22,27 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters;
-import frc.robot.utils.RobotParameters.MotorParameters;
+import frc.robot.utils.RobotParameters.CoralManipulatorParameters;
 
 public class CoralManipulator extends SubsystemBase {
-  private TalonFX coralManipulatorMotorUp;
-  private TalonFX coralManipulatorMotorDown;
-
-  private TalonFXConfigurator coralManipulatorUpConfigurator;
-  private TalonFXConfigurator coralManipulatorDownConfigurator;
-
-  private TalonFXConfiguration coralManipulatorUpConfiguration;
-  private TalonFXConfiguration coralManipulatorDownConfiguration;
-
-  private Slot0Configs coralManipulatorUpConfigs;
-  private Slot0Configs coralManipulatorDownConfigs;
-
-  private PositionTorqueCurrentFOC pos_reqest;
-  private VelocityTorqueCurrentFOC vel_voltage;
-
-  private MotorOutputConfigs coralManipulatorConfigs;
-
-  private CurrentLimitsConfigs upMotorCurrentConfig;
-  private CurrentLimitsConfigs downMotorCurrentConfig;
-
-  private ClosedLoopRampsConfigs upMotorRampConfig;
-  private ClosedLoopRampsConfigs downMotorRampConfig;
+  private final TalonFX coralManipulatorMotorUp;
+  private final TalonFX coralManipulatorMotorDown;
 
   private SoftwareLimitSwitchConfigs upSoftLimitConfig;
   private SoftwareLimitSwitchConfigs downSoftLimitConfig;
 
-  private VoltageOut voltageOut;
+  private final VoltageOut voltageOut;
 
-  private double deadband = 0.001;
+  private final DigitalInput coralSensor;
+
+  private boolean motorsRunning = false;
+
+  private Alert coralManipulatorUpDisconnectedAlert;
+  private Alert coralManipulatorDownDisconnectedAlert;
 
   /**
    * The Singleton instance of this CoralManipulatorSubsystem. Code should use the {@link
@@ -76,19 +67,22 @@ public class CoralManipulator extends SubsystemBase {
    * singleton instance.
    */
   private CoralManipulator() {
-    coralManipulatorMotorUp = new TalonFX(MotorParameters.CORAL_MANIPULATOR_MOTOR_UP_ID);
-    coralManipulatorMotorDown = new TalonFX(MotorParameters.CORAL_MANIPULATOR_MOTOR_DOWN_ID);
+    coralManipulatorMotorUp = new TalonFX(CORAL_MANIPULATOR_MOTOR_UP_ID);
+    coralManipulatorMotorDown = new TalonFX(CORAL_MANIPULATOR_MOTOR_DOWN_ID);
 
-    coralManipulatorConfigs = new MotorOutputConfigs();
+    coralSensor = new DigitalInput(CoralManipulatorParameters.CORAL_SENSOR_ID);
 
-    coralManipulatorUpConfigurator = coralManipulatorMotorUp.getConfigurator();
-    coralManipulatorDownConfigurator = coralManipulatorMotorDown.getConfigurator();
+    MotorOutputConfigs coralManipulatorConfigs = new MotorOutputConfigs();
 
-    coralManipulatorUpConfigs = new Slot0Configs();
-    coralManipulatorDownConfigs = new Slot0Configs();
+    TalonFXConfigurator coralManipulatorUpConfigurator = coralManipulatorMotorUp.getConfigurator();
+    TalonFXConfigurator coralManipulatorDownConfigurator =
+        coralManipulatorMotorDown.getConfigurator();
 
-    coralManipulatorUpConfiguration = new TalonFXConfiguration();
-    coralManipulatorDownConfiguration = new TalonFXConfiguration();
+    Slot0Configs coralManipulatorUpConfigs = new Slot0Configs();
+    Slot0Configs coralManipulatorDownConfigs = new Slot0Configs();
+
+    TalonFXConfiguration coralManipulatorUpConfiguration = new TalonFXConfiguration();
+    TalonFXConfiguration coralManipulatorDownConfiguration = new TalonFXConfiguration();
 
     coralManipulatorMotorUp.getConfigurator().apply(coralManipulatorUpConfiguration);
     coralManipulatorMotorDown.getConfigurator().apply(coralManipulatorDownConfiguration);
@@ -97,32 +91,31 @@ public class CoralManipulator extends SubsystemBase {
     coralManipulatorUpConfigurator.apply(coralManipulatorConfigs);
     coralManipulatorDownConfigurator.apply(coralManipulatorConfigs);
 
-    coralManipulatorUpConfigs.kP =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_P;
+    coralManipulatorUpConfigs.kP = CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PIDV.getP();
     coralManipulatorUpConfigs.kI =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_I;
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PIDV.getI();
     coralManipulatorUpConfigs.kD =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_D;
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PIDV.getD();
     coralManipulatorUpConfigs.kV =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PID_V;
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PIDV.getV();
 
     coralManipulatorDownConfigs.kP =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_P;
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PIDV.getP();
     coralManipulatorDownConfigs.kI =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_I;
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PIDV.getI();
     coralManipulatorDownConfigs.kD =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_D;
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PIDV.getD();
     coralManipulatorDownConfigs.kV =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PID_V;
+        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PIDV.getV();
 
     coralManipulatorMotorUp.getConfigurator().apply(coralManipulatorUpConfigs);
     coralManipulatorMotorDown.getConfigurator().apply(coralManipulatorDownConfigs);
 
-    upMotorCurrentConfig = new CurrentLimitsConfigs();
-    downMotorCurrentConfig = new CurrentLimitsConfigs();
+    CurrentLimitsConfigs upMotorCurrentConfig = new CurrentLimitsConfigs();
+    CurrentLimitsConfigs downMotorCurrentConfig = new CurrentLimitsConfigs();
 
-    upMotorRampConfig = new ClosedLoopRampsConfigs();
-    downMotorRampConfig = new ClosedLoopRampsConfigs();
+    ClosedLoopRampsConfigs upMotorRampConfig = new ClosedLoopRampsConfigs();
+    ClosedLoopRampsConfigs downMotorRampConfig = new ClosedLoopRampsConfigs();
 
     upMotorCurrentConfig.SupplyCurrentLimit = 100;
     upMotorCurrentConfig.SupplyCurrentLimitEnable = true;
@@ -148,16 +141,49 @@ public class CoralManipulator extends SubsystemBase {
     coralManipulatorDownConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     // absoluteEncoder = new DigitalInput(9);
 
-    vel_voltage = new VelocityTorqueCurrentFOC(0);
-    pos_reqest = new PositionTorqueCurrentFOC(0);
+    VelocityTorqueCurrentFOC vel_voltage = new VelocityTorqueCurrentFOC(0);
+    PositionTorqueCurrentFOC pos_reqest = new PositionTorqueCurrentFOC(0);
     voltageOut = new VoltageOut(0);
 
     new PositionDutyCycle(0);
+
+    initializeAlarms();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    /**
+     * If the coral sensor is triggered, set the hasPiece boolean to true. (hasPiece = true,
+     * sensorDetect = true), motors spinning If the manipulator has a piece, but the sensor no
+     * longer detects it, stop the motors. (hasPiece = true, sensorDetect = false), motors stop If
+     * the manipulator should start, but the motors are not running, start the motors (hasPiece =
+     * false, sensorDetect = false), motors spinning by setting if it has a piece to false, due to
+     * the fact that the manipulator should not have a piece after the motors are started again.
+     *
+     * <p>The manipulator motors should be on by default, as per Aaron's request.
+     */
+    if (coralSensor.get()) {
+      this.setHasPiece(true);
+    }
+
+    if (!coralSensor.get() && CoralManipulatorParameters.hasPiece) {
+      if (this.motorsRunning) {
+        // Stop the motors if the manipulator has a piece, but the sensor no longer
+        // detects it
+        // May require a delay of 100-500ms to prevent the motors from stopping too
+        // early
+        this.stopMotors();
+      }
+    } else {
+      // Will run if the sensor doesn't detect the piece, and it doesn't have a piece
+      // concurrently
+      // Will also run if the coral sensor detects a piece, and it has a piece
+      if (!this.motorsRunning) {
+        this.startMotors();
+      }
+    }
   }
 
   /** Stops the coral manipulator motors */
@@ -167,6 +193,7 @@ public class CoralManipulator extends SubsystemBase {
     voltageOut.Output = -0.014;
     coralManipulatorMotorUp.setControl(voltageOut);
     coralManipulatorMotorDown.setControl(voltageOut);
+    this.motorsRunning = false;
   }
 
   /** Starts the coral manipulator motors */
@@ -174,5 +201,30 @@ public class CoralManipulator extends SubsystemBase {
     voltageOut.Output = 0.014;
     coralManipulatorMotorUp.setControl(voltageOut);
     coralManipulatorMotorDown.setControl(voltageOut);
+    this.motorsRunning = true;
+  }
+
+  public void setHasPiece(boolean hasPiece) {
+    CoralManipulatorParameters.hasPiece = hasPiece;
+  }
+
+  public void initializeAlarms() {
+    coralManipulatorUpDisconnectedAlert =
+        new Alert("Disconnected coral up motor " + CORAL_MANIPULATOR_MOTOR_UP_ID, kError);
+    coralManipulatorDownDisconnectedAlert =
+        new Alert("Disconnected coral down motor " + CORAL_MANIPULATOR_MOTOR_DOWN_ID, kError);
+
+    coralManipulatorUpDisconnectedAlert.set(!coralManipulatorMotorUp.isConnected());
+    coralManipulatorDownDisconnectedAlert.set(!coralManipulatorMotorDown.isConnected());
+
+    logs(
+        () -> {
+          log(
+              "Disconnected coralManipulatorMotorUp " + coralManipulatorMotorUp.getDeviceID(),
+              coralManipulatorMotorUp.isConnected());
+          log(
+              "Disconnected coralManipulatorMotorDown " + coralManipulatorMotorDown.getDeviceID(),
+              coralManipulatorMotorDown.isConnected());
+        });
   }
 }

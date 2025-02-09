@@ -6,21 +6,21 @@ import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.Elevator;
 import kotlin.*;
 
 /** Command to control the robot's swerve drive using a Logitech gaming pad. */
-public class PadDrive extends Command {
+public class PadElevator extends Command {
   private final XboxController pad;
 
-  /** hi om
+  /**
    * Constructs a new PadDrive command.
    *
    * @param pad The Logitech gaming pad used to control the robot.
    */
-  public PadDrive(XboxController pad) {
+  public PadElevator(XboxController pad) {
     this.pad = pad;
-    addRequirements(Swerve.getInstance());
+    addRequirements(Elevator.getInstance());
   }
 
   /**
@@ -32,16 +32,8 @@ public class PadDrive extends Command {
   public void execute() {
     Pair<Double, Double> position = positionSet(pad);
 
-    double rotation = Math.abs(pad.getRightX()) >= 0.1 ? -pad.getRightX() * MAX_ANGULAR_SPEED : 0.0;
+    Elevator.getInstance().moveElevator(position.getSecond());
 
-    logs(
-        () -> {
-          log("X Joystick", position.getFirst());
-          log("Y Joystick", position.getSecond());
-          log("Rotation", rotation);
-        });
-
-    Swerve.getInstance().setDriveSpeeds(position.getSecond(), position.getFirst(), rotation * 0.5);
   }
 
   /**
@@ -62,10 +54,10 @@ public class PadDrive extends Command {
    *     the second element is the y-coordinate.
    */
   public static Pair<Double, Double> positionSet(XboxController pad) {
-    double x = -pad.getLeftX() * MAX_SPEED;
+    double x = pad.getLeftX();
     if (Math.abs(x) < X_DEADZONE) x = 0.0;
 
-    double y = -pad.getLeftY() * MAX_SPEED;
+    double y = pad.getLeftY();
     if (Math.abs(y) < Y_DEADZONE) y = 0.0;
 
     return new Pair<>(x, y);
