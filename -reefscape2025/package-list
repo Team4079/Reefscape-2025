@@ -224,6 +224,9 @@ $dokka.location:frc.robot.utils/RobotParameters.ConstField/getFIELD_WIDTH_METERS
 $dokka.location:frc.robot.utils/RobotParameters.CoralManipulatorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-coral-manipulator-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.ElevatorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-elevator-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.Info///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-info/index.html
+$dokka.location:frc.robot.utils/RobotParameters.Info/getALLIANCE/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-info/get-a-l-l-i-a-n-c-e.html
+$dokka.location:frc.robot.utils/RobotParameters.Info/getCOMPETITION/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-info/get-c-o-m-p-e-t-i-t-i-o-n.html
+$dokka.location:frc.robot.utils/RobotParameters.Info/getMATCH_NUMBER/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-info/get-m-a-t-c-h_-n-u-m-b-e-r.html
 $dokka.location:frc.robot.utils/RobotParameters.Info/logInfo/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-info/log-info.html
 $dokka.location:frc.robot.utils/RobotParameters.LED_Values///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-l-e-d_-values/index.html
 $dokka.location:frc.robot.utils/RobotParameters.MotorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-motor-parameters/index.html
@@ -233,6 +236,7 @@ $dokka.location:frc.robot.utils/RobotParameters.SwerveParameters.PIDParameters/g
 $dokka.location:frc.robot.utils/RobotParameters.SwerveParameters.PIDParameters/setPathFollower/#com.pathplanner.lib.controllers.PPHolonomicDriveController/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-swerve-parameters/-p-i-d-parameters/set-path-follower.html
 $dokka.location:frc.robot.utils/RobotParameters.SwerveParameters.PhysicalParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-swerve-parameters/-physical-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.SwerveParameters.Thresholds///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-swerve-parameters/-thresholds/index.html
+$dokka.location:frc.robot.utils/RobotParameters.SwerveParameters.Thresholds/getTEST_MODE/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-swerve-parameters/-thresholds/get-t-e-s-t_-m-o-d-e.html
 $dokka.location:frc.robot.utils/RobotParameters.SwerveParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-swerve-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/index.html
 $dokka.location:frc.robot////PointingToDeclaration/-reefscape2025/frc.robot/index.html
