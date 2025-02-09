@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.utils.LocalADStarAK;
+import frc.robot.utils.RobotParameters;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -35,6 +36,7 @@ public class Robot extends LoggedRobot {
   @Override
   public void robotInit() {
     // Set a metadata value
+    RobotParameters.Info.logInfo();
     Logger.recordMetadata("Reefscape", "Logging");
 
     // Set the pathfinder

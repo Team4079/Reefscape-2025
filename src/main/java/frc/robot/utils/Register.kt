@@ -243,10 +243,10 @@ object Register {
         }
 
         /**
-         * Logs a SwerveModuleState value with a specified key if the system is in test mode.
+         * Logs a meta data value with a specified key if the system is in test mode.
          *
          * @param key The key associated with the value to log.
-         * @param value The SwerveModuleState value to log.
+         * @param value The string value to log.
          */
         @JvmStatic
         fun metaLogs(

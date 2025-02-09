@@ -1,29 +1,33 @@
 {
   "hubs": [
     {
-      "x": 731,
-      "y": 372,
-      "width": 1100,
-      "height": 650,
+      "x": -8,
+      "y": -8,
+      "width": 1722,
+      "height": 1034,
       "state": {
         "sidebar": {
           "width": 300,
-          "expanded": []
+          "expanded": [
+            "/AdvantageKit",
+            "/AdvantageKit/NetworkInputs",
+            "/AdvantageKit/NetworkInputs/SmartDashboard"
+          ]
         },
         "tabs": {
-          "selected": 1,
+          "selected": 4,
           "tabs": [
             {
               "type": 0,
               "title": "",
               "controller": null,
               "controllerUUID": "11ouuo212e9mvfmpp8zl8llb85qceul2",
-              "renderer": "#/tab-reference/metadata",
+              "renderer": "#/",
               "controlsHeight": 0
             },
             {
               "type": 2,
-              "title": "Odometry",
+              "title": "Field",
               "controller": {
                 "sources": [],
                 "game": "2025 Field",
@@ -37,6 +41,29 @@
               "controlsHeight": 200
             },
             {
+              "type": 12,
+              "title": "Metadata",
+              "controller": null,
+              "controllerUUID": "i5dq40de1y0z0hxkirphwdjg6n0hhhq2",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 8,
+              "title": "Spy on Aaron",
+              "controller": [
+                "Xbox Controller (White)",
+                "None",
+                "None",
+                "None",
+                "None",
+                "None"
+              ],
+              "controllerUUID": "vq7jahv74r1sz5yyhraa0towueisnsns",
+              "renderer": null,
+              "controlsHeight": 85
+            },
+            {
               "type": 5,
               "title": "Console",
               "controller": null,
@@ -44,14 +71,6 @@
               "renderer": {
                 "highlight": false
               },
-              "controlsHeight": 0
-            },
-            {
-              "type": 12,
-              "title": "Metadata",
-              "controller": null,
-              "controllerUUID": "i5dq40de1y0z0hxkirphwdjg6n0hhhq2",
-              "renderer": null,
               "controlsHeight": 0
             }
           ]

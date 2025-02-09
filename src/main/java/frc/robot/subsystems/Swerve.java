@@ -116,8 +116,6 @@ public class Swerve extends SubsystemBase {
     } catch (Exception e) {
       throw new RobotConfigException("Failed to load robot config", e);
     }
-
-    Info.logInfo();
   }
 
   /**
