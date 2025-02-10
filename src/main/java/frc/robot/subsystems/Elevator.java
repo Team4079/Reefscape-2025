@@ -25,7 +25,8 @@ public class Elevator extends SubsystemBase {
   private final TalonFX elevatorMotorLeft;
   private final TalonFX elevatorMotorRight;
 
-  private final PositionTorqueCurrentFOC posRequest;
+//  private final PositionTorqueCurrentFOC posRequest;
+  private final PositionDutyCycle posRequest;
   private final VelocityTorqueCurrentFOC velocityRequest;
 
   private final SoftwareLimitSwitchConfigs leftSoftLimitConfig;
@@ -137,7 +138,7 @@ public class Elevator extends SubsystemBase {
     elevatorMotorRight.getConfigurator().apply(rightSoftLimitConfig);
 
     velocityRequest = new VelocityTorqueCurrentFOC(0);
-    posRequest = new PositionTorqueCurrentFOC(0);
+    posRequest = new PositionDutyCycle(0);
     voltageOut = new VoltageOut(0);
 
     elevatorMotorLeft.setPosition(0);

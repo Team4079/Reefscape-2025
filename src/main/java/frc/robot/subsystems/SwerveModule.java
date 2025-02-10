@@ -6,6 +6,7 @@ import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.configs.TorqueCurrentConfigs;
 import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
+import com.ctre.phoenix6.controls.VelocityDutyCycle;
 import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -28,7 +29,8 @@ public class SwerveModule {
   private final CANcoder canCoder;
   private final TalonFX steerMotor;
   private final PositionTorqueCurrentFOC positionSetter;
-  private final VelocityTorqueCurrentFOC velocitySetter;
+//  private final VelocityTorqueCurrentFOC velocitySetter;
+  private final VelocityDutyCycle velocitySetter;
   private final SwerveModulePosition swerveModulePosition;
   private SwerveModuleState state;
   private double driveVelocity;
@@ -71,7 +73,8 @@ public class SwerveModule {
     canCoder = new CANcoder(canCoderID);
     steerMotor = new TalonFX(steerId);
     positionSetter = new PositionTorqueCurrentFOC(0.0);
-    velocitySetter = new VelocityTorqueCurrentFOC(0.0);
+//    velocitySetter = new VelocityTorqueCurrentFOC(0.0);
+    velocitySetter = new VelocityDutyCycle(0.0);
     swerveModulePosition = new SwerveModulePosition();
     state = new SwerveModuleState(0.0, Rotation2d.fromDegrees(0.0));
 
