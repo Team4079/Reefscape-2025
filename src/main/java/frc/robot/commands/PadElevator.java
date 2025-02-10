@@ -33,7 +33,6 @@ public class PadElevator extends Command {
     Pair<Double, Double> position = positionSet(pad);
 
     Elevator.getInstance().moveElevator(position.getSecond());
-
   }
 
   /**

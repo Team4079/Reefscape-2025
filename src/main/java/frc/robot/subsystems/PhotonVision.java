@@ -56,8 +56,8 @@ public class PhotonVision extends SubsystemBase {
     // First camera setup
     Transform3d c1pos = createCameraPos(0.31, 0.0, CAMERA_ONE_HEIGHT_METER, CAMERA_ONE_ANGLE_DEG);
     Transform3d c2pos = createCameraPos(0.31, 0.0, CAMERA_TWO_HEIGHT_METER, CAMERA_TWO_ANGLE_DEG);
-    cameras.add(new PhotonModule("Camera1", c1pos, fieldLayout));
-    cameras.add(new PhotonModule("Camera2", c2pos, fieldLayout));
+    cameras.add(new PhotonModule("FrontRight", c1pos, fieldLayout));
+    //    cameras.add(new PhotonModule("Camera2", c2pos, fieldLayout));
   }
 
   /**
@@ -102,10 +102,10 @@ public class PhotonVision extends SubsystemBase {
     List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair = resultPairs.get();
 
     logs(
-            () -> {
-              log("resultPairs get", resultPairs.get().isEmpty());
-              log("currentResultPair not null", currentResultPair != null);
-            });
+        () -> {
+          log("resultPairs get", resultPairs.get().isEmpty());
+          log("currentResultPair not null", currentResultPair != null);
+        });
 
     if (currentResultPair != null) {
       logs("hasTargets currentResultPair", hasTargets(currentResultPair));

@@ -13,8 +13,8 @@ import kotlin.*;
 public class PadDrive extends Command {
   private final XboxController pad;
 
-  /** hi om
-   * Constructs a new PadDrive command.
+  /**
+   * hi om Constructs a new PadDrive command.
    *
    * @param pad The Logitech gaming pad used to control the robot.
    */

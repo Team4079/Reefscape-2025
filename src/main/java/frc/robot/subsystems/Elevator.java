@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
-import com.ctre.phoenix6.configs.*;
 
 /**
  * The ElevatorSubsystem class is a Singleton to control the elevator motors on the robot. The class
@@ -337,7 +336,7 @@ public class Elevator extends SubsystemBase {
     ElevatorParameters.ELEVATOR_PIDV.setD(elevatorD.get());
     ElevatorParameters.ELEVATOR_PIDV.setV(elevatorV.get());
 
-    applyElevatorPIDValues();
+applyElevatorPIDValues();
   }
 
   public void applyElevatorPIDValues() {
