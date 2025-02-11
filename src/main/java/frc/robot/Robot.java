@@ -71,6 +71,7 @@ public class Robot extends LoggedRobot {
 
     // Initialize the garbage timer
     garbageTimer = new Timer();
+    garbageTimer.start();
 
     // Initialize the robot container
     robotContainer = new RobotContainer();

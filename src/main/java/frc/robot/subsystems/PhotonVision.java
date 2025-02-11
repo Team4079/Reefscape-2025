@@ -12,6 +12,7 @@ import java.util.*;
 import java.util.function.*;
 import kotlin.*;
 import org.photonvision.targeting.*;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * The PhotonVision class is a subsystem that interfaces with multiple PhotonVision cameras to
@@ -29,6 +30,8 @@ public class PhotonVision extends SubsystemBase {
   private double dist = 0.0;
   public final Supplier<List<Pair<PhotonModule, PhotonPipelineResult>>> resultPairs =
       () -> ExtensionsKt.getDecentResultPairs(cameras);
+  private List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair;
+  private Timer timer;
 
   // Singleton instance
   private static final PhotonVision INSTANCE = new PhotonVision();
@@ -58,6 +61,9 @@ public class PhotonVision extends SubsystemBase {
     Transform3d c2pos = createCameraPos(0.31, 0.0, CAMERA_TWO_HEIGHT_METER, CAMERA_TWO_ANGLE_DEG);
     cameras.add(new PhotonModule("FrontRight", c1pos, fieldLayout));
     //    cameras.add(new PhotonModule("Camera2", c2pos, fieldLayout));
+
+    timer = new Timer();
+    timer.start();
   }
 
   /**
@@ -66,7 +72,7 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair = resultPairs.get();
+    if (timer.advanceIfElapsed(0.1)) currentResultPair = resultPairs.get();
 
     logs(
         () -> {
@@ -99,13 +105,13 @@ public class PhotonVision extends SubsystemBase {
    * @return true if there is a visible tag and the current result pair is not null
    */
   public boolean hasTag() {
-    List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair = resultPairs.get();
+//    List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair = resultPairs.get();
 
-    logs(
-        () -> {
-          log("resultPairs get", resultPairs.get().isEmpty());
-          log("currentResultPair not null", currentResultPair != null);
-        });
+//    logs(
+//        () -> {
+//          log("resultPairs get", resultPairs.get().isEmpty());
+//          log("currentResultPair not null", currentResultPair != null);
+//        });
 
     if (currentResultPair != null) {
       logs("hasTargets currentResultPair", hasTargets(currentResultPair));

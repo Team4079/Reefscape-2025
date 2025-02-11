@@ -43,33 +43,33 @@ public class Swerve extends SubsystemBase {
   private final SwerveModule[] modules;
   private final PathPlannerPath pathToScore;
 
-  Thread swerveLoggingThread =
-      new Thread(
-          () -> {
-            while (DriverStation.isEnabled()) {
-              logs("Swerve Module States", getModuleStates());
-              try {
-                Thread.sleep(100);
-              } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                break;
-              }
-            }
-          });
-
-  Thread swerveLoggingThreadBeforeSet =
-      new Thread(
-          () -> {
-            while (true) {
-              logs("Set Swerve Module States", getSetModuleStates());
-              try {
-                Thread.sleep(100);
-              } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                break;
-              }
-            }
-          });
+//  Thread swerveLoggingThread =
+//      new Thread(
+//          () -> {
+//            while (DriverStation.isEnabled()) {
+//              logs("Swerve Module States", getModuleStates());
+//              try {
+//                Thread.sleep(100);
+//              } catch (InterruptedException e) {
+//                Thread.currentThread().interrupt();
+//                break;
+//              }
+//            }
+//          });
+//
+//  Thread swerveLoggingThreadBeforeSet =
+//      new Thread(
+//          () -> {
+//            while (true) {
+//              logs("Set Swerve Module States", getSetModuleStates());
+//              try {
+//                Thread.sleep(100);
+//              } catch (InterruptedException e) {
+//                Thread.currentThread().interrupt();
+//                break;
+//              }
+//            }
+//          });
 
   // from feeder to the goal and align itself
   // The plan is for it to path towards it then we use a set path to align itself
@@ -107,8 +107,8 @@ public class Swerve extends SubsystemBase {
     configureAutoBuilder();
     initializePathPlannerLogging();
 
-    swerveLoggingThread.start();
-    swerveLoggingThreadBeforeSet.start();
+//    swerveLoggingThread.start();
+//    swerveLoggingThreadBeforeSet.start();
 
     try {
       pathToScore = fromPathFile("Straight Path");
