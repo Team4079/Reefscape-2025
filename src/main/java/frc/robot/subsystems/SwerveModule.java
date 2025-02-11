@@ -29,8 +29,8 @@ public class SwerveModule {
   private final CANcoder canCoder;
   private final TalonFX steerMotor;
   private final PositionTorqueCurrentFOC positionSetter;
-//  private final VelocityTorqueCurrentFOC velocitySetter;
-  private final VelocityDutyCycle velocitySetter;
+  private final VelocityTorqueCurrentFOC velocitySetter;
+//  private final VelocityDutyCycle velocitySetter;
   private final SwerveModulePosition swerveModulePosition;
   private SwerveModuleState state;
   private double driveVelocity;
@@ -73,8 +73,8 @@ public class SwerveModule {
     canCoder = new CANcoder(canCoderID);
     steerMotor = new TalonFX(steerId);
     positionSetter = new PositionTorqueCurrentFOC(0.0);
-//    velocitySetter = new VelocityTorqueCurrentFOC(0.0);
-    velocitySetter = new VelocityDutyCycle(0.0);
+    velocitySetter = new VelocityTorqueCurrentFOC(0.0);
+//    velocitySetter = new VelocityDutyCycle(0.0);
     swerveModulePosition = new SwerveModulePosition();
     state = new SwerveModuleState(0.0, Rotation2d.fromDegrees(0.0));
 

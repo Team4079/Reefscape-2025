@@ -10,12 +10,18 @@
           "width": 300,
           "expanded": [
             "/AdvantageKit",
-            "/AdvantageKit/NetworkInputs",
-            "/AdvantageKit/NetworkInputs/SmartDashboard"
+            "/AdvantageKit/NetworkInputs/SmartDashboard",
+            "/CameraPublisher/FrontRight",
+            "/CameraPublisher/FrontRight/streams",
+            "/photonvision/FrontRight",
+            "/SmartDashboard",
+            "/Shuffleboard",
+            "/photonvision",
+            "/PathPlanner"
           ]
         },
         "tabs": {
-          "selected": 4,
+          "selected": 1,
           "tabs": [
             {
               "type": 0,
@@ -27,9 +33,34 @@
             },
             {
               "type": 2,
-              "title": "Field",
+              "title": "PathPlanner Funny Stuff",
               "controller": {
-                "sources": [],
+                "sources": [
+                  {
+                    "type": "trajectory",
+                    "logKey": "NT:/PathPlanner/activePath",
+                    "logType": "Pose2d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00ff00",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "robot",
+                    "logKey": "NT:/PathPlanner/currentPose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "robot",
+                    "logKey": "NT:/PathPlanner/targetPose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
                 "game": "2025 Field",
                 "bumpers": "auto",
                 "origin": "blue",
@@ -42,9 +73,9 @@
             },
             {
               "type": 12,
-              "title": "Metadata",
+              "title": "Random Info",
               "controller": null,
-              "controllerUUID": "i5dq40de1y0z0hxkirphwdjg6n0hhhq2",
+              "controllerUUID": "0700azcugfcyda6526wj8a1u6wkxna66",
               "renderer": null,
               "controlsHeight": 0
             },
@@ -65,7 +96,7 @@
             },
             {
               "type": 5,
-              "title": "Console",
+              "title": "Software's Fails",
               "controller": null,
               "controllerUUID": "hzx0arfzlzd38ki4y0lulllad3by388v",
               "renderer": {
