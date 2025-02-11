@@ -7,21 +7,29 @@
       "height": 1034,
       "state": {
         "sidebar": {
-          "width": 300,
+          "width": 448,
           "expanded": [
-            "/AdvantageKit",
             "/AdvantageKit/NetworkInputs/SmartDashboard",
             "/CameraPublisher/FrontRight",
             "/CameraPublisher/FrontRight/streams",
-            "/photonvision/FrontRight",
-            "/SmartDashboard",
-            "/Shuffleboard",
-            "/photonvision",
-            "/PathPlanner"
+            "/CameraPublisher",
+            "/CameraPublisher/photonvision_Port_1182_Output_MJPEG_Server",
+            "/CameraPublisher/photonvision_Port_1181_Input_MJPEG_Server",
+            "/CameraPublisher/photonvision_Port_1181_Input_MJPEG_Server/streams",
+            "/CameraPublisher/photonvision_Port_1182_Output_MJPEG_Server/streams",
+            "/AdvantageKit/DriverStation",
+            "/AdvantageKit/RealOutputs",
+            "/AdvantageKit/RadioStatus",
+            "/AdvantageKit/PowerDistribution",
+            "/AdvantageKit/NetworkInputs",
+            "/SmartDashboard/AutoChooser/options",
+            "/SmartDashboard/AutoChooser",
+            "/AdvantageKit",
+            "/AdvantageKit/RealOutputs/Robot Pose"
           ]
         },
         "tabs": {
-          "selected": 1,
+          "selected": 2,
           "tabs": [
             {
               "type": 0,
@@ -72,6 +80,63 @@
               "controlsHeight": 200
             },
             {
+              "type": 2,
+              "title": "Supposed Position",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/Robot Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "2025 Field",
+                "bumpers": "auto",
+                "origin": "blue",
+                "orientation": 0,
+                "size": 30
+              },
+              "controllerUUID": "liz5knv3qzgtoxaomd8n2vobwjdu7ryi",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 9,
+              "title": "Troll Swerve",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "rotationLegacy",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/Pidgey Rotation2D",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "units": "degrees"
+                    }
+                  },
+                  {
+                    "type": "states",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/Swerve Module States",
+                    "logType": "SwerveModuleState[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff0000",
+                      "arrangement": "0,1,2,3"
+                    }
+                  }
+                ],
+                "maxSpeed": 5,
+                "sizeX": 0.65,
+                "sizeY": 0.65,
+                "orientation": 1
+              },
+              "controllerUUID": "jccs3ip14zzhikunys0zimoco38h940n",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
               "type": 12,
               "title": "Random Info",
               "controller": null,
@@ -102,6 +167,16 @@
               "renderer": {
                 "highlight": false
               },
+              "controlsHeight": 0
+            },
+            {
+              "type": 4,
+              "title": "Useful Info (Not)",
+              "controller": [
+                "NT:/AdvantageKit/RealOutputs/Pidgey Heading"
+              ],
+              "controllerUUID": "wb71bnf32hkytkd3a4aqu11jxuzfec1a",
+              "renderer": null,
               "controlsHeight": 0
             }
           ]

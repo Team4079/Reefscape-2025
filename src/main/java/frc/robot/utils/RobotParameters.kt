@@ -161,7 +161,7 @@ object RobotParameters {
             const val ON_BALANCE_ANGLE_THRESHOLD: Double = 5.0
 
             // Testing boolean for logging (to not slow down the robot)
-            val TEST_MODE: Boolean = DriverStation.isFMSAttached()
+            val TEST_MODE: Boolean = !DriverStation.isFMSAttached()
         }
     }
 

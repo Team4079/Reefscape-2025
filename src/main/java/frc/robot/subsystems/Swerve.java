@@ -187,6 +187,7 @@ public class Swerve extends SubsystemBase {
   @Override
   public void periodic() {
     updatePos();
+    logs("Swerve Module States", getModuleStates());
 
     /*
      * Updates the robot position based on movement and rotation from the pidgey and
@@ -262,6 +263,8 @@ public class Swerve extends SubsystemBase {
         isFieldOriented
             ? fromFieldRelativeSpeeds(forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation())
             : new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed);
+
+    logs("Chassis Speeds", speeds);
 
     speeds = discretize(speeds, 0.02);
 
