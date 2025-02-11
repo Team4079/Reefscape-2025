@@ -1,9 +1,7 @@
 package frc.robot.utils
 
 import com.ctre.phoenix6.signals.InvertedValue
-import com.pathplanner.lib.config.PIDConstants
 import com.pathplanner.lib.config.RobotConfig
-import com.pathplanner.lib.controllers.PPHolonomicDriveController
 import com.pathplanner.lib.path.PathConstraints
 import edu.wpi.first.math.Matrix
 import edu.wpi.first.math.VecBuilder
@@ -50,7 +48,6 @@ object RobotParameters {
         // Motor Property Values
         const val MAX_SPEED: Double = 5.76
         const val MAX_ANGULAR_SPEED: Double = (14 * Math.PI) / 3
-        const val ENCODER_COUNTS_PER_ROTATION: Double = 1.0
         const val STEER_MOTOR_GEAR_RATIO: Double = 150.0 / 7
         const val DRIVE_MOTOR_GEAR_RATIO: Double = 6.750000000000000
         private const val WHEEL_DIAMETER: Double = 0.106
@@ -95,12 +92,6 @@ object RobotParameters {
             @JvmField
             val DIST_PID: PIDController = PIDController(0.2, 0.0, 0.0)
 
-            var pathFollower: PPHolonomicDriveController =
-                PPHolonomicDriveController(
-                    PIDConstants(5.0, 0.00, 0.0), // translation
-                    PIDConstants(5.0, 0.0, 0.0), // rotation
-                )
-
             @JvmField
             val PATH_CONSTRAINTS: PathConstraints =
                 PathConstraints(
@@ -138,7 +129,6 @@ object RobotParameters {
 
         /** Class containing various thresholds and constants for the swerve drive system.  */
         object Thresholds {
-            const val STATE_SPEED_THRESHOLD: Double = 0.05
             const val CANCODER_VAL9: Double = -0.419189
             const val CANCODER_VAL10: Double = -0.825928 - 0.5
             const val CANCODER_VAL11: Double = -0.475098
@@ -150,15 +140,11 @@ object RobotParameters {
             @JvmField
             val STEER_MOTOR_INVERTED: InvertedValue = InvertedValue.Clockwise_Positive
             const val JOYSTICK_DEADBAND: Double = 0.05
-            const val AUTO_ALIGN: Boolean = false
-            const val MOTOR_DEADBAND: Double = 0.05
             const val IS_FIELD_ORIENTED: Boolean = true
             const val SHOULD_INVERT: Boolean = false
             const val ENCODER_OFFSET: Double = (0 / 360.0)
             const val X_DEADZONE: Double = 0.15 * 5.76
             const val Y_DEADZONE: Double = 0.15 * 5.76
-            const val OFF_BALANCE_ANGLE_THRESHOLD: Double = 10.0
-            const val ON_BALANCE_ANGLE_THRESHOLD: Double = 5.0
 
             // Testing boolean for logging (to not slow down the robot)
             val TEST_MODE: Boolean = !DriverStation.isFMSAttached()
@@ -233,8 +219,8 @@ object RobotParameters {
     }
 
     object ConstField {
-        val FIELD_LENGTH_METERS = 17.3744 // 57 feet + 6 7/8 inches
-        val FIELD_WIDTH_METERS = 8.2296 // 26 feet + 5 inches
+        const val FIELD_LENGTH_METERS = 17.3744 // 57 feet + 6 7/8 inches
+        const val FIELD_WIDTH_METERS = 8.2296 // 26 feet + 5 inches
 
         val FIELD_LENGTH: Distance = Feet.of(57.0).plus(Inches.of(6.0 + 7.0 / 8.0))
         val FIELD_WIDTH: Distance = Feet.of(26.0).plus(Inches.of(5.0))
@@ -307,12 +293,12 @@ object RobotParameters {
 
     /** Yes I know Om you are gonna rename it */
     object Info {
-        const val ROBOT_NAME: String = "Fridgebot Pro Max"
-        const val TEAM_NUMBER: String = "4079"
-        const val TEAM_NAME: String = "Quantum Leap"
-        val COMPETITION: String = DriverStation.getEventName()
-        val MATCH_NUMBER: String = DriverStation.getMatchNumber().toString()
-        val ALLIANCE: String = DriverStation.getAlliance().toString()
+        private const val ROBOT_NAME: String = "Nautilus"
+        private const val TEAM_NUMBER: String = "4079"
+        private const val TEAM_NAME: String = "Quantum Leap"
+        private val COMPETITION: String = DriverStation.getEventName()
+        private val MATCH_NUMBER: String = DriverStation.getMatchNumber().toString()
+        private val ALLIANCE: String = DriverStation.getAlliance().toString()
 
         @JvmStatic
         fun logInfo() {
