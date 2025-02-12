@@ -110,11 +110,11 @@ public class Swerve extends SubsystemBase {
     //    swerveLoggingThread.start();
     //    swerveLoggingThreadBeforeSet.start();
 
-    try {
-      pathToScore = fromPathFile("Straight Path");
-    } catch (Exception e) {
-      throw new RobotConfigException("Failed to load robot config", e);
-    }
+//    try {
+//      pathToScore = fromPathFile("Straight Path");
+//    } catch (Exception e) {
+//      throw new RobotConfigException("Failed to load robot config", e);
+//    }
   }
 
   /**
@@ -441,12 +441,13 @@ public class Swerve extends SubsystemBase {
     }
   }
 
-  public Command pathFindToGoal() {
-    return AutoBuilder.pathfindThenFollowPath(pathToScore, constraints);
-  }
-
-  public Command pathFindTest() {
-    return AutoBuilder.pathfindThenFollowPath(pathToScore, constraints);
+  /**
+   * The pose to path find to.
+   *
+   * @return Command, The command to path find to the goal.
+   */
+  public Command pathFindToGoal(Pose2d targetPose) {
+    return AutoBuilder.pathfindToPose(targetPose, constraints);
   }
 
   private static class RobotConfigException extends RuntimeException {

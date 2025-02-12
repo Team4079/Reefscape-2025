@@ -6,8 +6,10 @@ import static frc.robot.utils.Direction.*;
 import static frc.robot.utils.ElevatorState.*;
 import static frc.robot.utils.Register.*;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
@@ -26,8 +28,8 @@ import org.littletonrobotics.junction.networktables.*;
 public class RobotContainer {
   private final Map<Button, JoystickButton> buttons = new EnumMap<>(Button.class);
 
-  public final LoggedDashboardChooser<Command> networkChooser =
-      new LoggedDashboardChooser<>("AutoChooser");
+  public final SendableChooser<Command> networkChooser =
+          AutoBuilder.buildAutoChooser();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -48,8 +50,8 @@ public class RobotContainer {
         cmd("SetL3", setElevatorState(L3)),
         cmd("SetL4", setElevatorState(L4)));
 
-    networkChooser.addDefaultOption("Straight Auto", new PathPlannerAuto("Straight Auto"));
-    networkChooser.addOption("Jayden's 500 point auto", new InstantCommand());
+//    networkChooser.addDefaultOption("Straight Auto", new PathPlannerAuto("Straight Auto"));
+//    networkChooser.addOption("Jayden's 500 point auto", new InstantCommand());
   }
 
   /**
