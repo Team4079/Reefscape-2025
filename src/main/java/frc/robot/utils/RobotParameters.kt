@@ -225,69 +225,30 @@ object RobotParameters {
         val FIELD_LENGTH: Distance = Feet.of(57.0).plus(Inches.of(6.0 + 7.0 / 8.0))
         val FIELD_WIDTH: Distance = Feet.of(26.0).plus(Inches.of(5.0))
 
-        /**
-         * All poses on the field, defined by their location on the BLUE Alliance.
-         */
-        object Poses {
-            // Blue Alliance Reef Poses (THESE VALUES ARE PROBABLY WRONG)
-            private val REEF_A_BLUE = Pose2d(2.860, 4.187, fromDegrees(0.0))
-            private val REEF_B_BLUE = Pose2d(2.860, 3.857, fromDegrees(0.0))
-            private val REEF_C_BLUE = Pose2d(3.527, 2.694, fromDegrees(60.0))
-            private val REEF_D_BLUE = Pose2d(3.813, 2.535, fromDegrees(60.0))
-            private val REEF_E_BLUE = Pose2d(5.160, 2.529, fromDegrees(120.0))
-            private val REEF_F_BLUE = Pose2d(5.445, 2.694, fromDegrees(120.0))
-            private val REEF_G_BLUE = Pose2d(6.119, 3.857, fromDegrees(180.0))
-            private val REEF_H_BLUE = Pose2d(6.119, 4.187, fromDegrees(180.0))
-            private val REEF_I_BLUE = Pose2d(5.452, 5.343, fromDegrees(-120.0))
-            private val REEF_J_BLUE = Pose2d(5.166, 5.527, fromDegrees(-120.0))
-            private val REEF_K_BLUE = Pose2d(3.826, 5.508, fromDegrees(-60.0))
-            private val REEF_L_BLUE = Pose2d(3.534, 5.368, fromDegrees(-60.0))
+        object RobotPoses {
+            // Red first then blue poses
+            val reefs = listOf(
+                Pose2d(Translation2d(5.008, 5.279), Rotation2d.fromDegrees(-120.0)),
+                Pose2d(Translation2d(5.345, 5.12), Rotation2d.fromDegrees(-120.0)),
+                Pose2d(Translation2d(5.84, 4.084), Rotation2d.fromDegrees(180.0)),
+                Pose2d(Translation2d(5.84, 3.916), Rotation2d.fromDegrees(180.0)),
+                Pose2d(Translation2d(5.345, 2.88), Rotation2d.fromDegrees(120.0)),
+                Pose2d(Translation2d(5.008, 2.721), Rotation2d.fromDegrees(120.0)),
+                Pose2d(Translation2d(3.972, 2.721), Rotation2d.fromDegrees(60.0)),
+                Pose2d(Translation2d(3.635, 2.88), Rotation2d.fromDegrees(60.0)),
+                Pose2d(Translation2d(3.14, 3.916), Rotation2d.fromDegrees(0.0)),
+                Pose2d(Translation2d(3.14, 4.084), Rotation2d.fromDegrees(0.0)),
+                Pose2d(Translation2d(3.635, 5.12), Rotation2d.fromDegrees(-60.0)),
+                Pose2d(Translation2d(3.972, 5.279), Rotation2d.fromDegrees(-60.0))
+            )
 
-            // Red Alliance Reef Poses
-            private val REEF_A_RED = Pose2d(14.5144, 4.0426, fromDegrees(180.0))
-            private val REEF_B_RED = Pose2d(14.5144, 4.3726, fromDegrees(180.0))
-            private val REEF_C_RED = Pose2d(13.8474, 5.5356, fromDegrees(240.0))
-            private val REEF_D_RED = Pose2d(13.5614, 5.6946, fromDegrees(240.0))
-            private val REEF_E_RED = Pose2d(12.2144, 5.7006, fromDegrees(300.0))
-            private val REEF_F_RED = Pose2d(11.9294, 5.5356, fromDegrees(300.0))
-            private val REEF_G_RED = Pose2d(11.2554, 4.3726, fromDegrees(0.0))
-            private val REEF_H_RED = Pose2d(11.2554, 4.0426, fromDegrees(0.0))
-            private val REEF_I_RED = Pose2d(11.9224, 2.8866, fromDegrees(60.0))
-            private val REEF_J_RED = Pose2d(12.2084, 2.7026, fromDegrees(60.0))
-            private val REEF_K_RED = Pose2d(13.5484, 2.7206, fromDegrees(120.0))
-            private val REEF_L_RED = Pose2d(13.8404, 2.8606, fromDegrees(120.0))
-
-            val BLUE_REEF_POSES =
-                listOf(
-                    REEF_A_BLUE,
-                    REEF_B_BLUE,
-                    REEF_C_BLUE,
-                    REEF_D_BLUE,
-                    REEF_E_BLUE,
-                    REEF_F_BLUE,
-                    REEF_G_BLUE,
-                    REEF_H_BLUE,
-                    REEF_I_BLUE,
-                    REEF_J_BLUE,
-                    REEF_K_BLUE,
-                    REEF_L_BLUE,
-                )
-
-            val RED_REEF_POSES =
-                listOf(
-                    REEF_A_RED,
-                    REEF_B_RED,
-                    REEF_C_RED,
-                    REEF_D_RED,
-                    REEF_E_RED,
-                    REEF_F_RED,
-                    REEF_G_RED,
-                    REEF_H_RED,
-                    REEF_I_RED,
-                    REEF_J_RED,
-                    REEF_K_RED,
-                    REEF_L_RED,
-                )
+            // List of Source positions
+            val sources = listOf(
+                Pose2d(Translation2d(1.582, 7.275), Rotation2d.fromDegrees(126.0)),
+                Pose2d(Translation2d(0.767, 6.692), Rotation2d.fromDegrees(126.0)),
+                Pose2d(Translation2d(0.767, 1.35), Rotation2d.fromDegrees(-126.0)),
+                Pose2d(Translation2d(1.582, 0.78), Rotation2d.fromDegrees(-126.0))
+            )
         }
     }
 

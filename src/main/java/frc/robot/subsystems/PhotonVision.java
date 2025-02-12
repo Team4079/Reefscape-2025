@@ -9,6 +9,8 @@ import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
+
+import java.io.IOException;
 import java.util.*;
 import java.util.function.*;
 import kotlin.*;
@@ -52,7 +54,8 @@ public class PhotonVision extends SubsystemBase {
    * class is a Singleton. Code should use the {@link #getInstance()} method to get the singleton
    * instance.
    */
-  private PhotonVision() {
+  private PhotonVision() throws IOException {
+    AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadFromResource("2025Reefscape.json");
 
 //    AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
 //      ^ FUCK THIS LINE OF CODE IT BREAKS THE MEMORY ERRORS AND EVEYRTHING IT SUCKS
