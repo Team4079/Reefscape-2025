@@ -5,6 +5,7 @@ import static frc.robot.utils.Button.*;
 import static frc.robot.utils.Direction.*;
 import static frc.robot.utils.ElevatorState.*;
 import static frc.robot.utils.Register.*;
+import static frc.robot.utils.RobotParameters.ConstField.RobotPoses.reefs;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
@@ -66,6 +67,8 @@ public class RobotContainer {
         bind(START, resetPidgey()),
         bind(Y, setTelePid()),
         bind(A, align(CENTER)),
+        //TODO PLEASE TEST
+//        bind(B, createPathfindingCmd(reefs.get(0))),
         // bind(A, setElevatorState(L1)),
         // bind(B, setElevatorState(L2)),
         // bind(X, setElevatorState(L3)),

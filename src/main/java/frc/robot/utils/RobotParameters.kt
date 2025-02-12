@@ -227,6 +227,7 @@ object RobotParameters {
 
         object RobotPoses {
             // Red first then blue poses
+            @JvmField
             val reefs = listOf(
                 Pose2d(Translation2d(5.008, 5.279), Rotation2d.fromDegrees(-120.0)),
                 Pose2d(Translation2d(5.345, 5.12), Rotation2d.fromDegrees(-120.0)),
@@ -243,6 +244,7 @@ object RobotParameters {
             )
 
             // List of Source positions
+            @JvmField
             val sources = listOf(
                 Pose2d(Translation2d(1.582, 7.275), Rotation2d.fromDegrees(126.0)),
                 Pose2d(Translation2d(0.767, 6.692), Rotation2d.fromDegrees(126.0)),

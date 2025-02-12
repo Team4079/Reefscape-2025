@@ -32,6 +32,8 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.Optional;
+
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import org.photonvision.*;
 
 public class Swerve extends SubsystemBase {
@@ -41,7 +43,8 @@ public class Swerve extends SubsystemBase {
   private final SwerveModuleState[] states = new SwerveModuleState[4];
   private SwerveModuleState[] setStates = new SwerveModuleState[4];
   private final SwerveModule[] modules;
-  private final PathPlannerPath pathToScore;
+
+  private LoggedDashboardChooser reefChooser;
 
   //  Thread swerveLoggingThread =
   //      new Thread(
