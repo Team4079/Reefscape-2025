@@ -124,8 +124,7 @@ $dokka.location:frc.robot.subsystems/Swerve/getPose/#/PointingToDeclaration/-re
 $dokka.location:frc.robot.subsystems/Swerve/getRotationPidggy/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/get-rotation-pidggy.html
 $dokka.location:frc.robot.subsystems/Swerve/getSetModuleStates/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/get-set-module-states.html
 $dokka.location:frc.robot.subsystems/Swerve/newPose/#edu.wpi.first.math.geometry.Pose2d/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/new-pose.html
-$dokka.location:frc.robot.subsystems/Swerve/pathFindTest/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/path-find-test.html
-$dokka.location:frc.robot.subsystems/Swerve/pathFindToGoal/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/path-find-to-goal.html
+$dokka.location:frc.robot.subsystems/Swerve/pathFindToGoal/#edu.wpi.first.math.geometry.Pose2d/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/path-find-to-goal.html
 $dokka.location:frc.robot.subsystems/Swerve/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/periodic.html
 $dokka.location:frc.robot.subsystems/Swerve/resetDrive/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/reset-drive.html
 $dokka.location:frc.robot.subsystems/Swerve/resetPidgey/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/reset-pidgey.html
