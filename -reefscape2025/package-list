@@ -213,8 +213,6 @@ $dokka.location:frc.robot.utils/Register/commands/#kotlin.Array[kotlin.Pair[kotl
 $dokka.location:frc.robot.utils/RobotParameters.AlgaeManipulatorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-algae-manipulator-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.ClimberParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-climber-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.ConstField.RobotPoses///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-const-field/-robot-poses/index.html
-$dokka.location:frc.robot.utils/RobotParameters.ConstField.RobotPoses/getReefs/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-const-field/-robot-poses/get-reefs.html
-$dokka.location:frc.robot.utils/RobotParameters.ConstField.RobotPoses/getSources/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-const-field/-robot-poses/get-sources.html
 $dokka.location:frc.robot.utils/RobotParameters.ConstField///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-const-field/index.html
 $dokka.location:frc.robot.utils/RobotParameters.ConstField/getFIELD_LENGTH/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-const-field/get-f-i-e-l-d_-l-e-n-g-t-h.html
 $dokka.location:frc.robot.utils/RobotParameters.ConstField/getFIELD_WIDTH/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-const-field/get-f-i-e-l-d_-w-i-d-t-h.html
