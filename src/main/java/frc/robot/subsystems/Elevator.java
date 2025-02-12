@@ -25,7 +25,7 @@ public class Elevator extends SubsystemBase {
   private final TalonFX elevatorMotorLeft;
   private final TalonFX elevatorMotorRight;
 
-//  private final PositionTorqueCurrentFOC posRequest;
+//    private final PositionTorqueCurrentFOC posRequest;
   private final PositionDutyCycle posRequest;
   private final VelocityTorqueCurrentFOC velocityRequest;
 
@@ -337,7 +337,7 @@ public class Elevator extends SubsystemBase {
     ElevatorParameters.ELEVATOR_PIDV.setD(elevatorD.get());
     ElevatorParameters.ELEVATOR_PIDV.setV(elevatorV.get());
 
-applyElevatorPIDValues();
+    applyElevatorPIDValues();
   }
 
   public void applyElevatorPIDValues() {

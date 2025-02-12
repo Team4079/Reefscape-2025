@@ -43,33 +43,33 @@ public class Swerve extends SubsystemBase {
   private final SwerveModule[] modules;
   private final PathPlannerPath pathToScore;
 
-//  Thread swerveLoggingThread =
-//      new Thread(
-//          () -> {
-//            while (DriverStation.isEnabled()) {
-//              logs("Swerve Module States", getModuleStates());
-//              try {
-//                Thread.sleep(100);
-//              } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();
-//                break;
-//              }
-//            }
-//          });
-//
-//  Thread swerveLoggingThreadBeforeSet =
-//      new Thread(
-//          () -> {
-//            while (true) {
-//              logs("Set Swerve Module States", getSetModuleStates());
-//              try {
-//                Thread.sleep(100);
-//              } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();
-//                break;
-//              }
-//            }
-//          });
+  //  Thread swerveLoggingThread =
+  //      new Thread(
+  //          () -> {
+  //            while (DriverStation.isEnabled()) {
+  //              logs("Swerve Module States", getModuleStates());
+  //              try {
+  //                Thread.sleep(100);
+  //              } catch (InterruptedException e) {
+  //                Thread.currentThread().interrupt();
+  //                break;
+  //              }
+  //            }
+  //          });
+  //
+  //  Thread swerveLoggingThreadBeforeSet =
+  //      new Thread(
+  //          () -> {
+  //            while (true) {
+  //              logs("Set Swerve Module States", getSetModuleStates());
+  //              try {
+  //                Thread.sleep(100);
+  //              } catch (InterruptedException e) {
+  //                Thread.currentThread().interrupt();
+  //                break;
+  //              }
+  //            }
+  //          });
 
   // from feeder to the goal and align itself
   // The plan is for it to path towards it then we use a set path to align itself
@@ -107,8 +107,8 @@ public class Swerve extends SubsystemBase {
     configureAutoBuilder();
     initializePathPlannerLogging();
 
-//    swerveLoggingThread.start();
-//    swerveLoggingThreadBeforeSet.start();
+    //    swerveLoggingThread.start();
+    //    swerveLoggingThreadBeforeSet.start();
 
     try {
       pathToScore = fromPathFile("Straight Path");
@@ -211,27 +211,26 @@ public class Swerve extends SubsystemBase {
    * the latest vision results, estimates the robot's pose, updates the standard deviations, and
    * adds the vision measurement to the pose estimator.
    */
+  PhotonVision p = PhotonVision.getInstance();
   private void updatePos() {
-    PhotonVision.getInstance()
-        .resultPairs
-        .get()
-        .forEach(
-            pair -> {
-              EstimatedRobotPose pose =
-                  getEstimatedPose(pair, poseEstimator.getEstimatedPosition());
-              updateStdDev(pair, Optional.ofNullable(pose));
-              if (pose != null) {
-                double timestamp = pose.timestampSeconds;
-                Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
-                poseEstimator.addVisionMeasurement(
-                    visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
-                robotPos = poseEstimator.getEstimatedPosition();
-              }
-            });
+//    PhotonVision.getInstance();
+//      .resultPairs.get().forEach(
+//  pair ->
+//    {
+//      EstimatedRobotPose pose = getEstimatedPose(pair, poseEstimator.getEstimatedPosition());
+//      updateStdDev(pair, Optional.ofNullable(pose));
+//      if (pose != null)
+//      {
+//        double timestamp = pose.timestampSeconds;
+//        Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
+//        poseEstimator.addVisionMeasurement(visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
+//        robotPos = poseEstimator.getEstimatedPosition();
+//      }
+//    });
   }
 
   /**
-   * Sets the drive speeds for the swerve modules.
+   * Sets the drive speeds for the swerve modules.3
    *
    * @param forwardSpeed The forward speed.
    * @param leftSpeed The left speed.

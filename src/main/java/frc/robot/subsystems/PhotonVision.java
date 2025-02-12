@@ -6,13 +6,13 @@ import static frc.robot.utils.RobotParameters.PhotonVisionConstants.*;
 
 import edu.wpi.first.apriltag.*;
 import edu.wpi.first.math.geometry.*;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import java.util.*;
 import java.util.function.*;
 import kotlin.*;
 import org.photonvision.targeting.*;
-import edu.wpi.first.wpilibj.Timer;
 
 /**
  * The PhotonVision class is a subsystem that interfaces with multiple PhotonVision cameras to
@@ -28,7 +28,7 @@ public class PhotonVision extends SubsystemBase {
   private double yaw = -15.0;
   private double y = 0.0;
   private double dist = 0.0;
-  public final Supplier<List<Pair<PhotonModule, PhotonPipelineResult>>> resultPairs =
+  public Supplier<List<Pair<PhotonModule, PhotonPipelineResult>>> resultPairs =
       () -> ExtensionsKt.getDecentResultPairs(cameras);
   private List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair;
   private Timer timer;
@@ -53,15 +53,27 @@ public class PhotonVision extends SubsystemBase {
    * instance.
    */
   private PhotonVision() {
-    // Initialize cameras with their positions
-    AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
 
-    // First camera setup
-    Transform3d c1pos = createCameraPos(0.31, 0.0, CAMERA_ONE_HEIGHT_METER, CAMERA_ONE_ANGLE_DEG);
-    Transform3d c2pos = createCameraPos(0.31, 0.0, CAMERA_TWO_HEIGHT_METER, CAMERA_TWO_ANGLE_DEG);
-    cameras.add(new PhotonModule("FrontRight", c1pos, fieldLayout));
-    //    cameras.add(new PhotonModule("Camera2", c2pos, fieldLayout));
+//    AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
+//      ^ FUCK THIS LINE OF CODE IT BREAKS THE MEMORY ERRORS AND EVEYRTHING IT SUCKS
+//
+//    _____                                    _                    _
+//   |_   _|                                  | |                  | |
+//     | |    _ __ ___    _ __    ___   _ __  | |_   __ _  _ ___   | |_
+//     | |   | '_ ` _ \  | '_ \  / _ \ | ___| | __/ / _` | | '_  \ | __|
+//     |_|   |_| | | | | | | |_) | (_) | |    | |  |  (_|  | | | | | |_
+//   |_____| |_| |_| |_| | .__/  \___/ |_|     \__  \__,_| |_| |_| \___|
+//                       | |
+//                       |_|
 
+
+
+//First camera setup
+//    Transform3d c1pos = createCameraPos(0.31, 0.0, CAMERA_ONE_HEIGHT_METER, CAMERA_ONE_ANGLE_DEG);
+//    Transform3d c2pos = createCameraPos(0.31, 0.0, CAMERA_TWO_HEIGHT_METER, CAMERA_TWO_ANGLE_DEG);
+//    cameras.add(new PhotonModule("RightCamera", c1pos, fieldLayout));
+//    //    cameras.add(new PhotonModule("Camera2", c2pos, fieldLayout));
+//
     timer = new Timer();
     timer.start();
   }
@@ -72,17 +84,18 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    if (timer.advanceIfElapsed(0.1)) currentResultPair = resultPairs.get();
+    resultPairs = () -> ExtensionsKt.getDecentResultPairs(cameras);
+//    if (timer.advanceIfElapsed(0.1)) currentResultPair = resultPairs.get();
 
-    logs(
-        () -> {
-          log("Does any camera exist", cameras.get(0) != null);
-          log("Does any result pair exist", currentResultPair != null);
-          log("Has tag", hasTag());
-          if (currentResultPair != null) {
-            log("Result pairs have targets", hasTargets(currentResultPair));
-          }
-        });
+//    logs(
+//        () -> {
+//          log("Does any camera exist", cameras.get(0) != null);
+//          log("Does any result pair exist", currentResultPair != null);
+//          log("Has tag", hasTag());
+//          if (currentResultPair != null) {
+//            log("Result pairs have targets", hasTargets(currentResultPair));
+//          }
+//        });
 
     if (currentResultPair != null) {
       logs("Best target list is empty", currentResultPair.isEmpty());
@@ -105,13 +118,13 @@ public class PhotonVision extends SubsystemBase {
    * @return true if there is a visible tag and the current result pair is not null
    */
   public boolean hasTag() {
-//    List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair = resultPairs.get();
+    //    List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair = resultPairs.get();
 
-//    logs(
-//        () -> {
-//          log("resultPairs get", resultPairs.get().isEmpty());
-//          log("currentResultPair not null", currentResultPair != null);
-//        });
+    //    logs(
+    //        () -> {
+    //          log("resultPairs get", resultPairs.get().isEmpty());
+    //          log("currentResultPair not null", currentResultPair != null);
+    //        });
 
     if (currentResultPair != null) {
       logs("hasTargets currentResultPair", hasTargets(currentResultPair));
