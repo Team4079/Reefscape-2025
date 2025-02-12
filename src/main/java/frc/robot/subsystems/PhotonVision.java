@@ -66,6 +66,7 @@ public class PhotonVision extends SubsystemBase {
 //                       | |
 //                       |_|
 
+//  AprilTagFieldLayout fieldLayout =
 
 
 //First camera setup
