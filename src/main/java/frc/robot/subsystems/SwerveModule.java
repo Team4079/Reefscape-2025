@@ -135,6 +135,7 @@ public class SwerveModule {
     drivePosition = driveMotor.getPosition().getValueAsDouble();
     steerVelocity = steerMotor.getVelocity().getValueAsDouble();
     steerPosition = steerMotor.getPosition().getValueAsDouble();
+
     driveDisconnectedAlert =
         new Alert("Disconnected drive motor " + Integer.toString(driveId), AlertType.kError);
     turnDisconnectedAlert =
@@ -204,6 +205,10 @@ public class SwerveModule {
         (desiredState.speedMetersPerSecond
             * (MotorParameters.DRIVE_MOTOR_GEAR_RATIO / MotorParameters.METERS_PER_REV));
     driveMotor.setControl(velocitySetter.withVelocity(velocityToSet));
+
+    driveDisconnectedAlert.set(!driveMotor.isConnected());
+    turnDisconnectedAlert.set(!steerMotor.isConnected());
+    canCoderDisconnectedAlert.set(!canCoder.isConnected());
 
     // Log the actual and set values for debugging
     logs(

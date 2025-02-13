@@ -41,6 +41,9 @@ public class Elevator extends SubsystemBase {
   private TalonFXConfiguration elevatorLeftConfigs;
   private TalonFXConfiguration elevatorRightConfigs;
 
+  private Alert elevatorLeftDisconnectedAlert;
+  private Alert elevatorRightDisconnectedAlert;
+
   private ElevatorState currentState = frc.robot.utils.ElevatorState.L1;
 
   /**
@@ -147,13 +150,21 @@ public class Elevator extends SubsystemBase {
     elevatorLeftConfigurator.apply(elevatorLeftConfigs);
     elevatorRightConfigurator.apply(elevatorRightConfigs);
 
-    initializeAlarms();
+    elevatorLeftDisconnectedAlert =
+            new Alert("Disconnected left elevator motor " + ELEVATOR_MOTOR_LEFT_ID, kError);
+    elevatorRightDisconnectedAlert =
+            new Alert("Disconnected right elevator motor " + ELEVATOR_MOTOR_RIGHT_ID, kError);
+
     initizalizeLoggedNetworkPID();
   }
 
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
+
+    elevatorLeftDisconnectedAlert.set(!elevatorMotorLeft.isConnected());
+    elevatorRightDisconnectedAlert.set(!elevatorMotorRight.isConnected());
+
     logs(
         () -> {
           log("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
@@ -161,6 +172,10 @@ public class Elevator extends SubsystemBase {
           log("Elevator Left Set Speed", elevatorMotorLeft.get());
           log("Elevator Right Set Speed", elevatorMotorRight.get());
           log(ELEVATOR_STATE_KEY, currentState.toString());
+          log("Disconnected elevatorMotorLeft" + elevatorMotorLeft.getDeviceID(), elevatorMotorLeft.isConnected());
+          log("Disconnected elevatorMotorRight" + elevatorMotorRight.getDeviceID(), elevatorMotorRight.isConnected());
+          log("Disconnected elevatorMotorLeft" + elevatorMotorLeft.getDeviceID(), elevatorMotorLeft.isConnected());
+          log("Disconnected elevatorMotorRight" + elevatorMotorRight.getDeviceID(), elevatorMotorRight.isConnected());
         });
   }
 
@@ -203,9 +218,7 @@ public class Elevator extends SubsystemBase {
   }
 
   /** Sets the elevator state */
-  public void setState(ElevatorState currentState) {
-    this.currentState = currentState;
-  }
+  public void setState(ElevatorState currentState) { this.currentState = currentState; }
 
   /**
    * Get the state of the elevator motor
@@ -304,25 +317,6 @@ public class Elevator extends SubsystemBase {
     elevatorMotorRight.setControl(posRequest.withVelocity(pos));
   }
 
-  public void initializeAlarms() {
-    Alert elevatorLeftDisconnectedAlert =
-        new Alert("Disconnected left elevator motor " + ELEVATOR_MOTOR_LEFT_ID, kError);
-    Alert elevatorRightDisconnectedAlert =
-        new Alert("Disconnected right elevator motor " + ELEVATOR_MOTOR_RIGHT_ID, kError);
-
-    elevatorLeftDisconnectedAlert.set(!elevatorMotorLeft.isConnected());
-    elevatorRightDisconnectedAlert.set(!elevatorMotorRight.isConnected());
-
-    logs(
-        () -> {
-          log(
-              "Disconnected elevatorMotorLeft" + elevatorMotorLeft.getDeviceID(),
-              elevatorMotorLeft.isConnected());
-          log(
-              "Disconnected elevatorMotorRight" + elevatorMotorRight.getDeviceID(),
-              elevatorMotorRight.isConnected());
-        });
-  }
 
   public void initizalizeLoggedNetworkPID() {
     elevatorP = new LoggedNetworkNumber("/Tuning/Elevator P", elevatorRightConfigs.Slot0.kP);

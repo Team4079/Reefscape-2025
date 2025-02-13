@@ -147,7 +147,10 @@ public class CoralManipulator extends SubsystemBase {
 
     new PositionDutyCycle(0);
 
-    initializeAlarms();
+    coralManipulatorUpDisconnectedAlert =
+            new Alert("Disconnected coral up motor " + CORAL_MANIPULATOR_MOTOR_UP_ID, kError);
+    coralManipulatorDownDisconnectedAlert =
+            new Alert("Disconnected coral down motor " + CORAL_MANIPULATOR_MOTOR_DOWN_ID, kError);
   }
 
   @Override
@@ -184,6 +187,15 @@ public class CoralManipulator extends SubsystemBase {
         this.startMotors();
       }
     }
+
+    coralManipulatorUpDisconnectedAlert.set(!coralManipulatorMotorUp.isConnected());
+    coralManipulatorDownDisconnectedAlert.set(!coralManipulatorMotorDown.isConnected());
+
+    logs(
+            () -> {
+              log("Disconnected coralManipulatorMotorUp " + coralManipulatorMotorUp.getDeviceID(), coralManipulatorMotorUp.isConnected());
+              log("Disconnected coralManipulatorMotorDown " + coralManipulatorMotorDown.getDeviceID(), coralManipulatorMotorDown.isConnected());
+            });
   }
 
   /** Stops the coral manipulator motors */
@@ -208,23 +220,4 @@ public class CoralManipulator extends SubsystemBase {
     CoralManipulatorParameters.hasPiece = hasPiece;
   }
 
-  public void initializeAlarms() {
-    coralManipulatorUpDisconnectedAlert =
-        new Alert("Disconnected coral up motor " + CORAL_MANIPULATOR_MOTOR_UP_ID, kError);
-    coralManipulatorDownDisconnectedAlert =
-        new Alert("Disconnected coral down motor " + CORAL_MANIPULATOR_MOTOR_DOWN_ID, kError);
-
-    coralManipulatorUpDisconnectedAlert.set(!coralManipulatorMotorUp.isConnected());
-    coralManipulatorDownDisconnectedAlert.set(!coralManipulatorMotorDown.isConnected());
-
-    logs(
-        () -> {
-          log(
-              "Disconnected coralManipulatorMotorUp " + coralManipulatorMotorUp.getDeviceID(),
-              coralManipulatorMotorUp.isConnected());
-          log(
-              "Disconnected coralManipulatorMotorDown " + coralManipulatorMotorDown.getDeviceID(),
-              coralManipulatorMotorDown.isConnected());
-        });
-  }
 }
