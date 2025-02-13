@@ -102,13 +102,15 @@ public class AlignSwerve extends Command {
   @Override
   public void execute() {
     yaw = PhotonVision.getInstance().getYaw();
-    y = PhotonVision.getInstance().getY();
+
+    y = PhotonVision.getInstance().getY() + offset;
+
     dist = PhotonVision.getInstance().getDist();
 
     Swerve.getInstance()
         .setDriveSpeeds(
             disController.calculate(dist),
-            yController.calculate(y) + offset,
+            yController.calculate(y),
             rotationalController.calculate(yaw),
             false);
 

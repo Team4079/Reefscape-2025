@@ -29,8 +29,7 @@ import org.littletonrobotics.junction.networktables.*;
 public class RobotContainer {
   private final Map<Button, JoystickButton> buttons = new EnumMap<>(Button.class);
 
-  public final SendableChooser<Command> networkChooser =
-          AutoBuilder.buildAutoChooser();
+  public final SendableChooser<Command> networkChooser;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -40,6 +39,8 @@ public class RobotContainer {
         .forEach(button -> buttons.put(button, new JoystickButton(pad, button.getButtonNumber())));
 
     Swerve.getInstance().setDefaultCommand(drive(pad));
+
+    networkChooser = AutoBuilder.buildAutoChooser();
 
     configureBindings();
 
@@ -52,7 +53,7 @@ public class RobotContainer {
         cmd("SetL4", setElevatorState(L4)));
 
 //    networkChooser.addDefaultOption("Straight Auto", new PathPlannerAuto("Straight Auto"));
-//    networkChooser.addOption("Jayden's 500 point auto", new InstantCommand());
+    networkChooser.addOption("Straight Auto", new InstantCommand());
   }
 
   /**
@@ -67,6 +68,8 @@ public class RobotContainer {
         bind(START, resetPidgey()),
         bind(Y, setTelePid()),
         bind(A, align(CENTER)),
+        bind(B, align(LEFT)),
+        bind(A, align(RIGHT)),
         //TODO PLEASE TEST
 //        bind(B, createPathfindingCmd(reefs.get(0))),
         // bind(A, setElevatorState(L1)),

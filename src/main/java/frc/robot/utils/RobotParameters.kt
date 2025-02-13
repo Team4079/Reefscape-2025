@@ -274,7 +274,7 @@ object RobotParameters {
         }
     }
 
-    object LED_Values {
+    object LEDValues {
         const val LED_COUNT: Int = 120
     }
 }
