@@ -126,12 +126,15 @@ public class PhotonVision extends SubsystemBase {
         logCount++;
         logs("BestTarget updated counter", logCount);
         PhotonTrackedTarget bestTarget = currentResultPair.get(0).getSecond().getBestTarget();
+        logs("BestTarget is not null", bestTarget != null);
 
-        yaw = bestTarget.getYaw();
-        y = bestTarget.getBestCameraToTarget().getX();
-        dist = bestTarget.getBestCameraToTarget().getZ();
+        if (bestTarget != null) {
+          yaw = bestTarget.getYaw();
+          y = bestTarget.getBestCameraToTarget().getX();
+          dist = bestTarget.getBestCameraToTarget().getZ();
 
-        logs("Yaw", yaw);
+          logs("Yaw", yaw);
+        }
         logStdDev();
       }
     }
