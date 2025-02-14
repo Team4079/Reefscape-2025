@@ -92,6 +92,8 @@ public class PhotonVision extends SubsystemBase {
     timer = new Timer();
     timer.start();
 
+    currentResultPair = new ArrayList<>();
+
     PortForwarder.add(5800, "photonvision.local", 5800);
   }
 

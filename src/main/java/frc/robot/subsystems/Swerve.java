@@ -212,20 +212,22 @@ public class Swerve extends SubsystemBase {
    * adds the vision measurement to the pose estimator.
    */
   private void updatePos() {
-     PhotonVision.getInstance()
-         .getResultPairs()
-         .forEach(
-             pair -> {
-               EstimatedRobotPose pose = getEstimatedPose(pair, poseEstimator.getEstimatedPosition());
-               updateStdDev(pair, Optional.ofNullable(pose));
-               if (pose != null) {
-                 double timestamp = pose.timestampSeconds;
-                 Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
-                 poseEstimator.addVisionMeasurement(
-                     visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
-                 robotPos = poseEstimator.getEstimatedPosition();
-               }
-             });
+    if (!PhotonVision.getInstance().getResultPairs().isEmpty()) {
+      PhotonVision.getInstance()
+              .getResultPairs()
+              .forEach(
+                      pair -> {
+                        EstimatedRobotPose pose = getEstimatedPose(pair, poseEstimator.getEstimatedPosition());
+                        updateStdDev(pair, Optional.ofNullable(pose));
+                        if (pose != null) {
+                          double timestamp = pose.timestampSeconds;
+                          Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
+                          poseEstimator.addVisionMeasurement(
+                                  visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
+                          robotPos = poseEstimator.getEstimatedPosition();
+                        }
+                      });
+    }
   }
 
   /**
