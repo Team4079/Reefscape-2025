@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import static edu.wpi.first.math.VecBuilder.*;
-import static frc.robot.utils.Register.Dash.logs;
 import static org.photonvision.PhotonPoseEstimator.PoseStrategy.*;
 
 import edu.wpi.first.apriltag.*;
@@ -46,7 +45,7 @@ public class PhotonModule {
    * @return A list of PhotonPipelineResult objects containing the latest vision processing results
    */
   public List<PhotonPipelineResult> getAllUnreadResults() {
-      return camera.getAllUnreadResults();
+    return camera.getAllUnreadResults();
   }
 
   /**

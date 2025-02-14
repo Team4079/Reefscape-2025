@@ -2,7 +2,6 @@ package frc.robot.utils
 
 import edu.wpi.first.math.geometry.Pose2d
 import frc.robot.subsystems.PhotonModule
-import frc.robot.utils.Register.Dash.logs
 import org.photonvision.EstimatedRobotPose
 import org.photonvision.targeting.PhotonPipelineResult
 import java.util.Optional
@@ -24,7 +23,7 @@ fun List<PhotonModule>.getDecentResultPairs(): List<Pair<PhotonModule, PhotonPip
             // logs("PhotonModule allUnreadResults size", module.allUnreadResults.size)
             module.allUnreadResults
                 .getOrNull(0)
-                ?.takeIf { it.hasTargets()} // && it.bestTarget.poseAmbiguity < 0.2
+                ?.takeIf { it.hasTargets() } // && it.bestTarget.poseAmbiguity < 0.2
                 ?.let { module to it }
         }.sortedBy { it.second.bestTarget.poseAmbiguity }
 

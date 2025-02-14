@@ -36,6 +36,7 @@ public class RobotContainer {
         .forEach(button -> buttons.put(button, new JoystickButton(pad, button.getButtonNumber())));
 
     Swerve.getInstance().setDefaultCommand(drive(pad));
+    PhotonVision.getInstance();
 
     networkChooser = AutoBuilder.buildAutoChooser();
 
