@@ -4,22 +4,28 @@ import static edu.wpi.first.units.Units.Meter;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static frc.robot.utils.Register.Dash.log;
 import static frc.robot.utils.Register.Dash.logs;
+import static java.awt.Color.black;
 
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.LEDState;
 import frc.robot.utils.RobotParameters.*;
 
+import java.awt.*;
 import java.util.Random;
 
 public class LED extends SubsystemBase {
   private final AddressableLED leds;
-  private final AddressableLEDBuffer addressableLEDBuffer;
+  private final AddressableLEDBuffer ledBuffer;
   private int rainbowFirstHue = 0;
   public LEDState ledState = LEDState.RAINBOW_FLOW;
-  private Random rand = new Random();
+  private final Random rand = new Random();
   private final int[] brightnessLevels;
+  private int position = 0;
+  private boolean goingForward = true;
+  private boolean laser = false;
   private final Timer robonautLEDTimer = new Timer();
 
   /**
@@ -44,10 +50,10 @@ public class LED extends SubsystemBase {
    */
   private LED() {
     leds = new AddressableLED(9);
-    addressableLEDBuffer = new AddressableLEDBuffer(LEDValues.LED_COUNT);
+    ledBuffer = new AddressableLEDBuffer(LEDValues.LED_COUNT);
     brightnessLevels = new int[LEDValues.LED_COUNT];
-    leds.setLength(addressableLEDBuffer.getLength());
-    leds.setData(addressableLEDBuffer);
+    leds.setLength(ledBuffer.getLength());
+    leds.setData(ledBuffer);
     leds.start();
 
     robonautLEDTimer.start();
@@ -59,12 +65,12 @@ public class LED extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    if (DriverStation.isAutonomousEnabled()) {
-      ledState = LEDState.HIGHTIDE_FLOW;
+    if (DriverStation.isEnabled()) {
+      ledState = LEDState.LASER;
     }
 
     if (DriverStation.isDisabled()) {
-      ledState = LEDState.RAINBOW_FLOW;
+      ledState = LEDState.FUNNY_ROBONAUT;
     }
 
     switch(this.ledState) {
@@ -74,8 +80,17 @@ public class LED extends SubsystemBase {
       case HIGHTIDE_FLOW:
         highTideFlow();
         break;
+      case TWINKLE:
+        twinkle();
+        break;
       case ROBONAUT:
         robonautsLED();
+        break;
+      case FUNNY_ROBONAUT:
+        funnyRobonaunts();
+        break;
+      case LASER:
+        laserbeam();
         break;
       default:
         setRed();
@@ -91,17 +106,17 @@ public class LED extends SubsystemBase {
    */
   public void setRGB(int r, int g, int b) {
 
-    for (int i = 0; i < addressableLEDBuffer.getLength(); i++) {
-      addressableLEDBuffer.setRGB(i, r, g, b);
+    for (int i = 0; i < ledBuffer.getLength(); i++) {
+      ledBuffer.setRGB(i, r, g, b);
     }
     logs(
         () -> {
-          log("LED Length", addressableLEDBuffer.getLength());
-          log("LED Color Blue", addressableLEDBuffer.getLED(0).blue);
-          log("LED Color Red", addressableLEDBuffer.getLED(0).red);
-          log("LED Color Green", addressableLEDBuffer.getLED(0).green);
+          log("LED Length", ledBuffer.getLength());
+          log("LED Color Blue", ledBuffer.getLED(0).blue);
+          log("LED Color Red", ledBuffer.getLED(0).red);
+          log("LED Color Green", ledBuffer.getLED(0).green);
         });
-    leds.setData(addressableLEDBuffer);
+    leds.setData(ledBuffer);
   }
 
   /**
@@ -112,10 +127,10 @@ public class LED extends SubsystemBase {
    * @param v (Value) Integer values between 0 - 255
    */
   public void rainbowHSV(int h, int s, int v) {
-    for (int i = 0; i < addressableLEDBuffer.getLength(); i++) {
-      addressableLEDBuffer.setHSV(i, h, s, v);
+    for (int i = 0; i < ledBuffer.getLength(); i++) {
+      ledBuffer.setHSV(i, h, s, v);
     }
-    leds.setData(addressableLEDBuffer);
+    leds.setData(ledBuffer);
   }
 
   /** Sets the LED color to tan. */
@@ -157,7 +172,7 @@ public class LED extends SubsystemBase {
    */
   public void highTideFlow() {
     long currentTime = System.currentTimeMillis();
-    int length = addressableLEDBuffer.getLength();
+    int length = ledBuffer.getLength();
 
     final int waveSpeed = 30;
     final int waveWidth = 55;
@@ -172,30 +187,30 @@ public class LED extends SubsystemBase {
       int g = (int) (wave * 200);
       int b = (int) (wave * 50);
 
-      addressableLEDBuffer.setRGB(i, r, g, b);
+      ledBuffer.setRGB(i, r, g, b);
     }
-    leds.setData(addressableLEDBuffer);
+    leds.setData(ledBuffer);
   }
 
   /**
    * Creates a flowing rainbow effect.
    */
   public void flowingRainbow() {
-    for (int i = 0; i < addressableLEDBuffer.getLength(); i++) {
-      int hue = (rainbowFirstHue + (i * 180 / addressableLEDBuffer.getLength())) % 180;
-      addressableLEDBuffer.setHSV(i, hue, 255, 255);
+    for (int i = 0; i < ledBuffer.getLength(); i++) {
+      int hue = (rainbowFirstHue + (i * 180 / ledBuffer.getLength())) % 180;
+      ledBuffer.setHSV(i, hue, 255, 255);
     }
 
     rainbowFirstHue = rainbowFirstHue + 4 % 180;
 
-    leds.setData(addressableLEDBuffer);
+    leds.setData(ledBuffer);
   }
 
   /**
    * Creates a twinkle where lights flicker at random.
    */
   public void twinkle() {
-    for (int i = 0; i < addressableLEDBuffer.getLength(); i++) {
+    for (int i = 0; i < ledBuffer.getLength(); i++) {
       if (rand.nextDouble() < 0.1) {
         brightnessLevels[i] = rand.nextInt(255);
       } else {
@@ -203,42 +218,76 @@ public class LED extends SubsystemBase {
       }
 
       int hue = rand.nextInt(180);
-      addressableLEDBuffer.setHSV(i, hue, 255, brightnessLevels[i]);
+      ledBuffer.setHSV(i, hue, 255, brightnessLevels[i]);
     }
-    leds.setData(addressableLEDBuffer);
+    leds.setData(ledBuffer);
   }
 
-  public void robonautsLED()
-  {
+  /**
+   * Creates a robonauts themed LED pattern courtesy of CalamityCow
+   */
+  public void robonautsLED() {
     if (robonautLEDTimer.advanceIfElapsed(0.1))
     {
-      for (int i = 0; i < addressableLEDBuffer.getLength(); i++)
+      for (int i = 0; i < ledBuffer.getLength(); i++)
       {
         int color = rand.nextInt(0, 100);
+
         if (color < 70)
-        {
-          //set leds to black
-          addressableLEDBuffer.setRGB(i, 0, 0, 0);
-        }
+          {ledBuffer.setRGB(i, 0, 0, 0);}
+        else if (color < 85)
+          {ledBuffer.setRGB(i, 244, 177, 25);}
+        else if (color < 100)
+          {ledBuffer.setRGB(i, 255, 255, 255);}
 
-        else if (color >= 70 && color < 85)
-        {
-          addressableLEDBuffer.setRGB(i, 244, 177, 25);
-        }
-
-        else if (color >= 85 && color < 100)
-        {
-          addressableLEDBuffer.setRGB(i, 255, 255, 255);
-        }
-
-//      else if (color >= 45 && color < 50)
-//      {
-////        addressableLEDBuffer.setRGB(i, 207, 34, 43);
-//        addressableLEDBuffer.setRGB(i, 0, 0, 0);
-//      }
-
-        leds.setData(addressableLEDBuffer);
+        leds.setData(ledBuffer);
       }
     }
   }
+
+  /**
+   * Funny robonaunts lights
+   */
+  public void funnyRobonaunts() {
+    for (int i = 0; i < ledBuffer.getLength(); i++) {
+      if (i == position) {
+        ledBuffer.setHSV(i, 45, 255, 255);
+      } else {
+        ledBuffer.setHSV(i, 45, 255, 50);
+      }
+    }
+
+    if (goingForward) {
+      position++;
+      if (position >= ledBuffer.getLength() - 1) goingForward = false;
+    } else {
+      position--;
+      if (position < 0) goingForward = true;
+    }
+    leds.setData(ledBuffer);
+  }
+
+  /**
+   * Laser effect for LED lights
+   */
+  public void laserbeam() {
+    for (int i = 0; i < ledBuffer.getLength(); i++) {
+      if (i == position) {
+        ledBuffer.setHSV(i, 0, 255, 255);
+      } else {
+        ledBuffer.setHSV(i, 0, 255, 50);
+      }
+    }
+    if (laser) {
+      position++;
+      if (position >= ledBuffer.getLength() - 1) {
+        laser = false;
+        position = 0;
+      }
+    } else {
+      laser = true;
+    }
+    leds.setData(ledBuffer);
+  }
+
 }

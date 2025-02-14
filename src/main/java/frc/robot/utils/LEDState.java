@@ -12,5 +12,9 @@ public enum LEDState {
 
   TWINKLE,
 
-  ROBONAUT
+  ROBONAUT,
+
+  FUNNY_ROBONAUT,
+
+  LASER
 }
