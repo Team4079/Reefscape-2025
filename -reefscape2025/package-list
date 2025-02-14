@@ -103,6 +103,7 @@ $dokka.location:frc.robot.subsystems/PhotonVision///PointingToDeclaration/-reef
 $dokka.location:frc.robot.subsystems/PhotonVision/createCameraPos/#double#double#double#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/create-camera-pos.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getDist/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-dist.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-instance.html
+$dokka.location:frc.robot.subsystems/PhotonVision/getResultPairs/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-result-pairs.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getY/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-y.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getYaw/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-yaw.html
 $dokka.location:frc.robot.subsystems/PhotonVision/hasTag/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/has-tag.html
