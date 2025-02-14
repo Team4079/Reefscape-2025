@@ -66,15 +66,15 @@ public class Robot extends LoggedRobot {
     // Start the logger
     Logger.start();
 
-    // Schedule the warmup command
-    PathfindingCommand.warmupCommand().schedule();
-
     // Initialize the garbage timer
     garbageTimer = new Timer();
     garbageTimer.start();
 
     // Initialize the robot container
     robotContainer = new RobotContainer();
+
+    // Schedule the warmup command
+    PathfindingCommand.warmupCommand().schedule();
   }
 
   /**
