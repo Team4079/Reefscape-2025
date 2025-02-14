@@ -27,16 +27,18 @@ public class RobotContainer {
   private final Map<Button, JoystickButton> buttons = new EnumMap<>(Button.class);
 
   public final SendableChooser<Command> networkChooser;
+  public final XboxController pad;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    XboxController pad = new XboxController(0);
+    pad = new XboxController(0);
 
     Button.getEntries()
         .forEach(button -> buttons.put(button, new JoystickButton(pad, button.getButtonNumber())));
 
     Swerve.getInstance().setDefaultCommand(drive(pad));
     PhotonVision.getInstance();
+    LED.getInstance();
 
     networkChooser = AutoBuilder.buildAutoChooser();
 
@@ -65,9 +67,9 @@ public class RobotContainer {
         buttons,
         bind(START, resetPidgey()),
         bind(Y, setTelePid()),
-        bind(A, align(CENTER)),
-        bind(B, align(LEFT)),
-        bind(A, align(RIGHT)),
+        bind(A, align(CENTER).onlyWhile(pad::getAButton)),
+//        bind(B, align(LEFT)),
+//        bind(A, align(RIGHT)),
         // TODO PLEASE TEST
         //        bind(B, createPathfindingCmd(reefs.get(0))),
         // bind(A, setElevatorState(L1)),

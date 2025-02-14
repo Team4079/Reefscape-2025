@@ -63,10 +63,10 @@ public class PadDrive extends Command {
    */
   public static Pair<Double, Double> positionSet(XboxController pad) {
     double x = -pad.getLeftX() * MAX_SPEED;
-    if (Math.abs(x) < X_DEADZONE) x = 0.0;
+    if (Math.abs(x) < X_DEADZONE * MAX_SPEED) x = 0.0;
 
     double y = -pad.getLeftY() * MAX_SPEED;
-    if (Math.abs(y) < Y_DEADZONE) y = 0.0;
+    if (Math.abs(y) < Y_DEADZONE * MAX_SPEED) y  = 0.0;
 
     return new Pair<>(x, y);
   }

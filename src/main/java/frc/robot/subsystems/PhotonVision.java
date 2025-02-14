@@ -103,11 +103,8 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    //    resultPairs = () -> getDecentResultPairs(cameras);
-    if (timer.advanceIfElapsed(0.1)) currentResultPair = resultPairs.get();
+    if (timer.advanceIfElapsed(0.02)) currentResultPair = resultPairs.get();
     //    currentResultPair = resultPairs.get();
-
-    // resultCamera = cameras.get(0).getAllUnreadResults();
 
     logs(
         () -> {

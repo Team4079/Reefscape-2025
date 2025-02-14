@@ -186,7 +186,7 @@ public class Swerve extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    updatePos();
+//    updatePos();
     logs("Swerve Module States", getModuleStates());
 
     /*

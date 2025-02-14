@@ -8,17 +8,19 @@ import static frc.robot.utils.Register.Dash.logs;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.LEDState;
 import frc.robot.utils.RobotParameters.*;
 
+import java.util.Random;
+
 public class LED extends SubsystemBase {
-  private final AddressableLED alignmentIndication1;
+  private final AddressableLED leds;
   private final AddressableLEDBuffer addressableLEDBuffer;
-  final LEDPattern m_rainbow = LEDPattern.rainbow(255, 255);
-
-  final Distance kLedSpacing = Meter.of((double) 1 / 120);
-
-  final LEDPattern m_scrollingRainbow =
-      m_rainbow.scrollAtAbsoluteSpeed(MetersPerSecond.of(1), kLedSpacing);
+  private int rainbowFirstHue = 0;
+  public LEDState ledState = LEDState.RAINBOW_FLOW;
+  private Random rand = new Random();
+  private final int[] brightnessLevels;
+  private final Timer robonautLEDTimer = new Timer();
 
   /**
    * The Singleton instance of this LEDSubsystem. Code should use the {@link #getInstance()} method
@@ -41,11 +43,14 @@ public class LED extends SubsystemBase {
    * Singleton. Code should use the {@link #getInstance()} method to get the singleton instance.
    */
   private LED() {
-    alignmentIndication1 = new AddressableLED(9);
+    leds = new AddressableLED(9);
     addressableLEDBuffer = new AddressableLEDBuffer(LEDValues.LED_COUNT);
-    alignmentIndication1.setLength(addressableLEDBuffer.getLength());
-    alignmentIndication1.setData(addressableLEDBuffer);
-    alignmentIndication1.start();
+    brightnessLevels = new int[LEDValues.LED_COUNT];
+    leds.setLength(addressableLEDBuffer.getLength());
+    leds.setData(addressableLEDBuffer);
+    leds.start();
+
+    robonautLEDTimer.start();
   }
 
   /**
@@ -54,9 +59,27 @@ public class LED extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    m_scrollingRainbow.applyTo(addressableLEDBuffer);
+    if (DriverStation.isAutonomousEnabled()) {
+      ledState = LEDState.HIGHTIDE_FLOW;
+    }
 
-    alignmentIndication1.setData(addressableLEDBuffer);
+    if (DriverStation.isDisabled()) {
+      ledState = LEDState.ROBONAUT;
+    }
+
+    switch(this.ledState) {
+      case RAINBOW_FLOW:
+        flowingRainbow();
+        break;
+      case HIGHTIDE_FLOW:
+        highTideFlow();
+        break;
+      case ROBONAUT:
+        robonautsLED();
+        break;
+      default:
+        setRed();
+    }
   }
 
   /**
@@ -78,7 +101,7 @@ public class LED extends SubsystemBase {
           log("LED Color Red", addressableLEDBuffer.getLED(0).red);
           log("LED Color Green", addressableLEDBuffer.getLED(0).green);
         });
-    alignmentIndication1.setData(addressableLEDBuffer);
+    leds.setData(addressableLEDBuffer);
   }
 
   /**
@@ -92,7 +115,7 @@ public class LED extends SubsystemBase {
     for (int i = 0; i < addressableLEDBuffer.getLength(); i++) {
       addressableLEDBuffer.setHSV(i, h, s, v);
     }
-    alignmentIndication1.setData(addressableLEDBuffer);
+    leds.setData(addressableLEDBuffer);
   }
 
   /** Sets the LED color to tan. */
@@ -151,6 +174,71 @@ public class LED extends SubsystemBase {
 
       addressableLEDBuffer.setRGB(i, r, g, b);
     }
-    alignmentIndication1.setData(addressableLEDBuffer);
+    leds.setData(addressableLEDBuffer);
+  }
+
+  /**
+   * Creates a flowing rainbow effect.
+   */
+  public void flowingRainbow() {
+    for (int i = 0; i < addressableLEDBuffer.getLength(); i++) {
+      int hue = (rainbowFirstHue + (i * 180 / addressableLEDBuffer.getLength())) % 180;
+      addressableLEDBuffer.setHSV(i, hue, 255, 255);
+    }
+
+    rainbowFirstHue = rainbowFirstHue + 4 % 180;
+
+    leds.setData(addressableLEDBuffer);
+  }
+
+  /**
+   * Creates a twinkle where lights flicker at random.
+   */
+  public void twinkle() {
+    for (int i = 0; i < addressableLEDBuffer.getLength(); i++) {
+      if (rand.nextDouble() < 0.1) {
+        brightnessLevels[i] = rand.nextInt(255);
+      } else {
+        brightnessLevels[i] = Math.max(0, brightnessLevels[i] - 10);
+      }
+
+      int hue = rand.nextInt(180);
+      addressableLEDBuffer.setHSV(i, hue, 255, brightnessLevels[i]);
+    }
+    leds.setData(addressableLEDBuffer);
+  }
+
+  public void robonautsLED()
+  {
+    if (robonautLEDTimer.advanceIfElapsed(0.1))
+    {
+      for (int i = 0; i < addressableLEDBuffer.getLength(); i++)
+      {
+        int color = rand.nextInt(0, 100);
+        if (color < 70)
+        {
+          //set leds to black
+          addressableLEDBuffer.setRGB(i, 0, 0, 0);
+        }
+
+        else if (color >= 70 && color < 85)
+        {
+          addressableLEDBuffer.setRGB(i, 244, 177, 25);
+        }
+
+        else if (color >= 85 && color < 100)
+        {
+          addressableLEDBuffer.setRGB(i, 255, 255, 255);
+        }
+
+//      else if (color >= 45 && color < 50)
+//      {
+////        addressableLEDBuffer.setRGB(i, 207, 34, 43);
+//        addressableLEDBuffer.setRGB(i, 0, 0, 0);
+//      }
+
+        leds.setData(addressableLEDBuffer);
+      }
+    }
   }
 }

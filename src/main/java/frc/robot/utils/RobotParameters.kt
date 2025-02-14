@@ -143,8 +143,8 @@ object RobotParameters {
             const val IS_FIELD_ORIENTED: Boolean = true
             const val SHOULD_INVERT: Boolean = false
             const val ENCODER_OFFSET: Double = (0 / 360.0)
-            const val X_DEADZONE: Double = 0.0
-            const val Y_DEADZONE: Double = 0.0
+            const val X_DEADZONE: Double = 0.1
+            const val Y_DEADZONE: Double = 0.1
 
             // Testing boolean for logging (to not slow down the robot)
             val TEST_MODE: Boolean = !DriverStation.isFMSAttached()
