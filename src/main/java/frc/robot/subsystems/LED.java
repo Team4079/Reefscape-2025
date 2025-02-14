@@ -64,7 +64,7 @@ public class LED extends SubsystemBase {
     }
 
     if (DriverStation.isDisabled()) {
-      ledState = LEDState.ROBONAUT;
+      ledState = LEDState.RAINBOW_FLOW;
     }
 
     switch(this.ledState) {

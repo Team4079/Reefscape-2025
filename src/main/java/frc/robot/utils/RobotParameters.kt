@@ -173,6 +173,18 @@ object RobotParameters {
         @JvmField
         val ELEVATOR_PIDV: PIDVController = PIDVController(0.0001, 0.0, 0.0, 0.0)
 
+        @JvmField
+        val ELEVATOR_S: Double = 0.0
+
+        @JvmField
+        val ELEVATOR_G: Double = 1.0
+
+        @JvmField
+        val ELEVATOR_SOFT_LIMIT_DOWN: Double = -0.7
+
+        @JvmField
+        val ELEVATOR_SOFT_LIMIT_UP: Double = -61.0
+
         // Elevator Positions
         const val L1: Double = 1.0
         const val L2: Double = 2.0

@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.Register.Dash.*;
+import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
 
 import com.ctre.phoenix6.configs.*;
@@ -41,10 +42,14 @@ public class Elevator extends SubsystemBase {
   private TalonFXConfiguration elevatorLeftConfigs;
   private TalonFXConfiguration elevatorRightConfigs;
 
+  private MotionMagicConfigs motionMagicConfigs;
+
   private Alert elevatorLeftDisconnectedAlert;
   private Alert elevatorRightDisconnectedAlert;
 
   private ElevatorState currentState = frc.robot.utils.ElevatorState.L1;
+
+  private final MotionMagicVoltage motionMagicVoltage;
 
   /**
    * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
@@ -80,15 +85,19 @@ public class Elevator extends SubsystemBase {
     elevatorLeftConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     elevatorRightConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-    elevatorLeftConfigs.Slot0.kP = ElevatorParameters.ELEVATOR_PIDV.getP();
-    elevatorLeftConfigs.Slot0.kI = ElevatorParameters.ELEVATOR_PIDV.getI();
-    elevatorLeftConfigs.Slot0.kD = ElevatorParameters.ELEVATOR_PIDV.getD();
-    elevatorLeftConfigs.Slot0.kV = ElevatorParameters.ELEVATOR_PIDV.getV();
+    elevatorLeftConfigs.Slot0.kP = ELEVATOR_PIDV.getP();
+    elevatorLeftConfigs.Slot0.kI = ELEVATOR_PIDV.getI();
+    elevatorLeftConfigs.Slot0.kD = ELEVATOR_PIDV.getD();
+    elevatorLeftConfigs.Slot0.kV = ELEVATOR_PIDV.getV();
+    elevatorLeftConfigs.Slot0.kS = ELEVATOR_S;
+    elevatorLeftConfigs.Slot0.kG = ELEVATOR_G;
 
-    elevatorRightConfigs.Slot0.kP = ElevatorParameters.ELEVATOR_PIDV.getP();
-    elevatorRightConfigs.Slot0.kI = ElevatorParameters.ELEVATOR_PIDV.getI();
-    elevatorRightConfigs.Slot0.kD = ElevatorParameters.ELEVATOR_PIDV.getD();
-    elevatorRightConfigs.Slot0.kV = ElevatorParameters.ELEVATOR_PIDV.getV();
+    elevatorRightConfigs.Slot0.kP = ELEVATOR_PIDV.getP();
+    elevatorRightConfigs.Slot0.kI = ELEVATOR_PIDV.getI();
+    elevatorRightConfigs.Slot0.kD = ELEVATOR_PIDV.getD();
+    elevatorRightConfigs.Slot0.kV = ELEVATOR_PIDV.getV();
+    elevatorRightConfigs.Slot0.kS = ELEVATOR_S;
+    elevatorRightConfigs.Slot0.kG = ELEVATOR_G;
 
     elevatorMotorLeft.getConfigurator().apply(elevatorLeftConfigs);
     elevatorMotorRight.getConfigurator().apply(elevatorRightConfigs);
@@ -122,18 +131,18 @@ public class Elevator extends SubsystemBase {
     elevatorMotorRight.getConfigurator().apply(rightMotorRampConfig);
 
     // on
-    leftSoftLimitConfig.ForwardSoftLimitEnable = false;
-    leftSoftLimitConfig.ReverseSoftLimitEnable = false;
-    leftSoftLimitConfig.ForwardSoftLimitThreshold = 40;
-    leftSoftLimitConfig.ReverseSoftLimitThreshold = 0.2;
+    leftSoftLimitConfig.ForwardSoftLimitEnable = true;
+    leftSoftLimitConfig.ReverseSoftLimitEnable = true;
+    leftSoftLimitConfig.ReverseSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_UP;
+    leftSoftLimitConfig.ForwardSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_DOWN;
 
-    rightSoftLimitConfig.ForwardSoftLimitEnable = false;
-    rightSoftLimitConfig.ReverseSoftLimitEnable = false;
-    rightSoftLimitConfig.ForwardSoftLimitThreshold = 40;
-    rightSoftLimitConfig.ReverseSoftLimitThreshold = 0.2;
+    rightSoftLimitConfig.ForwardSoftLimitEnable = true;
+    rightSoftLimitConfig.ReverseSoftLimitEnable = true;
+    rightSoftLimitConfig.ReverseSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_UP;
+    rightSoftLimitConfig.ForwardSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_DOWN;
 
-    elevatorLeftConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-    elevatorRightConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    elevatorLeftConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    elevatorRightConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     elevatorLeftConfigs.SoftwareLimitSwitch = leftSoftLimitConfig;
     elevatorRightConfigs.SoftwareLimitSwitch = rightSoftLimitConfig;
 
@@ -143,12 +152,26 @@ public class Elevator extends SubsystemBase {
     velocityRequest = new VelocityTorqueCurrentFOC(0);
     posRequest = new PositionDutyCycle(0);
     voltageOut = new VoltageOut(0);
+    motionMagicVoltage = new MotionMagicVoltage(0);
+
+    //TODO THESE NEED TO BE LOGGED
+    motionMagicConfigs = elevatorLeftConfigs.MotionMagic;
+    motionMagicConfigs.MotionMagicCruiseVelocity = 0.0;
+    motionMagicConfigs.MotionMagicAcceleration = 0.0;
+    motionMagicConfigs.MotionMagicJerk = 0.0;
+
+    motionMagicVoltage.Slot = 0;
+
+    velocityRequest.OverrideCoastDurNeutral = false;
+
+    voltageOut.OverrideBrakeDurNeutral = false;
+    voltageOut.EnableFOC = true;
 
     elevatorMotorLeft.setPosition(0);
     elevatorMotorRight.setPosition(0);
 
-    elevatorLeftConfigurator.apply(elevatorLeftConfigs);
-    elevatorRightConfigurator.apply(elevatorRightConfigs);
+    elevatorLeftConfigurator.apply(elevatorLeftConfigs, 0.05);
+    elevatorRightConfigurator.apply(elevatorRightConfigs, 0.05);
 
     elevatorLeftDisconnectedAlert =
         new Alert("Disconnected left elevator motor " + ELEVATOR_MOTOR_LEFT_ID, kError);
@@ -304,14 +327,17 @@ public class Elevator extends SubsystemBase {
   /**
    * Move the elevator motor at a specific velocity
    *
-   * @param velocity double, the velocity to move the elevator motor at
+   * @param speed double, the velocity to move the elevator motor at
    */
-  public void moveElevator(double velocity) {
+  public void moveElevator(double speed) {
     final double deadband = 0.001;
+    double velocity = speed * 5;
     if (Math.abs(velocity) >= deadband) {
       // TODO THESE MAY BE NEGATIVE DO NOT MURDER THE MOTORS SOFTWARE PLS!!!!!!!!!!!!!!!!!!!!!!!
-      elevatorMotorLeft.set(-velocity);
-      elevatorMotorRight.set(velocity);
+//      elevatorMotorLeft.set(velocity);
+//      elevatorMotorRight.set(velocity);
+        elevatorMotorLeft.setControl(velocityRequest.withVelocity(velocity));
+        elevatorMotorRight.setControl(velocityRequest.withVelocity(velocity));
     } else {
       stopMotors();
     }
@@ -323,8 +349,8 @@ public class Elevator extends SubsystemBase {
    * @param pos double, the position to set the elevator motor to
    */
   public void setElevatorPosition(double pos) {
-    elevatorMotorLeft.setControl(posRequest.withVelocity(pos));
-    elevatorMotorRight.setControl(posRequest.withVelocity(pos));
+    elevatorMotorLeft.setControl(motionMagicVoltage.withPosition(pos));
+    elevatorMotorRight.setControl(motionMagicVoltage.withPosition(pos));
   }
 
   public void initizalizeLoggedNetworkPID() {

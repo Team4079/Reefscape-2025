@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
+import frc.robot.commands.PadElevator;
 import frc.robot.subsystems.*;
 import frc.robot.utils.*;
 import java.util.EnumMap;
@@ -36,7 +37,8 @@ public class RobotContainer {
     Button.getEntries()
         .forEach(button -> buttons.put(button, new JoystickButton(pad, button.getButtonNumber())));
 
-    Swerve.getInstance().setDefaultCommand(drive(pad));
+//    Swerve.getInstance().setDefaultCommand(drive(pad));
+    Elevator.getInstance().setDefaultCommand(padElevator(pad));
     PhotonVision.getInstance();
     LED.getInstance();
 
@@ -53,7 +55,7 @@ public class RobotContainer {
         cmd("SetL4", setElevatorState(L4)));
 
     //    networkChooser.addDefaultOption("Straight Auto", new PathPlannerAuto("Straight Auto"));
-    networkChooser.addOption("Straight Auto", new InstantCommand());
+//    networkChooser.addOption("Straight Auto", new InstantCommand());
   }
 
   /**
@@ -66,7 +68,7 @@ public class RobotContainer {
     Register.bindings(
         buttons,
         bind(START, resetPidgey()),
-        bind(Y, setTelePid()),
+        bind(Y, new InstantCommand(() -> Elevator.getInstance().applyElevatorPIDValues())),
         bind(A, align(CENTER).onlyWhile(pad::getAButton)),
 //        bind(B, align(LEFT)),
 //        bind(A, align(RIGHT)),

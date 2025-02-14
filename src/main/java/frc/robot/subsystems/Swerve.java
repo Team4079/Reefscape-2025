@@ -104,7 +104,7 @@ public class Swerve extends SubsystemBase {
     this.modules = initializeModules();
     this.pidgey.reset();
     this.poseEstimator = initializePoseEstimator();
-    configureAutoBuilder();
+//    configureAutoBuilder();
     initializePathPlannerLogging();
 
     //    swerveLoggingThread.start();
@@ -166,7 +166,7 @@ public class Swerve extends SubsystemBase {
    * Configures the AutoBuilder for autonomous driving. READ DOCUMENTATION TO PUT IN CORRECT VALUES
    * Allows PathPlanner to get pose and output robot-relative chassis speeds Needs tuning
    */
-  private void configureAutoBuilder() {
+  public void configureAutoBuilder() {
     assert PIDParameters.config != null;
     AutoBuilder.configure(
         this::getPose,

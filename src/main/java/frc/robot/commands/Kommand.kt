@@ -149,4 +149,13 @@ object Kommand {
             PATH_CONSTRAINTS,
             endVelocity, // Goal end velocity in meters/sec
         )
+
+    /**
+     * Creates a [PadDrive] command to control the elevator.
+     *
+     * @param controller The gaming controller used to move the elevator.
+     * @return A [PadDrive] command to control the robot's elevator.
+     */
+    @JvmStatic
+    fun padElevator(controller: XboxController) = PadElevator(controller)
 }
