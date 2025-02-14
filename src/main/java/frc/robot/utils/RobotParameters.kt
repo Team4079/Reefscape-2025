@@ -8,7 +8,6 @@ import edu.wpi.first.math.VecBuilder
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.math.geometry.Rotation2d
-import edu.wpi.first.math.geometry.Rotation2d.fromDegrees
 import edu.wpi.first.math.geometry.Translation2d
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.numbers.N1
@@ -149,6 +148,15 @@ object RobotParameters {
             // Testing boolean for logging (to not slow down the robot)
             val TEST_MODE: Boolean = !DriverStation.isFMSAttached()
         }
+    }
+
+    /** CLass for robot values that change and affect the robot. */
+    object LiveRobotValues {
+        @JvmField
+        var LOW_BATTERY_VOLTAGE: Double = 11.8
+
+        @JvmField
+        var LOW_BATTERY: Boolean = false
     }
 
     /** Class containing constants for the Photonvision subsystem.  */

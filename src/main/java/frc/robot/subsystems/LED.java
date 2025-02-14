@@ -73,6 +73,10 @@ public class LED extends SubsystemBase {
       ledState = LEDState.FUNNY_ROBONAUT;
     }
 
+    if (DriverStation.isDisabled() && LiveRobotValues.LOW_BATTERY) {
+      ledState = LEDState.TWINKLE;
+    }
+
     switch(this.ledState) {
       case RAINBOW_FLOW:
         flowingRainbow();
