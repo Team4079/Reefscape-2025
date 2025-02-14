@@ -214,7 +214,6 @@ public class Swerve extends SubsystemBase {
   private void updatePos() {
      PhotonVision.getInstance()
          .getResultPairs()
-         .get()
          .forEach(
              pair -> {
                EstimatedRobotPose pose = getEstimatedPose(pair, poseEstimator.getEstimatedPosition());

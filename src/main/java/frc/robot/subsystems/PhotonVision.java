@@ -228,7 +228,7 @@ public class PhotonVision extends SubsystemBase {
         new Rotation3d(0.0, Math.toRadians(360 - angleDeg), Math.toRadians(180.0)));
   }
 
-  public Supplier<List<Pair<PhotonModule, PhotonPipelineResult>>> getResultPairs() {
-    return resultPairs;
+  public List<Pair<PhotonModule, PhotonPipelineResult>> getResultPairs() {
+    return currentResultPair;
   }
 }
