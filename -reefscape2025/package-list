@@ -80,10 +80,12 @@ $dokka.location:frc.robot.subsystems/Elevator/stopMotors/#/PointingToDeclaration
 $dokka.location:frc.robot.subsystems/Elevator/toggleSoftStop/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/toggle-soft-stop.html
 $dokka.location:frc.robot.subsystems/Elevator/updateElevatorPID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/update-elevator-p-i-d.html
 $dokka.location:frc.robot.subsystems/LED///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/index.html
+$dokka.location:frc.robot.subsystems/LED/flowingRainbow/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/flowing-rainbow.html
 $dokka.location:frc.robot.subsystems/LED/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/get-instance.html
 $dokka.location:frc.robot.subsystems/LED/highTideFlow/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/high-tide-flow.html
 $dokka.location:frc.robot.subsystems/LED/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/periodic.html
 $dokka.location:frc.robot.subsystems/LED/rainbowHSV/#int#int#int/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/rainbow-h-s-v.html
+$dokka.location:frc.robot.subsystems/LED/robonautsLED/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/robonauts-l-e-d.html
 $dokka.location:frc.robot.subsystems/LED/setGreen/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/set-green.html
 $dokka.location:frc.robot.subsystems/LED/setHighTide/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/set-high-tide.html
 $dokka.location:frc.robot.subsystems/LED/setOrange/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/set-orange.html
@@ -91,6 +93,7 @@ $dokka.location:frc.robot.subsystems/LED/setPurpleColor/#/PointingToDeclaration/
 $dokka.location:frc.robot.subsystems/LED/setRGB/#int#int#int/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/set-r-g-b.html
 $dokka.location:frc.robot.subsystems/LED/setRed/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/set-red.html
 $dokka.location:frc.robot.subsystems/LED/setTan/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/set-tan.html
+$dokka.location:frc.robot.subsystems/LED/twinkle/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-l-e-d/twinkle.html
 $dokka.location:frc.robot.subsystems/PhotonModule///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/index.html
 $dokka.location:frc.robot.subsystems/PhotonModule/PhotonModule/#java.lang.String#edu.wpi.first.math.geometry.Transform3d#edu.wpi.first.apriltag.AprilTagFieldLayout/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/-photon-module.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getAllUnreadResults/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-all-unread-results.html
@@ -181,6 +184,14 @@ $dokka.location:frc.robot.utils/ExtensionsKt/getEstimatedPose/kotlin.Pair[frc.ro
 $dokka.location:frc.robot.utils/ExtensionsKt/hasMultiTag/kotlin.collections.List[kotlin.Pair[frc.robot.subsystems.PhotonModule,org.photonvision.targeting.PhotonPipelineResult]]#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions-kt/has-multi-tag.html
 $dokka.location:frc.robot.utils/ExtensionsKt/hasTargets/kotlin.collections.List[kotlin.Pair[frc.robot.subsystems.PhotonModule,org.photonvision.targeting.PhotonPipelineResult]]#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions-kt/has-targets.html
 $dokka.location:frc.robot.utils/ExtensionsKt/updateStdDev/kotlin.Pair[frc.robot.subsystems.PhotonModule,org.photonvision.targeting.PhotonPipelineResult]#java.util.Optional[org.photonvision.EstimatedRobotPose]/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions-kt/update-std-dev.html
+$dokka.location:frc.robot.utils/LEDState.HIGHTIDE_FLOW///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-l-e-d-state/-h-i-g-h-t-i-d-e_-f-l-o-w/index.html
+$dokka.location:frc.robot.utils/LEDState.RAINBOW_FLOW///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-l-e-d-state/-r-a-i-n-b-o-w_-f-l-o-w/index.html
+$dokka.location:frc.robot.utils/LEDState.RED///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-l-e-d-state/-r-e-d/index.html
+$dokka.location:frc.robot.utils/LEDState.ROBONAUT///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-l-e-d-state/-r-o-b-o-n-a-u-t/index.html
+$dokka.location:frc.robot.utils/LEDState.TWINKLE///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-l-e-d-state/-t-w-i-n-k-l-e/index.html
+$dokka.location:frc.robot.utils/LEDState///PointingToDeclaration/-reefscape2025/frc.robot.utils/-l-e-d-state/index.html
+$dokka.location:frc.robot.utils/LEDState/valueOf/#java.lang.String/PointingToDeclaration/-reefscape2025/frc.robot.utils/-l-e-d-state/value-of.html
+$dokka.location:frc.robot.utils/LEDState/values/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-l-e-d-state/values.html
 $dokka.location:frc.robot.utils/LocalADStarAK///PointingToDeclaration/-reefscape2025/frc.robot.utils/-local-a-d-star-a-k/index.html
 $dokka.location:frc.robot.utils/LocalADStarAK/LocalADStarAK/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-local-a-d-star-a-k/-local-a-d-star-a-k.html
 $dokka.location:frc.robot.utils/LocalADStarAK/getCurrentPath/#com.pathplanner.lib.path.PathConstraints#com.pathplanner.lib.path.GoalEndState/PointingToDeclaration/-reefscape2025/frc.robot.utils/-local-a-d-star-a-k/get-current-path.html
