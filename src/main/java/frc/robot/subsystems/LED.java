@@ -1,23 +1,24 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.units.measure.Distance;
-import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.RobotParameters.*;
-
 import static edu.wpi.first.units.Units.Meter;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static frc.robot.utils.Register.Dash.log;
 import static frc.robot.utils.Register.Dash.logs;
+
+import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.RobotParameters.*;
 
 public class LED extends SubsystemBase {
   private final AddressableLED alignmentIndication1;
   private final AddressableLEDBuffer addressableLEDBuffer;
   final LEDPattern m_rainbow = LEDPattern.rainbow(255, 255);
 
-  final Distance kLedSpacing = Meter.of((double) 1 /120);
+  final Distance kLedSpacing = Meter.of((double) 1 / 120);
 
-  final LEDPattern m_scrollingRainbow = m_rainbow.scrollAtAbsoluteSpeed(MetersPerSecond.of(1), kLedSpacing);
+  final LEDPattern m_scrollingRainbow =
+      m_rainbow.scrollAtAbsoluteSpeed(MetersPerSecond.of(1), kLedSpacing);
 
   /**
    * The Singleton instance of this LEDSubsystem. Code should use the {@link #getInstance()} method
@@ -71,12 +72,12 @@ public class LED extends SubsystemBase {
       addressableLEDBuffer.setRGB(i, r, g, b);
     }
     logs(
-            () -> {
-              log("LED Length", addressableLEDBuffer.getLength());
-              log("LED Color Blue", addressableLEDBuffer.getLED(0).blue);
-              log("LED Color Red", addressableLEDBuffer.getLED(0).red);
-              log("LED Color Green", addressableLEDBuffer.getLED(0).green);
-            });
+        () -> {
+          log("LED Length", addressableLEDBuffer.getLength());
+          log("LED Color Blue", addressableLEDBuffer.getLED(0).blue);
+          log("LED Color Red", addressableLEDBuffer.getLED(0).red);
+          log("LED Color Green", addressableLEDBuffer.getLED(0).green);
+        });
     alignmentIndication1.setData(addressableLEDBuffer);
   }
 

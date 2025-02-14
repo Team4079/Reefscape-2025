@@ -6,10 +6,8 @@ import static frc.robot.utils.RobotParameters.PhotonVisionConstants.*;
 
 import edu.wpi.first.apriltag.*;
 import edu.wpi.first.math.geometry.*;
-import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import java.io.IOException;
 import java.util.*;
 import java.util.function.*;
@@ -36,20 +34,20 @@ public class PhotonVision extends SubsystemBase {
   public List<PhotonPipelineResult> resultCamera;
   private List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair;
   private Timer timer;
-//  private AprilTagFieldLayout fieldLayout;
+  //  private AprilTagFieldLayout fieldLayout;
 
   // Singleton instance
   private static final PhotonVision INSTANCE;
 
-    static {
-        try {
-            INSTANCE = new PhotonVision();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+  static {
+    try {
+      INSTANCE = new PhotonVision();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
+  }
 
-    /**
+  /**
    * Returns the Singleton instance of this PhotonVision subsystem. This static method should be
    * used, rather than the constructor, to get the single instance of this class. For example:
    * {@code PhotonVision.getInstance();}
@@ -66,36 +64,38 @@ public class PhotonVision extends SubsystemBase {
    * instance.
    */
   private PhotonVision() throws IOException {
-//    fieldLayout = AprilTagFieldLayout.loadFromResource("2025-reefscape.json");
+    //    fieldLayout = AprilTagFieldLayout.loadFromResource("2025-reefscape.json");
 
-//    AprilTagFieldLayout fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
-//      ^ FUCK THIS LINE OF CODE IT BREAKS THE MEMORY ERRORS AND EVEYRTHING IT SUCKS
-//
-//    _____                                    _                    _
-//   |_   _|                                  | |                  | |
-//     | |    _ __ ___    _ __    ___   _ __  | |_   __ _  _ ___   | |_
-//     | |   | '_ ` _ \  | '_ \  / _ \ | ___| | __/ / _` | | '_  \ | __|
-//     |_|   |_| | | | | | | |_) | (_) | |    | |  |  (_|  | | | | | |_
-//   |_____| |_| |_| |_| | .__/  \___/ |_|     \__  \__,_| |_| |_| \___|
-//                       | |
-//                       |_|
+    //    AprilTagFieldLayout fieldLayout =
+    // AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
+    //      ^ FUCK THIS LINE OF CODE IT BREAKS THE MEMORY ERRORS AND EVEYRTHING IT SUCKS
+    //
+    //    _____                                    _                    _
+    //   |_   _|                                  | |                  | |
+    //     | |    _ __ ___    _ __    ___   _ __  | |_   __ _  _ ___   | |_
+    //     | |   | '_ ` _ \  | '_ \  / _ \ | ___| | __/ / _` | | '_  \ | __|
+    //     |_|   |_| | | | | | | |_) | (_) | |    | |  |  (_|  | | | | | |_
+    //   |_____| |_| |_| |_| | .__/  \___/ |_|     \__  \__,_| |_| |_| \___|
+    //                       | |
+    //                       |_|
 
-//  AprilTagFieldLayout fieldLayout =
+    //  AprilTagFieldLayout fieldLayout =
 
-
-//First camera setup
+    // First camera setup
     Transform3d c1pos = createCameraPos(0.31, 0.0, CAMERA_ONE_HEIGHT_METER, CAMERA_ONE_ANGLE_DEG);
-//    Transform3d c2pos = createCameraPos(0.31, 0.0, CAMERA_TWO_HEIGHT_METER, CAMERA_TWO_ANGLE_DEG);
-    cameras.add(new PhotonModule("RightCamera", c1pos, AprilTagFieldLayout.loadFromResource("2025-reefscape.json")));
-//    cameras.add(new PhotonModule("Camera2", c2pos, AprilTagFieldLayout.loadFromResource("2025-reefscape.json")));
+    //    Transform3d c2pos = createCameraPos(0.31, 0.0, CAMERA_TWO_HEIGHT_METER,
+    // CAMERA_TWO_ANGLE_DEG);
+    cameras.add(
+        new PhotonModule(
+            "RightCamera", c1pos, AprilTagFieldLayout.loadFromResource("2025-reefscape.json")));
+    //    cameras.add(new PhotonModule("Camera2", c2pos,
+    // AprilTagFieldLayout.loadFromResource("2025-reefscape.json")));
 
     resultCamera = cameras.get(0).getAllUnreadResults();
 
     timer = new Timer();
     timer.start();
-
-    PortForwarder.add(5800, "photonvision.local", 5800);
-}
+  }
 
   /**
    * This method is called periodically by the CommandScheduler. It updates the tracked targets,
@@ -103,7 +103,7 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
-//    resultPairs = () -> getDecentResultPairs(cameras);
+    //    resultPairs = () -> getDecentResultPairs(cameras);
     if (timer.advanceIfElapsed(0.1)) currentResultPair = resultPairs.get();
 
     resultCamera = cameras.get(0).getAllUnreadResults();
@@ -145,11 +145,12 @@ public class PhotonVision extends SubsystemBase {
   public boolean hasTag() {
     //    List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair = resultPairs.get();
 
-    logs(() -> {
-      log("resultPairs get", resultPairs.get().isEmpty());
-      log("resultPairs length", resultPairs.get().size());
-      log("currentResultPair not null", currentResultPair != null);
-    });
+    logs(
+        () -> {
+          log("resultPairs get", resultPairs.get().isEmpty());
+          log("resultPairs length", resultPairs.get().size());
+          log("currentResultPair not null", currentResultPair != null);
+        });
 
     if (currentResultPair != null) {
       logs("hasTargets currentResultPair", hasTargets(currentResultPair));

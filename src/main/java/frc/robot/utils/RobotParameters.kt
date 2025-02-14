@@ -170,7 +170,6 @@ object RobotParameters {
 
     /** Class containing constants for the elevator subsystem.  */
     object ElevatorParameters {
-
         @JvmField
         val ELEVATOR_PIDV: PIDVController = PIDVController(0.0001, 0.0, 0.0, 0.0)
 
@@ -228,29 +227,31 @@ object RobotParameters {
         object RobotPoses {
             // Red first then blue poses
             @JvmField
-            val reefs = listOf(
-                Pose2d(Translation2d(5.008, 5.279), Rotation2d.fromDegrees(-120.0)),
-                Pose2d(Translation2d(5.345, 5.12), Rotation2d.fromDegrees(-120.0)),
-                Pose2d(Translation2d(5.84, 4.084), Rotation2d.fromDegrees(180.0)),
-                Pose2d(Translation2d(5.84, 3.916), Rotation2d.fromDegrees(180.0)),
-                Pose2d(Translation2d(5.345, 2.88), Rotation2d.fromDegrees(120.0)),
-                Pose2d(Translation2d(5.008, 2.721), Rotation2d.fromDegrees(120.0)),
-                Pose2d(Translation2d(3.972, 2.721), Rotation2d.fromDegrees(60.0)),
-                Pose2d(Translation2d(3.635, 2.88), Rotation2d.fromDegrees(60.0)),
-                Pose2d(Translation2d(3.14, 3.916), Rotation2d.fromDegrees(0.0)),
-                Pose2d(Translation2d(3.14, 4.084), Rotation2d.fromDegrees(0.0)),
-                Pose2d(Translation2d(3.635, 5.12), Rotation2d.fromDegrees(-60.0)),
-                Pose2d(Translation2d(3.972, 5.279), Rotation2d.fromDegrees(-60.0))
-            )
+            val reefs =
+                listOf(
+                    Pose2d(Translation2d(5.008, 5.279), Rotation2d.fromDegrees(-120.0)),
+                    Pose2d(Translation2d(5.345, 5.12), Rotation2d.fromDegrees(-120.0)),
+                    Pose2d(Translation2d(5.84, 4.084), Rotation2d.fromDegrees(180.0)),
+                    Pose2d(Translation2d(5.84, 3.916), Rotation2d.fromDegrees(180.0)),
+                    Pose2d(Translation2d(5.345, 2.88), Rotation2d.fromDegrees(120.0)),
+                    Pose2d(Translation2d(5.008, 2.721), Rotation2d.fromDegrees(120.0)),
+                    Pose2d(Translation2d(3.972, 2.721), Rotation2d.fromDegrees(60.0)),
+                    Pose2d(Translation2d(3.635, 2.88), Rotation2d.fromDegrees(60.0)),
+                    Pose2d(Translation2d(3.14, 3.916), Rotation2d.fromDegrees(0.0)),
+                    Pose2d(Translation2d(3.14, 4.084), Rotation2d.fromDegrees(0.0)),
+                    Pose2d(Translation2d(3.635, 5.12), Rotation2d.fromDegrees(-60.0)),
+                    Pose2d(Translation2d(3.972, 5.279), Rotation2d.fromDegrees(-60.0)),
+                )
 
             // List of Source positions
             @JvmField
-            val sources = listOf(
-                Pose2d(Translation2d(1.582, 7.275), Rotation2d.fromDegrees(126.0)),
-                Pose2d(Translation2d(0.767, 6.692), Rotation2d.fromDegrees(126.0)),
-                Pose2d(Translation2d(0.767, 1.35), Rotation2d.fromDegrees(-126.0)),
-                Pose2d(Translation2d(1.582, 0.78), Rotation2d.fromDegrees(-126.0))
-            )
+            val sources =
+                listOf(
+                    Pose2d(Translation2d(1.582, 7.275), Rotation2d.fromDegrees(126.0)),
+                    Pose2d(Translation2d(0.767, 6.692), Rotation2d.fromDegrees(126.0)),
+                    Pose2d(Translation2d(0.767, 1.35), Rotation2d.fromDegrees(-126.0)),
+                    Pose2d(Translation2d(1.582, 0.78), Rotation2d.fromDegrees(-126.0)),
+                )
         }
     }
 

@@ -118,7 +118,8 @@ public class Climber extends SubsystemBase {
 
     climberMotor.setPosition(0);
 
-    climberMotorDisconnectedAlert = new Alert("Disconnected pivot motor " + CLIMBER_MOTOR_ID, kError);
+    climberMotorDisconnectedAlert =
+        new Alert("Disconnected pivot motor " + CLIMBER_MOTOR_ID, kError);
   }
 
   // This method will be called once per scheduler run
@@ -128,13 +129,14 @@ public class Climber extends SubsystemBase {
     climberMotorDisconnectedAlert.set(!climberMotor.isConnected());
 
     logs(
-            () -> {
-              log("Disconnected climberMotor " + climberMotor.getDeviceID(), climberMotor.isConnected());
-              logs("Pivot Motor Position", climberMotor.getPosition().getValueAsDouble());
-            });
+        () -> {
+          log(
+              "Disconnected climberMotor " + climberMotor.getDeviceID(),
+              climberMotor.isConnected());
+          logs("Pivot Motor Position", climberMotor.getPosition().getValueAsDouble());
+        });
 
     logs("Pivot Motor Position", climberMotor.getPosition().getValueAsDouble());
-
   }
 
   /** Stops the pivot motor */

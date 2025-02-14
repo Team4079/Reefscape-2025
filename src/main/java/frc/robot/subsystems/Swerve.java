@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import static com.pathplanner.lib.path.PathPlannerPath.fromPathFile;
 import static com.pathplanner.lib.util.PathPlannerLogging.*;
 import static edu.wpi.first.math.VecBuilder.*;
 import static edu.wpi.first.math.geometry.Rotation2d.*;
@@ -19,7 +18,6 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
-import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -32,7 +30,6 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.Optional;
-
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import org.photonvision.*;
 
@@ -41,10 +38,8 @@ public class Swerve extends SubsystemBase {
   private final Field2d field = new Field2d();
   private final Pigeon2 pidgey = new Pigeon2(PIDGEY_ID);
   private final SwerveModuleState[] states = new SwerveModuleState[4];
-  private final LED led;
   private SwerveModuleState[] setStates = new SwerveModuleState[4];
   private final SwerveModule[] modules;
-  PhotonVision p;
 
   private LoggedDashboardChooser reefChooser;
 
@@ -111,17 +106,15 @@ public class Swerve extends SubsystemBase {
     this.poseEstimator = initializePoseEstimator();
     configureAutoBuilder();
     initializePathPlannerLogging();
-    led = LED.getInstance();
-    p = PhotonVision.getInstance();
 
     //    swerveLoggingThread.start();
     //    swerveLoggingThreadBeforeSet.start();
 
-//    try {
-//      pathToScore = fromPathFile("Straight Path");
-//    } catch (Exception e) {
-//      throw new RobotConfigException("Failed to load robot config", e);
-//    }
+    //    try {
+    //      pathToScore = fromPathFile("Straight Path");
+    //    } catch (Exception e) {
+    //      throw new RobotConfigException("Failed to load robot config", e);
+    //    }
   }
 
   /**
@@ -219,20 +212,22 @@ public class Swerve extends SubsystemBase {
    * adds the vision measurement to the pose estimator.
    */
   private void updatePos() {
-    p
-      .resultPairs.get().forEach(
-  pair ->
-    {
-      EstimatedRobotPose pose = getEstimatedPose(pair, poseEstimator.getEstimatedPosition());
-      updateStdDev(pair, Optional.ofNullable(pose));
-      if (pose != null)
-      {
-        double timestamp = pose.timestampSeconds;
-        Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
-        poseEstimator.addVisionMeasurement(visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
-        robotPos = poseEstimator.getEstimatedPosition();
-      }
-    });
+    PhotonVision.getInstance()
+        .resultPairs
+        .get()
+        .forEach(
+            pair -> {
+              EstimatedRobotPose pose =
+                  getEstimatedPose(pair, poseEstimator.getEstimatedPosition());
+              updateStdDev(pair, Optional.ofNullable(pose));
+              if (pose != null) {
+                double timestamp = pose.timestampSeconds;
+                Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
+                poseEstimator.addVisionMeasurement(
+                    visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
+                robotPos = poseEstimator.getEstimatedPosition();
+              }
+            });
   }
 
   /**

@@ -54,10 +54,6 @@ public class SwerveModule {
   private Alert turnDisconnectedAlert;
   private Alert canCoderDisconnectedAlert;
 
-  private final int driveIdNum;
-  private final int steerIdNum;
-  private final int canCoderIdNum;
-
   /**
    * Constructs a new SwerveModule.
    *
@@ -136,17 +132,8 @@ public class SwerveModule {
     steerVelocity = steerMotor.getVelocity().getValueAsDouble();
     steerPosition = steerMotor.getPosition().getValueAsDouble();
 
-    driveDisconnectedAlert =
-        new Alert("Disconnected drive motor " + Integer.toString(driveId), AlertType.kError);
-    turnDisconnectedAlert =
-        new Alert("Disconnected turn motor " + Integer.toString(steerId), AlertType.kError);
-    canCoderDisconnectedAlert =
-        new Alert("Disconnected CANCoder " + Integer.toString(canCoderID), AlertType.kError);
-
     initializeLoggedNetworkPID();
-    driveIdNum = driveId;
-    steerIdNum = steerId;
-    canCoderIdNum = canCoderID;
+    initializeAlarms(driveId, steerId, canCoderID);
   }
 
   /**
@@ -206,10 +193,6 @@ public class SwerveModule {
             * (MotorParameters.DRIVE_MOTOR_GEAR_RATIO / MotorParameters.METERS_PER_REV));
     driveMotor.setControl(velocitySetter.withVelocity(velocityToSet));
 
-    driveDisconnectedAlert.set(!driveMotor.isConnected());
-    turnDisconnectedAlert.set(!steerMotor.isConnected());
-    canCoderDisconnectedAlert.set(!canCoder.isConnected());
-
     // Log the actual and set values for debugging
     logs(
         () -> {
@@ -218,9 +201,6 @@ public class SwerveModule {
           log("steer actual angle", canCoder.getAbsolutePosition().getValueAsDouble());
           log("steer set angle", angleToSet);
           log("desired state after optimize", desiredState.angle.getRotations());
-          log("Disconnected drive motor " + driveIdNum, driveMotor.isConnected());
-          log("Disconnected steer motor " + steerIdNum, steerMotor.isConnected());
-          log("Disconnected CANCoder " + canCoderIdNum, canCoder.isConnected());
         });
 
     // Update the state with the optimized values
@@ -314,5 +294,25 @@ public class SwerveModule {
     PIDParameters.STEER_PID_TELE.setD(steerD.get());
 
     applyTelePIDValues();
+  }
+
+  /**
+   * Initializes alerts for disconnected components.
+   *
+   * @param driveId The ID of the drive motor.
+   * @param steerId The ID of the steer motor.
+   * @param canCoderId The ID of the CANcoder.
+   */
+  public void initializeAlarms(int driveId, int steerId, int canCoderId) {
+    driveDisconnectedAlert =
+        new Alert("Disconnected drive motor " + Integer.toString(driveId), AlertType.kError);
+    turnDisconnectedAlert =
+        new Alert("Disconnected turn motor " + Integer.toString(steerId), AlertType.kError);
+    canCoderDisconnectedAlert =
+        new Alert("Disconnected CANCoder " + Integer.toString(canCoderId), AlertType.kError);
+
+    driveDisconnectedAlert.set(!driveMotor.isConnected());
+    turnDisconnectedAlert.set(!steerMotor.isConnected());
+    canCoderDisconnectedAlert.set(!canCoder.isConnected());
   }
 }

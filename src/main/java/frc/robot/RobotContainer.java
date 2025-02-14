@@ -5,10 +5,8 @@ import static frc.robot.utils.Button.*;
 import static frc.robot.utils.Direction.*;
 import static frc.robot.utils.ElevatorState.*;
 import static frc.robot.utils.Register.*;
-import static frc.robot.utils.RobotParameters.ConstField.RobotPoses.reefs;
 
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -52,7 +50,7 @@ public class RobotContainer {
         cmd("SetL3", setElevatorState(L3)),
         cmd("SetL4", setElevatorState(L4)));
 
-//    networkChooser.addDefaultOption("Straight Auto", new PathPlannerAuto("Straight Auto"));
+    //    networkChooser.addDefaultOption("Straight Auto", new PathPlannerAuto("Straight Auto"));
     networkChooser.addOption("Straight Auto", new InstantCommand());
   }
 
@@ -70,8 +68,8 @@ public class RobotContainer {
         bind(A, align(CENTER)),
         bind(B, align(LEFT)),
         bind(A, align(RIGHT)),
-        //TODO PLEASE TEST
-//        bind(B, createPathfindingCmd(reefs.get(0))),
+        // TODO PLEASE TEST
+        //        bind(B, createPathfindingCmd(reefs.get(0))),
         // bind(A, setElevatorState(L1)),
         // bind(B, setElevatorState(L2)),
         // bind(X, setElevatorState(L3)),
