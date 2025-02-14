@@ -37,6 +37,11 @@ public class Elevator extends SubsystemBase {
   private LoggedNetworkNumber elevatorI;
   private LoggedNetworkNumber elevatorD;
   private LoggedNetworkNumber elevatorV;
+  private LoggedNetworkNumber elevatorS;
+  private LoggedNetworkNumber elevatorG;
+  private LoggedNetworkNumber mm_cruise_velocity;
+  private LoggedNetworkNumber mm_acceleration;
+  private LoggedNetworkNumber mm_jerk;
 
   private final VoltageOut voltageOut;
   private TalonFXConfiguration elevatorLeftConfigs;
@@ -354,17 +359,29 @@ public class Elevator extends SubsystemBase {
   }
 
   public void initizalizeLoggedNetworkPID() {
-    elevatorP = new LoggedNetworkNumber("/Tuning/Elevator P", elevatorRightConfigs.Slot0.kP);
-    elevatorI = new LoggedNetworkNumber("/Tuning/Elevator I", elevatorRightConfigs.Slot0.kI);
-    elevatorD = new LoggedNetworkNumber("/Tuning/Elevator D", elevatorRightConfigs.Slot0.kD);
-    elevatorV = new LoggedNetworkNumber("/Tuning/Elevator V", elevatorRightConfigs.Slot0.kV);
+    elevatorP = new LoggedNetworkNumber("/Tuning/Elevator/Elevator P", elevatorRightConfigs.Slot0.kP);
+    elevatorI = new LoggedNetworkNumber("/Tuning/Elevator/Elevator I", elevatorRightConfigs.Slot0.kI);
+    elevatorD = new LoggedNetworkNumber("/Tuning/Elevator/Elevator D", elevatorRightConfigs.Slot0.kD);
+    elevatorV = new LoggedNetworkNumber("/Tuning/Elevator/Elevator V", elevatorRightConfigs.Slot0.kV);
+    elevatorS = new LoggedNetworkNumber("/Tuning/Elevator/Elevator S", elevatorRightConfigs.Slot0.kS);
+    elevatorG = new LoggedNetworkNumber("/Tuning/Elevator/Elevator G", elevatorRightConfigs.Slot0.kG);
+
+    mm_cruise_velocity = new LoggedNetworkNumber("/Tuning/Elevator/MM Cruise Velocity", motionMagicConfigs.MotionMagicCruiseVelocity);
+    mm_acceleration = new LoggedNetworkNumber("/Tuning/Elevator/MM Acceleration", motionMagicConfigs.MotionMagicAcceleration);
+    mm_jerk = new LoggedNetworkNumber("/Tuning/Elevator/MM Jerk", motionMagicConfigs.MotionMagicJerk);
   }
 
   public void updateElevatorPID() {
-    ElevatorParameters.ELEVATOR_PIDV.setP(elevatorP.get());
-    ElevatorParameters.ELEVATOR_PIDV.setI(elevatorI.get());
-    ElevatorParameters.ELEVATOR_PIDV.setD(elevatorD.get());
-    ElevatorParameters.ELEVATOR_PIDV.setV(elevatorV.get());
+    ELEVATOR_PIDV.setP(elevatorP.get());
+    ELEVATOR_PIDV.setI(elevatorI.get());
+    ELEVATOR_PIDV.setD(elevatorD.get());
+    ELEVATOR_PIDV.setV(elevatorV.get());
+    ELEVATOR_S = elevatorS.get();
+    ELEVATOR_G = elevatorG.get();
+
+    ELEVATOR_MM_CRUISE_VELOCITY = mm_cruise_velocity.get();
+    ELEVATOR_MM_ACCELERATION = mm_acceleration.get();
+    ELEVATOR_MM_JERK = mm_jerk.get();
 
     applyElevatorPIDValues();
   }
@@ -374,13 +391,25 @@ public class Elevator extends SubsystemBase {
     elevatorLeftConfigs.Slot0.kI = elevatorI.get();
     elevatorLeftConfigs.Slot0.kD = elevatorD.get();
     elevatorLeftConfigs.Slot0.kV = elevatorV.get();
+    elevatorLeftConfigs.Slot0.kS = elevatorS.get();
+    elevatorLeftConfigs.Slot0.kG = elevatorG.get();
 
     elevatorRightConfigs.Slot0.kP = elevatorP.get();
     elevatorRightConfigs.Slot0.kI = elevatorI.get();
     elevatorRightConfigs.Slot0.kD = elevatorD.get();
     elevatorRightConfigs.Slot0.kV = elevatorV.get();
+    elevatorRightConfigs.Slot0.kS = elevatorS.get();
+    elevatorRightConfigs.Slot0.kG = elevatorG.get();
+
+    motionMagicConfigs = elevatorLeftConfigs.MotionMagic;
+    motionMagicConfigs.MotionMagicCruiseVelocity = mm_cruise_velocity.get();
+    motionMagicConfigs.MotionMagicAcceleration = mm_acceleration.get();
+    motionMagicConfigs.MotionMagicJerk = mm_jerk.get();
 
     elevatorMotorLeft.getConfigurator().apply(elevatorLeftConfigs);
     elevatorMotorRight.getConfigurator().apply(elevatorRightConfigs);
+
+    elevatorMotorLeft.getConfigurator().apply(motionMagicConfigs);
+    elevatorMotorRight.getConfigurator().apply(motionMagicConfigs);
   }
 }
