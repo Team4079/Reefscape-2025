@@ -34,7 +34,15 @@ public class PhotonVision extends SubsystemBase {
   public List<PhotonPipelineResult> resultCamera;
   private List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair;
   private Timer timer;
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
   //  private AprilTagFieldLayout fieldLayout;
+=======
+  private AprilTagFieldLayout fieldLayout;
+>>>>>>> Stashed changes
+=======
+  private AprilTagFieldLayout fieldLayout;
+>>>>>>> Stashed changes
 
   // Singleton instance
   private static final PhotonVision INSTANCE;
@@ -93,9 +101,20 @@ public class PhotonVision extends SubsystemBase {
 
     resultCamera = cameras.get(0).getAllUnreadResults();
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     timer = new Timer();
     timer.start();
   }
+=======
+=======
+>>>>>>> Stashed changes
+//    timer = new Timer();
+//    timer.start();
+
+    PortForwarder.add(5800, "photonvision.local", 5800);
+}
+>>>>>>> Stashed changes
 
   /**
    * This method is called periodically by the CommandScheduler. It updates the tracked targets,
@@ -105,6 +124,7 @@ public class PhotonVision extends SubsystemBase {
   public void periodic() {
     //    resultPairs = () -> getDecentResultPairs(cameras);
     if (timer.advanceIfElapsed(0.1)) currentResultPair = resultPairs.get();
+//    currentResultPair = resultPairs.get();
 
     resultCamera = cameras.get(0).getAllUnreadResults();
 
@@ -119,6 +139,9 @@ public class PhotonVision extends SubsystemBase {
           }
         });
 
+
+    logs("is current result pair null", currentResultPair != null);
+
     if (currentResultPair != null) {
       logs("Best target list is empty", currentResultPair.isEmpty());
 
@@ -128,16 +151,36 @@ public class PhotonVision extends SubsystemBase {
         PhotonTrackedTarget bestTarget = currentResultPair.get(0).getSecond().getBestTarget();
         logs("BestTarget is not null", bestTarget != null);
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+        logs("Best Target is not null", bestTarget != null);
+=======
+        logs("Best Target is not null", bestTarget != null);
+
         if (bestTarget != null) {
           yaw = bestTarget.getYaw();
           y = bestTarget.getBestCameraToTarget().getX();
           dist = bestTarget.getBestCameraToTarget().getZ();
+        }
+>>>>>>> Stashed changes
+
+>>>>>>> Stashed changes
+        if (bestTarget != null) {
+          yaw = bestTarget.getYaw();
+          y = bestTarget.getBestCameraToTarget().getX();
+          dist = bestTarget.getBestCameraToTarget().getZ();
+<<<<<<< Updated upstream
+=======
+        }
+>>>>>>> Stashed changes
 
           logs("Yaw", yaw);
         }
         logStdDev();
       }
     }
+
   }
 
   /**
