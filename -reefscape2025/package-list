@@ -237,6 +237,7 @@ $dokka.location:frc.robot.utils/RobotParameters.ElevatorParameters///PointingToD
 $dokka.location:frc.robot.utils/RobotParameters.Info///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-info/index.html
 $dokka.location:frc.robot.utils/RobotParameters.Info/logInfo/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-info/log-info.html
 $dokka.location:frc.robot.utils/RobotParameters.LEDValues///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-l-e-d-values/index.html
+$dokka.location:frc.robot.utils/RobotParameters.LiveRobotValues///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-live-robot-values/index.html
 $dokka.location:frc.robot.utils/RobotParameters.MotorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-motor-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.PhotonVisionConstants///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-photon-vision-constants/index.html
 $dokka.location:frc.robot.utils/RobotParameters.SwerveParameters.PIDParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-swerve-parameters/-p-i-d-parameters/index.html
