@@ -183,13 +183,7 @@ object RobotParameters {
         // MM ↓
 
         @JvmField
-        var elevatorCruiseV: Double = 90.0
-
-        @JvmField
-        var elevatorAcc: Double = 180.0
-
-        @JvmField
-        var elevatorJerk: Double = 0.0
+        val ELEVATOR_MAGIC: Magic = Magic(90.0, 180.0, 0.0)
 
         const val ELEVATOR_SOFT_LIMIT_DOWN: Double = 0.0
 
