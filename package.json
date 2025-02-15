@@ -9,7 +9,8 @@
   },
   "scripts": {
     "prepare": "husky",
-    "cz-cuzt": "cz-customizable"
+    "cz-cuzt": "cz-customizable",
+    "precommit": "node set-git-user.ts"
   },
   "dependencies": {
     "cz": "^1.8.2",

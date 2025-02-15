@@ -41,8 +41,9 @@ object RobotParameters {
         const val CLIMBER_MOTOR_ID: Int = 15
         const val PIDGEY_ID: Int = 16
         const val ALGAE_MANIPULATOR_MOTOR_ID: Int = 17
-        const val CORAL_MANIPULATOR_MOTOR_UP_ID: Int = 18
-        const val CORAL_MANIPULATOR_MOTOR_DOWN_ID: Int = 19
+        const val ALGAE_INTAKE_MOTOR_ID: Int = 18
+        const val CORAL_MANIPULATOR_MOTOR_UP_ID: Int = 19
+        const val CORAL_MANIPULATOR_MOTOR_DOWN_ID: Int = 20
 
         // Motor Property Values
         const val MAX_SPEED: Double = 5.76

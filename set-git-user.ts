@@ -41,34 +41,23 @@ async function selectProfile(): Promise<void> {
 
     console.log(`You selected: ${selectedProfile}`);
 
-    const { email, username } = await inquirer.prompt([
-        {
-            type: 'input',
-            name: 'email',
-            message: 'Enter the new email for GitHub:',
-            validate: (input: string): true | string => input.includes('@') ? true : 'Please enter a valid email address'
-        },
-        {
-            type: 'input',
-            name: 'username',
-            message: 'Enter the new username for GitHub:'
-        }
-    ]);
+    const selectedUser: ProfileType = userObjects.find((userObject: ProfileType): boolean => userObject.name === selectedProfile) as ProfileType;
+    const selectedEmail: string = selectedUser.email;
 
-    updateGitHubConfig(email, username);
+    updateGitHubConfig(selectedEmail, selectedProfile);
 }
 
 function updateGitHubConfig(email: string, username: string): void {
     exec(`git config --global user.email "${email}"`, (error: ErrorType | null, stdout: string, stderr: string): void => {
         if (error) {
-            console.error(`Error updating email: ${error.message}`);
+            // console.error(`Error updating email: ${error.message}`);
             return;
         }
         if (stderr) {
             console.error(`Error: ${stderr}`);
             return;
         }
-        console.log(`GitHub email updated to ${email}`);
+        // console.log(`GitHub email updated to ${email}`);
     });
 
     exec(`git config --global user.name "${username}"`, (error: ErrorType | null, stdout: string, stderr: string): void => {
@@ -84,4 +73,4 @@ function updateGitHubConfig(email: string, username: string): void {
     });
 }
 
-selectProfile()
+selectProfile().then(r => console.log('Profile selected'));
