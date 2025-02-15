@@ -94,19 +94,19 @@ public class Elevator extends SubsystemBase {
     elevatorLeftConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     elevatorRightConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-    elevatorLeftConfigs.Slot0.kP = ELEVATOR_PIDV.getP();
-    elevatorLeftConfigs.Slot0.kI = ELEVATOR_PIDV.getI();
-    elevatorLeftConfigs.Slot0.kD = ELEVATOR_PIDV.getD();
-    elevatorLeftConfigs.Slot0.kV = ELEVATOR_PIDV.getV();
-    elevatorLeftConfigs.Slot0.kS = ElevatorParameters.elevatorS;
-    elevatorLeftConfigs.Slot0.kG = ElevatorParameters.elevatorG;
+    elevatorLeftConfigs.Slot0.kP = ELEVATOR_PINGU.getP();
+    elevatorLeftConfigs.Slot0.kI = ELEVATOR_PINGU.getI();
+    elevatorLeftConfigs.Slot0.kD = ELEVATOR_PINGU.getD();
+    elevatorLeftConfigs.Slot0.kV = ELEVATOR_PINGU.getV();
+    elevatorLeftConfigs.Slot0.kS = ELEVATOR_PINGU.getS();
+    elevatorLeftConfigs.Slot0.kG = ELEVATOR_PINGU.getG();
 
-    elevatorRightConfigs.Slot0.kP = ELEVATOR_PIDV.getP();
-    elevatorRightConfigs.Slot0.kI = ELEVATOR_PIDV.getI();
-    elevatorRightConfigs.Slot0.kD = ELEVATOR_PIDV.getD();
-    elevatorRightConfigs.Slot0.kV = ELEVATOR_PIDV.getV();
-    elevatorRightConfigs.Slot0.kS = ElevatorParameters.elevatorS;
-    elevatorRightConfigs.Slot0.kG = ElevatorParameters.elevatorG;
+    elevatorRightConfigs.Slot0.kP = ELEVATOR_PINGU.getP();
+    elevatorRightConfigs.Slot0.kI = ELEVATOR_PINGU.getI();
+    elevatorRightConfigs.Slot0.kD = ELEVATOR_PINGU.getD();
+    elevatorRightConfigs.Slot0.kV = ELEVATOR_PINGU.getV();
+    elevatorRightConfigs.Slot0.kS = ELEVATOR_PINGU.getS();
+    elevatorRightConfigs.Slot0.kG = ELEVATOR_PINGU.getG();
 
     elevatorMotorLeft.getConfigurator().apply(elevatorLeftConfigs);
     elevatorMotorRight.getConfigurator().apply(elevatorRightConfigs);
@@ -120,14 +120,14 @@ public class Elevator extends SubsystemBase {
     leftSoftLimitConfig = new SoftwareLimitSwitchConfigs();
     rightSoftLimitConfig = new SoftwareLimitSwitchConfigs();
 
-    leftMotorCurrentConfig.SupplyCurrentLimit = 100;
+    leftMotorCurrentConfig.SupplyCurrentLimit = 40.79;
     leftMotorCurrentConfig.SupplyCurrentLimitEnable = true;
-    leftMotorCurrentConfig.StatorCurrentLimit = 100;
+    leftMotorCurrentConfig.StatorCurrentLimit = 40.79;
     leftMotorCurrentConfig.StatorCurrentLimitEnable = true;
 
-    rightMotorCurrentConfig.SupplyCurrentLimit = 100;
+    rightMotorCurrentConfig.SupplyCurrentLimit = 40.79;
     rightMotorCurrentConfig.SupplyCurrentLimitEnable = true;
-    rightMotorCurrentConfig.StatorCurrentLimit = 100;
+    rightMotorCurrentConfig.StatorCurrentLimit = 40.79;
     rightMotorCurrentConfig.StatorCurrentLimitEnable = true;
 
     elevatorMotorLeft.getConfigurator().apply(leftMotorCurrentConfig);
@@ -373,5 +373,36 @@ public class Elevator extends SubsystemBase {
         new LoggedNetworkNumber(
             "/Tuning/Elevator/MM Acceleration", motionMagicConfigs.MotionMagicAcceleration);
     jerk = new LoggedNetworkNumber("/Tuning/Elevator/MM Jerk", motionMagicConfigs.MotionMagicJerk);
+  }
+
+  public void updateElevatorPID() {
+    ELEVATOR_PINGU.setP(elevatorP.get());
+    ELEVATOR_PINGU.setI(elevatorI.get());
+    ELEVATOR_PINGU.setD(elevatorD.get());
+    ELEVATOR_PINGU.setV(elevatorV.get());
+    ELEVATOR_PINGU.setS(elevatorS.get());
+    ELEVATOR_PINGU.setG(elevatorG.get());
+
+    elevatorCruiseV = cruiseV.get();
+    elevatorAcc = acc.get();
+    elevatorJerk = jerk.get();
+
+    applyElevatorPIDValues();
+  }
+
+  public void applyElevatorPIDValues() {
+    setPengu(elevatorLeftConfigs, ELEVATOR_PINGU);
+    setPengu(elevatorRightConfigs, ELEVATOR_PINGU);
+
+    motionMagicConfigs = elevatorLeftConfigs.MotionMagic;
+    motionMagicConfigs.MotionMagicCruiseVelocity = cruiseV.get();
+    motionMagicConfigs.MotionMagicAcceleration = acc.get();
+    motionMagicConfigs.MotionMagicJerk = jerk.get();
+
+    elevatorMotorLeft.getConfigurator().apply(elevatorLeftConfigs);
+    elevatorMotorRight.getConfigurator().apply(elevatorRightConfigs);
+
+    elevatorMotorLeft.getConfigurator().apply(motionMagicConfigs);
+    elevatorMotorRight.getConfigurator().apply(motionMagicConfigs);
   }
 }

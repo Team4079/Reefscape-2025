@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import static frc.robot.utils.Register.Dash.*;
+import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -76,10 +77,10 @@ public class SwerveModule {
     driveConfigs = new TalonFXConfiguration();
 
     // Set the PID values for the drive motor
-    driveConfigs.Slot0.kP = PIDParameters.DRIVE_PID_AUTO.getP();
-    driveConfigs.Slot0.kI = PIDParameters.DRIVE_PID_AUTO.getI();
-    driveConfigs.Slot0.kD = PIDParameters.DRIVE_PID_AUTO.getD();
-    driveConfigs.Slot0.kV = PIDParameters.DRIVE_PID_AUTO.getV();
+    driveConfigs.Slot0.kP = PinguParameters.DRIVE_PINGU_AUTO.getP();
+    driveConfigs.Slot0.kI = PinguParameters.DRIVE_PINGU_AUTO.getI();
+    driveConfigs.Slot0.kD = PinguParameters.DRIVE_PINGU_AUTO.getD();
+    driveConfigs.Slot0.kV = PinguParameters.DRIVE_PINGU_AUTO.getV();
 
     // Sets the brake mode, invered, and current limits for the drive motor
     driveConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -93,9 +94,9 @@ public class SwerveModule {
     steerConfigs = new TalonFXConfiguration();
 
     // Set the PID values for the steer motor
-    steerConfigs.Slot0.kP = PIDParameters.STEER_PID_AUTO.getP();
-    steerConfigs.Slot0.kI = PIDParameters.STEER_PID_AUTO.getI();
-    steerConfigs.Slot0.kD = PIDParameters.STEER_PID_AUTO.getD();
+    steerConfigs.Slot0.kP = PinguParameters.STEER_PINGU_AUTO.getP();
+    steerConfigs.Slot0.kI = PinguParameters.STEER_PINGU_AUTO.getI();
+    steerConfigs.Slot0.kD = PinguParameters.STEER_PINGU_AUTO.getD();
     steerConfigs.Slot0.kV = 0.0;
     steerConfigs.ClosedLoopGeneral.ContinuousWrap = true;
 
@@ -258,13 +259,15 @@ public class SwerveModule {
 
   /** Sets the PID values for teleoperation mode. */
   public void setTelePID() {
-    setDrivePID(PIDParameters.DRIVE_PID_TELE, PIDParameters.DRIVE_PID_TELE.getV());
-    setSteerPID(PIDParameters.STEER_PID_TELE, PIDParameters.STEER_PID_TELE.getV());
+    setDrivePID(DRIVE_PINGU_TELE.toPIDController(), DRIVE_PINGU_TELE.getV());
+    setSteerPID(STEER_PINGU_TELE.toPIDController(), STEER_PINGU_TELE.getV());
   }
 
   /** Sets the PID values for autonomous mode. */
   public void setAutoPID() {
-    setDrivePID(PIDParameters.DRIVE_PID_AUTO, PIDParameters.DRIVE_PID_AUTO.getV());
+    setDrivePID(
+        PinguParameters.DRIVE_PINGU_AUTO.toPIDController(),
+        PinguParameters.DRIVE_PINGU_AUTO.getV());
   }
 
   /** Resets the drive motor position to zero. */
@@ -285,13 +288,13 @@ public class SwerveModule {
   }
 
   public void updateTelePID() {
-    PIDParameters.DRIVE_PID_TELE.setP(driveP.get());
-    PIDParameters.DRIVE_PID_TELE.setI(driveI.get());
-    PIDParameters.DRIVE_PID_TELE.setD(driveD.get());
+    DRIVE_PINGU_TELE.setP(driveP.get());
+    DRIVE_PINGU_TELE.setI(driveI.get());
+    DRIVE_PINGU_TELE.setD(driveD.get());
 
-    PIDParameters.STEER_PID_TELE.setP(steerP.get());
-    PIDParameters.STEER_PID_TELE.setI(steerI.get());
-    PIDParameters.STEER_PID_TELE.setD(steerD.get());
+    STEER_PINGU_TELE.setP(steerP.get());
+    STEER_PINGU_TELE.setI(steerI.get());
+    STEER_PINGU_TELE.setD(steerD.get());
 
     applyTelePIDValues();
   }

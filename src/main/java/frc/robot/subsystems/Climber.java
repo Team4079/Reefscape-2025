@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.Register.Dash.*;
+import static frc.robot.utils.RobotParameters.ClimberParameters.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
 
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
@@ -75,10 +76,10 @@ public class Climber extends SubsystemBase {
 
     pivotOutputConfigs.NeutralMode = NeutralModeValue.Brake;
 
-    pivotConfigs.kP = ClimberParameters.CLIMBER_PID_P;
-    pivotConfigs.kI = ClimberParameters.CLIMBER_PID_I;
-    pivotConfigs.kD = ClimberParameters.CLIMBER_PID_D;
-    pivotConfigs.kV = ClimberParameters.CLIMBER_PID_V;
+    pivotConfigs.kP = CLIMBER_PINGU.getP();
+    pivotConfigs.kI = CLIMBER_PINGU.getI();
+    pivotConfigs.kD = CLIMBER_PINGU.getD();
+    pivotConfigs.kV = CLIMBER_PINGU.getV();
     // pivotConfigs.kF = PivotConstants.PIVOT_PID_F;
 
     climberMotor.getConfigurator().apply(pivotConfigs);

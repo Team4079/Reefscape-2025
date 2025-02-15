@@ -167,7 +167,7 @@ public class Swerve extends SubsystemBase {
    * Allows PathPlanner to get pose and output robot-relative chassis speeds Needs tuning
    */
   public void configureAutoBuilder() {
-    assert PIDParameters.config != null;
+    assert PinguParameters.config != null;
     AutoBuilder.configure(
         this::getPose,
         this::newPose,
@@ -175,7 +175,7 @@ public class Swerve extends SubsystemBase {
         this::chassisSpeedsDrive,
         new PPHolonomicDriveController(
             new PIDConstants(5.0, 0.0, 0.0), new PIDConstants(5.0, 0.0, 0.0)),
-        PIDParameters.config,
+        PinguParameters.config,
         () -> DriverStation.getAlliance().filter(value -> value == Alliance.Red).isPresent(),
         this);
   }

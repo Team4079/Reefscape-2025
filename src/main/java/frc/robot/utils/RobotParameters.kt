@@ -5,7 +5,6 @@ import com.pathplanner.lib.config.RobotConfig
 import com.pathplanner.lib.path.PathConstraints
 import edu.wpi.first.math.Matrix
 import edu.wpi.first.math.VecBuilder
-import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.math.geometry.Rotation2d
 import edu.wpi.first.math.geometry.Translation2d
@@ -70,27 +69,27 @@ object RobotParameters {
         var robotPos: Pose2d = Pose2d(0.0, 0.0, Rotation2d(0.0, 0.0))
 
         /** Class containing PID constants for the swerve drive system.  */
-        object PIDParameters {
+        object PinguParameters {
             @JvmField
-            val STEER_PID_TELE: PIDVController = PIDVController(750.0, 5.000, 15.0, 0.0)
+            val STEER_PINGU_TELE = Pingu(750.0, 5.000, 15.0, 0.0)
 
             @JvmField
-            val STEER_PID_AUTO: PIDVController = PIDVController(750.0, 5.000, 15.0, 0.0)
+            val STEER_PINGU_AUTO = Pingu(750.0, 5.000, 15.0, 0.0)
 
             @JvmField
-            val DRIVE_PID_AUTO: PIDVController = PIDVController(5.0, 0.0, 0.0, 0.4)
+            val DRIVE_PINGU_AUTO = Pingu(5.0, 0.0, 0.0, 0.4)
 
             @JvmField
-            val DRIVE_PID_TELE: PIDVController = PIDVController(5.0, 0.0, 0.0, 0.4)
+            val DRIVE_PINGU_TELE = Pingu(5.0, 0.0, 0.0, 0.4)
 
             @JvmField
-            val ROTATIONAL_PID: PIDController = PIDController(0.2, 0.0, 0.0)
+            val ROTATIONAL_PINGU = Pingu(0.2, 0.0, 0.0)
 
             @JvmField
-            val Y_PID: PIDController = PIDController(0.2, 0.0, 0.0)
+            val Y_PINGU = Pingu(0.2, 0.0, 0.0)
 
             @JvmField
-            val DIST_PID: PIDController = PIDController(0.2, 0.0, 0.0)
+            val DIST_PINGU = Pingu(0.2, 0.0, 0.0)
 
             @JvmField
             val PATH_CONSTRAINTS: PathConstraints =
@@ -179,13 +178,7 @@ object RobotParameters {
     /** Class containing constants for the elevator subsystem.  */
     object ElevatorParameters {
         @JvmField
-        val ELEVATOR_PIDV: PIDVController = PIDVController(5.0, 0.0, 0.0, 0.35)
-
-        @JvmField
-        var elevatorS: Double = 0.5199
-
-        @JvmField
-        var elevatorG: Double = 0.0 // May be 0.42
+        val ELEVATOR_PINGU: Pingu = Pingu(5.0, 0.0, 0.0, 0.35, 0.5199, 0.0) // g could be 0.42
 
         // MM ↓
 
@@ -202,33 +195,20 @@ object RobotParameters {
 
         const val ELEVATOR_SOFT_LIMIT_UP: Double = 61.5
 
-        // Elevator Positions
-        const val DEFAULT: Double = 0.1
-        const val L1: Double = 10.0
-        const val L2: Double = 20.0
-        const val L3: Double = 30.0
-        const val L4: Double = 61.0
-
         @JvmField
         var isSoftLimitEnabled: Boolean = false
     }
 
     /** Class containing constants for the CLIMBER subsystem.  */
     object ClimberParameters {
-        const val CLIMBER_PID_P: Double = 0.001
-        const val CLIMBER_PID_I: Double = 0.0
-        const val CLIMBER_PID_D: Double = 0.0
-        const val CLIMBER_PID_V: Double = 0.0
+        @JvmField val CLIMBER_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false
     }
 
     object AlgaeManipulatorParameters {
-        const val ALGAE_MANIPULATOR_PID_P: Double = 0.001
-        const val ALGAE_MANIPULATOR_PID_I: Double = 0.0
-        const val ALGAE_MANIPULATOR_PID_D: Double = 0.0
-        const val ALGAE_MANIPULATOR_PID_V: Double = 0.0
+        @JvmField val ALGAE_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false
@@ -238,10 +218,10 @@ object RobotParameters {
         const val CORAL_SENSOR_ID: Int = 8
 
         @JvmField
-        val CORAL_MANIPULATOR_UP_PIDV: PIDVController = PIDVController(0.001, 0.0, 0.0, 0.0)
+        val CORAL_MANIPULATOR_UP_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
 
         @JvmField
-        val CORAL_MANIPULATOR_DOWN_PIDV: PIDVController = PIDVController(0.001, 0.0, 0.0, 0.0)
+        val CORAL_MANIPULATOR_DOWN_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
 
         @JvmField
         var hasPiece: Boolean = false

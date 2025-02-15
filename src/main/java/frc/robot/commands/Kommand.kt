@@ -15,7 +15,7 @@ import frc.robot.utils.Direction
 import frc.robot.utils.ElevatorState
 import frc.robot.utils.ElevatorState.L4
 import frc.robot.utils.RobotParameters.SwerveParameters
-import frc.robot.utils.RobotParameters.SwerveParameters.PIDParameters.PATH_CONSTRAINTS
+import frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.PATH_CONSTRAINTS
 
 /**
  * The [Kommand] object provides factory methods to create various commands

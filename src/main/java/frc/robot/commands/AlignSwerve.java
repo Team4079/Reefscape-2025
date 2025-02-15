@@ -1,13 +1,13 @@
 package frc.robot.commands;
 
-import static frc.robot.utils.RobotParameters.SwerveParameters.PIDParameters.*;
+import static frc.robot.utils.RobotParameters.SwerveParameters.*;
+import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
 
 import edu.wpi.first.math.controller.*;
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.subsystems.*;
 import frc.robot.utils.*;
-import frc.robot.utils.RobotParameters.SwerveParameters;
 
 public class AlignSwerve extends Command {
   private double yaw;
@@ -31,14 +31,16 @@ public class AlignSwerve extends Command {
   public AlignSwerve(Direction offsetSide) {
     switch (offsetSide) {
       case LEFT:
-        this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_LEFT_OFFSET;
+        this.offset = AUTO_ALIGN_SWERVE_LEFT_OFFSET;
         break;
       case RIGHT:
-        this.offset = SwerveParameters.AUTO_ALIGN_SWERVE_RIGHT_OFFSET;
+        this.offset = AUTO_ALIGN_SWERVE_RIGHT_OFFSET;
         break;
       case CENTER:
         this.offset = 0;
         break;
+      default:
+        throw new IllegalStateException("Unexpected value: " + offsetSide);
     }
 
     addRequirements(Swerve.getInstance());
@@ -75,18 +77,15 @@ public class AlignSwerve extends Command {
     y = PhotonVision.getInstance().getY();
     dist = PhotonVision.getInstance().getDist();
 
-    rotationalController =
-        new PIDController(ROTATIONAL_PID.getP(), ROTATIONAL_PID.getI(), ROTATIONAL_PID.getD());
-    // with the L4 branches
-    final double tolerance = 0.4;
-    rotationalController.setTolerance(tolerance);
+    rotationalController = ROTATIONAL_PINGU.toPIDController();
+    rotationalController.setTolerance(0.4); // with L4 branches
     rotationalController.setSetpoint(0);
 
-    yController = new PIDController(Y_PID.getP(), Y_PID.getI(), Y_PID.getD());
+    yController = Y_PINGU.toPIDController();
     yController.setTolerance(1.5);
     yController.setSetpoint(0);
 
-    disController = new PIDController(DIST_PID.getP(), DIST_PID.getI(), DIST_PID.getD());
+    disController = DIST_PINGU.toPIDController();
     disController.setTolerance(1.5);
     disController.setSetpoint(0);
 
@@ -97,7 +96,7 @@ public class AlignSwerve extends Command {
 
   /**
    * The main body of a command. Called repeatedly while the command is scheduled. (That is, it is
-   * called repeatedly until {@link #isFinished()}) returns true.)
+   * called repeatedly until {@link #isFinished()}) returns true.
    */
   @Override
   public void execute() {
@@ -126,8 +125,7 @@ public class AlignSwerve extends Command {
    * <p>Returning false will result in the command never ending automatically. It may still be
    * cancelled manually or interrupted by another command. Hard coding this command to always return
    * true will result in the command executing once and finishing immediately. It is recommended to
-   * use * {@link edu.wpi.first.wpilibj2.command.InstantCommand InstantCommand} for such an
-   * operation.
+   * use * {@link InstantCommand InstantCommand} for such an operation.
    *
    * @return whether this command has finished.
    */

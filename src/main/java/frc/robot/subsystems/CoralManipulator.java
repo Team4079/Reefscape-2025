@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.Register.Dash.*;
+import static frc.robot.utils.RobotParameters.CoralManipulatorParameters.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
 
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
@@ -25,7 +26,6 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.RobotParameters;
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters;
 
 public class CoralManipulator extends SubsystemBase {
@@ -91,22 +91,15 @@ public class CoralManipulator extends SubsystemBase {
     coralManipulatorUpConfigurator.apply(coralManipulatorConfigs);
     coralManipulatorDownConfigurator.apply(coralManipulatorConfigs);
 
-    coralManipulatorUpConfigs.kP = CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PIDV.getP();
-    coralManipulatorUpConfigs.kI =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PIDV.getI();
-    coralManipulatorUpConfigs.kD =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PIDV.getD();
-    coralManipulatorUpConfigs.kV =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_UP_PIDV.getV();
+    coralManipulatorUpConfigs.kP = CORAL_MANIPULATOR_UP_PINGU.getP();
+    coralManipulatorUpConfigs.kI = CORAL_MANIPULATOR_UP_PINGU.getI();
+    coralManipulatorUpConfigs.kD = CORAL_MANIPULATOR_UP_PINGU.getD();
+    coralManipulatorUpConfigs.kV = CORAL_MANIPULATOR_UP_PINGU.getV();
 
-    coralManipulatorDownConfigs.kP =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PIDV.getP();
-    coralManipulatorDownConfigs.kI =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PIDV.getI();
-    coralManipulatorDownConfigs.kD =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PIDV.getD();
-    coralManipulatorDownConfigs.kV =
-        RobotParameters.CoralManipulatorParameters.CORAL_MANIPULATOR_DOWN_PIDV.getV();
+    coralManipulatorDownConfigs.kP = CORAL_MANIPULATOR_DOWN_PINGU.getP();
+    coralManipulatorDownConfigs.kI = CORAL_MANIPULATOR_DOWN_PINGU.getI();
+    coralManipulatorDownConfigs.kD = CORAL_MANIPULATOR_DOWN_PINGU.getD();
+    coralManipulatorDownConfigs.kV = CORAL_MANIPULATOR_DOWN_PINGU.getV();
 
     coralManipulatorMotorUp.getConfigurator().apply(coralManipulatorUpConfigs);
     coralManipulatorMotorDown.getConfigurator().apply(coralManipulatorDownConfigs);

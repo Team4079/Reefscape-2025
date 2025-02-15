@@ -75,10 +75,10 @@ public class AlgaeManipulator extends SubsystemBase {
 
     algaeManipulatorMotorOutputConfigs.NeutralMode = NeutralModeValue.Brake;
 
-    algaeManipulatorMotorConfigs.kP = AlgaeManipulatorParameters.ALGAE_MANIPULATOR_PID_P;
-    algaeManipulatorMotorConfigs.kI = AlgaeManipulatorParameters.ALGAE_MANIPULATOR_PID_I;
-    algaeManipulatorMotorConfigs.kD = AlgaeManipulatorParameters.ALGAE_MANIPULATOR_PID_D;
-    algaeManipulatorMotorConfigs.kV = AlgaeManipulatorParameters.ALGAE_MANIPULATOR_PID_V;
+    algaeManipulatorMotorConfigs.kP = AlgaeManipulatorParameters.ALGAE_PINGU.getP();
+    algaeManipulatorMotorConfigs.kI = AlgaeManipulatorParameters.ALGAE_PINGU.getI();
+    algaeManipulatorMotorConfigs.kD = AlgaeManipulatorParameters.ALGAE_PINGU.getD();
+    algaeManipulatorMotorConfigs.kV = AlgaeManipulatorParameters.ALGAE_PINGU.getV();
     // armConfigs.kF = armConstants.arm_PID_F;
 
     algaeManipulatorMotor.getConfigurator().apply(algaeManipulatorMotorConfigs);

@@ -1,5 +1,6 @@
 package frc.robot.utils
 
+import com.ctre.phoenix6.configs.TalonFXConfiguration
 import edu.wpi.first.math.geometry.Pose2d
 import frc.robot.subsystems.PhotonModule
 import org.photonvision.EstimatedRobotPose
@@ -76,3 +77,29 @@ fun Pair<PhotonModule, PhotonPipelineResult>.getEstimatedPose(prevEstimatedRobot
  */
 fun Pair<PhotonModule, PhotonPipelineResult>.updateStdDev(estimatedRobotPose: Optional<EstimatedRobotPose>) =
     first.updateEstimatedStdDevs(estimatedRobotPose, second.getTargets())
+
+fun TalonFXConfiguration.setPengu(
+    p: Double,
+    i: Double,
+    d: Double,
+    v: Double,
+    s: Double,
+    g: Double,
+) {
+    this.Slot0.kP = p
+    this.Slot0.kI = i
+    this.Slot0.kD = d
+    this.Slot0.kV = v
+    this.Slot0.kS = s
+    this.Slot0.kG = g
+}
+
+fun TalonFXConfiguration.setPengu(pingu: Pingu) =
+    pingu.apply {
+        Slot0.kP = p
+        Slot0.kI = i
+        Slot0.kD = d
+        Slot0.kV = v!!
+        Slot0.kS = s!!
+        Slot0.kG = g!!
+    }
