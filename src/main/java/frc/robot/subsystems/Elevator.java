@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import static com.ctre.phoenix6.signals.InvertedValue.*;
 import static edu.wpi.first.wpilibj.Alert.AlertType.*;
+import static frc.robot.utils.ExtensionsKt.*;
 import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
@@ -239,23 +240,7 @@ public class Elevator extends SubsystemBase {
 
   /** Move the elevator motor to a specific level */
   public void moveElevatorToLevel() {
-    switch (this.currentState) {
-      case L1:
-        setElevatorPosition(L1);
-        break;
-      case L2:
-        setElevatorPosition(L2);
-        break;
-      case L3:
-        setElevatorPosition(L3);
-        break;
-      case L4:
-        setElevatorPosition(L4);
-        break;
-      default:
-        setElevatorPosition(DEFAULT);
-        break;
-    }
+    setElevatorPosition(currentState);
   }
 
   /** Stops the elevator motors */
@@ -287,13 +272,7 @@ public class Elevator extends SubsystemBase {
    * @return double, the state of the elevator motor as a double
    */
   public double getStateDouble() {
-    return switch (this.currentState) {
-      case L1 -> L1;
-      case L2 -> L2;
-      case L3 -> L3;
-      case L4 -> L4;
-      default -> DEFAULT;
-    };
+    return currentState.pos;
   }
 
   /**
@@ -366,11 +345,11 @@ public class Elevator extends SubsystemBase {
   /**
    * Sets the elevator motor to a specific position
    *
-   * @param pos double, the position to set the elevator motor to
+   * @param state the {@link ElevatorState} to set the elevator motor to
    */
-  public void setElevatorPosition(double pos) {
-    elevatorMotorLeft.setControl(motionMagicVoltage.withPosition(pos));
-    elevatorMotorRight.setControl(motionMagicVoltage.withPosition(pos));
+  public void setElevatorPosition(ElevatorState state) {
+    elevatorMotorLeft.setControl(motionMagicVoltage.withPosition(state.pos));
+    elevatorMotorRight.setControl(motionMagicVoltage.withPosition(state.pos));
   }
 
   public void initizalizeLoggedNetworkPID() {
@@ -394,47 +373,5 @@ public class Elevator extends SubsystemBase {
         new LoggedNetworkNumber(
             "/Tuning/Elevator/MM Acceleration", motionMagicConfigs.MotionMagicAcceleration);
     jerk = new LoggedNetworkNumber("/Tuning/Elevator/MM Jerk", motionMagicConfigs.MotionMagicJerk);
-  }
-
-  public void updateElevatorPID() {
-    ELEVATOR_PIDV.setP(elevatorP.get());
-    ELEVATOR_PIDV.setI(elevatorI.get());
-    ELEVATOR_PIDV.setD(elevatorD.get());
-    ELEVATOR_PIDV.setV(elevatorV.get());
-    ElevatorParameters.elevatorS = elevatorS.get();
-    ElevatorParameters.elevatorG = elevatorG.get();
-
-    elevatorCruiseV = cruiseV.get();
-    elevatorAcc = acc.get();
-    elevatorJerk = jerk.get();
-
-    applyElevatorPIDValues();
-  }
-
-  public void applyElevatorPIDValues() {
-    elevatorLeftConfigs.Slot0.kP = elevatorP.get();
-    elevatorLeftConfigs.Slot0.kI = elevatorI.get();
-    elevatorLeftConfigs.Slot0.kD = elevatorD.get();
-    elevatorLeftConfigs.Slot0.kV = elevatorV.get();
-    elevatorLeftConfigs.Slot0.kS = elevatorS.get();
-    elevatorLeftConfigs.Slot0.kG = elevatorG.get();
-
-    elevatorRightConfigs.Slot0.kP = elevatorP.get();
-    elevatorRightConfigs.Slot0.kI = elevatorI.get();
-    elevatorRightConfigs.Slot0.kD = elevatorD.get();
-    elevatorRightConfigs.Slot0.kV = elevatorV.get();
-    elevatorRightConfigs.Slot0.kS = elevatorS.get();
-    elevatorRightConfigs.Slot0.kG = elevatorG.get();
-
-    motionMagicConfigs = elevatorLeftConfigs.MotionMagic;
-    motionMagicConfigs.MotionMagicCruiseVelocity = cruiseV.get();
-    motionMagicConfigs.MotionMagicAcceleration = acc.get();
-    motionMagicConfigs.MotionMagicJerk = jerk.get();
-
-    elevatorMotorLeft.getConfigurator().apply(elevatorLeftConfigs);
-    elevatorMotorRight.getConfigurator().apply(elevatorRightConfigs);
-
-    elevatorMotorLeft.getConfigurator().apply(motionMagicConfigs);
-    elevatorMotorRight.getConfigurator().apply(motionMagicConfigs);
   }
 }
