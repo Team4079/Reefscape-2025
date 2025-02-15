@@ -204,18 +204,28 @@ public class Elevator extends SubsystemBase {
     elevatorLeftDisconnectedAlert.set(!elevatorMotorLeft.isConnected());
     elevatorRightDisconnectedAlert.set(!elevatorMotorRight.isConnected());
 
-    //THIS IS JUST FOR TESTING, in reality, elevator set state is based on
+    // THIS IS JUST FOR TESTING, in reality, elevator set state is based on
     // what Jayden clicks which will be displayed on leds but not necessarily = currenState
-    elevator_set_state = currentState;
+    elevatorSetState = currentState;
     moveElevatorToLevel();
 
     logs(
         () -> {
-          log("/Elevator/Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
-          log("/Elevator/Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
-          log("/Elevator/Elevator Left Set Speed", elevatorMotorLeft.getVelocity().getValueAsDouble());
-          log("/Elevator/Elevator Right Set Speed", elevatorMotorRight.getVelocity().getValueAsDouble());
-          log("/Elevator/Elevator Left Acceleration", elevatorMotorLeft.getAcceleration().getValueAsDouble());
+          log(
+              "/Elevator/Elevator Left Position",
+              elevatorMotorLeft.getPosition().getValueAsDouble());
+          log(
+              "/Elevator/Elevator Right Position",
+              elevatorMotorRight.getPosition().getValueAsDouble());
+          log(
+              "/Elevator/Elevator Left Set Speed",
+              elevatorMotorLeft.getVelocity().getValueAsDouble());
+          log(
+              "/Elevator/Elevator Right Set Speed",
+              elevatorMotorRight.getVelocity().getValueAsDouble());
+          log(
+              "/Elevator/Elevator Left Acceleration",
+              elevatorMotorLeft.getAcceleration().getValueAsDouble());
           log(
               "/Elevator/Elevator Right Acceleration",
               elevatorMotorRight.getAcceleration().getValueAsDouble());
@@ -382,8 +392,8 @@ public class Elevator extends SubsystemBase {
   }
 
   public void applyElevatorPIDValues() {
-    setPengu(elevatorLeftConfigs, ELEVATOR_PINGU);
-    setPengu(elevatorRightConfigs, ELEVATOR_PINGU);
+    setPingu(elevatorLeftConfigs, ELEVATOR_PINGU);
+    setPingu(elevatorRightConfigs, ELEVATOR_PINGU);
 
     motionMagicConfigs = elevatorLeftConfigs.MotionMagic;
     motionMagicConfigs.MotionMagicCruiseVelocity = cruiseV.get();

@@ -6,10 +6,8 @@ import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.ElevatorState;
 import frc.robot.utils.LEDState;
 import frc.robot.utils.RobotParameters.*;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
@@ -77,7 +75,7 @@ public class LED extends SubsystemBase {
     // Enabled Robot
 
     if (DriverStation.isEnabled()) {
-      switch (elevator_set_state) {
+      switch (elevatorSetState) {
         case DEFAULT:
           ledState = LEDState.RAINBOW_FLOW;
           break;
@@ -99,8 +97,7 @@ public class LED extends SubsystemBase {
     // Disabled Robot (we can do whatever we want)
     if (DriverStation.isDisabled()) {
       ledState = LEDState.RAINBOW_FLOW;
-    }
-    else if (LiveRobotValues.lowBattery) {
+    } else if (LiveRobotValues.lowBattery) {
       ledState = LEDState.TWINKLE;
     }
 
@@ -321,8 +318,10 @@ public class LED extends SubsystemBase {
    * @param wavelength The wavelength of the wave
    * @param cycleDuration The duration of the wave cycle
    */
-  public void createWave(Color startColor, Color endColor, double wavelength, double cycleDuration) {
-    double phase = (1 - ((Timer.getFPGATimestamp() % cycleDuration) / cycleDuration)) * 2.0 * Math.PI;
+  public void createWave(
+      Color startColor, Color endColor, double wavelength, double cycleDuration) {
+    double phase =
+        (1 - ((Timer.getFPGATimestamp() % cycleDuration) / cycleDuration)) * 2.0 * Math.PI;
     double phaseStep = (2.0 * Math.PI) / wavelength;
     double waveExponent = 2.0;
 
@@ -340,9 +339,11 @@ public class LED extends SubsystemBase {
       }
 
       // Interpolate RGB values between colors
-      int red = (int)((startColor.getRed() * (1 - blendRatio)) + (endColor.getRed() * blendRatio));
-      int green = (int)((startColor.getGreen() * (1 - blendRatio)) + (endColor.getGreen() * blendRatio));
-      int blue = (int)((startColor.getBlue() * (1 - blendRatio)) + (endColor.getBlue() * blendRatio));
+      int red = (int) ((startColor.getRed() * (1 - blendRatio)) + (endColor.getRed() * blendRatio));
+      int green =
+          (int) ((startColor.getGreen() * (1 - blendRatio)) + (endColor.getGreen() * blendRatio));
+      int blue =
+          (int) ((startColor.getBlue() * (1 - blendRatio)) + (endColor.getBlue() * blendRatio));
 
       ledBuffer.setRGB(ledIndex, red, green, blue);
     }

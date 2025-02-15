@@ -54,7 +54,6 @@ public class AlignSwerve extends Command {
    * @param offsetAmount The amount to offset the alignment by.
    */
   public AlignSwerve(Direction offsetSide, double offsetAmount) {
-    // TODO: Placeholder for the offset amount, figure out the correct value
     switch (offsetSide) {
       case LEFT:
         this.offset = -offsetAmount;
@@ -77,15 +76,15 @@ public class AlignSwerve extends Command {
     y = PhotonVision.getInstance().getY();
     dist = PhotonVision.getInstance().getDist();
 
-    rotationalController = ROTATIONAL_PINGU.toPIDController();
+    rotationalController = ROTATIONAL_PINGU.getPidController();
     rotationalController.setTolerance(0.4); // with L4 branches
     rotationalController.setSetpoint(0);
 
-    yController = Y_PINGU.toPIDController();
+    yController = Y_PINGU.getPidController();
     yController.setTolerance(1.5);
     yController.setSetpoint(0);
 
-    disController = DIST_PINGU.toPIDController();
+    disController = DIST_PINGU.getPidController();
     disController.setTolerance(1.5);
     disController.setSetpoint(0);
 

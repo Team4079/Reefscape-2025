@@ -63,6 +63,7 @@ object RobotParameters {
     object SwerveParameters {
         const val PATHPLANNER_AUTO_NAME: String = "4l4auto"
 
+        // TODO: Placeholder for the offset amount, figure out the correct value
         const val AUTO_ALIGN_SWERVE_LEFT_OFFSET: Double = -0.1
         const val AUTO_ALIGN_SWERVE_RIGHT_OFFSET: Double = 0.1
 
@@ -197,7 +198,7 @@ object RobotParameters {
         const val ELEVATOR_SOFT_LIMIT_UP: Double = 61.5
 
         @JvmField
-        var elevator_set_state: ElevatorState = ElevatorState.DEFAULT
+        var elevatorSetState: ElevatorState = ElevatorState.DEFAULT
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false

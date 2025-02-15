@@ -78,28 +78,34 @@ fun Pair<PhotonModule, PhotonPipelineResult>.getEstimatedPose(prevEstimatedRobot
 fun Pair<PhotonModule, PhotonPipelineResult>.updateStdDev(estimatedRobotPose: Optional<EstimatedRobotPose>) =
     first.updateEstimatedStdDevs(estimatedRobotPose, second.getTargets())
 
-fun TalonFXConfiguration.setPengu(
-    p: Double,
-    i: Double,
-    d: Double,
-    v: Double,
-    s: Double,
-    g: Double,
-) {
-    this.Slot0.kP = p
-    this.Slot0.kI = i
-    this.Slot0.kD = d
-    this.Slot0.kV = v
-    this.Slot0.kS = s
-    this.Slot0.kG = g
-}
-
-fun TalonFXConfiguration.setPengu(pingu: Pingu) =
+/**
+ * Extension function to set the Pingu values of a TalonFXConfiguration using a Pingu object.
+ *
+ * @receiver TalonFXConfiguration The TalonFX configuration to set the values for.
+ * @param pingu Pingu The Pingu object containing the PIDF values.
+ */
+fun TalonFXConfiguration.setPingu(pingu: Pingu) =
     pingu.apply {
         Slot0.kP = p
         Slot0.kI = i
         Slot0.kD = d
-        Slot0.kV = v!!
-        Slot0.kS = s!!
-        Slot0.kG = g!!
+        v ?. run { Slot0.kV = v!! }
+        s ?. run { Slot0.kS = s!! }
+        g ?. run { Slot0.kG = g!! }
+    }
+
+/**
+ * Extension function to set the Pingu values of a TalonFXConfiguration using a NetworkPingu object.
+ *
+ * @receiver TalonFXConfiguration The TalonFX configuration to set the values for.
+ * @param pingu NetworkPingu The NetworkPingu object containing the PIDF values.
+ */
+fun TalonFXConfiguration.setPingu(pingu: NetworkPingu) =
+    pingu.apply {
+        Slot0.kP = p.get()
+        Slot0.kI = i.get()
+        Slot0.kD = d.get()
+        v ?. run { Slot0.kV = v!!.get() }
+        s ?. run { Slot0.kS = s!!.get() }
+        g ?. run { Slot0.kG = g!!.get() }
     }

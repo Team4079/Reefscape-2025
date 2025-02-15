@@ -85,7 +85,9 @@ public class PhotonVision extends SubsystemBase {
     // CAMERA_TWO_ANGLE_DEG);
     cameras.add(
         new PhotonModule(
-            "RightCamera", c1pos, AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded)));
+            "RightCamera",
+            c1pos,
+            AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded)));
     //    cameras.add(new PhotonModule("Camera2", c2pos,
 
     timer = new Timer();
