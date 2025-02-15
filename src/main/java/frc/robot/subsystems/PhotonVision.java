@@ -87,7 +87,6 @@ public class PhotonVision extends SubsystemBase {
         new PhotonModule(
             "RightCamera", c1pos, AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded)));
     //    cameras.add(new PhotonModule("Camera2", c2pos,
-    // AprilTagFieldLayout.loadFromResource("2025-reefscape.json")));
 
     timer = new Timer();
     timer.start();

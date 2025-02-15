@@ -44,7 +44,11 @@ public class Robot extends LoggedRobot {
   public void robotInit() {
     // Set a metadata value
     RobotParameters.Info.logInfo();
+
+    // Calls LEDs to activate
     LED.getInstance();
+
+    // Records useful but random info
     Logger.recordMetadata("Reefscape", "Logging");
 
     // Set the pathfinder
@@ -103,6 +107,7 @@ public class Robot extends LoggedRobot {
     CommandScheduler.getInstance().run();
     if (garbageTimer.advanceIfElapsed(5)) System.gc();
 
+    // Checks for low battery
     if (getBatteryVoltage() < LOW_BATTERY_VOLTAGE) {
       batteryTimer.start();
       if (batteryTimer.advanceIfElapsed(1.5)) {

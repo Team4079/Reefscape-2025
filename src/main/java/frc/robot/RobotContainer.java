@@ -63,8 +63,6 @@ public class RobotContainer {
     Register.bindings(
         buttons,
         bind(START, resetPidgey()),
-        //        bind(X, new InstantCommand(() ->
-        // Elevator.getInstance().applyElevatorPIDValues())),
         bind(B, align(CENTER).onlyWhile(pad::getAButton)),
         //        bind(B, align(LEFT)),
         //        bind(A, align(RIGHT)),
