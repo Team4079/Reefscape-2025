@@ -64,6 +64,10 @@ public class PhotonVision extends SubsystemBase {
    * instance.
    */
   private PhotonVision() throws IOException {
+    //    AprilTagFieldLayout fieldLayout =
+    // AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
+    //      ^ FUCK THIS LINE OF CODE IT BREAKS THE MEMORY ERRORS AND EVEYRTHING IT SUCKS
+    //
     //    _____                                    _                    _
     //   |_   _|                                  | |                  | |
     //     | |    _ __ ___    _ __    ___   _ __  | |_   __ _  _ ___   | |_
@@ -73,7 +77,7 @@ public class PhotonVision extends SubsystemBase {
     //                       | |
     //                       |_|
 
-    // ^ this isnt important we just wanted to put this here.
+    //  AprilTagFieldLayout fieldLayout =
 
     // First camera setup
     Transform3d c1pos = createCameraPos(0.31, 0.0, CAMERA_ONE_HEIGHT_METER, CAMERA_ONE_ANGLE_DEG);

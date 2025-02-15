@@ -53,7 +53,7 @@ module.exports = {
       { name: 'pivot' },
       { name: 'elevator' }
     ],
-    update: []
+    update: [],
   },
   // override the messages, defaults are as follows
   messages: {
@@ -78,4 +78,8 @@ module.exports = {
   breaklineChar: '|', // It is supported for fields body and footer.
   // footerPrefix : 'ISSUES CLOSED:'
   // askForBreakingChangeFirst : true, // default is false
+
+  hooks: {
+    'pre-commit': 'node set-git-user.ts'
+  }
 };
