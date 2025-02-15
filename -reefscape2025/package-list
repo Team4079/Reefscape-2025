@@ -229,12 +229,12 @@ $dokka.location:frc.robot.utils/Register/cmd/#kotlin.String#edu.wpi.first.wpilib
 $dokka.location:frc.robot.utils/Register/commands/#kotlin.Array[kotlin.Pair[kotlin.String,edu.wpi.first.wpilibj2.command.Command]]/PointingToDeclaration/-reefscape2025/frc.robot.utils/-register/commands.html
 $dokka.location:frc.robot.utils/RobotParameters.AlgaeManipulatorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-algae-manipulator-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.ClimberParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-climber-parameters/index.html
-$dokka.location:frc.robot.utils/RobotParameters.ConstField.RobotPoses///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-const-field/-robot-poses/index.html
-$dokka.location:frc.robot.utils/RobotParameters.ConstField///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-const-field/index.html
-$dokka.location:frc.robot.utils/RobotParameters.ConstField/getFIELD_LENGTH/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-const-field/get-f-i-e-l-d_-l-e-n-g-t-h.html
-$dokka.location:frc.robot.utils/RobotParameters.ConstField/getFIELD_WIDTH/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-const-field/get-f-i-e-l-d_-w-i-d-t-h.html
 $dokka.location:frc.robot.utils/RobotParameters.CoralManipulatorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-coral-manipulator-parameters/index.html
 $dokka.location:frc.robot.utils/RobotParameters.ElevatorParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-elevator-parameters/index.html
+$dokka.location:frc.robot.utils/RobotParameters.FieldParameters.RobotPoses///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-field-parameters/-robot-poses/index.html
+$dokka.location:frc.robot.utils/RobotParameters.FieldParameters///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-field-parameters/index.html
+$dokka.location:frc.robot.utils/RobotParameters.FieldParameters/getFIELD_LENGTH/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-field-parameters/get-f-i-e-l-d_-l-e-n-g-t-h.html
+$dokka.location:frc.robot.utils/RobotParameters.FieldParameters/getFIELD_WIDTH/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-field-parameters/get-f-i-e-l-d_-w-i-d-t-h.html
 $dokka.location:frc.robot.utils/RobotParameters.Info///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-info/index.html
 $dokka.location:frc.robot.utils/RobotParameters.Info/logInfo/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-info/log-info.html
 $dokka.location:frc.robot.utils/RobotParameters.LEDValues///PointingToDeclaration/-reefscape2025/frc.robot.utils/-robot-parameters/-l-e-d-values/index.html
