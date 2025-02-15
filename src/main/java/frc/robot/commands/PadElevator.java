@@ -31,7 +31,6 @@ public class PadElevator extends Command {
   @Override
   public void execute() {
     Pair<Double, Double> position = positionSet(pad);
-
     Elevator.getInstance().moveElevator(position.getSecond());
   }
 

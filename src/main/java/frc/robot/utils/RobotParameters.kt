@@ -179,13 +179,13 @@ object RobotParameters {
     /** Class containing constants for the elevator subsystem.  */
     object ElevatorParameters {
         @JvmField
-        val ELEVATOR_PIDV: PIDVController = PIDVController(0.0001, 0.0, 0.0, 0.0)
+        val ELEVATOR_PIDV: PIDVController = PIDVController(0.0, 0.0, 0.0, 0.12)
 
         @JvmField
-        var ELEVATOR_S: Double = 0.0
+        var ELEVATOR_S: Double = 0.5199
 
         @JvmField
-        var ELEVATOR_G: Double = 1.0
+        var ELEVATOR_G: Double = 0.0
 
         @JvmField
         var ELEVATOR_MM_CRUISE_VELOCITY: Double = 0.0
@@ -197,16 +197,17 @@ object RobotParameters {
         var ELEVATOR_MM_JERK: Double = 0.0
 
         @JvmField
-        val ELEVATOR_SOFT_LIMIT_DOWN: Double = -0.7
+        val ELEVATOR_SOFT_LIMIT_DOWN: Double = 0.7
 
         @JvmField
-        val ELEVATOR_SOFT_LIMIT_UP: Double = -61.0
+        val ELEVATOR_SOFT_LIMIT_UP: Double = 59.0;
 
         // Elevator Positions
+        const val DEFAULT: Double = 0.8;
         const val L1: Double = 1.0
-        const val L2: Double = 2.0
-        const val L3: Double = 3.0
-        const val L4: Double = 4.0
+        const val L2: Double = 10.0
+        const val L3: Double = 20.0
+        const val L4: Double = 45.0
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false

@@ -108,28 +108,28 @@ public class PhotonVision extends SubsystemBase {
 
     logs(
         () -> {
-          log("Does any camera exist", cameras.get(0) != null);
-          log("Does any result pair exist", currentResultPair != null);
-          log("Has tag", hasTag());
-          log("resultCamera List length", currentResultPair.size());
+          log("/Photonvision/Does any camera exist", cameras.get(0) != null);
+          log("/Photonvision/Does any result pair exist", currentResultPair != null);
+          log("/Photonvision/Has tag", hasTag());
+          log("/Photonvision/resultCamera List length", currentResultPair.size());
           if (currentResultPair != null) {
-            log("Result pairs have targets", hasTargets(currentResultPair));
+            log("/Photonvision/Result pairs have targets", hasTargets(currentResultPair));
           }
         });
 
-    logs("is current result pair null", currentResultPair != null);
+    logs("/Photonvision/is current result pair null", currentResultPair != null);
 
     if (currentResultPair != null) {
-      logs("Best target list is empty", currentResultPair.isEmpty());
+      logs("/Photonvision/Best target list is empty", currentResultPair.isEmpty());
 
       if (!currentResultPair.isEmpty()) {
         logCount++;
-        logs("BestTarget updated counter", logCount);
+        logs("/Photonvision/BestTarget updated counter", logCount);
         PhotonTrackedTarget bestTarget = currentResultPair.get(0).getSecond().getBestTarget();
-        logs("BestTarget is not null", bestTarget != null);
+        logs("/Photonvision/BestTarget is not null", bestTarget != null);
 
-        logs("Best Target is not null", bestTarget != null);
-        logs("Best Target is not null", bestTarget != null);
+        logs("/Photonvision/Best Target is not null", bestTarget != null);
+        logs("/Photonvision/Best Target is not null", bestTarget != null);
 
         if (bestTarget != null) {
           yaw = bestTarget.getYaw();

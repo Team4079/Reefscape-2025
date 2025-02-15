@@ -14,6 +14,7 @@ import frc.robot.utils.LEDState;
 import frc.robot.utils.RobotParameters.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class LED extends SubsystemBase {
@@ -25,8 +26,12 @@ public class LED extends SubsystemBase {
   private final int[] brightnessLevels;
   private int position = 0;
   private boolean goingForward = true;
-  private boolean laser = false;
   private final Timer robonautLEDTimer = new Timer();
+
+  private boolean laser = false;
+  private ArrayList<Integer> laserPositions = new ArrayList<>();
+  private final int laser_count = 10;
+  private final int spacing = 5;
 
   /**
    * The Singleton instance of this LEDSubsystem. Code should use the {@link #getInstance()} method
@@ -57,6 +62,10 @@ public class LED extends SubsystemBase {
     leds.start();
 
     robonautLEDTimer.start();
+
+    for (int i = 0; i < laser_count; i++) {
+      laserPositions.add(-i * spacing);
+    }
   }
 
   /**
@@ -276,20 +285,19 @@ public class LED extends SubsystemBase {
    */
   public void laserbeam() {
     for (int i = 0; i < ledBuffer.getLength(); i++) {
-      if (i == position) {
-        ledBuffer.setHSV(i, 0, 255, 255);
-      } else {
-        ledBuffer.setHSV(i, 0, 255, 50);
-      }
+      ledBuffer.setHSV(i, 0, 255, 20);
     }
-    if (laser) {
-      position++;
-      if (position >= ledBuffer.getLength() - 1) {
-        laser = false;
-        position = 0;
+
+    for (int i = 0; i < laserPositions.size(); i++) {
+      int pos = laserPositions.get(i);
+      if (pos >= 0 && pos < ledBuffer.getLength()) {
+        ledBuffer.setHSV(pos, 0, 255, 0);
       }
-    } else {
-      laser = true;
+      laserPositions.set(i, pos + 2);
+
+      if (laserPositions.get(i) >= ledBuffer.getLength()) {
+        laserPositions.set(i, -rand.nextInt(spacing));
+      }
     }
     leds.setData(ledBuffer);
   }

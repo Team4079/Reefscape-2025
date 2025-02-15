@@ -5,6 +5,9 @@ package frc.robot.utils;
  * robot's system.
  */
 public enum ElevatorState {
+  /** Represents the default state of the elevator */
+  DEFAULT,
+
   /** Represents the first level of the elevator (aka the trough). */
   L1,
 

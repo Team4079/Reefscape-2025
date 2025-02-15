@@ -37,10 +37,9 @@ public class RobotContainer {
     Button.getEntries()
         .forEach(button -> buttons.put(button, new JoystickButton(pad, button.getButtonNumber())));
 
-//    Swerve.getInstance().setDefaultCommand(drive(pad));
-    Elevator.getInstance().setDefaultCommand(padElevator(pad));
-    PhotonVision.getInstance();
-    LED.getInstance();
+    Swerve.getInstance().setDefaultCommand(drive(pad));
+//    Elevator.getInstance().setDefaultCommand(padElevator(pad));
+//    PhotonVision.getInstance();
 
     networkChooser = AutoBuilder.buildAutoChooser();
 
@@ -68,16 +67,16 @@ public class RobotContainer {
     Register.bindings(
         buttons,
         bind(START, resetPidgey()),
-        bind(Y, new InstantCommand(() -> Elevator.getInstance().applyElevatorPIDValues())),
-        bind(A, align(CENTER).onlyWhile(pad::getAButton)),
+        bind(X, new InstantCommand(() -> Elevator.getInstance().applyElevatorPIDValues())),
+        bind(B, align(CENTER).onlyWhile(pad::getAButton)),
 //        bind(B, align(LEFT)),
 //        bind(A, align(RIGHT)),
         // TODO PLEASE TEST
         //        bind(B, createPathfindingCmd(reefs.get(0))),
-        // bind(A, setElevatorState(L1)),
+         bind(A, setElevatorState(DEFAULT)),
         // bind(B, setElevatorState(L2)),
         // bind(X, setElevatorState(L3)),
-        // bind(Y, setElevatorState(L4)),
+         bind(Y, setElevatorState(L4)),
         bind(LEFT_BUMPER, score(LEFT)),
         bind(RIGHT_BUMPER, score(RIGHT)));
   }

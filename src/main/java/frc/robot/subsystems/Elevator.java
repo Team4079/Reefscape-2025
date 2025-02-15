@@ -56,6 +56,8 @@ public class Elevator extends SubsystemBase {
 
   private final MotionMagicVoltage motionMagicVoltage;
 
+  private final DutyCycleOut cycleOut;
+
   /**
    * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
    * method to get the single instance (rather than trying to construct an instance of this class.)
@@ -138,16 +140,16 @@ public class Elevator extends SubsystemBase {
     // on
     leftSoftLimitConfig.ForwardSoftLimitEnable = true;
     leftSoftLimitConfig.ReverseSoftLimitEnable = true;
-    leftSoftLimitConfig.ReverseSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_UP;
-    leftSoftLimitConfig.ForwardSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_DOWN;
+    leftSoftLimitConfig.ForwardSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_UP;
+    leftSoftLimitConfig.ReverseSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_DOWN;
 
     rightSoftLimitConfig.ForwardSoftLimitEnable = true;
     rightSoftLimitConfig.ReverseSoftLimitEnable = true;
-    rightSoftLimitConfig.ReverseSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_UP;
-    rightSoftLimitConfig.ForwardSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_DOWN;
+    rightSoftLimitConfig.ReverseSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_DOWN;
+    rightSoftLimitConfig.ForwardSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_UP;
 
-    elevatorLeftConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-    elevatorRightConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    elevatorLeftConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    elevatorRightConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     elevatorLeftConfigs.SoftwareLimitSwitch = leftSoftLimitConfig;
     elevatorRightConfigs.SoftwareLimitSwitch = rightSoftLimitConfig;
 
@@ -158,6 +160,7 @@ public class Elevator extends SubsystemBase {
     posRequest = new PositionDutyCycle(0);
     voltageOut = new VoltageOut(0);
     motionMagicVoltage = new MotionMagicVoltage(0);
+    cycleOut = new DutyCycleOut(0);
 
     //TODO THESE NEED TO BE LOGGED
     motionMagicConfigs = elevatorLeftConfigs.MotionMagic;
@@ -171,6 +174,8 @@ public class Elevator extends SubsystemBase {
 
     voltageOut.OverrideBrakeDurNeutral = false;
     voltageOut.EnableFOC = true;
+
+    cycleOut.EnableFOC = false;
 
     elevatorMotorLeft.setPosition(0);
     elevatorMotorRight.setPosition(0);
@@ -189,9 +194,10 @@ public class Elevator extends SubsystemBase {
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-
     elevatorLeftDisconnectedAlert.set(!elevatorMotorLeft.isConnected());
     elevatorRightDisconnectedAlert.set(!elevatorMotorRight.isConnected());
+
+    moveElevatorToLevel();
 
     logs(
         () -> {
@@ -218,17 +224,20 @@ public class Elevator extends SubsystemBase {
   /** Move the elevator motor to a specific level */
   public void moveElevatorToLevel() {
     switch (this.currentState) {
+      case L1:
+        setElevatorPosition(ElevatorParameters.L1);
+        break;
       case L2:
-        setElevatorPosition(ElevatorParameters.L2, ElevatorParameters.L2);
+        setElevatorPosition(ElevatorParameters.L2);
         break;
       case L3:
-        setElevatorPosition(ElevatorParameters.L3, ElevatorParameters.L3);
+        setElevatorPosition(ElevatorParameters.L3);
         break;
       case L4:
-        setElevatorPosition(ElevatorParameters.L4, ElevatorParameters.L4);
+        setElevatorPosition(ElevatorParameters.L4);
         break;
       default:
-        setElevatorPosition(ElevatorParameters.L1, ElevatorParameters.L1);
+        setElevatorPosition(ElevatorParameters.DEFAULT);
         break;
     }
   }
@@ -240,17 +249,6 @@ public class Elevator extends SubsystemBase {
     voltageOut.Output = -0.014;
     elevatorMotorLeft.setControl(voltageOut);
     elevatorMotorRight.setControl(voltageOut);
-  }
-
-  /**
-   * Set the position of the left and right elevator motors
-   *
-   * @param left Left motor position
-   * @param right Right motor position
-   */
-  public void setElevatorPosition(double left, double right) {
-    elevatorMotorLeft.setControl(posRequest.withPosition(left));
-    elevatorMotorRight.setControl(posRequest.withPosition(right));
   }
 
   /** Sets the elevator state */
@@ -274,10 +272,11 @@ public class Elevator extends SubsystemBase {
    */
   public double getStateDouble() {
     return switch (this.currentState) {
+      case L1 -> ElevatorParameters.L1;
       case L2 -> ElevatorParameters.L2;
       case L3 -> ElevatorParameters.L3;
       case L4 -> ElevatorParameters.L4;
-      default -> ElevatorParameters.L1;
+      default -> ElevatorParameters.DEFAULT;
     };
   }
 
@@ -336,13 +335,15 @@ public class Elevator extends SubsystemBase {
    */
   public void moveElevator(double speed) {
     final double deadband = 0.001;
-    double velocity = speed * 5;
+    double velocity = -speed * 0.5;
+    logs("/Elevator/Elevator supply voltage", elevatorMotorLeft.getSupplyVoltage().getValueAsDouble());
+    logs("/Elevator/Elevator motor voltage", elevatorMotorLeft.getMotorVoltage().getValueAsDouble());
     if (Math.abs(velocity) >= deadband) {
       // TODO THESE MAY BE NEGATIVE DO NOT MURDER THE MOTORS SOFTWARE PLS!!!!!!!!!!!!!!!!!!!!!!!
 //      elevatorMotorLeft.set(velocity);
 //      elevatorMotorRight.set(velocity);
-        elevatorMotorLeft.setControl(velocityRequest.withVelocity(velocity));
-        elevatorMotorRight.setControl(velocityRequest.withVelocity(velocity));
+        elevatorMotorLeft.setControl(cycleOut.withOutput(velocity));
+        elevatorMotorRight.setControl(cycleOut.withOutput(velocity));
     } else {
       stopMotors();
     }
