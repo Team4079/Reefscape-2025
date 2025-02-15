@@ -14,6 +14,7 @@
   "dependencies": {
     "cz": "^1.8.2",
     "cz-customizable": "^7.4.0",
+    "inquirer": "^12.4.2",
     "reefscape2025": "file:"
   }
 }

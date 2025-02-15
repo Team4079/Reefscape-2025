@@ -53,7 +53,14 @@ module.exports = {
       { name: 'pivot' },
       { name: 'elevator' }
     ],
-    update: []
+    update: [],
+    userSelect: [
+      { name: 'Erick Tran' },
+      { name: 'Shawn Gazin' },
+      { name: 'Om Gupta' },
+      { name: 'Jayden Sun' },
+      { name: 'Brandon Jun'}
+    ]
   },
   // override the messages, defaults are as follows
   messages: {
@@ -66,6 +73,7 @@ module.exports = {
     breaking: 'List any BREAKING CHANGES (optional):\n',
     footer: 'List any ISSUES CLOSED by this change (optional). E.g.: #31, #34:\n',
     confirmCommit: 'Are you sure you want to proceed with the commit above?',
+    userSelect: "Select the user that you're committing"
   },
 
   allowCustomScopes: true,
@@ -78,4 +86,8 @@ module.exports = {
   breaklineChar: '|', // It is supported for fields body and footer.
   // footerPrefix : 'ISSUES CLOSED:'
   // askForBreakingChangeFirst : true, // default is false
+
+  hooks: {
+    'pre-commit': './set-git-user.ts'
+  }
 };
