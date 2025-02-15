@@ -2,29 +2,36 @@ package frc.robot.subsystems;
 
 import static frc.robot.utils.Register.Dash.log;
 import static frc.robot.utils.Register.Dash.logs;
+import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.ElevatorState;
 import frc.robot.utils.LEDState;
 import frc.robot.utils.RobotParameters.*;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class LED extends SubsystemBase {
+  // LED Hardware Components
   private final AddressableLED leds;
   private final AddressableLEDBuffer ledBuffer;
-  private int rainbowFirstHue = 0;
-  public LEDState ledState = LEDState.RAINBOW_FLOW;
-  private final Random rand = new Random();
   private final int[] brightnessLevels;
+
+  // Animation Controls
+  public LEDState ledState = LEDState.RAINBOW_FLOW;
+  private int rainbowFirstHue = 0;
   private int position = 0;
   private boolean goingForward = true;
+  private final Random rand = new Random();
   private final Timer robonautLEDTimer = new Timer();
 
-  private boolean laser = false;
+  // Laser Effect Properties
+  private static final int laser_count = 10;
+  private static final int spacing = 5;
   private ArrayList<Integer> laserPositions = new ArrayList<>();
-  private final int laser_count = 10;
-  private final int spacing = 5;
 
   /**
    * The Singleton instance of this LEDSubsystem. Code should use the {@link #getInstance()} method
@@ -67,15 +74,25 @@ public class LED extends SubsystemBase {
    */
   @Override
   public void periodic() {
+    // Enabled Robot
+
     if (DriverStation.isEnabled()) {
-      ledState = LEDState.LASER;
+      if (elevator_set_state == ElevatorState.L1) {
+        ledState = LEDState.HIGHTIDE_FLOW;
+      } else if (elevator_set_state == ElevatorState.L2) {
+        ledState = LEDState.ROBONAUT;
+      } else if (elevator_set_state == ElevatorState.L3) {
+        ledState = LEDState.FUNNY_ROBONAUT;
+      } else if (elevator_set_state == ElevatorState.L4) {
+        ledState = LEDState.LASER;
+      }
     }
 
+    // Disabled Robot (we can do whatever we want)
     if (DriverStation.isDisabled()) {
       ledState = LEDState.RAINBOW_FLOW;
     }
-
-    if (DriverStation.isDisabled() && LiveRobotValues.lowBattery) {
+    else if (LiveRobotValues.lowBattery) {
       ledState = LEDState.TWINKLE;
     }
 
@@ -280,6 +297,34 @@ public class LED extends SubsystemBase {
       if (laserPositions.get(i) >= ledBuffer.getLength()) {
         laserPositions.set(i, -rand.nextInt(spacing));
       }
+    }
+    leds.setData(ledBuffer);
+  }
+
+  public void createWave(Color startColor, Color endColor, double wavelength, double cycleDuration) {
+    double phase = (1 - ((Timer.getFPGATimestamp() % cycleDuration) / cycleDuration)) * 2.0 * Math.PI;
+    double phaseStep = (2.0 * Math.PI) / wavelength;
+    double waveExponent = 2.0;
+
+    for (int ledIndex = ledBuffer.getLength() - 1; ledIndex >= 0; ledIndex--) {
+      phase += phaseStep;
+
+      // Calculate blend ratio between colors (0.0 to 1.0)
+      double blendRatio = (Math.pow(Math.sin(phase), waveExponent) + 1.0) / 2.0;
+
+      if (Double.isNaN(blendRatio)) {
+        blendRatio = (-Math.pow(Math.sin(phase + Math.PI), waveExponent) + 1.0) / 2.0;
+        if (Double.isNaN(blendRatio)) {
+          blendRatio = 0.5;
+        }
+      }
+
+      // Interpolate RGB values between colors
+      int red = (int)((startColor.getRed() * (1 - blendRatio)) + (endColor.getRed() * blendRatio));
+      int green = (int)((startColor.getGreen() * (1 - blendRatio)) + (endColor.getGreen() * blendRatio));
+      int blue = (int)((startColor.getBlue() * (1 - blendRatio)) + (endColor.getBlue() * blendRatio));
+
+      ledBuffer.setRGB(ledIndex, red, green, blue);
     }
     leds.setData(ledBuffer);
   }

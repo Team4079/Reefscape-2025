@@ -158,13 +158,13 @@ public class PhotonVision extends SubsystemBase {
 
     logs(
         () -> {
-          log("resultPairs get", resultPairs.get().isEmpty());
-          log("resultPairs length", resultPairs.get().size());
-          log("currentResultPair not null", currentResultPair != null);
+          log("/Photonvision/Pairs get", resultPairs.get().isEmpty());
+          log("/Photonvision/resultPairs length", resultPairs.get().size());
+          log("/Photonvision/currentResultPair not null", currentResultPair != null);
         });
 
     if (currentResultPair != null) {
-      logs("hasTargets currentResultPair", hasTargets(currentResultPair));
+      logs("/Photonvision/hasTargets currentResultPair", hasTargets(currentResultPair));
     }
 
     return currentResultPair != null && hasTargets(currentResultPair);
@@ -207,7 +207,7 @@ public class PhotonVision extends SubsystemBase {
         .forEach(
             camera ->
                 logs(
-                    "Camera %s Std Dev NormF".formatted(camera.getCameraName()),
+                    "/Photonvision/Camera %s Std Dev NormF".formatted(camera.getCameraName()),
                     camera.getCurrentStdDevs().normF()));
   }
 

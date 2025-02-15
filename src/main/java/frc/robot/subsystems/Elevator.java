@@ -204,17 +204,20 @@ public class Elevator extends SubsystemBase {
     elevatorLeftDisconnectedAlert.set(!elevatorMotorLeft.isConnected());
     elevatorRightDisconnectedAlert.set(!elevatorMotorRight.isConnected());
 
+    //THIS IS JUST FOR TESTING, in reality, elevator set state is based on
+    // what Jayden clicks which will be displayed on leds but not necessarily = currenState
+    elevator_set_state = currentState;
     moveElevatorToLevel();
 
     logs(
         () -> {
-          log("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
-          log("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
-          log("Elevator Left Set Speed", elevatorMotorLeft.getVelocity().getValueAsDouble());
-          log("Elevator Right Set Speed", elevatorMotorRight.getVelocity().getValueAsDouble());
-          log("Elevator Left Acceleration", elevatorMotorLeft.getAcceleration().getValueAsDouble());
+          log("/Elevator/Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
+          log("/Elevator/Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
+          log("/Elevator/Elevator Left Set Speed", elevatorMotorLeft.getVelocity().getValueAsDouble());
+          log("/Elevator/Elevator Right Set Speed", elevatorMotorRight.getVelocity().getValueAsDouble());
+          log("/Elevator/Elevator Left Acceleration", elevatorMotorLeft.getAcceleration().getValueAsDouble());
           log(
-              "Elevator Right Acceleration",
+              "/Elevator/Elevator Right Acceleration",
               elevatorMotorRight.getAcceleration().getValueAsDouble());
           log(
               "/Elevator/Elevator Supply Voltage",
@@ -223,18 +226,6 @@ public class Elevator extends SubsystemBase {
               "/Elevator/Elevator Motor Voltage",
               elevatorMotorLeft.getMotorVoltage().getValueAsDouble());
           log(ELEVATOR_STATE_KEY, currentState.toString());
-          log(
-              "Disconnected elevatorMotorLeft" + elevatorMotorLeft.getDeviceID(),
-              elevatorMotorLeft.isConnected());
-          log(
-              "Disconnected elevatorMotorRight" + elevatorMotorRight.getDeviceID(),
-              elevatorMotorRight.isConnected());
-          log(
-              "Disconnected elevatorMotorLeft" + elevatorMotorLeft.getDeviceID(),
-              elevatorMotorLeft.isConnected());
-          log(
-              "Disconnected elevatorMotorRight" + elevatorMotorRight.getDeviceID(),
-              elevatorMotorRight.isConnected());
         });
   }
 

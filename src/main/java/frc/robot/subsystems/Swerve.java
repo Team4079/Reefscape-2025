@@ -187,7 +187,7 @@ public class Swerve extends SubsystemBase {
   @Override
   public void periodic() {
     //    updatePos();
-    logs("Swerve Module States", getModuleStates());
+    logs("/Swerve/Swerve Module States", getModuleStates());
 
     /*
      * Updates the robot position based on movement and rotation from the pidgey and
@@ -199,10 +199,10 @@ public class Swerve extends SubsystemBase {
 
     logs(
         () -> {
-          log("Pidgey Yaw", getPidgeyYaw());
-          log("Pidgey Heading", getHeading());
-          log("Pidgey Rotation2D", pidgey.getRotation2d().getDegrees());
-          log("Robot Pose", field.getRobotPose());
+          log("/Swerve/Pidgey Yaw", getPidgeyYaw());
+          log("/Swerve/Pidgey Heading", getHeading());
+          log("/Swerve/Pidgey Rotation2D", pidgey.getRotation2d().getDegrees());
+          log("/Swerve/Robot Pose", field.getRobotPose());
         });
   }
 
@@ -254,9 +254,9 @@ public class Swerve extends SubsystemBase {
       double forwardSpeed, double leftSpeed, double turnSpeed, boolean isFieldOriented) {
     logs(
         () -> {
-          log("Forward speed", forwardSpeed);
-          log("Left speed", leftSpeed);
-          log("Turn speed", turnSpeed);
+          log("/Swerve/Forward speed", forwardSpeed);
+          log("/Swerve/Left speed", leftSpeed);
+          log("/Swerve/Turn speed", turnSpeed);
         });
 
     // Converts to a measure that the robot aktualy understands
@@ -265,7 +265,7 @@ public class Swerve extends SubsystemBase {
             ? fromFieldRelativeSpeeds(forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation())
             : new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed);
 
-    logs("Chassis Speeds", speeds);
+    logs("/Swerve/Chassis Speeds", speeds);
 
     speeds = discretize(speeds, 0.02);
 

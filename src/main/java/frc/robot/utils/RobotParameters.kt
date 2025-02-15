@@ -190,6 +190,9 @@ object RobotParameters {
         const val ELEVATOR_SOFT_LIMIT_UP: Double = 61.5
 
         @JvmField
+        var elevator_set_state: ElevatorState = ElevatorState.DEFAULT
+
+        @JvmField
         var isSoftLimitEnabled: Boolean = false
     }
 
@@ -209,7 +212,7 @@ object RobotParameters {
     }
 
     object CoralManipulatorParameters {
-        const val CORAL_SENSOR_ID: Int = 8
+        const val CORAL_SENSOR_ID: Int = 0
 
         @JvmField
         val CORAL_MANIPULATOR_UP_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
