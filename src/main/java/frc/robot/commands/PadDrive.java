@@ -66,7 +66,7 @@ public class PadDrive extends Command {
     if (Math.abs(x) < X_DEADZONE * MAX_SPEED) x = 0.0;
 
     double y = -pad.getLeftY() * MAX_SPEED;
-    if (Math.abs(y) < Y_DEADZONE * MAX_SPEED) y  = 0.0;
+    if (Math.abs(y) < Y_DEADZONE * MAX_SPEED) y = 0.0;
 
     return new Pair<>(x, y);
   }

@@ -152,11 +152,10 @@ object RobotParameters {
 
     /** CLass for robot values that change and affect the robot. */
     object LiveRobotValues {
-        @JvmField
-        var LOW_BATTERY_VOLTAGE: Double = 11.8
+        const val LOW_BATTERY_VOLTAGE: Double = 11.8
 
         @JvmField
-        var LOW_BATTERY: Boolean = false
+        var lowBattery: Boolean = false
     }
 
     /** Class containing constants for the Photonvision subsystem.  */
@@ -182,28 +181,26 @@ object RobotParameters {
         val ELEVATOR_PIDV: PIDVController = PIDVController(5.0, 0.0, 0.0, 0.35)
 
         @JvmField
-        var ELEVATOR_S: Double = 0.5199
+        var elevatorS: Double = 0.5199
 
         @JvmField
-        var ELEVATOR_G: Double = 0.0 //May be 0.42
+        var elevatorG: Double = 0.0 // May be 0.42
 
         @JvmField
-        var ELEVATOR_MM_CRUISE_VELOCITY: Double = 90.0
+        var elevatorCruiseV: Double = 90.0
 
         @JvmField
-        var ELEVATOR_MM_ACCELERATION: Double = 180.0;
+        var elevatorAcc: Double = 180.0
 
         @JvmField
-        var ELEVATOR_MM_JERK: Double = 0.0
+        var elevatorJerk: Double = 0.0
 
-        @JvmField
-        val ELEVATOR_SOFT_LIMIT_DOWN: Double = 0.0
+        const val ELEVATOR_SOFT_LIMIT_DOWN: Double = 0.0
 
-        @JvmField
-        val ELEVATOR_SOFT_LIMIT_UP: Double = 61.5;
+        const val ELEVATOR_SOFT_LIMIT_UP: Double = 61.5
 
         // Elevator Positions
-        const val DEFAULT: Double = 0.1;
+        const val DEFAULT: Double = 0.1
         const val L1: Double = 10.0
         const val L2: Double = 20.0
         const val L3: Double = 30.0

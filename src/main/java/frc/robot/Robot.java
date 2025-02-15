@@ -4,9 +4,9 @@ import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Threads;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.LED;
@@ -84,7 +84,6 @@ public class Robot extends LoggedRobot {
     // Initialize the robot container
     robotContainer = new RobotContainer();
 
-
     // Schedule the warmup command
     PathfindingCommand.warmupCommand().schedule();
   }
@@ -106,11 +105,11 @@ public class Robot extends LoggedRobot {
     if (RobotController.getBatteryVoltage() < LiveRobotValues.LOW_BATTERY_VOLTAGE) {
       batteryTimer.start();
       if (batteryTimer.advanceIfElapsed(1.5)) {
-        LiveRobotValues.LOW_BATTERY = true;
+        LiveRobotValues.lowBattery = true;
       }
     } else {
       batteryTimer.stop();
-      LiveRobotValues.LOW_BATTERY = false;
+      LiveRobotValues.lowBattery = false;
     }
 
     Threads.setCurrentThreadPriority(false, 99);
