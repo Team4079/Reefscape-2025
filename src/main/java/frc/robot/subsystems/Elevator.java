@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import static com.ctre.phoenix6.signals.InvertedValue.*;
 import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
@@ -37,6 +38,11 @@ public class Elevator extends SubsystemBase {
   private LoggedNetworkNumber elevatorI;
   private LoggedNetworkNumber elevatorD;
   private LoggedNetworkNumber elevatorV;
+  private LoggedNetworkNumber elevatorS;
+  private LoggedNetworkNumber elevatorG;
+  private LoggedNetworkNumber cruiseV;
+  private LoggedNetworkNumber acc;
+  private LoggedNetworkNumber jerk;
 
   private final VoltageOut voltageOut;
   private TalonFXConfiguration elevatorLeftConfigs;
@@ -47,9 +53,11 @@ public class Elevator extends SubsystemBase {
   private Alert elevatorLeftDisconnectedAlert;
   private Alert elevatorRightDisconnectedAlert;
 
-  private ElevatorState currentState = frc.robot.utils.ElevatorState.L1;
+  private ElevatorState currentState = ElevatorState.DEFAULT;
 
   private final MotionMagicVoltage motionMagicVoltage;
+
+  private final DutyCycleOut cycleOut;
 
   /**
    * The Singleton instance of this ElevatorSubsystem. Code should use the {@link #getInstance()}
@@ -89,15 +97,15 @@ public class Elevator extends SubsystemBase {
     elevatorLeftConfigs.Slot0.kI = ELEVATOR_PIDV.getI();
     elevatorLeftConfigs.Slot0.kD = ELEVATOR_PIDV.getD();
     elevatorLeftConfigs.Slot0.kV = ELEVATOR_PIDV.getV();
-    elevatorLeftConfigs.Slot0.kS = ELEVATOR_S;
-    elevatorLeftConfigs.Slot0.kG = ELEVATOR_G;
+    elevatorLeftConfigs.Slot0.kS = ElevatorParameters.elevatorS;
+    elevatorLeftConfigs.Slot0.kG = ElevatorParameters.elevatorG;
 
     elevatorRightConfigs.Slot0.kP = ELEVATOR_PIDV.getP();
     elevatorRightConfigs.Slot0.kI = ELEVATOR_PIDV.getI();
     elevatorRightConfigs.Slot0.kD = ELEVATOR_PIDV.getD();
     elevatorRightConfigs.Slot0.kV = ELEVATOR_PIDV.getV();
-    elevatorRightConfigs.Slot0.kS = ELEVATOR_S;
-    elevatorRightConfigs.Slot0.kG = ELEVATOR_G;
+    elevatorRightConfigs.Slot0.kS = ElevatorParameters.elevatorS;
+    elevatorRightConfigs.Slot0.kG = ElevatorParameters.elevatorG;
 
     elevatorMotorLeft.getConfigurator().apply(elevatorLeftConfigs);
     elevatorMotorRight.getConfigurator().apply(elevatorRightConfigs);
@@ -133,16 +141,16 @@ public class Elevator extends SubsystemBase {
     // on
     leftSoftLimitConfig.ForwardSoftLimitEnable = true;
     leftSoftLimitConfig.ReverseSoftLimitEnable = true;
-    leftSoftLimitConfig.ReverseSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_UP;
-    leftSoftLimitConfig.ForwardSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_DOWN;
+    leftSoftLimitConfig.ForwardSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_UP;
+    leftSoftLimitConfig.ReverseSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_DOWN;
 
     rightSoftLimitConfig.ForwardSoftLimitEnable = true;
     rightSoftLimitConfig.ReverseSoftLimitEnable = true;
-    rightSoftLimitConfig.ReverseSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_UP;
-    rightSoftLimitConfig.ForwardSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_DOWN;
+    rightSoftLimitConfig.ReverseSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_DOWN;
+    rightSoftLimitConfig.ForwardSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_UP;
 
-    elevatorLeftConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-    elevatorRightConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    elevatorLeftConfigs.MotorOutput.Inverted = CounterClockwise_Positive;
+    elevatorRightConfigs.MotorOutput.Inverted = Clockwise_Positive;
     elevatorLeftConfigs.SoftwareLimitSwitch = leftSoftLimitConfig;
     elevatorRightConfigs.SoftwareLimitSwitch = rightSoftLimitConfig;
 
@@ -153,25 +161,33 @@ public class Elevator extends SubsystemBase {
     posRequest = new PositionDutyCycle(0);
     voltageOut = new VoltageOut(0);
     motionMagicVoltage = new MotionMagicVoltage(0);
+    cycleOut = new DutyCycleOut(0);
 
-    //TODO THESE NEED TO BE LOGGED
+    // TODO THESE NEED TO BE LOGGED
     motionMagicConfigs = elevatorLeftConfigs.MotionMagic;
-    motionMagicConfigs.MotionMagicCruiseVelocity = 0.0;
-    motionMagicConfigs.MotionMagicAcceleration = 0.0;
-    motionMagicConfigs.MotionMagicJerk = 0.0;
+    motionMagicConfigs.MotionMagicCruiseVelocity = elevatorCruiseV;
+    motionMagicConfigs.MotionMagicAcceleration = elevatorAcc;
+    motionMagicConfigs.MotionMagicJerk = elevatorJerk;
 
     motionMagicVoltage.Slot = 0;
+    //    motionMagicVoltage.EnableFOC = true;
+    //    motionMagicVoltage.FeedForward = 0;
 
     velocityRequest.OverrideCoastDurNeutral = false;
 
     voltageOut.OverrideBrakeDurNeutral = false;
     voltageOut.EnableFOC = true;
 
+    cycleOut.EnableFOC = false;
+
     elevatorMotorLeft.setPosition(0);
     elevatorMotorRight.setPosition(0);
 
-    elevatorLeftConfigurator.apply(elevatorLeftConfigs, 0.05);
-    elevatorRightConfigurator.apply(elevatorRightConfigs, 0.05);
+    elevatorLeftConfigurator.apply(elevatorLeftConfigs);
+    elevatorRightConfigurator.apply(elevatorRightConfigs);
+
+    elevatorLeftConfigurator.apply(motionMagicConfigs);
+    elevatorRightConfigurator.apply(motionMagicConfigs);
 
     elevatorLeftDisconnectedAlert =
         new Alert("Disconnected left elevator motor " + ELEVATOR_MOTOR_LEFT_ID, kError);
@@ -184,16 +200,27 @@ public class Elevator extends SubsystemBase {
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-
     elevatorLeftDisconnectedAlert.set(!elevatorMotorLeft.isConnected());
     elevatorRightDisconnectedAlert.set(!elevatorMotorRight.isConnected());
+
+    moveElevatorToLevel();
 
     logs(
         () -> {
           log("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
           log("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
-          log("Elevator Left Set Speed", elevatorMotorLeft.get());
-          log("Elevator Right Set Speed", elevatorMotorRight.get());
+          log("Elevator Left Set Speed", elevatorMotorLeft.getVelocity().getValueAsDouble());
+          log("Elevator Right Set Speed", elevatorMotorRight.getVelocity().getValueAsDouble());
+          log("Elevator Left Acceleration", elevatorMotorLeft.getAcceleration().getValueAsDouble());
+          log(
+              "Elevator Right Acceleration",
+              elevatorMotorRight.getAcceleration().getValueAsDouble());
+          log(
+              "/Elevator/Elevator Supply Voltage",
+              elevatorMotorLeft.getSupplyVoltage().getValueAsDouble());
+          log(
+              "/Elevator/Elevator Motor Voltage",
+              elevatorMotorLeft.getMotorVoltage().getValueAsDouble());
           log(ELEVATOR_STATE_KEY, currentState.toString());
           log(
               "Disconnected elevatorMotorLeft" + elevatorMotorLeft.getDeviceID(),
@@ -213,17 +240,20 @@ public class Elevator extends SubsystemBase {
   /** Move the elevator motor to a specific level */
   public void moveElevatorToLevel() {
     switch (this.currentState) {
+      case L1:
+        setElevatorPosition(L1);
+        break;
       case L2:
-        setElevatorPosition(ElevatorParameters.L2, ElevatorParameters.L2);
+        setElevatorPosition(L2);
         break;
       case L3:
-        setElevatorPosition(ElevatorParameters.L3, ElevatorParameters.L3);
+        setElevatorPosition(L3);
         break;
       case L4:
-        setElevatorPosition(ElevatorParameters.L4, ElevatorParameters.L4);
+        setElevatorPosition(L4);
         break;
       default:
-        setElevatorPosition(ElevatorParameters.L1, ElevatorParameters.L1);
+        setElevatorPosition(DEFAULT);
         break;
     }
   }
@@ -235,17 +265,6 @@ public class Elevator extends SubsystemBase {
     voltageOut.Output = -0.014;
     elevatorMotorLeft.setControl(voltageOut);
     elevatorMotorRight.setControl(voltageOut);
-  }
-
-  /**
-   * Set the position of the left and right elevator motors
-   *
-   * @param left Left motor position
-   * @param right Right motor position
-   */
-  public void setElevatorPosition(double left, double right) {
-    elevatorMotorLeft.setControl(posRequest.withPosition(left));
-    elevatorMotorRight.setControl(posRequest.withPosition(right));
   }
 
   /** Sets the elevator state */
@@ -269,10 +288,11 @@ public class Elevator extends SubsystemBase {
    */
   public double getStateDouble() {
     return switch (this.currentState) {
-      case L2 -> ElevatorParameters.L2;
-      case L3 -> ElevatorParameters.L3;
-      case L4 -> ElevatorParameters.L4;
-      default -> ElevatorParameters.L1;
+      case L1 -> L1;
+      case L2 -> L2;
+      case L3 -> L3;
+      case L4 -> L4;
+      default -> DEFAULT;
     };
   }
 
@@ -331,13 +351,13 @@ public class Elevator extends SubsystemBase {
    */
   public void moveElevator(double speed) {
     final double deadband = 0.001;
-    double velocity = speed * 5;
+    double velocity = -speed * 0.3309;
     if (Math.abs(velocity) >= deadband) {
       // TODO THESE MAY BE NEGATIVE DO NOT MURDER THE MOTORS SOFTWARE PLS!!!!!!!!!!!!!!!!!!!!!!!
-//      elevatorMotorLeft.set(velocity);
-//      elevatorMotorRight.set(velocity);
-        elevatorMotorLeft.setControl(velocityRequest.withVelocity(velocity));
-        elevatorMotorRight.setControl(velocityRequest.withVelocity(velocity));
+      //      elevatorMotorLeft.set(velocity);
+      //      elevatorMotorRight.set(velocity);
+      elevatorMotorLeft.setControl(cycleOut.withOutput(velocity));
+      elevatorMotorRight.setControl(cycleOut.withOutput(velocity));
     } else {
       stopMotors();
     }
@@ -354,17 +374,39 @@ public class Elevator extends SubsystemBase {
   }
 
   public void initizalizeLoggedNetworkPID() {
-    elevatorP = new LoggedNetworkNumber("/Tuning/Elevator P", elevatorRightConfigs.Slot0.kP);
-    elevatorI = new LoggedNetworkNumber("/Tuning/Elevator I", elevatorRightConfigs.Slot0.kI);
-    elevatorD = new LoggedNetworkNumber("/Tuning/Elevator D", elevatorRightConfigs.Slot0.kD);
-    elevatorV = new LoggedNetworkNumber("/Tuning/Elevator V", elevatorRightConfigs.Slot0.kV);
+    elevatorP =
+        new LoggedNetworkNumber("/Tuning/Elevator/Elevator P", elevatorRightConfigs.Slot0.kP);
+    elevatorI =
+        new LoggedNetworkNumber("/Tuning/Elevator/Elevator I", elevatorRightConfigs.Slot0.kI);
+    elevatorD =
+        new LoggedNetworkNumber("/Tuning/Elevator/Elevator D", elevatorRightConfigs.Slot0.kD);
+    elevatorV =
+        new LoggedNetworkNumber("/Tuning/Elevator/Elevator V", elevatorRightConfigs.Slot0.kV);
+    elevatorS =
+        new LoggedNetworkNumber("/Tuning/Elevator/Elevator S", elevatorRightConfigs.Slot0.kS);
+    elevatorG =
+        new LoggedNetworkNumber("/Tuning/Elevator/Elevator G", elevatorRightConfigs.Slot0.kG);
+
+    cruiseV =
+        new LoggedNetworkNumber(
+            "/Tuning/Elevator/MM Cruise Velocity", motionMagicConfigs.MotionMagicCruiseVelocity);
+    acc =
+        new LoggedNetworkNumber(
+            "/Tuning/Elevator/MM Acceleration", motionMagicConfigs.MotionMagicAcceleration);
+    jerk = new LoggedNetworkNumber("/Tuning/Elevator/MM Jerk", motionMagicConfigs.MotionMagicJerk);
   }
 
   public void updateElevatorPID() {
-    ElevatorParameters.ELEVATOR_PIDV.setP(elevatorP.get());
-    ElevatorParameters.ELEVATOR_PIDV.setI(elevatorI.get());
-    ElevatorParameters.ELEVATOR_PIDV.setD(elevatorD.get());
-    ElevatorParameters.ELEVATOR_PIDV.setV(elevatorV.get());
+    ELEVATOR_PIDV.setP(elevatorP.get());
+    ELEVATOR_PIDV.setI(elevatorI.get());
+    ELEVATOR_PIDV.setD(elevatorD.get());
+    ELEVATOR_PIDV.setV(elevatorV.get());
+    ElevatorParameters.elevatorS = elevatorS.get();
+    ElevatorParameters.elevatorG = elevatorG.get();
+
+    elevatorCruiseV = cruiseV.get();
+    elevatorAcc = acc.get();
+    elevatorJerk = jerk.get();
 
     applyElevatorPIDValues();
   }
@@ -374,13 +416,25 @@ public class Elevator extends SubsystemBase {
     elevatorLeftConfigs.Slot0.kI = elevatorI.get();
     elevatorLeftConfigs.Slot0.kD = elevatorD.get();
     elevatorLeftConfigs.Slot0.kV = elevatorV.get();
+    elevatorLeftConfigs.Slot0.kS = elevatorS.get();
+    elevatorLeftConfigs.Slot0.kG = elevatorG.get();
 
     elevatorRightConfigs.Slot0.kP = elevatorP.get();
     elevatorRightConfigs.Slot0.kI = elevatorI.get();
     elevatorRightConfigs.Slot0.kD = elevatorD.get();
     elevatorRightConfigs.Slot0.kV = elevatorV.get();
+    elevatorRightConfigs.Slot0.kS = elevatorS.get();
+    elevatorRightConfigs.Slot0.kG = elevatorG.get();
+
+    motionMagicConfigs = elevatorLeftConfigs.MotionMagic;
+    motionMagicConfigs.MotionMagicCruiseVelocity = cruiseV.get();
+    motionMagicConfigs.MotionMagicAcceleration = acc.get();
+    motionMagicConfigs.MotionMagicJerk = jerk.get();
 
     elevatorMotorLeft.getConfigurator().apply(elevatorLeftConfigs);
     elevatorMotorRight.getConfigurator().apply(elevatorRightConfigs);
+
+    elevatorMotorLeft.getConfigurator().apply(motionMagicConfigs);
+    elevatorMotorRight.getConfigurator().apply(motionMagicConfigs);
   }
 }

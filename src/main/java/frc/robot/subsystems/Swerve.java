@@ -104,7 +104,7 @@ public class Swerve extends SubsystemBase {
     this.modules = initializeModules();
     this.pidgey.reset();
     this.poseEstimator = initializePoseEstimator();
-//    configureAutoBuilder();
+    //    configureAutoBuilder();
     initializePathPlannerLogging();
 
     //    swerveLoggingThread.start();
@@ -186,7 +186,7 @@ public class Swerve extends SubsystemBase {
    */
   @Override
   public void periodic() {
-//    updatePos();
+    //    updatePos();
     logs("Swerve Module States", getModuleStates());
 
     /*
@@ -214,19 +214,20 @@ public class Swerve extends SubsystemBase {
   private void updatePos() {
     if (!PhotonVision.getInstance().getResultPairs().isEmpty()) {
       PhotonVision.getInstance()
-              .getResultPairs()
-              .forEach(
-                      pair -> {
-                        EstimatedRobotPose pose = getEstimatedPose(pair, poseEstimator.getEstimatedPosition());
-                        updateStdDev(pair, Optional.ofNullable(pose));
-                        if (pose != null) {
-                          double timestamp = pose.timestampSeconds;
-                          Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
-                          poseEstimator.addVisionMeasurement(
-                                  visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
-                          robotPos = poseEstimator.getEstimatedPosition();
-                        }
-                      });
+          .getResultPairs()
+          .forEach(
+              pair -> {
+                EstimatedRobotPose pose =
+                    getEstimatedPose(pair, poseEstimator.getEstimatedPosition());
+                updateStdDev(pair, Optional.ofNullable(pose));
+                if (pose != null) {
+                  double timestamp = pose.timestampSeconds;
+                  Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
+                  poseEstimator.addVisionMeasurement(
+                      visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
+                  robotPos = poseEstimator.getEstimatedPosition();
+                }
+              });
     }
   }
 

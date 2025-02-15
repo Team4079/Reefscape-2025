@@ -4,12 +4,16 @@ import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.Threads;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.LocalADStarAK;
 import frc.robot.utils.RobotParameters;
+import frc.robot.utils.RobotParameters.LiveRobotValues;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -29,6 +33,7 @@ public class Robot extends LoggedRobot {
   private RobotContainer robotContainer;
 
   private Timer garbageTimer;
+  private Timer batteryTimer;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -38,6 +43,7 @@ public class Robot extends LoggedRobot {
   public void robotInit() {
     // Set a metadata value
     RobotParameters.Info.logInfo();
+    LED.getInstance();
     Logger.recordMetadata("Reefscape", "Logging");
 
     // Set the pathfinder
@@ -69,6 +75,7 @@ public class Robot extends LoggedRobot {
 
     // Initialize the garbage timer
     garbageTimer = new Timer();
+    batteryTimer = new Timer();
     garbageTimer.start();
 
     // Configure auto builder
@@ -76,7 +83,6 @@ public class Robot extends LoggedRobot {
 
     // Initialize the robot container
     robotContainer = new RobotContainer();
-
 
     // Schedule the warmup command
     PathfindingCommand.warmupCommand().schedule();
@@ -91,8 +97,22 @@ public class Robot extends LoggedRobot {
    */
   @Override
   public void robotPeriodic() {
+    Threads.setCurrentThreadPriority(true, 99);
+
     CommandScheduler.getInstance().run();
     if (garbageTimer.advanceIfElapsed(5)) System.gc();
+
+    if (RobotController.getBatteryVoltage() < LiveRobotValues.LOW_BATTERY_VOLTAGE) {
+      batteryTimer.start();
+      if (batteryTimer.advanceIfElapsed(1.5)) {
+        LiveRobotValues.lowBattery = true;
+      }
+    } else {
+      batteryTimer.stop();
+      LiveRobotValues.lowBattery = false;
+    }
+
+    Threads.setCurrentThreadPriority(false, 99);
   }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */

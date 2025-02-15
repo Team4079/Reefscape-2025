@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
-import static frc.robot.utils.Register.Dash.*;
-import static frc.robot.utils.RobotParameters.MotorParameters.*;
+import static frc.robot.commands.Kommand.setElevatorState;
+import static frc.robot.utils.ElevatorState.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
 
 import edu.wpi.first.wpilibj.*;
@@ -30,9 +30,34 @@ public class PadElevator extends Command {
    */
   @Override
   public void execute() {
-    Pair<Double, Double> position = positionSet(pad);
+    // Code to manually move elevator
+    //    Pair<Double, Double> position = positionSet(pad);
+    //    Elevator.getInstance().moveElevator(position.getSecond());
 
-    Elevator.getInstance().moveElevator(position.getSecond());
+    if (checkDPad(0)) {
+      setElevatorState(L4).schedule();
+    } else if (checkDPad(2)) {
+      setElevatorState(L3).schedule();
+    } else if (checkDPad(4)) {
+      setElevatorState(L2).schedule();
+    } else if (checkDPad(6)) {
+      setElevatorState(L1).schedule();
+    }
+  }
+
+  /**
+   * Check the state of the D-pad. The {@code index} is a value [0, 7] that corresponds to the
+   * combinations on the D-pad. 0 represents just 'UP' being pressed, 1 is 'UP-RIGHT', 2 is just
+   * 'RIGHT', 3 is 'RIGHT-DOWN', and so on.
+   *
+   * <p>This method can be used to see if a specific button on the D-pad is pressed.
+   *
+   * @param index The value to correspond to a D-pad combination.
+   * @return If the specified combination is pressed.
+   */
+  public boolean checkDPad(int index) {
+    if (0 <= index && index <= 7) return (index * 45) == pad.getPOV(0);
+    else return false;
   }
 
   /**

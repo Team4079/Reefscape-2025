@@ -7,29 +7,41 @@
       "height": 1034,
       "state": {
         "sidebar": {
-          "width": 448,
+          "width": 500,
           "expanded": [
             "/AdvantageKit/NetworkInputs/SmartDashboard",
             "/CameraPublisher/FrontRight",
             "/CameraPublisher/FrontRight/streams",
-            "/CameraPublisher",
             "/CameraPublisher/photonvision_Port_1182_Output_MJPEG_Server",
             "/CameraPublisher/photonvision_Port_1181_Input_MJPEG_Server",
             "/CameraPublisher/photonvision_Port_1181_Input_MJPEG_Server/streams",
             "/CameraPublisher/photonvision_Port_1182_Output_MJPEG_Server/streams",
-            "/AdvantageKit/DriverStation",
             "/AdvantageKit/RealOutputs",
-            "/AdvantageKit/RadioStatus",
-            "/AdvantageKit/PowerDistribution",
-            "/AdvantageKit/NetworkInputs",
             "/SmartDashboard/AutoChooser/options",
             "/SmartDashboard/AutoChooser",
+            "/AdvantageKit/RealOutputs/Robot Pose",
+            "/AdvantageKit/RealOutputs/Alerts/errors",
+            "/AdvantageKit/RealOutputs/Alerts/infos",
+            "/AdvantageKit/RealOutputs/Alerts/warnings",
+            "/photonvision/Arducam_OV2311_USB_Camera/rawBytes",
+            "/photonvision/Arducam_OV2311_USB_Camera/rawBytes/targets",
+            "/photonvision/Arducam_OV2311_USB_Camera/rawBytes/metadata",
+            "/photonvision/Arducam_OV2311_USB_Camera/rawBytes/targets/0",
+            "/photonvision/.timesync",
+            "/photonvision/.timesync/photonvision",
+            "/photonvision/RightCamera/rawBytes",
+            "/photonvision/RightCamera/rawBytes/targets",
+            "/photonvision/RightCamera/rawBytes/metadata",
+            "/photonvision/RightCamera/rawBytes/targets/0",
             "/AdvantageKit",
-            "/AdvantageKit/RealOutputs/Robot Pose"
+            "/Tuning",
+            "/Tuning/Elevator",
+            "/Tuning/Swerve",
+            "/AdvantageKit/RealOutputs/Elevator"
           ]
         },
         "tabs": {
-          "selected": 2,
+          "selected": 8,
           "tabs": [
             {
               "type": 0,
@@ -69,7 +81,7 @@
                     "options": {}
                   }
                 ],
-                "game": "2025 Field",
+                "game": "2025 Field (Welded)",
                 "bumpers": "auto",
                 "origin": "blue",
                 "orientation": 0,
@@ -92,7 +104,7 @@
                     "options": {}
                   }
                 ],
-                "game": "2025 Field",
+                "game": "2025 Field (Welded)",
                 "bumpers": "auto",
                 "origin": "blue",
                 "orientation": 0,
@@ -172,12 +184,56 @@
             {
               "type": 4,
               "title": "Useful Info (Not)",
-              "controller": [
-                "NT:/AdvantageKit/RealOutputs/Pidgey Heading"
-              ],
+              "controller": [],
               "controllerUUID": "wb71bnf32hkytkd3a4aqu11jxuzfec1a",
               "renderer": null,
               "controlsHeight": 0
+            },
+            {
+              "type": 1,
+              "title": "Test Values",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/AdvantageKit/RealOutputs//Elevator/Elevator Motor Voltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#2b66a2",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/AdvantageKit/RealOutputs//Elevator/Elevator Supply Voltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e5b31b",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "rightUnitConversion": {
+                  "type": null,
+                  "factor": 1
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "1dv625h3h1hyy8s9w9yazdjx8927ixsv",
+              "renderer": null,
+              "controlsHeight": 200
             }
           ]
         }

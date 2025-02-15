@@ -135,7 +135,7 @@ object Kommand {
      * Creates a pathfinding command to move to a specified pose.
      *
      * @param targetPose The target pose to move to.
-     * @param endVelocity The end velocity for the pathfinding. Defaults to 0.0.
+     * @param endVelocity The end velocity for the pathfinding in m/s. Defaults to 0.0.
      * @return A command that performs the pathfinding operation.
      */
     @JvmStatic
@@ -147,7 +147,7 @@ object Kommand {
         AutoBuilder.pathfindToPose(
             targetPose,
             PATH_CONSTRAINTS,
-            endVelocity, // Goal end velocity in meters/sec
+            endVelocity,
         )
 
     /**

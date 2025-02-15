@@ -10,9 +10,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
-import frc.robot.commands.PadElevator;
 import frc.robot.subsystems.*;
 import frc.robot.utils.*;
 import java.util.EnumMap;
@@ -34,13 +32,10 @@ public class RobotContainer {
   public RobotContainer() {
     pad = new XboxController(0);
 
+    Elevator.getInstance().setDefaultCommand(padElevator(pad));
+
     Button.getEntries()
         .forEach(button -> buttons.put(button, new JoystickButton(pad, button.getButtonNumber())));
-
-//    Swerve.getInstance().setDefaultCommand(drive(pad));
-    Elevator.getInstance().setDefaultCommand(padElevator(pad));
-    PhotonVision.getInstance();
-    LED.getInstance();
 
     networkChooser = AutoBuilder.buildAutoChooser();
 
@@ -55,7 +50,7 @@ public class RobotContainer {
         cmd("SetL4", setElevatorState(L4)));
 
     //    networkChooser.addDefaultOption("Straight Auto", new PathPlannerAuto("Straight Auto"));
-//    networkChooser.addOption("Straight Auto", new InstantCommand());
+    //    networkChooser.addOption("Straight Auto", new InstantCommand());
   }
 
   /**
@@ -68,16 +63,14 @@ public class RobotContainer {
     Register.bindings(
         buttons,
         bind(START, resetPidgey()),
-        bind(Y, new InstantCommand(() -> Elevator.getInstance().applyElevatorPIDValues())),
-        bind(A, align(CENTER).onlyWhile(pad::getAButton)),
-//        bind(B, align(LEFT)),
-//        bind(A, align(RIGHT)),
+        //        bind(X, new InstantCommand(() ->
+        // Elevator.getInstance().applyElevatorPIDValues())),
+        bind(B, align(CENTER).onlyWhile(pad::getAButton)),
+        //        bind(B, align(LEFT)),
+        //        bind(A, align(RIGHT)),
         // TODO PLEASE TEST
         //        bind(B, createPathfindingCmd(reefs.get(0))),
-        // bind(A, setElevatorState(L1)),
-        // bind(B, setElevatorState(L2)),
-        // bind(X, setElevatorState(L3)),
-        // bind(Y, setElevatorState(L4)),
+        bind(A, setElevatorState(DEFAULT)),
         bind(LEFT_BUMPER, score(LEFT)),
         bind(RIGHT_BUMPER, score(RIGHT)));
   }

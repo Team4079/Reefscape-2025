@@ -1,8 +1,6 @@
 package frc.robot.utils;
 
-/**
- * The LED state enum represents the state of the LEDs.
- */
+/** The LED state enum represents the state of the LEDs. */
 public enum LEDState {
   RAINBOW_FLOW,
 
@@ -12,5 +10,9 @@ public enum LEDState {
 
   TWINKLE,
 
-  ROBONAUT
+  ROBONAUT,
+
+  FUNNY_ROBONAUT,
+
+  LASER
 }
