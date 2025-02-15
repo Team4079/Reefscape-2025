@@ -33,6 +33,7 @@ $dokka.location:frc.robot.commands/PadDrive/isFinished/#/PointingToDeclaration/
 $dokka.location:frc.robot.commands/PadDrive/positionSet/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/position-set.html
 $dokka.location:frc.robot.commands/PadElevator///PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-elevator/index.html
 $dokka.location:frc.robot.commands/PadElevator/PadElevator/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-elevator/-pad-elevator.html
+$dokka.location:frc.robot.commands/PadElevator/checkDPad/#int/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-elevator/check-d-pad.html
 $dokka.location:frc.robot.commands/PadElevator/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-elevator/execute.html
 $dokka.location:frc.robot.commands/PadElevator/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-elevator/is-finished.html
 $dokka.location:frc.robot.commands/PadElevator/positionSet/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-elevator/position-set.html
