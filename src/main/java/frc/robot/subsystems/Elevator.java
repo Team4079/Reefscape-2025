@@ -185,6 +185,9 @@ public class Elevator extends SubsystemBase {
     elevatorLeftConfigurator.apply(elevatorLeftConfigs);
     elevatorRightConfigurator.apply(elevatorRightConfigs);
 
+    elevatorLeftConfigurator.apply(motionMagicConfigs);
+    elevatorRightConfigurator.apply(motionMagicConfigs);
+
     elevatorLeftDisconnectedAlert =
         new Alert("Disconnected left elevator motor " + ELEVATOR_MOTOR_LEFT_ID, kError);
     elevatorRightDisconnectedAlert =

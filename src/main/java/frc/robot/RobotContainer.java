@@ -34,6 +34,8 @@ public class RobotContainer {
   public RobotContainer() {
     pad = new XboxController(0);
 
+    Elevator.getInstance().setDefaultCommand(padElevator(pad));
+
     Button.getEntries()
         .forEach(button -> buttons.put(button, new JoystickButton(pad, button.getButtonNumber())));
 
@@ -68,16 +70,13 @@ public class RobotContainer {
     Register.bindings(
         buttons,
         bind(START, resetPidgey()),
-        bind(X, new InstantCommand(() -> Elevator.getInstance().applyElevatorPIDValues())),
+//        bind(X, new InstantCommand(() -> Elevator.getInstance().applyElevatorPIDValues())),
         bind(B, align(CENTER).onlyWhile(pad::getAButton)),
 //        bind(B, align(LEFT)),
 //        bind(A, align(RIGHT)),
         // TODO PLEASE TEST
         //        bind(B, createPathfindingCmd(reefs.get(0))),
          bind(A, setElevatorState(DEFAULT)),
-        // bind(B, setElevatorState(L2)),
-        // bind(X, setElevatorState(L3)),
-         bind(Y, setElevatorState(L4)),
         bind(LEFT_BUMPER, score(LEFT)),
         bind(RIGHT_BUMPER, score(RIGHT)));
   }
