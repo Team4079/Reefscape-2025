@@ -11,6 +11,7 @@ import edu.wpi.first.math.geometry.Translation2d
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.numbers.N1
 import edu.wpi.first.math.numbers.N3
+import edu.wpi.first.math.numbers.N4
 import edu.wpi.first.math.util.Units.degreesToRadians
 import edu.wpi.first.units.Units.Feet
 import edu.wpi.first.units.Units.Inches
@@ -173,6 +174,12 @@ object RobotParameters {
 
         @JvmField
         val MULTI_TARGET_STD_DEV: Matrix<N3, N1> = VecBuilder.fill(0.3, 0.3, 3.0)
+
+        @JvmField
+        val SINGLE_TARGET_STD_DEV_3D: Matrix<N4, N1> = VecBuilder.fill(1.0, 1.0, 10.0, 10.0)
+
+        @JvmField
+        val MULTI_TARGET_STD_DEV_3D: Matrix<N4, N1> = VecBuilder.fill(0.3, 0.3, 3.0, 3.0)
     }
 
     /** Class containing constants for the elevator subsystem.  */

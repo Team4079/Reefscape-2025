@@ -19,8 +19,11 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.path.PathConstraints;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator3d;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -35,6 +38,7 @@ import org.photonvision.*;
 
 public class Swerve extends SubsystemBase {
   private final SwerveDrivePoseEstimator poseEstimator;
+  private final SwerveDrivePoseEstimator3d poseEstimator3d;
   private final Field2d field = new Field2d();
   private final Pigeon2 pidgey = new Pigeon2(PIDGEY_ID);
   private final SwerveModuleState[] states = new SwerveModuleState[4];
@@ -104,6 +108,7 @@ public class Swerve extends SubsystemBase {
     this.modules = initializeModules();
     this.pidgey.reset();
     this.poseEstimator = initializePoseEstimator();
+    this.poseEstimator3d = initializePoseEstimator3d();
     //    configureAutoBuilder();
     initializePathPlannerLogging();
 
@@ -149,7 +154,16 @@ public class Swerve extends SubsystemBase {
         getModulePositions(),
         new Pose2d(0.0, 0.0, fromDegrees(0.0)),
         fill(0.05, 0.05, degreesToRadians(5)),
-        fill(0.5, 0.5, degreesToRadians(30)));
+        fill(0.3, 0.3, degreesToRadians(10)));
+  }
+
+  //
+  private SwerveDrivePoseEstimator3d initializePoseEstimator3d() {
+    return new SwerveDrivePoseEstimator3d(
+            kinematics,
+            pidgey.getRotation3d(),
+            getModulePositions(),
+            new Pose3d(0.0, 0.0, 0.0 , new Rotation3d(0.0, 0.0, 0.0)));
   }
 
   /**
@@ -186,7 +200,7 @@ public class Swerve extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    //    updatePos();
+//        updatePos();
     logs("/Swerve/Swerve Module States", getModuleStates());
 
     /*
@@ -194,6 +208,7 @@ public class Swerve extends SubsystemBase {
      * encoders.
      */
     poseEstimator.update(getPidgeyRotation(), getModulePositions());
+    poseEstimator3d.update(pidgey.getRotation3d(), getModulePositions());
 
     field.setRobotPose(poseEstimator.getEstimatedPosition());
 
@@ -203,6 +218,7 @@ public class Swerve extends SubsystemBase {
           log("/Swerve/Pidgey Heading", getHeading());
           log("/Swerve/Pidgey Rotation2D", pidgey.getRotation2d().getDegrees());
           log("/Swerve/Robot Pose", field.getRobotPose());
+          log("/Swerve/Robot Pose 3D", poseEstimator3d.getEstimatedPosition());
         });
   }
 
@@ -223,8 +239,11 @@ public class Swerve extends SubsystemBase {
                 if (pose != null) {
                   double timestamp = pose.timestampSeconds;
                   Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
+                  Pose3d visionMeasurement3d = pose.estimatedPose;
                   poseEstimator.addVisionMeasurement(
-                      visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
+                    visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
+                  poseEstimator3d.addVisionMeasurement(
+                    visionMeasurement3d, timestamp, pair.getFirst().getCurrentStdDevs3d());
                   robotPos = poseEstimator.getEstimatedPosition();
                 }
               });

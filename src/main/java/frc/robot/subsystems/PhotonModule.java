@@ -22,6 +22,7 @@ public class PhotonModule {
   private final PhotonPoseEstimator photonPoseEstimator;
   private final Transform3d cameraPos;
   private Matrix<N3, N1> currentStdDev;
+  private Matrix<N4, N1> currentStdDev3d;
 
   /**
    * Creates a new CameraModule with the specified parameters.
@@ -116,6 +117,57 @@ public class PhotonModule {
   }
 
   /**
+   * Updates the estimated standard deviations based on the provided estimated pose and list of
+   * tracked targets.
+   * This method calculates the number of visible tags and their average 3D distance to the estimated pose.
+   * It then uses this information to adjust the standard deviations used for robot pose estimation.
+   * @param estimatedPose
+   * @param targets
+   */
+  public void updateEstimatedStdDevs3d(
+          Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
+    if (estimatedPose.isEmpty()) {
+      currentStdDev3d = PhotonVisionConstants.SINGLE_TARGET_STD_DEV_3D;
+      return;
+    }
+    int numTags = 0;
+    double totalDistance = 0;
+
+    // Calculate the number of visible tags and their average 3D distance to the estimated pose
+    for (var target : targets) {
+      var tagPoseOptional = photonPoseEstimator.getFieldTags().getTagPose(target.getFiducialId());
+      if (tagPoseOptional.isEmpty()) continue;
+
+      numTags++;
+      var tagPose = tagPoseOptional.get().getTranslation();
+      var estimatedTranslation = estimatedPose.get().estimatedPose.getTranslation();
+
+      // Calculate 3D Euclidean distance
+      double deltaX = tagPose.getX() - estimatedTranslation.getX();
+      double deltaY = tagPose.getY() - estimatedTranslation.getY();
+      double deltaZ = tagPose.getZ() - estimatedTranslation.getZ();
+      totalDistance += Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
+    }
+
+    if (numTags == 0) {
+      currentStdDev3d = PhotonVisionConstants.SINGLE_TARGET_STD_DEV_3D;
+      return;
+    }
+
+    double avgDistance = totalDistance / numTags;
+    var stdDevs =
+            (numTags > 1)
+                    ? PhotonVisionConstants.MULTI_TARGET_STD_DEV_3D
+                    : PhotonVisionConstants.SINGLE_TARGET_STD_DEV_3D;
+
+    if (numTags == 1 && avgDistance > 4) {
+      currentStdDev3d = fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+    } else {
+      currentStdDev3d = stdDevs.times(1 + (avgDistance * avgDistance / 30));
+    }
+  }
+
+  /**
    * Gets the current standard deviations used for robot pose estimation.
    *
    * @return Matrix<N3, N1> The current standard deviations as a Matrix object
@@ -123,6 +175,14 @@ public class PhotonModule {
   public Matrix<N3, N1> getCurrentStdDevs() {
     return currentStdDev;
   }
+
+  /**
+   * Gets the current standard deviations used for 3D robot pose estimation.
+   *
+   * @return Matrix<N4, N1> The current standard deviations as a Matrix object
+   */
+  public Matrix<N4, N1> getCurrentStdDevs3d() {
+      return currentStdDev3d;
 
   /**
    * Gets the name of the camera associated with this module.
