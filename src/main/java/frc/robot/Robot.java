@@ -21,6 +21,10 @@ import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
+import static edu.wpi.first.wpilibj.RobotController.*;
+import static edu.wpi.first.wpilibj.Threads.*;
+import static frc.robot.utils.RobotParameters.LiveRobotValues.*;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -97,22 +101,22 @@ public class Robot extends LoggedRobot {
    */
   @Override
   public void robotPeriodic() {
-    Threads.setCurrentThreadPriority(true, 99);
+    setCurrentThreadPriority(true, 99);
 
     CommandScheduler.getInstance().run();
     if (garbageTimer.advanceIfElapsed(5)) System.gc();
 
-    if (RobotController.getBatteryVoltage() < LiveRobotValues.LOW_BATTERY_VOLTAGE) {
+    if (getBatteryVoltage() < LOW_BATTERY_VOLTAGE) {
       batteryTimer.start();
       if (batteryTimer.advanceIfElapsed(1.5)) {
-        LiveRobotValues.lowBattery = true;
+        lowBattery = true;
       }
     } else {
       batteryTimer.stop();
-      LiveRobotValues.lowBattery = false;
+      lowBattery = false;
     }
 
-    Threads.setCurrentThreadPriority(false, 99);
+    setCurrentThreadPriority(false, 99);
   }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
