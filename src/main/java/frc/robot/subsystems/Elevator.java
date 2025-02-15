@@ -133,8 +133,8 @@ public class Elevator extends SubsystemBase {
     elevatorMotorLeft.getConfigurator().apply(leftMotorCurrentConfig);
     elevatorMotorRight.getConfigurator().apply(rightMotorCurrentConfig);
 
-    leftMotorRampConfig.DutyCycleClosedLoopRampPeriod = 0.1;
-    rightMotorRampConfig.DutyCycleClosedLoopRampPeriod = 0.1;
+    leftMotorRampConfig.DutyCycleClosedLoopRampPeriod = 0.0;
+    rightMotorRampConfig.DutyCycleClosedLoopRampPeriod = 0.0;
 
     elevatorMotorLeft.getConfigurator().apply(leftMotorRampConfig);
     elevatorMotorRight.getConfigurator().apply(rightMotorRampConfig);
