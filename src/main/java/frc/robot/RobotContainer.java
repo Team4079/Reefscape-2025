@@ -37,7 +37,8 @@ public class RobotContainer {
     Button.getEntries()
         .forEach(button -> buttons.put(button, new JoystickButton(pad, button.getButtonNumber())));
 
-    Swerve.getInstance().setDefaultCommand(drive(pad));
+//    Swerve.getInstance().setDefaultCommand(drive(pad));
+    Elevator.getInstance();
 //    Elevator.getInstance().setDefaultCommand(padElevator(pad));
 //    PhotonVision.getInstance();
 

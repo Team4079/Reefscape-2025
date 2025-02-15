@@ -52,7 +52,7 @@ public class Elevator extends SubsystemBase {
   private Alert elevatorLeftDisconnectedAlert;
   private Alert elevatorRightDisconnectedAlert;
 
-  private ElevatorState currentState = frc.robot.utils.ElevatorState.L1;
+  private ElevatorState currentState = ElevatorState.DEFAULT;
 
   private final MotionMagicVoltage motionMagicVoltage;
 
@@ -164,11 +164,13 @@ public class Elevator extends SubsystemBase {
 
     //TODO THESE NEED TO BE LOGGED
     motionMagicConfigs = elevatorLeftConfigs.MotionMagic;
-    motionMagicConfigs.MotionMagicCruiseVelocity = 0.0;
-    motionMagicConfigs.MotionMagicAcceleration = 0.0;
-    motionMagicConfigs.MotionMagicJerk = 0.0;
+    motionMagicConfigs.MotionMagicCruiseVelocity = ELEVATOR_MM_CRUISE_VELOCITY;
+    motionMagicConfigs.MotionMagicAcceleration = ELEVATOR_MM_ACCELERATION;
+    motionMagicConfigs.MotionMagicJerk = ELEVATOR_MM_JERK;
 
     motionMagicVoltage.Slot = 0;
+//    motionMagicVoltage.EnableFOC = true;
+//    motionMagicVoltage.FeedForward = 0;
 
     velocityRequest.OverrideCoastDurNeutral = false;
 
@@ -180,8 +182,8 @@ public class Elevator extends SubsystemBase {
     elevatorMotorLeft.setPosition(0);
     elevatorMotorRight.setPosition(0);
 
-    elevatorLeftConfigurator.apply(elevatorLeftConfigs, 0.05);
-    elevatorRightConfigurator.apply(elevatorRightConfigs, 0.05);
+    elevatorLeftConfigurator.apply(elevatorLeftConfigs);
+    elevatorRightConfigurator.apply(elevatorRightConfigs);
 
     elevatorLeftDisconnectedAlert =
         new Alert("Disconnected left elevator motor " + ELEVATOR_MOTOR_LEFT_ID, kError);
@@ -203,8 +205,12 @@ public class Elevator extends SubsystemBase {
         () -> {
           log("Elevator Left Position", elevatorMotorLeft.getPosition().getValueAsDouble());
           log("Elevator Right Position", elevatorMotorRight.getPosition().getValueAsDouble());
-          log("Elevator Left Set Speed", elevatorMotorLeft.get());
-          log("Elevator Right Set Speed", elevatorMotorRight.get());
+          log("Elevator Left Set Speed", elevatorMotorLeft.getVelocity().getValueAsDouble());
+          log("Elevator Right Set Speed", elevatorMotorRight.getVelocity().getValueAsDouble());
+          log("Elevator Left Acceleration", elevatorMotorLeft.getAcceleration().getValueAsDouble());
+          log("Elevator Right Acceleration", elevatorMotorRight.getAcceleration().getValueAsDouble());
+          log("/Elevator/Elevator supply voltage", elevatorMotorLeft.getSupplyVoltage().getValueAsDouble());
+          log("/Elevator/Elevator motor voltage", elevatorMotorLeft.getMotorVoltage().getValueAsDouble());
           log(ELEVATOR_STATE_KEY, currentState.toString());
           log(
               "Disconnected elevatorMotorLeft" + elevatorMotorLeft.getDeviceID(),
@@ -335,9 +341,7 @@ public class Elevator extends SubsystemBase {
    */
   public void moveElevator(double speed) {
     final double deadband = 0.001;
-    double velocity = -speed * 0.5;
-    logs("/Elevator/Elevator supply voltage", elevatorMotorLeft.getSupplyVoltage().getValueAsDouble());
-    logs("/Elevator/Elevator motor voltage", elevatorMotorLeft.getMotorVoltage().getValueAsDouble());
+    double velocity = -speed * 0.3309;
     if (Math.abs(velocity) >= deadband) {
       // TODO THESE MAY BE NEGATIVE DO NOT MURDER THE MOTORS SOFTWARE PLS!!!!!!!!!!!!!!!!!!!!!!!
 //      elevatorMotorLeft.set(velocity);
