@@ -14,5 +14,7 @@ public enum LEDState {
 
   FUNNY_ROBONAUT,
 
-  LASER
+  LASER,
+
+  QUANTUM_LEAP,
 }

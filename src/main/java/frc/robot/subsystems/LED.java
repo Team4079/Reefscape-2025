@@ -77,14 +77,22 @@ public class LED extends SubsystemBase {
     // Enabled Robot
 
     if (DriverStation.isEnabled()) {
-      if (elevator_set_state == ElevatorState.L1) {
-        ledState = LEDState.HIGHTIDE_FLOW;
-      } else if (elevator_set_state == ElevatorState.L2) {
-        ledState = LEDState.ROBONAUT;
-      } else if (elevator_set_state == ElevatorState.L3) {
-        ledState = LEDState.FUNNY_ROBONAUT;
-      } else if (elevator_set_state == ElevatorState.L4) {
-        ledState = LEDState.LASER;
+      switch (elevator_set_state) {
+        case DEFAULT:
+          ledState = LEDState.RAINBOW_FLOW;
+          break;
+        case L1:
+          ledState = LEDState.HIGHTIDE_FLOW;
+          break;
+        case L2:
+          ledState = LEDState.ROBONAUT;
+          break;
+        case L3:
+          ledState = LEDState.FUNNY_ROBONAUT;
+          break;
+        case L4:
+          ledState = LEDState.LASER;
+          break;
       }
     }
 
@@ -114,6 +122,9 @@ public class LED extends SubsystemBase {
         break;
       case LASER:
         laserbeam();
+        break;
+      case QUANTUM_LEAP:
+        quantum_leap_wave();
         break;
       default:
         setRed();
@@ -301,6 +312,15 @@ public class LED extends SubsystemBase {
     leds.setData(ledBuffer);
   }
 
+  /**
+   * Creates a wave effect on the LED strip. The wave effect is based on a sine wave pattern that
+   * changes over time.
+   *
+   * @param startColor The starting color of the wave
+   * @param endColor The ending color of the wave
+   * @param wavelength The wavelength of the wave
+   * @param cycleDuration The duration of the wave cycle
+   */
   public void createWave(Color startColor, Color endColor, double wavelength, double cycleDuration) {
     double phase = (1 - ((Timer.getFPGATimestamp() % cycleDuration) / cycleDuration)) * 2.0 * Math.PI;
     double phaseStep = (2.0 * Math.PI) / wavelength;
@@ -327,5 +347,9 @@ public class LED extends SubsystemBase {
       ledBuffer.setRGB(ledIndex, red, green, blue);
     }
     leds.setData(ledBuffer);
+  }
+
+  public void quantum_leap_wave() {
+    createWave(Color.BLUE, Color.RED, 20, 10);
   }
 }
