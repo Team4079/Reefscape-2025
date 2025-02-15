@@ -167,7 +167,7 @@ object RobotParameters {
         const val CAMERA_TWO_ANGLE_DEG: Double = 37.5
         const val OFFSET_TOWARD_MID_RIGHT: Double = 15.0
 
-        // THESE NEED TO BE REPLACED WITH TESTED VALUES PLS (BUT I KNOW WE WONT HAVE TIME FOR THIS)
+        // THESE NEED TO BE REPLACED WITH TESTED VALUES PLS (BUT I KNOW WE WON'T HAVE TIME FOR THIS)
         @JvmField
         val SINGLE_TARGET_STD_DEV: Matrix<N3, N1> = VecBuilder.fill(1.0, 1.0, 10.0)
 
@@ -185,6 +185,8 @@ object RobotParameters {
 
         @JvmField
         var elevatorG: Double = 0.0 // May be 0.42
+
+        // MM ↓
 
         @JvmField
         var elevatorCruiseV: Double = 90.0
@@ -244,7 +246,7 @@ object RobotParameters {
         var hasPiece: Boolean = false
     }
 
-    object ConstField {
+    object FieldParameters {
         const val FIELD_LENGTH_METERS = 17.3744 // 57 feet + 6 7/8 inches
         const val FIELD_WIDTH_METERS = 8.2296 // 26 feet + 5 inches
 
@@ -282,7 +284,7 @@ object RobotParameters {
         }
     }
 
-    /** Yes I know Om you are gonna rename it */
+    /** Important external information */
     object Info {
         private const val ROBOT_NAME: String = "Nautilus"
         private const val TEAM_NUMBER: String = "4079"

@@ -196,7 +196,7 @@
                 "leftSources": [
                   {
                     "type": "stepped",
-                    "logKey": "NT:/AdvantageKit/RealOutputs//Elevator/Elevator motor voltage",
+                    "logKey": "NT:/AdvantageKit/RealOutputs//Elevator/Elevator Motor Voltage",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -208,7 +208,7 @@
                 "rightSources": [
                   {
                     "type": "stepped",
-                    "logKey": "NT:/AdvantageKit/RealOutputs//Elevator/Elevator supply voltage",
+                    "logKey": "NT:/AdvantageKit/RealOutputs//Elevator/Elevator Supply Voltage",
                     "logType": "Number",
                     "visible": true,
                     "options": {

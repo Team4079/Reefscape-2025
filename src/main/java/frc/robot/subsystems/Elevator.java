@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import static com.ctre.phoenix6.signals.InvertedValue.*;
 import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
@@ -96,15 +97,15 @@ public class Elevator extends SubsystemBase {
     elevatorLeftConfigs.Slot0.kI = ELEVATOR_PIDV.getI();
     elevatorLeftConfigs.Slot0.kD = ELEVATOR_PIDV.getD();
     elevatorLeftConfigs.Slot0.kV = ELEVATOR_PIDV.getV();
-    elevatorLeftConfigs.Slot0.kS = elevatorS;
-    elevatorLeftConfigs.Slot0.kG = elevatorG;
+    elevatorLeftConfigs.Slot0.kS = ElevatorParameters.elevatorS;
+    elevatorLeftConfigs.Slot0.kG = ElevatorParameters.elevatorG;
 
     elevatorRightConfigs.Slot0.kP = ELEVATOR_PIDV.getP();
     elevatorRightConfigs.Slot0.kI = ELEVATOR_PIDV.getI();
     elevatorRightConfigs.Slot0.kD = ELEVATOR_PIDV.getD();
     elevatorRightConfigs.Slot0.kV = ELEVATOR_PIDV.getV();
-    elevatorRightConfigs.Slot0.kS = elevatorS;
-    elevatorRightConfigs.Slot0.kG = elevatorG;
+    elevatorRightConfigs.Slot0.kS = ElevatorParameters.elevatorS;
+    elevatorRightConfigs.Slot0.kG = ElevatorParameters.elevatorG;
 
     elevatorMotorLeft.getConfigurator().apply(elevatorLeftConfigs);
     elevatorMotorRight.getConfigurator().apply(elevatorRightConfigs);
@@ -148,8 +149,8 @@ public class Elevator extends SubsystemBase {
     rightSoftLimitConfig.ReverseSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_DOWN;
     rightSoftLimitConfig.ForwardSoftLimitThreshold = ELEVATOR_SOFT_LIMIT_UP;
 
-    elevatorLeftConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-    elevatorRightConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    elevatorLeftConfigs.MotorOutput.Inverted = CounterClockwise_Positive;
+    elevatorRightConfigs.MotorOutput.Inverted = Clockwise_Positive;
     elevatorLeftConfigs.SoftwareLimitSwitch = leftSoftLimitConfig;
     elevatorRightConfigs.SoftwareLimitSwitch = rightSoftLimitConfig;
 
@@ -215,10 +216,10 @@ public class Elevator extends SubsystemBase {
               "Elevator Right Acceleration",
               elevatorMotorRight.getAcceleration().getValueAsDouble());
           log(
-              "/Elevator/Elevator supply voltage",
+              "/Elevator/Elevator Supply Voltage",
               elevatorMotorLeft.getSupplyVoltage().getValueAsDouble());
           log(
-              "/Elevator/Elevator motor voltage",
+              "/Elevator/Elevator Motor Voltage",
               elevatorMotorLeft.getMotorVoltage().getValueAsDouble());
           log(ELEVATOR_STATE_KEY, currentState.toString());
           log(
@@ -240,19 +241,19 @@ public class Elevator extends SubsystemBase {
   public void moveElevatorToLevel() {
     switch (this.currentState) {
       case L1:
-        setElevatorPosition(ElevatorParameters.L1);
+        setElevatorPosition(L1);
         break;
       case L2:
-        setElevatorPosition(ElevatorParameters.L2);
+        setElevatorPosition(L2);
         break;
       case L3:
-        setElevatorPosition(ElevatorParameters.L3);
+        setElevatorPosition(L3);
         break;
       case L4:
-        setElevatorPosition(ElevatorParameters.L4);
+        setElevatorPosition(L4);
         break;
       default:
-        setElevatorPosition(ElevatorParameters.DEFAULT);
+        setElevatorPosition(DEFAULT);
         break;
     }
   }
@@ -287,11 +288,11 @@ public class Elevator extends SubsystemBase {
    */
   public double getStateDouble() {
     return switch (this.currentState) {
-      case L1 -> ElevatorParameters.L1;
-      case L2 -> ElevatorParameters.L2;
-      case L3 -> ElevatorParameters.L3;
-      case L4 -> ElevatorParameters.L4;
-      default -> ElevatorParameters.DEFAULT;
+      case L1 -> L1;
+      case L2 -> L2;
+      case L3 -> L3;
+      case L4 -> L4;
+      default -> DEFAULT;
     };
   }
 
