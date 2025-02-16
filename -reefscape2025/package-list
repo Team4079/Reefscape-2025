@@ -102,11 +102,12 @@ $dokka.location:frc.robot.subsystems/LED/twinkle/#/PointingToDeclaration/-reefs
 $dokka.location:frc.robot.subsystems/PhotonModule///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/index.html
 $dokka.location:frc.robot.subsystems/PhotonModule/PhotonModule/#java.lang.String#edu.wpi.first.math.geometry.Transform3d#edu.wpi.first.apriltag.AprilTagFieldLayout/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/-photon-module.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getAllUnreadResults/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-all-unread-results.html
-$dokka.location:frc.robot.subsystems/PhotonModule/getCameraName/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-camera-name.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getCameraPosition/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-camera-position.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getCurrentStdDevs/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-current-std-devs.html
+$dokka.location:frc.robot.subsystems/PhotonModule/getCurrentStdDevs3d/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-current-std-devs3d.html
 $dokka.location:frc.robot.subsystems/PhotonModule/getPoseEstimator/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/get-pose-estimator.html
 $dokka.location:frc.robot.subsystems/PhotonModule/updateEstimatedStdDevs/#java.util.Optional<org.photonvision.EstimatedRobotPose>#java.util.List<org.photonvision.targeting.PhotonTrackedTarget>/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/update-estimated-std-devs.html
+$dokka.location:frc.robot.subsystems/PhotonModule/updateEstimatedStdDevs3d/#java.util.Optional<org.photonvision.EstimatedRobotPose>#java.util.List<org.photonvision.targeting.PhotonTrackedTarget>/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/update-estimated-std-devs3d.html
 $dokka.location:frc.robot.subsystems/PhotonVision///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/index.html
 $dokka.location:frc.robot.subsystems/PhotonVision/createCameraPos/#double#double#double#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/create-camera-pos.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getDist/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-dist.html
