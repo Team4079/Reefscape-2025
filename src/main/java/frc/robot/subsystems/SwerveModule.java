@@ -1,9 +1,13 @@
 package frc.robot.subsystems;
 
+import static com.ctre.phoenix6.signals.SensorDirectionValue.*;
+import static edu.wpi.first.math.geometry.Rotation2d.*;
 import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.ExtensionsKt.*;
 import static frc.robot.utils.Register.Dash.*;
+import static frc.robot.utils.RobotParameters.MotorParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
+import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -14,14 +18,12 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.ctre.phoenix6.signals.SensorDirectionValue;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Alert;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
-import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 
 /** Represents a swerve module used in a swerve drive system. */
@@ -64,28 +66,22 @@ public class SwerveModule {
 
     driveConfigs = new TalonFXConfiguration();
 
-    // Set the PID values for the drive motor
-    driveConfigs.Slot0.kP = DRIVE_PINGU_AUTO.getP();
-    driveConfigs.Slot0.kI = DRIVE_PINGU_AUTO.getI();
-    driveConfigs.Slot0.kD = DRIVE_PINGU_AUTO.getD();
-    driveConfigs.Slot0.kV = DRIVE_PINGU_AUTO.getV();
+    // Set the Pingu values for the drive motor
+    setPingu(driveConfigs, DRIVE_PINGU_AUTO);
 
     // Sets the brake mode, invered, and current limits for the drive motor
     driveConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     driveConfigs.MotorOutput.Inverted = SwerveParameters.Thresholds.DRIVE_MOTOR_INVERTED;
-    driveConfigs.CurrentLimits.SupplyCurrentLimit = MotorParameters.DRIVE_SUPPLY_LIMIT;
+    driveConfigs.CurrentLimits.SupplyCurrentLimit = DRIVE_SUPPLY_LIMIT;
     driveConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
-    driveConfigs.CurrentLimits.StatorCurrentLimit = MotorParameters.DRIVE_STATOR_LIMIT;
+    driveConfigs.CurrentLimits.StatorCurrentLimit = DRIVE_STATOR_LIMIT;
     driveConfigs.CurrentLimits.StatorCurrentLimitEnable = true;
-    driveConfigs.Feedback.RotorToSensorRatio = MotorParameters.DRIVE_MOTOR_GEAR_RATIO;
+    driveConfigs.Feedback.RotorToSensorRatio = DRIVE_MOTOR_GEAR_RATIO;
 
     steerConfigs = new TalonFXConfiguration();
 
     // Set the PID values for the steer motor
-    steerConfigs.Slot0.kP = PinguParameters.STEER_PINGU_AUTO.getP();
-    steerConfigs.Slot0.kI = PinguParameters.STEER_PINGU_AUTO.getI();
-    steerConfigs.Slot0.kD = PinguParameters.STEER_PINGU_AUTO.getD();
-    steerConfigs.Slot0.kV = 0.0;
+    setPingu(steerConfigs, STEER_PINGU_AUTO);
     steerConfigs.ClosedLoopGeneral.ContinuousWrap = true;
 
     // Sets the brake mode, inverted, and current limits for the steer motor
@@ -93,8 +89,8 @@ public class SwerveModule {
     steerConfigs.MotorOutput.Inverted = SwerveParameters.Thresholds.STEER_MOTOR_INVERTED;
     steerConfigs.Feedback.FeedbackRemoteSensorID = canCoderID;
     steerConfigs.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.FusedCANcoder;
-    steerConfigs.Feedback.RotorToSensorRatio = MotorParameters.STEER_MOTOR_GEAR_RATIO;
-    steerConfigs.CurrentLimits.SupplyCurrentLimit = MotorParameters.STEER_SUPPLY_LIMIT;
+    steerConfigs.Feedback.RotorToSensorRatio = STEER_MOTOR_GEAR_RATIO;
+    steerConfigs.CurrentLimits.SupplyCurrentLimit = STEER_SUPPLY_LIMIT;
     steerConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
 
     driveTorqueConfigs = new TorqueCurrentConfigs();
@@ -106,10 +102,8 @@ public class SwerveModule {
      * CANCoder Make sure the magnet offset is ACCURATE and based on when the wheel
      * is straight!
      */
-    canCoderConfiguration.MagnetSensor.SensorDirection =
-        SensorDirectionValue.CounterClockwise_Positive;
-    canCoderConfiguration.MagnetSensor.MagnetOffset =
-        SwerveParameters.Thresholds.ENCODER_OFFSET + canCoderDriveStraightSteerSetPoint;
+    canCoderConfiguration.MagnetSensor.SensorDirection = CounterClockwise_Positive;
+    canCoderConfiguration.MagnetSensor.MagnetOffset = ENCODER_OFFSET + canCoderDriveStraightSteerSetPoint;
     canCoderConfiguration.MagnetSensor.AbsoluteSensorDiscontinuityPoint = 1;
 
     driveMotor.getConfigurator().apply(driveConfigs);
@@ -136,10 +130,8 @@ public class SwerveModule {
     steerVelocity = steerMotor.getVelocity().getValueAsDouble();
     steerPosition = steerMotor.getPosition().getValueAsDouble();
 
-    swerveModulePosition.angle =
-        Rotation2d.fromRotations(canCoder.getAbsolutePosition().getValueAsDouble());
-    swerveModulePosition.distanceMeters =
-        (drivePosition / MotorParameters.DRIVE_MOTOR_GEAR_RATIO * MotorParameters.METERS_PER_REV);
+    swerveModulePosition.angle = fromRotations(canCoder.getAbsolutePosition().getValueAsDouble());
+    swerveModulePosition.distanceMeters = drivePosition / DRIVE_MOTOR_GEAR_RATIO * METERS_PER_REV;
 
     return swerveModulePosition;
   }
@@ -151,11 +143,8 @@ public class SwerveModule {
    *     speed.
    */
   public SwerveModuleState getState() {
-    state.angle = Rotation2d.fromRotations(canCoder.getAbsolutePosition().getValueAsDouble());
-    state.speedMetersPerSecond =
-        (driveMotor.getRotorVelocity().getValueAsDouble()
-            / MotorParameters.DRIVE_MOTOR_GEAR_RATIO
-            * MotorParameters.METERS_PER_REV);
+    state.angle = fromRotations(canCoder.getAbsolutePosition().getValueAsDouble());
+    state.speedMetersPerSecond = driveMotor.getRotorVelocity().getValueAsDouble() / DRIVE_MOTOR_GEAR_RATIO * METERS_PER_REV;
     return state;
   }
 
@@ -167,7 +156,7 @@ public class SwerveModule {
   public void setState(SwerveModuleState desiredState) {
     // Get the current angle
     Rotation2d currentAngle =
-        Rotation2d.fromRotations(canCoder.getAbsolutePosition().getValueAsDouble());
+        fromRotations(canCoder.getAbsolutePosition().getValueAsDouble());
 
     // Optimize the desired state based on current angle
     desiredState.optimize(currentAngle);
@@ -179,7 +168,7 @@ public class SwerveModule {
     // Set the velocity for the drive motor
     double velocityToSet =
         (desiredState.speedMetersPerSecond
-            * (MotorParameters.DRIVE_MOTOR_GEAR_RATIO / MotorParameters.METERS_PER_REV));
+            * (DRIVE_MOTOR_GEAR_RATIO / METERS_PER_REV));
     driveMotor.setControl(velocitySetter.withVelocity(velocityToSet));
 
     // Log the actual and set values for debugging
@@ -220,19 +209,6 @@ public class SwerveModule {
   public void setSteerPingu(Pingu pingu) {
     setPingu(steerConfigs, pingu);
     driveMotor.getConfigurator().apply(steerConfigs);
-  }
-
-  /**
-   * Applies the PID configuration values for teleoperation mode. This method sets the PID values
-   * for both the drive and steer motors using the network Pingu configuration objects and applies
-   * these configurations to the respective motors.
-   */
-  public void applyTelePIDValues() {
-    setPingu(driveConfigs, networkPinguDrive);
-    setPingu(steerConfigs, networkPinguSteer);
-
-    driveMotor.getConfigurator().apply(driveConfigs);
-    steerMotor.getConfigurator().apply(steerConfigs);
   }
 
   /** Sets the PID values for teleoperation mode. */
@@ -280,6 +256,19 @@ public class SwerveModule {
     STEER_PINGU_TELE.setPID(networkPinguSteer);
 
     applyTelePIDValues();
+  }
+
+  /**
+   * Applies the PID configuration values for teleoperation mode. This method sets the PID values
+   * for both the drive and steer motors using the network Pingu configuration objects and applies
+   * these configurations to the respective motors.
+   */
+  public void applyTelePIDValues() {
+    setPingu(driveConfigs, networkPinguDrive);
+    setPingu(steerConfigs, networkPinguSteer);
+
+    driveMotor.getConfigurator().apply(driveConfigs);
+    steerMotor.getConfigurator().apply(steerConfigs);
   }
 
   /**
