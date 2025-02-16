@@ -22,7 +22,6 @@ import java.util.Optional
 fun List<PhotonModule>.getDecentResultPairs(): List<Pair<PhotonModule, PhotonPipelineResult>> =
     this
         .mapNotNull { module ->
-            // logs("PhotonModule allUnreadResults size", module.allUnreadResults.size)
             module.allUnreadResults
                 .getOrNull(0)
                 ?.takeIf { it.hasTargets() } // && it.bestTarget.poseAmbiguity < 0.2
@@ -38,16 +37,6 @@ fun List<PhotonModule>.getDecentResultPairs(): List<Pair<PhotonModule, PhotonPip
  * @return Boolean True if any pair has targets, false otherwise.
  */
 fun List<Pair<PhotonModule, PhotonPipelineResult>>.hasTargets(): Boolean = this.any { it.second.hasTargets() }
-
-/**
- * Extension function for a list of Pair<PhotonModule, PhotonPipelineResult> objects to check if any have multi-tag results.
- *
- * This function iterates through each pair in the list and checks if the PhotonPipelineResult has multi-tag results.
- *
- * @receiver List<Pair<PhotonModule, PhotonPipelineResult>> The list of pairs to check.
- * @return Boolean True if any pair has multi-tag results, false otherwise.
- */
-fun List<Pair<PhotonModule, PhotonPipelineResult>>.hasMultiTag(): Boolean = this.any { it.second.multiTagResult.isPresent }
 
 /**
  * Extension function for a Pair of PhotonModule and PhotonPipelineResult to get estimated poses.
