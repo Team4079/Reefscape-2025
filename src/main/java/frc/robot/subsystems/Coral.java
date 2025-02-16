@@ -28,9 +28,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters;
 
-public class CoralManipulator extends SubsystemBase {
-  private final TalonFX coralManipulatorMotorUp;
-  private final TalonFX coralManipulatorMotorDown;
+public class Coral extends SubsystemBase {
+  private final TalonFX coralFeederMotor;
 
   private SoftwareLimitSwitchConfigs upSoftLimitConfig;
   private SoftwareLimitSwitchConfigs downSoftLimitConfig;
@@ -41,15 +40,14 @@ public class CoralManipulator extends SubsystemBase {
 
   private boolean motorsRunning = false;
 
-  private Alert coralManipulatorUpDisconnectedAlert;
-  private Alert coralManipulatorDownDisconnectedAlert;
+  private Alert coralFeederDisconnectedAlert;
 
   /**
    * The Singleton instance of this CoralManipulatorSubsystem. Code should use the {@link
    * #getInstance()} method to get the single instance (rather than trying to construct an instance
    * of this class.)
    */
-  private static final CoralManipulator INSTANCE = new CoralManipulator();
+  private static final Coral INSTANCE = new Coral();
 
   /**
    * Returns the Singleton instance of this CoralManipulatorSubsystem. This static method should be
@@ -57,7 +55,7 @@ public class CoralManipulator extends SubsystemBase {
    * {@code CoralManipulatorSubsystem.getInstance();}
    */
   @SuppressWarnings("WeakerAccess")
-  public static CoralManipulator getInstance() {
+  public static Coral getInstance() {
     return INSTANCE;
   }
 
@@ -66,72 +64,47 @@ public class CoralManipulator extends SubsystemBase {
    * this class is a Singleton. Code should use the {@link #getInstance()} method to get the
    * singleton instance.
    */
-  private CoralManipulator() {
-    coralManipulatorMotorUp = new TalonFX(CORAL_MANIPULATOR_MOTOR_UP_ID);
-    coralManipulatorMotorDown = new TalonFX(CORAL_MANIPULATOR_MOTOR_DOWN_ID);
+  private Coral() {
+    coralFeederMotor = new TalonFX(CORAL_FEEDER_ID);
 
     coralSensor = new DigitalInput(CoralManipulatorParameters.CORAL_SENSOR_ID);
 
     MotorOutputConfigs coralManipulatorConfigs = new MotorOutputConfigs();
 
-    TalonFXConfigurator coralManipulatorUpConfigurator = coralManipulatorMotorUp.getConfigurator();
-    TalonFXConfigurator coralManipulatorDownConfigurator =
-        coralManipulatorMotorDown.getConfigurator();
+    TalonFXConfigurator coralManipulatorUpConfigurator = coralFeederMotor.getConfigurator();
 
-    Slot0Configs coralManipulatorUpConfigs = new Slot0Configs();
-    Slot0Configs coralManipulatorDownConfigs = new Slot0Configs();
+    Slot0Configs coralFeederConfigs = new Slot0Configs();
 
-    TalonFXConfiguration coralManipulatorUpConfiguration = new TalonFXConfiguration();
-    TalonFXConfiguration coralManipulatorDownConfiguration = new TalonFXConfiguration();
-
-    coralManipulatorMotorUp.getConfigurator().apply(coralManipulatorUpConfiguration);
-    coralManipulatorMotorDown.getConfigurator().apply(coralManipulatorDownConfiguration);
+    TalonFXConfiguration coralFeederConfiguration = new TalonFXConfiguration();
 
     coralManipulatorConfigs.NeutralMode = NeutralModeValue.Brake;
     coralManipulatorUpConfigurator.apply(coralManipulatorConfigs);
-    coralManipulatorDownConfigurator.apply(coralManipulatorConfigs);
 
-    coralManipulatorUpConfigs.kP = CORAL_MANIPULATOR_UP_PINGU.getP();
-    coralManipulatorUpConfigs.kI = CORAL_MANIPULATOR_UP_PINGU.getI();
-    coralManipulatorUpConfigs.kD = CORAL_MANIPULATOR_UP_PINGU.getD();
-    coralManipulatorUpConfigs.kV = CORAL_MANIPULATOR_UP_PINGU.getV();
+    coralFeederConfigs.kP = CORAL_FEEDER_PINGU.getP();
+    coralFeederConfigs.kI = CORAL_FEEDER_PINGU.getI();
+    coralFeederConfigs.kD = CORAL_FEEDER_PINGU.getD();
+    coralFeederConfigs.kV = CORAL_FEEDER_PINGU.getV();
 
-    coralManipulatorDownConfigs.kP = CORAL_MANIPULATOR_DOWN_PINGU.getP();
-    coralManipulatorDownConfigs.kI = CORAL_MANIPULATOR_DOWN_PINGU.getI();
-    coralManipulatorDownConfigs.kD = CORAL_MANIPULATOR_DOWN_PINGU.getD();
-    coralManipulatorDownConfigs.kV = CORAL_MANIPULATOR_DOWN_PINGU.getV();
-
-    coralManipulatorMotorUp.getConfigurator().apply(coralManipulatorUpConfigs);
-    coralManipulatorMotorDown.getConfigurator().apply(coralManipulatorDownConfigs);
+    coralFeederMotor.getConfigurator().apply(coralFeederConfigs);
 
     CurrentLimitsConfigs upMotorCurrentConfig = new CurrentLimitsConfigs();
-    CurrentLimitsConfigs downMotorCurrentConfig = new CurrentLimitsConfigs();
 
     ClosedLoopRampsConfigs upMotorRampConfig = new ClosedLoopRampsConfigs();
-    ClosedLoopRampsConfigs downMotorRampConfig = new ClosedLoopRampsConfigs();
 
-    upMotorCurrentConfig.SupplyCurrentLimit = 100;
+    upMotorCurrentConfig.SupplyCurrentLimit = 40;
     upMotorCurrentConfig.SupplyCurrentLimitEnable = true;
-    upMotorCurrentConfig.StatorCurrentLimit = 100;
+    upMotorCurrentConfig.StatorCurrentLimit = 40;
     upMotorCurrentConfig.StatorCurrentLimitEnable = true;
 
-    downMotorCurrentConfig.SupplyCurrentLimit = 100;
-    downMotorCurrentConfig.SupplyCurrentLimitEnable = true;
-    downMotorCurrentConfig.StatorCurrentLimit = 100;
-    downMotorCurrentConfig.StatorCurrentLimitEnable = true;
-
-    coralManipulatorMotorUp.getConfigurator().apply(upMotorCurrentConfig);
-    coralManipulatorMotorDown.getConfigurator().apply(downMotorCurrentConfig);
+    coralFeederMotor.getConfigurator().apply(upMotorCurrentConfig);
 
     upMotorRampConfig.DutyCycleClosedLoopRampPeriod = 0.1;
-    downMotorRampConfig.DutyCycleClosedLoopRampPeriod = 0.1;
 
-    coralManipulatorMotorUp.getConfigurator().apply(upMotorRampConfig);
-    coralManipulatorMotorDown.getConfigurator().apply(downMotorRampConfig);
-
+    coralFeederMotor.getConfigurator().apply(upMotorRampConfig);
     // on
-    coralManipulatorUpConfiguration.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-    coralManipulatorDownConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    coralFeederConfiguration.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+
+    coralFeederMotor.getConfigurator().apply(coralFeederConfiguration);
     // absoluteEncoder = new DigitalInput(9);
 
     VelocityTorqueCurrentFOC vel_voltage = new VelocityTorqueCurrentFOC(0);
@@ -140,10 +113,8 @@ public class CoralManipulator extends SubsystemBase {
 
     new PositionDutyCycle(0);
 
-    coralManipulatorUpDisconnectedAlert =
-        new Alert("Disconnected coral up motor " + CORAL_MANIPULATOR_MOTOR_UP_ID, kError);
-    coralManipulatorDownDisconnectedAlert =
-        new Alert("Disconnected coral down motor " + CORAL_MANIPULATOR_MOTOR_DOWN_ID, kError);
+    coralFeederDisconnectedAlert =
+        new Alert("Disconnected coral feeder motor " + CORAL_FEEDER_ID, kError);
   }
 
   @Override
@@ -181,35 +152,29 @@ public class CoralManipulator extends SubsystemBase {
       }
     }
 
-    coralManipulatorUpDisconnectedAlert.set(!coralManipulatorMotorUp.isConnected());
-    coralManipulatorDownDisconnectedAlert.set(!coralManipulatorMotorDown.isConnected());
+    coralFeederDisconnectedAlert.set(!coralFeederMotor.isConnected());
 
-    logs(
-        () -> {
-          log(
-              "Disconnected coralManipulatorMotorUp " + coralManipulatorMotorUp.getDeviceID(),
-              coralManipulatorMotorUp.isConnected());
-          log(
-              "Disconnected coralManipulatorMotorDown " + coralManipulatorMotorDown.getDeviceID(),
-              coralManipulatorMotorDown.isConnected());
-        });
+    // No need to call logs as alert should put on NT automatically
+//    logs(
+//        () -> {
+//          log(
+//              "Disconnected coralFeederMotor " + coralFeederMotor.getDeviceID(),
+//              coralFeederMotor.isConnected());
+//        });
   }
 
   /** Stops the coral manipulator motors */
   public void stopMotors() {
-    coralManipulatorMotorUp.stopMotor();
-    coralManipulatorMotorDown.stopMotor();
-    voltageOut.Output = -0.014;
-    coralManipulatorMotorUp.setControl(voltageOut);
-    coralManipulatorMotorDown.setControl(voltageOut);
+    coralFeederMotor.stopMotor();
+    voltageOut.Output = 0.0;
+    coralFeederMotor.setControl(voltageOut);
     this.motorsRunning = false;
   }
 
   /** Starts the coral manipulator motors */
   public void startMotors() {
     voltageOut.Output = 0.014;
-    coralManipulatorMotorUp.setControl(voltageOut);
-    coralManipulatorMotorDown.setControl(voltageOut);
+    coralFeederMotor.setControl(voltageOut);
     this.motorsRunning = true;
   }
 

@@ -62,7 +62,7 @@ public class Climber extends SubsystemBase {
    * a Singleton. Code should use the {@link #getInstance()} method to get the singleton instance.
    */
   private Climber() {
-    climberMotor = new TalonFX(CLIMBER_MOTOR_ID);
+    climberMotor = new TalonFX(CORAL_SCORE);
 
     MotorOutputConfigs pivotOutputConfigs = new MotorOutputConfigs(); // TODO: Never used?
 
@@ -120,7 +120,7 @@ public class Climber extends SubsystemBase {
     climberMotor.setPosition(0);
 
     climberMotorDisconnectedAlert =
-        new Alert("Disconnected pivot motor " + CLIMBER_MOTOR_ID, kError);
+        new Alert("Disconnected pivot motor " + CORAL_SCORE, kError);
   }
 
   // This method will be called once per scheduler run

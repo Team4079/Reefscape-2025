@@ -23,7 +23,7 @@ import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
  * for the elevator motor.
  */
 public class Elevator extends SubsystemBase {
-  public static final String ELEVATOR_STATE_KEY = "Elevator State";
+  public static final String ELEVATOR_STATE_KEY = "/Elevator/Elevator State";
 
   private final TalonFX elevatorMotorLeft;
   private final TalonFX elevatorMotorRight;
@@ -164,7 +164,6 @@ public class Elevator extends SubsystemBase {
     motionMagicVoltage = new MotionMagicVoltage(0);
     cycleOut = new DutyCycleOut(0);
 
-    // TODO THESE NEED TO BE LOGGED
     motionMagicConfigs = elevatorLeftConfigs.MotionMagic;
     motionMagicConfigs.MotionMagicCruiseVelocity = ELEVATOR_MAGIC_PINGU.getVelocity();
     motionMagicConfigs.MotionMagicAcceleration = ELEVATOR_MAGIC_PINGU.getAcceleration();

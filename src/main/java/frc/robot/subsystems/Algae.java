@@ -26,7 +26,7 @@ import frc.robot.utils.RobotParameters.*;
  * over the arm motors. This subsystem is a Singleton, meaning that only one instance of this class
  * is created and shared across the entire robot code.
  */
-public class AlgaeManipulator extends SubsystemBase {
+public class Algae extends SubsystemBase {
   /** Creates a new end effector. */
   private final TalonFX algaeManipulatorMotor;
 
@@ -44,7 +44,7 @@ public class AlgaeManipulator extends SubsystemBase {
    * The Singleton instance of this PivotSubsystem. Code should use the {@link #getInstance()}
    * method to get the single instance (rather than trying to construct an instance of this class.)
    */
-  private static final AlgaeManipulator INSTANCE = new AlgaeManipulator();
+  private static final Algae INSTANCE = new Algae();
 
   /**
    * Returns the Singleton instance of this PivotSubsystem. This static method should be used,
@@ -52,7 +52,7 @@ public class AlgaeManipulator extends SubsystemBase {
    * armSubsystem.getInstance();}
    */
   @SuppressWarnings("WeakerAccess")
-  public static AlgaeManipulator getInstance() {
+  public static Algae getInstance() {
     return INSTANCE;
   }
 
@@ -60,8 +60,8 @@ public class AlgaeManipulator extends SubsystemBase {
    * Creates a new instance of this armSubsystem. This constructor is private since this class is a
    * Singleton. Code should use the {@link #getInstance()} method to get the singleton instance.
    */
-  private AlgaeManipulator() {
-    algaeManipulatorMotor = new TalonFX(ALGAE_MANIPULATOR_MOTOR_ID);
+  private Algae() {
+    algaeManipulatorMotor = new TalonFX(ALGAE_PIVOT_MOTOR_ID);
 
     MotorOutputConfigs algaeManipulatorMotorOutputConfigs = new MotorOutputConfigs();
 
@@ -175,7 +175,7 @@ public class AlgaeManipulator extends SubsystemBase {
 
   public void initializeAlarms() {
     algaeManipulatorMotorDisconnectedAlert =
-        new Alert("Disconnected end effector motor " + ALGAE_MANIPULATOR_MOTOR_ID, kError);
+        new Alert("Disconnected end effector motor " + ALGAE_PIVOT_MOTOR_ID, kError);
 
     algaeManipulatorMotorDisconnectedAlert.set(!algaeManipulatorMotor.isConnected());
 

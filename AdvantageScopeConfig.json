@@ -3,8 +3,8 @@
     {
       "x": -8,
       "y": -8,
-      "width": 1722,
-      "height": 1034,
+      "width": 1708,
+      "height": 1020,
       "state": {
         "sidebar": {
           "width": 500,
@@ -41,7 +41,7 @@
           ]
         },
         "tabs": {
-          "selected": 8,
+          "selected": 3,
           "tabs": [
             {
               "type": 0,
@@ -112,6 +112,31 @@
               },
               "controllerUUID": "liz5knv3qzgtoxaomd8n2vobwjdu7ryi",
               "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 3,
+              "title": "Cool Field",
+              "controller": {
+                "sources": [],
+                "game": "2025 Field (Welded)",
+                "origin": "blue"
+              },
+              "controllerUUID": "65yt2s7dw353efe02pgm5p4va29zbagd",
+              "renderer": {
+                "cameraIndex": -1,
+                "orbitFov": 50,
+                "cameraPosition": [
+                  1.4695761589768238e-15,
+                  5.999999999999999,
+                  -12
+                ],
+                "cameraTarget": [
+                  0,
+                  0.5,
+                  0
+                ]
+              },
               "controlsHeight": 200
             },
             {
@@ -241,5 +266,5 @@
     }
   ],
   "satellites": [],
-  "version": "4.1.0"
+  "version": "4.1.2"
 }

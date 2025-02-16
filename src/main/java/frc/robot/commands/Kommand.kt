@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.InstantCommand
 import edu.wpi.first.wpilibj2.command.WaitCommand
 import frc.robot.commands.sequencing.AutomaticScore
-import frc.robot.subsystems.CoralManipulator
+import frc.robot.subsystems.Coral
 import frc.robot.subsystems.Elevator
 import frc.robot.subsystems.Swerve
 import frc.robot.utils.Direction
@@ -56,7 +56,7 @@ object Kommand {
      * @return An [InstantCommand] that starts the coral manipulator motors.
      */
     @JvmStatic
-    fun startCoralManipulator() = cmd { CoralManipulator.getInstance().setHasPiece(false) }
+    fun startCoralManipulator() = cmd { Coral.getInstance().setHasPiece(false) }
 
     /**
      * Creates an [InstantCommand] to stop the coral manipulator motors.
@@ -64,7 +64,7 @@ object Kommand {
      * @return An [InstantCommand] that stops the coral manipulator motors.
      */
     @JvmStatic
-    fun stopCoralManipulator() = cmd { CoralManipulator.getInstance().stopMotors() }
+    fun stopCoralManipulator() = cmd { Coral.getInstance().stopMotors() }
 
     /**
      * Creates an [AutomaticScore] command to score in a specified direction.

@@ -182,8 +182,8 @@ public class PhotonModule {
    * @return Matrix<N4, N1> The current standard deviations as a Matrix object
    */
   public Matrix<N4, N1> getCurrentStdDevs3d() {
-      return currentStdDev3d;
-
+    return currentStdDev3d;
+  }
   /**
    * Gets the name of the camera associated with this module.
    *

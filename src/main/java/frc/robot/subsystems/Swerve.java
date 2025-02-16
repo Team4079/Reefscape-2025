@@ -200,7 +200,7 @@ public class Swerve extends SubsystemBase {
    */
   @Override
   public void periodic() {
-//        updatePos();
+    updatePos();
     logs("/Swerve/Swerve Module States", getModuleStates());
 
     /*
@@ -216,8 +216,8 @@ public class Swerve extends SubsystemBase {
         () -> {
           log("/Swerve/Pidgey Yaw", getPidgeyYaw());
           log("/Swerve/Pidgey Heading", getHeading());
-          log("/Swerve/Pidgey Rotation", pidgey.getPitch());
-          log("/Swerve/Pidgey Roll", pidgey.getRoll());
+          log("/Swerve/Pidgey Rotation", pidgey.getPitch().getValueAsDouble());
+          log("/Swerve/Pidgey Roll", pidgey.getRoll().getValueAsDouble());
           log("/Swerve/Pidgey Rotation2D", pidgey.getRotation2d().getDegrees());
           log("/Swerve/Robot Pose", field.getRobotPose());
           log("/Swerve/Robot Pose 3D", poseEstimator3d.getEstimatedPosition());

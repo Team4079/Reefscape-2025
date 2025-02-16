@@ -38,12 +38,11 @@ object RobotParameters {
         const val BACK_RIGHT_CAN_CODER_ID: Int = 12
         const val ELEVATOR_MOTOR_LEFT_ID: Int = 13
         const val ELEVATOR_MOTOR_RIGHT_ID: Int = 14
-        const val CLIMBER_MOTOR_ID: Int = 15
+        const val CORAL_SCORE: Int = 15
         const val PIDGEY_ID: Int = 16
-        const val ALGAE_MANIPULATOR_MOTOR_ID: Int = 17
+        const val ALGAE_PIVOT_MOTOR_ID: Int = 17
         const val ALGAE_INTAKE_MOTOR_ID: Int = 18
-        const val CORAL_MANIPULATOR_MOTOR_UP_ID: Int = 19
-        const val CORAL_MANIPULATOR_MOTOR_DOWN_ID: Int = 20
+        const val CORAL_FEEDER_ID: Int = 19
 
         // Motor Property Values
         const val MAX_SPEED: Double = 5.76
@@ -223,7 +222,7 @@ object RobotParameters {
         const val CORAL_SENSOR_ID: Int = 0
 
         @JvmField
-        val CORAL_MANIPULATOR_UP_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
+        val CORAL_FEEDER_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
 
         @JvmField
         val CORAL_MANIPULATOR_DOWN_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
