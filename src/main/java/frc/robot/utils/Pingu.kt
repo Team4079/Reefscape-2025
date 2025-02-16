@@ -24,13 +24,77 @@ data class Pingu
         var s: Double? = null,
         var g: Double? = null,
     ) {
+        /**
+         * Gets the PIDController instance with the current p, i, and d values.
+         *
+         * @return A PIDController instance.
+         */
         val pidController
             get() = PIDController(p, i, d)
 
+        /**
+         * Sets the PID values from the given PIDController instance.
+         *
+         * @param pidController The PIDController instance to get values from.
+         */
         fun setPID(pidController: PIDController) {
             p = pidController.p
             i = pidController.i
             d = pidController.d
+        }
+
+        /**
+         * Sets the proportional gain (p) from a LoggedNetworkNumber.
+         *
+         * @param p The LoggedNetworkNumber instance to get the value from.
+         */
+        fun setP(p: LoggedNetworkNumber) {
+            this.p = p.get()
+        }
+
+        /**
+         * Sets the integral gain (i) from a LoggedNetworkNumber.
+         *
+         * @param i The LoggedNetworkNumber instance to get the value from.
+         */
+        fun setI(i: LoggedNetworkNumber) {
+            this.i = i.get()
+        }
+
+        /**
+         * Sets the derivative gain (d) from a LoggedNetworkNumber.
+         *
+         * @param d The LoggedNetworkNumber instance to get the value from.
+         */
+        fun setD(d: LoggedNetworkNumber) {
+            this.d = d.get()
+        }
+
+        /**
+         * Sets the velocity gain (v) from a LoggedNetworkNumber.
+         *
+         * @param v The LoggedNetworkNumber instance to get the value from.
+         */
+        fun setV(v: LoggedNetworkNumber) {
+            this.v = v.get()
+        }
+
+        /**
+         * Sets the static gain (s) from a LoggedNetworkNumber.
+         *
+         * @param s The LoggedNetworkNumber instance to get the value from.
+         */
+        fun setS(s: LoggedNetworkNumber) {
+            this.s = s.get()
+        }
+
+        /**
+         * Sets the gravity gain (g) from a LoggedNetworkNumber.
+         *
+         * @param g The LoggedNetworkNumber instance to get the value from.
+         */
+        fun setG(g: LoggedNetworkNumber) {
+            this.g = g.get()
         }
     }
 
@@ -55,3 +119,43 @@ class NetworkPingu
         var s: LoggedNetworkNumber? = null,
         var g: LoggedNetworkNumber? = null,
     ) : PIDController(p.get(), i.get(), d.get())
+
+/**
+ * A data class that represents a MagicPingu with velocity, acceleration, and jerk.
+ *
+ * @property velocity The velocity of the MagicPingu.
+ * @property acceleration The acceleration of the MagicPingu.
+ * @property jerk The jerk of the MagicPingu.
+ */
+data class MagicPingu(
+    var velocity: Double,
+    var acceleration: Double,
+    var jerk: Double,
+) {
+    /**
+     * Sets the velocity of the MagicPingu.
+     *
+     * @param velocity The new velocity as a LoggedNetworkNumber.
+     */
+    fun setVelocity(velocity: LoggedNetworkNumber) {
+        this.velocity = velocity.get()
+    }
+
+    /**
+     * Sets the acceleration of the MagicPingu.
+     *
+     * @param acceleration The new acceleration as a LoggedNetworkNumber.
+     */
+    fun setAcceleration(acceleration: LoggedNetworkNumber) {
+        this.acceleration = acceleration.get()
+    }
+
+    /**
+     * Sets the jerk of the MagicPingu.
+     *
+     * @param jerk The new jerk as a LoggedNetworkNumber.
+     */
+    fun setJerk(jerk: LoggedNetworkNumber) {
+        this.jerk = jerk.get()
+    }
+}

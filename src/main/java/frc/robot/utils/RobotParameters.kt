@@ -191,7 +191,7 @@ object RobotParameters {
         // MM ↓
 
         @JvmField
-        val ELEVATOR_MAGICPingu: MagicPingu = MagicPingu(90.0, 180.0, 0.0)
+        val ELEVATOR_MAGIC_PINGU = MagicPingu(90.0, 180.0, 0.0)
 
         const val ELEVATOR_SOFT_LIMIT_DOWN: Double = 0.0
 
