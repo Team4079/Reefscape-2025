@@ -166,9 +166,9 @@ public class Elevator extends SubsystemBase {
 
     // TODO THESE NEED TO BE LOGGED
     motionMagicConfigs = elevatorLeftConfigs.MotionMagic;
-    motionMagicConfigs.MotionMagicCruiseVelocity = ELEVATOR_MAGIC.getVelocity();
-    motionMagicConfigs.MotionMagicAcceleration = ELEVATOR_MAGIC.getAcceleration();
-    motionMagicConfigs.MotionMagicJerk = ELEVATOR_MAGIC.getJerk();
+    motionMagicConfigs.MotionMagicCruiseVelocity = ELEVATOR_MAGICPingu.getVelocity();
+    motionMagicConfigs.MotionMagicAcceleration = ELEVATOR_MAGICPingu.getAcceleration();
+    motionMagicConfigs.MotionMagicJerk = ELEVATOR_MAGICPingu.getJerk();
 
     motionMagicVoltage.Slot = 0;
     //    motionMagicVoltage.EnableFOC = true;
@@ -384,9 +384,9 @@ public class Elevator extends SubsystemBase {
     ELEVATOR_PINGU.setS(elevatorS.get());
     ELEVATOR_PINGU.setG(elevatorG.get());
 
-    ELEVATOR_MAGIC.setVelocity(cruiseV.get());
-    ELEVATOR_MAGIC.setAcceleration(cruiseV.get());
-    ELEVATOR_MAGIC.setJerk(cruiseV.get());
+    ELEVATOR_MAGICPingu.setVelocity(cruiseV.get());
+    ELEVATOR_MAGICPingu.setAcceleration(cruiseV.get());
+    ELEVATOR_MAGICPingu.setJerk(cruiseV.get());
 
     applyElevatorPIDValues();
   }

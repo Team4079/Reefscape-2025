@@ -1,6 +1,6 @@
 package frc.robot.utils
 
-class Magic(
+class MagicPingu(
     var velocity: Double,
     var acceleration: Double,
     var jerk: Double,
