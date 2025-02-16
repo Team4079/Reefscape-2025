@@ -5,7 +5,6 @@ $dokka.location:frc.robot.commands.sequencing/AutomaticScore///PointingToDeclara
 $dokka.location:frc.robot.commands.sequencing/AutomaticScore/AutomaticScore/#frc.robot.utils.Direction#frc.robot.utils.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/-automatic-score.html
 $dokka.location:frc.robot.commands////PointingToDeclaration/-reefscape2025/frc.robot.commands/index.html
 $dokka.location:frc.robot.commands/AlignSwerve///PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/index.html
-$dokka.location:frc.robot.commands/AlignSwerve/AlignSwerve/#frc.robot.utils.Direction#double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/-align-swerve.html
 $dokka.location:frc.robot.commands/AlignSwerve/AlignSwerve/#frc.robot.utils.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/-align-swerve.html
 $dokka.location:frc.robot.commands/AlignSwerve/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/end.html
 $dokka.location:frc.robot.commands/AlignSwerve/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/execute.html
@@ -190,7 +189,6 @@ $dokka.location:frc.robot.utils/ElevatorState/values/#/PointingToDeclaration/-r
 $dokka.location:frc.robot.utils/ExtensionsKt///PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions-kt/index.html
 $dokka.location:frc.robot.utils/ExtensionsKt/getDecentResultPairs/kotlin.collections.List[frc.robot.subsystems.PhotonModule]#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions-kt/get-decent-result-pairs.html
 $dokka.location:frc.robot.utils/ExtensionsKt/getEstimatedPose/kotlin.Pair[frc.robot.subsystems.PhotonModule,org.photonvision.targeting.PhotonPipelineResult]#edu.wpi.first.math.geometry.Pose2d?/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions-kt/get-estimated-pose.html
-$dokka.location:frc.robot.utils/ExtensionsKt/hasMultiTag/kotlin.collections.List[kotlin.Pair[frc.robot.subsystems.PhotonModule,org.photonvision.targeting.PhotonPipelineResult]]#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions-kt/has-multi-tag.html
 $dokka.location:frc.robot.utils/ExtensionsKt/hasTargets/kotlin.collections.List[kotlin.Pair[frc.robot.subsystems.PhotonModule,org.photonvision.targeting.PhotonPipelineResult]]#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions-kt/has-targets.html
 $dokka.location:frc.robot.utils/ExtensionsKt/setPingu/com.ctre.phoenix6.configs.TalonFXConfiguration#frc.robot.utils.NetworkPingu/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions-kt/set-pingu.html
 $dokka.location:frc.robot.utils/ExtensionsKt/setPingu/com.ctre.phoenix6.configs.TalonFXConfiguration#frc.robot.utils.Pingu/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions-kt/set-pingu.html
