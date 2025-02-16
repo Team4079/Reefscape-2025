@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.ExtensionsKt.*;
 import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
@@ -18,7 +19,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Alert;
-import edu.wpi.first.wpilibj.Alert.AlertType;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
@@ -276,14 +276,7 @@ public class SwerveModule {
    * network Pingu configuration objects and sets these values for the drive and steer motors.
    */
   public void updateTelePID() {
-    DRIVE_PINGU_TELE.setP(networkPinguDrive.getP().get());
-    DRIVE_PINGU_TELE.setI(networkPinguDrive.getI().get());
-    DRIVE_PINGU_TELE.setD(networkPinguDrive.getD().get());
     DRIVE_PINGU_TELE.setPID(networkPinguDrive);
-
-    STEER_PINGU_TELE.setP(networkPinguSteer.getP().get());
-    STEER_PINGU_TELE.setI(networkPinguSteer.getI().get());
-    STEER_PINGU_TELE.setD(networkPinguSteer.getD().get());
     STEER_PINGU_TELE.setPID(networkPinguSteer);
 
     applyTelePIDValues();
@@ -297,14 +290,8 @@ public class SwerveModule {
    * @param canCoderId The ID of the CANcoder.
    */
   public void initializeAlarms(int driveId, int steerId, int canCoderId) {
-    Alert canCoderDisconnectedAlert =
-        new Alert("Disconnected CANCoder " + canCoderId, AlertType.kError);
-    Alert turnDisconnectedAlert = new Alert("Disconnected turn motor " + steerId, AlertType.kError);
-    Alert driveDisconnectedAlert =
-        new Alert("Disconnected drive motor " + driveId, AlertType.kError);
-
-    driveDisconnectedAlert.set(!driveMotor.isConnected());
-    turnDisconnectedAlert.set(!steerMotor.isConnected());
-    canCoderDisconnectedAlert.set(!canCoder.isConnected());
+    new Alert("Disconnected drive motor " + driveId, kError).set(!driveMotor.isConnected());
+    new Alert("Disconnected turn motor " + steerId, kError).set(!steerMotor.isConnected());
+    new Alert("Disconnected CANCoder " + canCoderId, kError).set(!canCoder.isConnected());
   }
 }
