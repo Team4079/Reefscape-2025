@@ -134,6 +134,11 @@ public class Algae extends SubsystemBase {
     algaeManipulatorMotor.setControl(voltageOut);
   }
 
+  public void startMotors() {
+    voltageOut.Output = 0.014;
+    algaeManipulatorMotor.setControl(voltageOut);
+  }
+
   /**
    * Get the position of the end effector motor
    *

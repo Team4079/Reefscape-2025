@@ -10,7 +10,9 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.*;
+import frc.robot.commands.ReverseIntake;
 import frc.robot.subsystems.*;
 import frc.robot.utils.*;
 import java.util.EnumMap;
@@ -65,11 +67,13 @@ public class RobotContainer {
         bind(START, resetPidgey()),
         bind(B, align(CENTER).onlyWhile(pad::getAButton)),
         //        bind(B, align(LEFT)),
+            bind(Y, startCoralMotors()),
         //        bind(A, align(RIGHT)),
         // TODO PLEASE TEST
         //        bind(B, createPathfindingCmd(reefs.get(0))),
-        bind(A, setElevatorState(DEFAULT)),
+        bind(A, setElevatorState(L4)),
         bind(LEFT_BUMPER, score(LEFT)),
-        bind(RIGHT_BUMPER, score(RIGHT)));
+        bind(RIGHT_BUMPER, score(RIGHT)),
+        bind(X, reverseIntake().onlyWhile(pad::getXButton)));
   }
 }

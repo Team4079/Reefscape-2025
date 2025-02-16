@@ -206,7 +206,6 @@ public class Elevator extends SubsystemBase {
     // THIS IS JUST FOR TESTING, in reality, elevator set state is based on
     // what Jayden clicks which will be displayed on leds but not necessarily = currenState
     elevatorSetState = currentState;
-    moveElevatorToLevel();
 
     logs(
         () -> {
@@ -236,11 +235,6 @@ public class Elevator extends SubsystemBase {
               elevatorMotorLeft.getMotorVoltage().getValueAsDouble());
           log(ELEVATOR_STATE_KEY, currentState.toString());
         });
-  }
-
-  /** Move the elevator motor to a specific level */
-  public void moveElevatorToLevel() {
-    setElevatorPosition(currentState);
   }
 
   /** Stops the elevator motors */

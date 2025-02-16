@@ -25,14 +25,13 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters;
 
 public class Coral extends SubsystemBase {
   private final TalonFX coralFeederMotor;
-
-  private SoftwareLimitSwitchConfigs upSoftLimitConfig;
-  private SoftwareLimitSwitchConfigs downSoftLimitConfig;
+  private final TalonFX coralScoreMotor;
 
   private final VoltageOut voltageOut;
 
@@ -66,19 +65,27 @@ public class Coral extends SubsystemBase {
    */
   private Coral() {
     coralFeederMotor = new TalonFX(CORAL_FEEDER_ID);
+    coralScoreMotor = new TalonFX(CORAL_SCORE_ID);
 
     coralSensor = new DigitalInput(CoralManipulatorParameters.CORAL_SENSOR_ID);
 
     MotorOutputConfigs coralManipulatorConfigs = new MotorOutputConfigs();
+    MotorOutputConfigs coralScoreConfigs = new MotorOutputConfigs();
 
     TalonFXConfigurator coralManipulatorUpConfigurator = coralFeederMotor.getConfigurator();
+    TalonFXConfigurator coralScoreConfigurator = coralScoreMotor.getConfigurator();
 
     Slot0Configs coralFeederConfigs = new Slot0Configs();
+    Slot0Configs coralScoreSlotConfigs = new Slot0Configs();
 
     TalonFXConfiguration coralFeederConfiguration = new TalonFXConfiguration();
+    TalonFXConfiguration coralScoreConfiguration = new TalonFXConfiguration();
 
     coralManipulatorConfigs.NeutralMode = NeutralModeValue.Brake;
     coralManipulatorUpConfigurator.apply(coralManipulatorConfigs);
+
+    coralScoreConfigs.NeutralMode = NeutralModeValue.Brake;
+    coralScoreConfigurator.apply(coralScoreConfigs);
 
     coralFeederConfigs.kP = CORAL_FEEDER_PINGU.getP();
     coralFeederConfigs.kI = CORAL_FEEDER_PINGU.getI();
@@ -86,24 +93,37 @@ public class Coral extends SubsystemBase {
     coralFeederConfigs.kV = CORAL_FEEDER_PINGU.getV();
 
     coralFeederMotor.getConfigurator().apply(coralFeederConfigs);
+    coralScoreMotor.getConfigurator().apply(coralScoreSlotConfigs);
 
     CurrentLimitsConfigs upMotorCurrentConfig = new CurrentLimitsConfigs();
+    CurrentLimitsConfigs coralScoreCurrentConfig = new CurrentLimitsConfigs();
 
     ClosedLoopRampsConfigs upMotorRampConfig = new ClosedLoopRampsConfigs();
+    ClosedLoopRampsConfigs coralScoreRampConfig = new ClosedLoopRampsConfigs();
 
     upMotorCurrentConfig.SupplyCurrentLimit = 40;
     upMotorCurrentConfig.SupplyCurrentLimitEnable = true;
     upMotorCurrentConfig.StatorCurrentLimit = 40;
     upMotorCurrentConfig.StatorCurrentLimitEnable = true;
 
+    coralScoreCurrentConfig.SupplyCurrentLimit = 40;
+    coralScoreCurrentConfig.SupplyCurrentLimitEnable = true;
+    coralScoreCurrentConfig.StatorCurrentLimit = 40;
+    coralScoreCurrentConfig.StatorCurrentLimitEnable = true;
+
     coralFeederMotor.getConfigurator().apply(upMotorCurrentConfig);
+    coralScoreMotor.getConfigurator().apply(coralScoreCurrentConfig);
 
     upMotorRampConfig.DutyCycleClosedLoopRampPeriod = 0.1;
+    coralScoreRampConfig.DutyCycleClosedLoopRampPeriod = 0.1;
 
     coralFeederMotor.getConfigurator().apply(upMotorRampConfig);
+    coralScoreMotor.getConfigurator().apply(coralScoreRampConfig);
     // on
-    coralFeederConfiguration.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    coralFeederConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    coralScoreConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
+    coralScoreMotor.getConfigurator().apply(coralScoreConfiguration);
     coralFeederMotor.getConfigurator().apply(coralFeederConfiguration);
     // absoluteEncoder = new DigitalInput(9);
 
@@ -131,16 +151,18 @@ public class Coral extends SubsystemBase {
      *
      * <p>The manipulator motors should be on by default, as per Aaron's request.
      */
-    if (coralSensor.get()) {
+    if (!coralSensor.get()) {
+      voltageOut.Output = 3.75;
+      coralScoreMotor.setControl(voltageOut);
+      coralFeederMotor.setControl(voltageOut);
       this.setHasPiece(true);
     }
 
-    if (!coralSensor.get() && CoralManipulatorParameters.hasPiece) {
+    if (coralSensor.get() && CoralManipulatorParameters.hasPiece) {
       if (this.motorsRunning) {
         // Stop the motors if the manipulator has a piece, but the sensor no longer
         // detects it
-        // May require a delay of 100-500ms to prevent the motors from stopping too
-        // early
+
         this.stopMotors();
       }
     } else {
@@ -151,6 +173,14 @@ public class Coral extends SubsystemBase {
         this.startMotors();
       }
     }
+
+    logs(
+            () -> {
+              log("/Coral/Coral Sensor", !coralSensor.get());
+              log("/Coral/Has Piece", CoralManipulatorParameters.hasPiece);
+              log("/Coral/motorsRunning", this.motorsRunning);
+            }
+            );
 
     coralFeederDisconnectedAlert.set(!coralFeederMotor.isConnected());
 
@@ -166,15 +196,24 @@ public class Coral extends SubsystemBase {
   /** Stops the coral manipulator motors */
   public void stopMotors() {
     coralFeederMotor.stopMotor();
-    voltageOut.Output = 0.0;
-    coralFeederMotor.setControl(voltageOut);
+    coralScoreMotor.stopMotor();
     this.motorsRunning = false;
   }
 
   /** Starts the coral manipulator motors */
   public void startMotors() {
-    voltageOut.Output = 0.014;
+    voltageOut.Output = 5.0;
     coralFeederMotor.setControl(voltageOut);
+    coralScoreMotor.setControl(voltageOut);
+    this.motorsRunning = true;
+    hasPiece = false;
+  }
+
+  /** Starts the coral manipulator motors */
+  public void reverseMotors() {
+    voltageOut.Output = -4.5;
+    coralFeederMotor.setControl(voltageOut);
+    coralScoreMotor.setControl(voltageOut);
     this.motorsRunning = true;
   }
 

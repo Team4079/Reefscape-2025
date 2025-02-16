@@ -43,14 +43,6 @@ object Kommand {
     fun setElevatorState(state: ElevatorState) = cmd { Elevator.getInstance().state = state }
 
     /**
-     * Creates an [InstantCommand] to move the elevator to a specific level.
-     *
-     * @return An [InstantCommand] that moves the elevator to a specific level.
-     */
-    @JvmStatic
-    fun moveElevatorToLevel() = cmd { Elevator.getInstance().moveElevatorToLevel() }
-
-    /**
      * Creates an [InstantCommand] to start the coral manipulator motors.
      *
      * @return An [InstantCommand] that starts the coral manipulator motors.
@@ -79,6 +71,21 @@ object Kommand {
         dir: Direction,
         state: ElevatorState = L4,
     ) = AutomaticScore(dir, state)
+
+    /**
+     * Creates an new [ReverseIntake] command to reverse the intake.
+     *
+     * @return A [ReverseIntake] command that reverses the intake.
+     */
+
+    @JvmStatic
+    fun reverseIntake() = ReverseIntake()
+
+    /**
+     * Creates a new [InstantCommand] to start the coral motors
+     */
+    @JvmStatic
+    fun startCoralMotors() = cmd { Coral.getInstance().startMotors() }
 
     /**
      * Creates an [AlignSwerve] command to align the robot in a specified direction.
