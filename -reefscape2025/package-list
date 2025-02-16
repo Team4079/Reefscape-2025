@@ -210,7 +210,13 @@ $dokka.location:frc.robot.utils/LocalADStarAK/setDynamicObstacles/#java.util.Lis
 $dokka.location:frc.robot.utils/LocalADStarAK/setGoalPosition/#edu.wpi.first.math.geometry.Translation2d/PointingToDeclaration/-reefscape2025/frc.robot.utils/-local-a-d-star-a-k/set-goal-position.html
 $dokka.location:frc.robot.utils/LocalADStarAK/setStartPosition/#edu.wpi.first.math.geometry.Translation2d/PointingToDeclaration/-reefscape2025/frc.robot.utils/-local-a-d-star-a-k/set-start-position.html
 $dokka.location:frc.robot.utils/Magic///PointingToDeclaration/-reefscape2025/frc.robot.utils/-magic/index.html
-$dokka.location:frc.robot.utils/Magic/Magic/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-magic/-magic.html
+$dokka.location:frc.robot.utils/Magic/Magic/#kotlin.Double#kotlin.Double#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-magic/-magic.html
+$dokka.location:frc.robot.utils/Magic/getAcceleration/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-magic/get-acceleration.html
+$dokka.location:frc.robot.utils/Magic/getJerk/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-magic/get-jerk.html
+$dokka.location:frc.robot.utils/Magic/getVelocity/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-magic/get-velocity.html
+$dokka.location:frc.robot.utils/Magic/setAcceleration/#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-magic/set-acceleration.html
+$dokka.location:frc.robot.utils/Magic/setJerk/#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-magic/set-jerk.html
+$dokka.location:frc.robot.utils/Magic/setVelocity/#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.utils/-magic/set-velocity.html
 $dokka.location:frc.robot.utils/Pingu///PointingToDeclaration/-reefscape2025/frc.robot.utils/-pingu/index.html
 $dokka.location:frc.robot.utils/Pingu/Pingu/#kotlin.Double#kotlin.Double#kotlin.Double#kotlin.Double?#kotlin.Double?#kotlin.Double?/PointingToDeclaration/-reefscape2025/frc.robot.utils/-pingu/-pingu.html
 $dokka.location:frc.robot.utils/Pingu/getD/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-pingu/get-d.html
