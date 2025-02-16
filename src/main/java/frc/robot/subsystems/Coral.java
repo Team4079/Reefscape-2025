@@ -69,37 +69,23 @@ public class Coral extends SubsystemBase {
 
     coralSensor = new DigitalInput(CoralManipulatorParameters.CORAL_SENSOR_ID);
 
-    MotorOutputConfigs coralManipulatorConfigs = new MotorOutputConfigs();
-    MotorOutputConfigs coralScoreConfigs = new MotorOutputConfigs();
-
-    TalonFXConfigurator coralManipulatorUpConfigurator = coralFeederMotor.getConfigurator();
-    TalonFXConfigurator coralScoreConfigurator = coralScoreMotor.getConfigurator();
-
-    Slot0Configs coralFeederConfigs = new Slot0Configs();
-    Slot0Configs coralScoreSlotConfigs = new Slot0Configs();
-
     TalonFXConfiguration coralFeederConfiguration = new TalonFXConfiguration();
     TalonFXConfiguration coralScoreConfiguration = new TalonFXConfiguration();
 
-    coralManipulatorConfigs.NeutralMode = NeutralModeValue.Brake;
-    coralManipulatorUpConfigurator.apply(coralManipulatorConfigs);
+    coralFeederConfiguration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-    coralScoreConfigs.NeutralMode = NeutralModeValue.Brake;
-    coralScoreConfigurator.apply(coralScoreConfigs);
+    coralScoreConfiguration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
-    coralFeederConfigs.kP = CORAL_FEEDER_PINGU.getP();
-    coralFeederConfigs.kI = CORAL_FEEDER_PINGU.getI();
-    coralFeederConfigs.kD = CORAL_FEEDER_PINGU.getD();
-    coralFeederConfigs.kV = CORAL_FEEDER_PINGU.getV();
+    coralFeederConfiguration.Slot0.kP = CORAL_FEEDER_PINGU.getP();
+    coralFeederConfiguration.Slot0.kI = CORAL_FEEDER_PINGU.getI();
+    coralFeederConfiguration.Slot0.kD = CORAL_FEEDER_PINGU.getD();
+    coralFeederConfiguration.Slot0.kV = CORAL_FEEDER_PINGU.getV();
 
-    coralFeederMotor.getConfigurator().apply(coralFeederConfigs);
-    coralScoreMotor.getConfigurator().apply(coralScoreSlotConfigs);
+    coralFeederMotor.getConfigurator().apply(coralFeederConfiguration);
+    coralScoreMotor.getConfigurator().apply(coralFeederConfiguration);
 
     CurrentLimitsConfigs upMotorCurrentConfig = new CurrentLimitsConfigs();
     CurrentLimitsConfigs coralScoreCurrentConfig = new CurrentLimitsConfigs();
-
-    ClosedLoopRampsConfigs upMotorRampConfig = new ClosedLoopRampsConfigs();
-    ClosedLoopRampsConfigs coralScoreRampConfig = new ClosedLoopRampsConfigs();
 
     upMotorCurrentConfig.SupplyCurrentLimit = 40;
     upMotorCurrentConfig.SupplyCurrentLimitEnable = true;
@@ -114,24 +100,14 @@ public class Coral extends SubsystemBase {
     coralFeederMotor.getConfigurator().apply(upMotorCurrentConfig);
     coralScoreMotor.getConfigurator().apply(coralScoreCurrentConfig);
 
-    upMotorRampConfig.DutyCycleClosedLoopRampPeriod = 0.1;
-    coralScoreRampConfig.DutyCycleClosedLoopRampPeriod = 0.1;
-
-    coralFeederMotor.getConfigurator().apply(upMotorRampConfig);
-    coralScoreMotor.getConfigurator().apply(coralScoreRampConfig);
     // on
     coralFeederConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     coralScoreConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
     coralScoreMotor.getConfigurator().apply(coralScoreConfiguration);
     coralFeederMotor.getConfigurator().apply(coralFeederConfiguration);
-    // absoluteEncoder = new DigitalInput(9);
 
-    VelocityTorqueCurrentFOC vel_voltage = new VelocityTorqueCurrentFOC(0);
-    PositionTorqueCurrentFOC pos_reqest = new PositionTorqueCurrentFOC(0);
     voltageOut = new VoltageOut(0);
-
-    new PositionDutyCycle(0);
 
     coralFeederDisconnectedAlert =
         new Alert("Disconnected coral feeder motor " + CORAL_FEEDER_ID, kError);
@@ -183,14 +159,6 @@ public class Coral extends SubsystemBase {
             );
 
     coralFeederDisconnectedAlert.set(!coralFeederMotor.isConnected());
-
-    // No need to call logs as alert should put on NT automatically
-//    logs(
-//        () -> {
-//          log(
-//              "Disconnected coralFeederMotor " + coralFeederMotor.getDeviceID(),
-//              coralFeederMotor.isConnected());
-//        });
   }
 
   /** Stops the coral manipulator motors */

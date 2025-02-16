@@ -155,6 +155,9 @@ public class Elevator extends SubsystemBase {
     elevatorLeftConfigs.SoftwareLimitSwitch = leftSoftLimitConfig;
     elevatorRightConfigs.SoftwareLimitSwitch = rightSoftLimitConfig;
 
+    elevatorLeftConfigs.MotorOutput.DutyCycleNeutralDeadband = 0.1;
+    elevatorRightConfigs.MotorOutput.DutyCycleNeutralDeadband = 0.1;
+
     elevatorMotorLeft.getConfigurator().apply(leftSoftLimitConfig);
     elevatorMotorRight.getConfigurator().apply(rightSoftLimitConfig);
 
@@ -205,7 +208,8 @@ public class Elevator extends SubsystemBase {
 
     // THIS IS JUST FOR TESTING, in reality, elevator set state is based on
     // what Jayden clicks which will be displayed on leds but not necessarily = currenState
-    elevatorSetState = currentState;
+//    elevatorSetState = currentState;
+    setElevatorPosition(currentState);
 
     logs(
         () -> {

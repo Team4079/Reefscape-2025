@@ -1,15 +1,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.Elevator;
 import frc.robot.utils.ElevatorState;
 
 
-public class SetElevatorStateCommand extends Command {
+public class SetElevatorState extends Command {
    ElevatorState state;
 
-    public SetElevatorStateCommand(ElevatorState state) {
+    public SetElevatorState(ElevatorState state) {
         this.state = state;
         // each subsystem used by the command must be passed into the
         // addRequirements() method (which takes a vararg of Subsystem)
@@ -50,7 +49,7 @@ public class SetElevatorStateCommand extends Command {
     @Override
     public boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        return Math.abs(Elevator.getInstance().getElevatorPosAvg() - state.pos) < 0.5;
+        return Math.abs(Elevator.getInstance().getElevatorPosAvg() - state.pos) < 0.3;
     }
 
     /**

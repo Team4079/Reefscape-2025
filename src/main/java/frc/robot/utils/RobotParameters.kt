@@ -200,6 +200,9 @@ object RobotParameters {
         var elevatorSetState: ElevatorState = ElevatorState.DEFAULT
 
         @JvmField
+        var elevatorToBeSetState: ElevatorState = ElevatorState.DEFAULT
+
+        @JvmField
         var isSoftLimitEnabled: Boolean = false
     }
 
@@ -216,6 +219,10 @@ object RobotParameters {
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false
+
+        @JvmField
+        var pivotState: AlgaePivotState = AlgaePivotState.UP
+
     }
 
     object CoralManipulatorParameters {
