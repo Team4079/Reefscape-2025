@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import static frc.robot.utils.ExtensionsKt.*;
 import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
 
@@ -13,12 +14,12 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
-import edu.wpi.first.math.controller.*;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
+import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.RobotParameters.SwerveParameters.*;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
@@ -30,7 +31,6 @@ public class SwerveModule {
   private final TalonFX steerMotor;
   private final PositionTorqueCurrentFOC positionSetter;
   private final VelocityTorqueCurrentFOC velocitySetter;
-  //  private final VelocityDutyCycle velocitySetter;
   private final SwerveModulePosition swerveModulePosition;
   private SwerveModuleState state;
   private double driveVelocity;
@@ -41,19 +41,8 @@ public class SwerveModule {
   private final TalonFXConfiguration steerConfigs;
   private final TorqueCurrentConfigs driveTorqueConfigs;
 
-  private LoggedNetworkNumber driveP;
-  private LoggedNetworkNumber driveI;
-  private LoggedNetworkNumber driveD;
-  private LoggedNetworkNumber driveV;
-
-  private LoggedNetworkNumber steerP;
-  private LoggedNetworkNumber steerI;
-  private LoggedNetworkNumber steerD;
-  private LoggedNetworkNumber steerV;
-
-  private Alert driveDisconnectedAlert;
-  private Alert turnDisconnectedAlert;
-  private Alert canCoderDisconnectedAlert;
+  private NetworkPingu networkPinguDrive;
+  private NetworkPingu networkPinguSteer;
 
   /**
    * Constructs a new SwerveModule.
@@ -70,17 +59,16 @@ public class SwerveModule {
     steerMotor = new TalonFX(steerId);
     positionSetter = new PositionTorqueCurrentFOC(0.0);
     velocitySetter = new VelocityTorqueCurrentFOC(0.0);
-    //    velocitySetter = new VelocityDutyCycle(0.0);
     swerveModulePosition = new SwerveModulePosition();
     state = new SwerveModuleState(0.0, Rotation2d.fromDegrees(0.0));
 
     driveConfigs = new TalonFXConfiguration();
 
     // Set the PID values for the drive motor
-    driveConfigs.Slot0.kP = PinguParameters.DRIVE_PINGU_AUTO.getP();
-    driveConfigs.Slot0.kI = PinguParameters.DRIVE_PINGU_AUTO.getI();
-    driveConfigs.Slot0.kD = PinguParameters.DRIVE_PINGU_AUTO.getD();
-    driveConfigs.Slot0.kV = PinguParameters.DRIVE_PINGU_AUTO.getV();
+    driveConfigs.Slot0.kP = DRIVE_PINGU_AUTO.getP();
+    driveConfigs.Slot0.kI = DRIVE_PINGU_AUTO.getI();
+    driveConfigs.Slot0.kD = DRIVE_PINGU_AUTO.getD();
+    driveConfigs.Slot0.kV = DRIVE_PINGU_AUTO.getV();
 
     // Sets the brake mode, invered, and current limits for the drive motor
     driveConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -215,43 +203,33 @@ public class SwerveModule {
   }
 
   /**
-   * Sets the drive PID values.
+   * Sets the PID configuration values for the drive motor using a Pingu configuration object.
    *
-   * @param pid The PID object containing the PID values.
-   * @param velocity The velocity value.
+   * @param pingu A Pingu object containing PID and feedforward values (P, I, D, V)
    */
-  public void setDrivePID(PIDController pid, double velocity) {
-    driveConfigs.Slot0.kP = pid.getP();
-    driveConfigs.Slot0.kI = pid.getI();
-    driveConfigs.Slot0.kD = pid.getD();
-    driveConfigs.Slot0.kV = velocity;
+  public void setDrivePingu(Pingu pingu) {
+    setPingu(driveConfigs, pingu);
     driveMotor.getConfigurator().apply(driveConfigs);
   }
 
   /**
-   * Sets the steer PID values.
+   * Sets the PID configuration values for the steer motor using a Pingu configuration object.
    *
-   * @param pid The PID object containing the PID values.
-   * @param velocity The velocity value.
+   * @param pingu A Pingu object containing PID and feedforward values (P, I, D, V)
    */
-  public void setSteerPID(PIDController pid, double velocity) {
-    steerConfigs.Slot0.kP = pid.getP();
-    steerConfigs.Slot0.kI = pid.getI();
-    steerConfigs.Slot0.kD = pid.getD();
-    steerConfigs.Slot0.kV = velocity;
-    steerMotor.getConfigurator().apply(steerConfigs);
+  public void setSteerPingu(Pingu pingu) {
+    setPingu(steerConfigs, pingu);
+    driveMotor.getConfigurator().apply(steerConfigs);
   }
 
+  /**
+   * Applies the PID configuration values for teleoperation mode. This method sets the PID values
+   * for both the drive and steer motors using the network Pingu configuration objects and applies
+   * these configurations to the respective motors.
+   */
   public void applyTelePIDValues() {
-    driveConfigs.Slot0.kP = driveP.get();
-    driveConfigs.Slot0.kI = driveI.get();
-    driveConfigs.Slot0.kD = driveD.get();
-    driveConfigs.Slot0.kV = driveV.get();
-
-    steerConfigs.Slot0.kP = steerP.get();
-    steerConfigs.Slot0.kI = steerI.get();
-    steerConfigs.Slot0.kD = steerD.get();
-    steerConfigs.Slot0.kV = steerV.get();
+    setPingu(driveConfigs, networkPinguDrive);
+    setPingu(steerConfigs, networkPinguSteer);
 
     driveMotor.getConfigurator().apply(driveConfigs);
     steerMotor.getConfigurator().apply(steerConfigs);
@@ -259,15 +237,13 @@ public class SwerveModule {
 
   /** Sets the PID values for teleoperation mode. */
   public void setTelePID() {
-    setDrivePID(DRIVE_PINGU_TELE.toPIDController(), DRIVE_PINGU_TELE.getV());
-    setSteerPID(STEER_PINGU_TELE.toPIDController(), STEER_PINGU_TELE.getV());
+    setDrivePingu(DRIVE_PINGU_TELE);
+    setSteerPingu(STEER_PINGU_TELE);
   }
 
   /** Sets the PID values for autonomous mode. */
   public void setAutoPID() {
-    setDrivePID(
-        PinguParameters.DRIVE_PINGU_AUTO.toPIDController(),
-        PinguParameters.DRIVE_PINGU_AUTO.getV());
+    setDrivePingu(DRIVE_PINGU_AUTO);
   }
 
   /** Resets the drive motor position to zero. */
@@ -275,26 +251,40 @@ public class SwerveModule {
     driveMotor.setPosition(0.0);
   }
 
+  /**
+   * Initializes the logged network PID values for the drive and steer motors. This method sets the
+   * PID values for the drive and steer motors using the network Pingu configuration objects and
+   * applies these configurations to the respective motors.
+   */
   public void initializeLoggedNetworkPID() {
-    driveP = new LoggedNetworkNumber("/Tuning/Swerve/Drive P", driveConfigs.Slot0.kP);
-    driveI = new LoggedNetworkNumber("/Tuning/Swerve/Drive I", driveConfigs.Slot0.kI);
-    driveD = new LoggedNetworkNumber("/Tuning/Swerve/Drive D", driveConfigs.Slot0.kD);
-    driveV = new LoggedNetworkNumber("/Tuning/Swerve/Drive V", driveConfigs.Slot0.kV);
-
-    steerP = new LoggedNetworkNumber("/Tuning/Swerve/Steer P", steerConfigs.Slot0.kP);
-    steerI = new LoggedNetworkNumber("/Tuning/Swerve/Steer I", steerConfigs.Slot0.kI);
-    steerD = new LoggedNetworkNumber("/Tuning/Swerve/Steer D", steerConfigs.Slot0.kD);
-    steerV = new LoggedNetworkNumber("/Tuning/Swerve/Steer V", steerConfigs.Slot0.kV);
+    networkPinguDrive =
+        new NetworkPingu(
+            new LoggedNetworkNumber("/Tuning/Swerve/Drive P", driveConfigs.Slot0.kP),
+            new LoggedNetworkNumber("/Tuning/Swerve/Drive I", driveConfigs.Slot0.kI),
+            new LoggedNetworkNumber("/Tuning/Swerve/Drive D", driveConfigs.Slot0.kD),
+            new LoggedNetworkNumber("/Tuning/Swerve/Drive V", driveConfigs.Slot0.kV));
+    networkPinguSteer =
+        new NetworkPingu(
+            new LoggedNetworkNumber("/Tuning/Swerve/Steer P", steerConfigs.Slot0.kP),
+            new LoggedNetworkNumber("/Tuning/Swerve/Steer I", steerConfigs.Slot0.kI),
+            new LoggedNetworkNumber("/Tuning/Swerve/Steer D", steerConfigs.Slot0.kD),
+            new LoggedNetworkNumber("/Tuning/Swerve/Steer V", steerConfigs.Slot0.kV));
   }
 
+  /**
+   * Updates the PID values for teleoperation mode. This method retrieves the PID values from the
+   * network Pingu configuration objects and sets these values for the drive and steer motors.
+   */
   public void updateTelePID() {
-    DRIVE_PINGU_TELE.setP(driveP.get());
-    DRIVE_PINGU_TELE.setI(driveI.get());
-    DRIVE_PINGU_TELE.setD(driveD.get());
+    DRIVE_PINGU_TELE.setP(networkPinguDrive.getP().get());
+    DRIVE_PINGU_TELE.setI(networkPinguDrive.getI().get());
+    DRIVE_PINGU_TELE.setD(networkPinguDrive.getD().get());
+    DRIVE_PINGU_TELE.setPID(networkPinguDrive);
 
-    STEER_PINGU_TELE.setP(steerP.get());
-    STEER_PINGU_TELE.setI(steerI.get());
-    STEER_PINGU_TELE.setD(steerD.get());
+    STEER_PINGU_TELE.setP(networkPinguSteer.getP().get());
+    STEER_PINGU_TELE.setI(networkPinguSteer.getI().get());
+    STEER_PINGU_TELE.setD(networkPinguSteer.getD().get());
+    STEER_PINGU_TELE.setPID(networkPinguSteer);
 
     applyTelePIDValues();
   }
@@ -307,12 +297,11 @@ public class SwerveModule {
    * @param canCoderId The ID of the CANcoder.
    */
   public void initializeAlarms(int driveId, int steerId, int canCoderId) {
-    driveDisconnectedAlert =
-        new Alert("Disconnected drive motor " + Integer.toString(driveId), AlertType.kError);
-    turnDisconnectedAlert =
-        new Alert("Disconnected turn motor " + Integer.toString(steerId), AlertType.kError);
-    canCoderDisconnectedAlert =
-        new Alert("Disconnected CANCoder " + Integer.toString(canCoderId), AlertType.kError);
+    Alert canCoderDisconnectedAlert =
+        new Alert("Disconnected CANCoder " + canCoderId, AlertType.kError);
+    Alert turnDisconnectedAlert = new Alert("Disconnected turn motor " + steerId, AlertType.kError);
+    Alert driveDisconnectedAlert =
+        new Alert("Disconnected drive motor " + driveId, AlertType.kError);
 
     driveDisconnectedAlert.set(!driveMotor.isConnected());
     turnDisconnectedAlert.set(!steerMotor.isConnected());
