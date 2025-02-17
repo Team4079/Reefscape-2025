@@ -16,11 +16,7 @@ import frc.robot.utils.*;
 public class AutomaticScore extends SequentialCommandGroup {
   public AutomaticScore(Direction offsetSide, ElevatorState state) {
     addCommands(
-//        align(offsetSide),
-        new SetElevatorState(state),
-        startCoralMotors(),
-        waitCmd(0.15),
-        setElevatorState(DEFAULT)
-    );
+        //        align(offsetSide),
+        new SetElevatorState(state), startCoralMotors(), waitCmd(0.15), setElevatorState(DEFAULT));
   }
 }

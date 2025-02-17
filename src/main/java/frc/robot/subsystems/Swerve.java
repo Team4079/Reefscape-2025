@@ -32,11 +32,9 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import java.util.Optional;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import org.photonvision.EstimatedRobotPose;
-
-import java.util.Optional;
 
 public class Swerve extends SubsystemBase {
   private final SwerveDrivePoseEstimator poseEstimator;
@@ -164,10 +162,10 @@ public class Swerve extends SubsystemBase {
   //
   private SwerveDrivePoseEstimator3d initializePoseEstimator3d() {
     return new SwerveDrivePoseEstimator3d(
-            kinematics,
-            pidgey.getRotation3d(),
-            getModulePositions(),
-            new Pose3d(0.0, 0.0, 0.0 , new Rotation3d(0.0, 0.0, 0.0)));
+        kinematics,
+        pidgey.getRotation3d(),
+        getModulePositions(),
+        new Pose3d(0.0, 0.0, 0.0, new Rotation3d(0.0, 0.0, 0.0)));
   }
 
   /**
@@ -248,9 +246,9 @@ public class Swerve extends SubsystemBase {
                   Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
                   Pose3d visionMeasurement3d = pose.estimatedPose;
                   poseEstimator.addVisionMeasurement(
-                    visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
+                      visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
                   poseEstimator3d.addVisionMeasurement(
-                    visionMeasurement3d, timestamp, pair.getFirst().getCurrentStdDevs3d());
+                      visionMeasurement3d, timestamp, pair.getFirst().getCurrentStdDevs3d());
                   robotPos = poseEstimator.getEstimatedPosition();
                 }
               });

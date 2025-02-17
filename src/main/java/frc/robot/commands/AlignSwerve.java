@@ -17,7 +17,8 @@ public class AlignSwerve extends Command {
   private PIDController yController;
   private PIDController disController;
   private Timer timer;
-  private double offset; // double offset is the left/right offset from the april tag to make it properly align
+  private double
+      offset; // double offset is the left/right offset from the april tag to make it properly align
 
   /**
    * Creates a new AlignSwerve using the Direction Enum.

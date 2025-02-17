@@ -6,15 +6,7 @@ import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.AlgaeManipulatorParameters.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
 
-import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
-import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
-import com.ctre.phoenix6.configs.MotorOutputConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
-import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.PositionDutyCycle;
-import com.ctre.phoenix6.controls.PositionVoltage;
-import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
@@ -31,6 +23,7 @@ import frc.robot.utils.RobotParameters.*;
 public class Algae extends SubsystemBase {
   /** Creates a new end effector. */
   private final TalonFX algaePivotMotor;
+
   private final TalonFX algaeIntakeMotor;
 
   private final VoltageOut voltageOut;
@@ -97,9 +90,11 @@ public class Algae extends SubsystemBase {
     algaePivotMotor.getConfigurator().apply(algaePivotConfiguration);
     algaeIntakeMotor.getConfigurator().apply(algaeIntakeConfiguration);
 
-//    algaeManipulatorMotorConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-//
-//    algaeManipulatorMotorConfiguration.SoftwareLimitSwitch = algaeManipulatorMotorSoftLimitConfig;
+    //    algaeManipulatorMotorConfiguration.MotorOutput.Inverted =
+    // InvertedValue.Clockwise_Positive;
+    //
+    //    algaeManipulatorMotorConfiguration.SoftwareLimitSwitch =
+    // algaeManipulatorMotorSoftLimitConfig;
 
     voltageOut = new VoltageOut(0);
 
@@ -113,9 +108,9 @@ public class Algae extends SubsystemBase {
   public void periodic() {
     setPivotState(pivotState);
     logs(
-          () -> {
-            log("/Algae/Algae Pivot Motor Position", getPivotPosValue());
-            log("/Algae/Algae State", pivotState.toString());
+        () -> {
+          log("/Algae/Algae Pivot Motor Position", getPivotPosValue());
+          log("/Algae/Algae State", pivotState.toString());
         });
   }
 
@@ -129,7 +124,8 @@ public class Algae extends SubsystemBase {
     algaeIntakeMotor.setControl(voltageOut);
   }
 
-  /** Sets the pivot state *
+  /**
+   * Sets the pivot state *
    *
    * @param state the state to set the algae pivot
    */

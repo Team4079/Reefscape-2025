@@ -103,7 +103,8 @@ public class SwerveModule {
      * is straight!
      */
     canCoderConfiguration.MagnetSensor.SensorDirection = CounterClockwise_Positive;
-    canCoderConfiguration.MagnetSensor.MagnetOffset = ENCODER_OFFSET + canCoderDriveStraightSteerSetPoint;
+    canCoderConfiguration.MagnetSensor.MagnetOffset =
+        ENCODER_OFFSET + canCoderDriveStraightSteerSetPoint;
     canCoderConfiguration.MagnetSensor.AbsoluteSensorDiscontinuityPoint = 1;
 
     driveMotor.getConfigurator().apply(driveConfigs);
@@ -144,7 +145,8 @@ public class SwerveModule {
    */
   public SwerveModuleState getState() {
     state.angle = fromRotations(canCoder.getAbsolutePosition().getValueAsDouble());
-    state.speedMetersPerSecond = driveMotor.getRotorVelocity().getValueAsDouble() / DRIVE_MOTOR_GEAR_RATIO * METERS_PER_REV;
+    state.speedMetersPerSecond =
+        driveMotor.getRotorVelocity().getValueAsDouble() / DRIVE_MOTOR_GEAR_RATIO * METERS_PER_REV;
     return state;
   }
 
@@ -155,8 +157,7 @@ public class SwerveModule {
    */
   public void setState(SwerveModuleState desiredState) {
     // Get the current angle
-    Rotation2d currentAngle =
-        fromRotations(canCoder.getAbsolutePosition().getValueAsDouble());
+    Rotation2d currentAngle = fromRotations(canCoder.getAbsolutePosition().getValueAsDouble());
 
     // Optimize the desired state based on current angle
     desiredState.optimize(currentAngle);
@@ -167,8 +168,7 @@ public class SwerveModule {
 
     // Set the velocity for the drive motor
     double velocityToSet =
-        (desiredState.speedMetersPerSecond
-            * (DRIVE_MOTOR_GEAR_RATIO / METERS_PER_REV));
+        (desiredState.speedMetersPerSecond * (DRIVE_MOTOR_GEAR_RATIO / METERS_PER_REV));
     driveMotor.setControl(velocitySetter.withVelocity(velocityToSet));
 
     // Log the actual and set values for debugging

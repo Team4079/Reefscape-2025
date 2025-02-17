@@ -13,5 +13,5 @@ enum class AlgaePivotState(
     DOWN(1.0),
 
     /** Represents the pivot when it is up and stowed (most of the time) */
-    UP(0.0)
+    UP(0.0),
 }

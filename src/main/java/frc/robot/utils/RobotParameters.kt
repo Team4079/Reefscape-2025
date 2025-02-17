@@ -222,7 +222,6 @@ object RobotParameters {
 
         @JvmField
         var pivotState: AlgaePivotState = AlgaePivotState.UP
-
     }
 
     object CoralManipulatorParameters {

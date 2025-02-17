@@ -9,23 +9,14 @@ import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.CoralManipulatorParameters.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
 
-import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
-import com.ctre.phoenix6.configs.MotorOutputConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
-import com.ctre.phoenix6.configs.SoftwareLimitSwitchConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.configs.TalonFXConfigurator;
-import com.ctre.phoenix6.controls.PositionDutyCycle;
-import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
-import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters;
 
@@ -151,12 +142,11 @@ public class Coral extends SubsystemBase {
     }
 
     logs(
-            () -> {
-              log("/Coral/Coral Sensor", !coralSensor.get());
-              log("/Coral/Has Piece", CoralManipulatorParameters.hasPiece);
-              log("/Coral/motorsRunning", this.motorsRunning);
-            }
-            );
+        () -> {
+          log("/Coral/Coral Sensor", !coralSensor.get());
+          log("/Coral/Has Piece", CoralManipulatorParameters.hasPiece);
+          log("/Coral/motorsRunning", this.motorsRunning);
+        });
 
     coralFeederDisconnectedAlert.set(!coralFeederMotor.isConnected());
   }
