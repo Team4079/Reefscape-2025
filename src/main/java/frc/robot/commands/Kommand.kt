@@ -11,9 +11,11 @@ import frc.robot.commands.sequencing.AutomaticScore
 import frc.robot.subsystems.Coral
 import frc.robot.subsystems.Elevator
 import frc.robot.subsystems.Swerve
+import frc.robot.utils.CoralStates
 import frc.robot.utils.Direction
 import frc.robot.utils.ElevatorState
 import frc.robot.utils.ElevatorState.L4
+import frc.robot.utils.RobotParameters.CoralManipulatorParameters.isCoralIntaking
 import frc.robot.utils.RobotParameters.SwerveParameters
 import frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.PATH_CONSTRAINTS
 
@@ -41,6 +43,18 @@ object Kommand {
      */
     @JvmStatic
     fun setElevatorState(state: ElevatorState) = cmd { Elevator.getInstance().state = state }
+
+    @JvmStatic
+    fun moveToElevatorState(state: ElevatorState) = MoveElevatorState(state)
+
+    /**
+     * Creates an [InstantCommand] to set the state of the coral manipulator.
+     *
+     * @param state The desired state of the coral manipulator.
+     * @return An [InstantCommand] that sets the coral manipulator state.
+     */
+    @JvmStatic
+    fun setCoralState(state: CoralStates) = cmd { Coral.getInstance().setState(state) }
 
     /**
      * Creates an [InstantCommand] to start the coral manipulator motors.
@@ -85,7 +99,7 @@ object Kommand {
      * Creates a new [InstantCommand] to start the coral motors
      */
     @JvmStatic
-    fun startCoralMotors() = cmd { Coral.getInstance().startMotors() }
+    fun startCoralMotors() = cmd { Coral.getInstance().startCoralIntake() }
 
     /**
      * Creates an [AlignSwerve] command to align the robot in a specified direction.
@@ -120,6 +134,14 @@ object Kommand {
      */
     @JvmStatic
     fun setTelePid() = cmd { Swerve.getInstance().setTelePID() }
+
+    /**
+     * Creates an [InstantCommand] to set the intake to algae.
+     *
+     * @return An [InstantCommand] that sets the intake to algae.
+     */
+    @JvmStatic
+    fun setIntakeAlgae() = ToggleIntakeAlgae()
 
     /**
      * Creates a [PathPlannerAuto] command for autonomous operation.
@@ -165,4 +187,13 @@ object Kommand {
      */
     @JvmStatic
     fun padElevator(controller: XboxController) = PadElevator(controller)
+
+    /**
+     * Creates a [PadDrive] command to control the coral manipulator.
+     *
+     * @param controller The gaming controller used to move the coral manipulator.
+     * @return A [PadDrive] command to control the robot's coral manipulator.
+     */
+    @JvmStatic
+    fun coralIntaking() = cmd { isCoralIntaking = true }
 }

@@ -215,13 +215,19 @@ object RobotParameters {
     }
 
     object AlgaeManipulatorParameters {
-        @JvmField val ALGAE_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
+        @JvmField val ALGAE_PINGU = Pingu(2.0, 0.0, 0.0, 0.0)
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false
 
         @JvmField
-        var pivotState: AlgaePivotState = AlgaePivotState.UP
+        var algaeState: AlgaeStates = AlgaeStates.UP
+
+        @JvmField
+        var algaeIntaking: Boolean = false
+
+        @JvmField
+        var algaeCounter: Int = 0
 
     }
 
@@ -235,7 +241,13 @@ object RobotParameters {
         val CORAL_MANIPULATOR_DOWN_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
 
         @JvmField
+        var coralState: CoralStates = CoralStates.CORAL_INTAKE
+
+        @JvmField
         var hasPiece: Boolean = false
+
+        @JvmField
+        var isCoralIntaking: Boolean = true
     }
 
     object FieldParameters {

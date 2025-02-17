@@ -5,10 +5,10 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.utils.ElevatorState;
 
 
-public class SetElevatorState extends Command {
+public class MoveElevatorState extends Command {
    ElevatorState state;
 
-    public SetElevatorState(ElevatorState state) {
+    public MoveElevatorState(ElevatorState state) {
         this.state = state;
         // each subsystem used by the command must be passed into the
         // addRequirements() method (which takes a vararg of Subsystem)

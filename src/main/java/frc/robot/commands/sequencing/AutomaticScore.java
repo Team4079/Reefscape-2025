@@ -4,7 +4,6 @@ import static frc.robot.commands.Kommand.*;
 import static frc.robot.utils.ElevatorState.*;
 
 import edu.wpi.first.wpilibj2.command.*;
-import frc.robot.commands.SetElevatorState;
 import frc.robot.utils.*;
 
 /**
@@ -17,10 +16,11 @@ public class AutomaticScore extends SequentialCommandGroup {
   public AutomaticScore(Direction offsetSide, ElevatorState state) {
     addCommands(
 //        align(offsetSide),
-        new SetElevatorState(state),
-        startCoralMotors(),
+        moveToElevatorState(state),
+        setCoralState(CoralStates.CORAL_RELEASE),
         waitCmd(0.15),
-        setElevatorState(DEFAULT)
+        setElevatorState(DEFAULT),
+        coralIntaking()
     );
   }
 }
