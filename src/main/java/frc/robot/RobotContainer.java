@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.*;
+import frc.robot.commands.PadDrive;
 import frc.robot.subsystems.*;
 import frc.robot.utils.*;
 import java.util.EnumMap;
@@ -32,8 +33,9 @@ public class RobotContainer {
   public RobotContainer() {
     pad = new XboxController(0);
 
-    Elevator.getInstance().setDefaultCommand(padElevator(pad));
+//    Elevator.getInstance().setDefaultCommand(padElevator(pad));
     Coral.getInstance();
+    Swerve.getInstance().setDefaultCommand(drive(pad));
 
     Button.getEntries()
         .forEach(button -> buttons.put(button, new JoystickButton(pad, button.getButtonNumber())));
@@ -71,7 +73,7 @@ public class RobotContainer {
         bind(Y, startCoralMotors()),
         //        bind(A, align(RIGHT)),
         // TODO PLEASE TEST
-        //        bind(B, createPathfindingCmd(reefs.get(0))),
+//                bind(B, createPathfindingCmd(reefs.get(0))),
         bind(LEFT_BUMPER, score(LEFT, L4)),
         bind(RIGHT_BUMPER, score(RIGHT, L4)),
         bind(X, reverseIntake().onlyWhile(pad::getXButton)));

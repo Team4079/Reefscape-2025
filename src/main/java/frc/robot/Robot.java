@@ -91,6 +91,8 @@ public class Robot extends LoggedRobot {
 
     // Schedule the warmup command
     PathfindingCommand.warmupCommand().schedule();
+
+    CommandScheduler.getInstance().enable();
   }
 
   /**

@@ -3,8 +3,8 @@
     {
       "x": -8,
       "y": -8,
-      "width": 1708,
-      "height": 1020,
+      "width": 1722,
+      "height": 1034,
       "state": {
         "sidebar": {
           "width": 500,
@@ -20,7 +20,6 @@
             "/SmartDashboard/AutoChooser/options",
             "/SmartDashboard/AutoChooser",
             "/AdvantageKit/RealOutputs/Robot Pose",
-            "/AdvantageKit/RealOutputs/Alerts/errors",
             "/AdvantageKit/RealOutputs/Alerts/infos",
             "/AdvantageKit/RealOutputs/Alerts/warnings",
             "/photonvision/Arducam_OV2311_USB_Camera/rawBytes",
@@ -29,15 +28,14 @@
             "/photonvision/Arducam_OV2311_USB_Camera/rawBytes/targets/0",
             "/photonvision/.timesync",
             "/photonvision/.timesync/photonvision",
-            "/photonvision/RightCamera/rawBytes",
-            "/photonvision/RightCamera/rawBytes/targets",
             "/photonvision/RightCamera/rawBytes/metadata",
             "/photonvision/RightCamera/rawBytes/targets/0",
             "/AdvantageKit",
             "/Tuning",
-            "/Tuning/Elevator",
-            "/Tuning/Swerve",
-            "/AdvantageKit/RealOutputs/Elevator"
+            "/photonvision/RightCamera",
+            "/photonvision/RightCamera/rawBytes/targets",
+            "/AdvantageKit/RealOutputs/Algae",
+            "/AdvantageKit/RealOutputs/Swerve"
           ]
         },
         "tabs": {
@@ -98,7 +96,7 @@
                 "sources": [
                   {
                     "type": "robot",
-                    "logKey": "NT:/AdvantageKit/RealOutputs/Robot Pose",
+                    "logKey": "NT:/AdvantageKit/RealOutputs//Swerve/Robot Pose",
                     "logType": "Pose2d",
                     "visible": true,
                     "options": {}
@@ -118,7 +116,17 @@
               "type": 3,
               "title": "Cool Field",
               "controller": {
-                "sources": [],
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "NT:/AdvantageKit/RealOutputs//Swerve/Robot Pose 3D",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {
+                      "model": "2025 KitBot"
+                    }
+                  }
+                ],
                 "game": "2025 Field (Welded)",
                 "origin": "blue"
               },
@@ -127,17 +135,17 @@
                 "cameraIndex": -1,
                 "orbitFov": 50,
                 "cameraPosition": [
-                  1.4695761589768238e-15,
-                  5.999999999999999,
-                  -12
+                  2.9098332028715617,
+                  5.54915568708312,
+                  -4.8687581527989146
                 ],
                 "cameraTarget": [
-                  0,
-                  0.5,
-                  0
+                  -2.9815736288535972,
+                  0.007633830949940429,
+                  -0.9839963332232395
                 ]
               },
-              "controlsHeight": 200
+              "controlsHeight": 198
             },
             {
               "type": 9,
@@ -146,7 +154,7 @@
                 "sources": [
                   {
                     "type": "rotationLegacy",
-                    "logKey": "NT:/AdvantageKit/RealOutputs/Pidgey Rotation2D",
+                    "logKey": "NT:/AdvantageKit/RealOutputs//Swerve/Pidgey Rotation2D",
                     "logType": "Number",
                     "visible": true,
                     "options": {
@@ -155,12 +163,21 @@
                   },
                   {
                     "type": "states",
-                    "logKey": "NT:/AdvantageKit/RealOutputs/Swerve Module States",
+                    "logKey": "NT:/AdvantageKit/RealOutputs//Swerve/Swerve Module States",
                     "logType": "SwerveModuleState[]",
                     "visible": true,
                     "options": {
                       "color": "#ff0000",
                       "arrangement": "0,1,2,3"
+                    }
+                  },
+                  {
+                    "type": "chassisSpeeds",
+                    "logKey": "NT:/AdvantageKit/RealOutputs//Swerve/Chassis Speeds",
+                    "logType": "ChassisSpeeds",
+                    "visible": true,
+                    "options": {
+                      "color": "#0000ff"
                     }
                   }
                 ],
