@@ -32,9 +32,11 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import java.util.Optional;
+
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-import org.photonvision.*;
+import org.photonvision.EstimatedRobotPose;
+
+import java.util.Optional;
 
 public class Swerve extends SubsystemBase {
   private final SwerveDrivePoseEstimator poseEstimator;
@@ -44,6 +46,7 @@ public class Swerve extends SubsystemBase {
   private final SwerveModuleState[] states = new SwerveModuleState[4];
   private SwerveModuleState[] setStates = new SwerveModuleState[4];
   private final SwerveModule[] modules;
+  private final PhotonVision photonVision;
 
   private LoggedDashboardChooser reefChooser;
 
@@ -111,6 +114,7 @@ public class Swerve extends SubsystemBase {
     this.poseEstimator3d = initializePoseEstimator3d();
     //    configureAutoBuilder();
     initializePathPlannerLogging();
+    photonVision = PhotonVision.getInstance();
 
     //    swerveLoggingThread.start();
     //    swerveLoggingThreadBeforeSet.start();
@@ -200,8 +204,8 @@ public class Swerve extends SubsystemBase {
    */
   @Override
   public void periodic() {
-//    updatePos();
     logs("/Swerve/Swerve Module States", getModuleStates());
+    updatePos();
 
     /*
      * Updates the robot position based on movement and rotation from the pidgey and
@@ -230,14 +234,15 @@ public class Swerve extends SubsystemBase {
    * adds the vision measurement to the pose estimator.
    */
   private void updatePos() {
-    if (!PhotonVision.getInstance().getResultPairs().isEmpty()) {
-      PhotonVision.getInstance()
+    if (!photonVision.getResultPairs().isEmpty()) {
+      photonVision
           .getResultPairs()
           .forEach(
               pair -> {
                 EstimatedRobotPose pose =
                     getEstimatedPose(pair, poseEstimator.getEstimatedPosition());
                 updateStdDev(pair, Optional.ofNullable(pose));
+                updateStdDev3d(pair, Optional.ofNullable(pose));
                 if (pose != null) {
                   double timestamp = pose.timestampSeconds;
                   Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();

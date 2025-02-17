@@ -64,8 +64,22 @@ fun Pair<PhotonModule, PhotonPipelineResult>.getEstimatedPose(prevEstimatedRobot
  * @receiver Pair<PhotonModule, PhotonPipelineResult> The pair of PhotonModule and PhotonPipelineResult.
  * @param estimatedRobotPose Optional<EstimatedRobotPose> The estimated robot pose to use for updating the standard deviations.
  */
-fun Pair<PhotonModule, PhotonPipelineResult>.updateStdDev(estimatedRobotPose: Optional<EstimatedRobotPose>) =
+fun Pair<PhotonModule, PhotonPipelineResult>.updateStdDev(estimatedRobotPose: Optional<EstimatedRobotPose>) {
     first.updateEstimatedStdDevs(estimatedRobotPose, second.getTargets())
+}
+
+/**
+ * Extension function for a Pair of PhotonModule and PhotonPipelineResult to update the 3d standard deviations of the estimated robot pose.
+ *
+ * This function updates the estimated 3d standard deviations of the robot pose using the provided estimated robot pose
+ * and the targets from the PhotonPipelineResult.
+ *
+ * @receiver Pair<PhotonModule, PhotonPipelineResult> The pair of PhotonModule and PhotonPipelineResult.
+ * @param estimatedRobotPose Optional<EstimatedRobotPose> The estimated robot pose to use for updating the standard deviations.
+ */
+fun Pair<PhotonModule, PhotonPipelineResult>.updateStdDev3d(estimatedRobotPose: Optional<EstimatedRobotPose>) {
+    first.updateEstimatedStdDevs3d(estimatedRobotPose, second.getTargets())
+}
 
 /**
  * Extension function to set the Pingu values of a TalonFXConfiguration using a Pingu object.
