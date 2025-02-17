@@ -2,7 +2,7 @@
 <html class="no-js">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>isFinished</title>
+    <title>setCoralState</title>
     <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
     <script>var pathToRoot = "../../../";</script>
     <script>document.documentElement.classList.replace("no-js","js");</script>
@@ -104,12 +104,12 @@
                 </div>
             </div>
             <div id="main">
-<div class="main-content" data-page-type="member" id="content" pageIds="Reefscape2025::frc.robot.commands/Calibration/isFinished/#/PointingToDeclaration//-251573632">
-  <div class="breadcrumbs"><a href="../../../index.html">Reefscape2025</a><span class="delimiter">/</span><a href="../index.html">frc.robot.commands</a><span class="delimiter">/</span><a href="index.html">Calibration</a><span class="delimiter">/</span><span class="current">isFinished</span></div>
+<div class="main-content" data-page-type="member" id="content" pageIds="Reefscape2025::frc.robot.commands/Kommand/setCoralState/#frc.robot.utils.CoralStates/PointingToDeclaration//-251573632">
+  <div class="breadcrumbs"><a href="../../../index.html">Reefscape2025</a><span class="delimiter">/</span><a href="../index.html">frc.robot.commands</a><span class="delimiter">/</span><a href="index.html">Kommand</a><span class="delimiter">/</span><span class="current">setCoralState</span></div>
   <div class="cover ">
-    <h1 class="cover"><span>is</span><wbr></wbr><span><span>Finished</span></span></h1>
+    <h1 class="cover"><span>set</span><wbr></wbr><span>Coral</span><wbr></wbr><span><span>State</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword"></span>boolean <a href="is-finished.html"><span class="token function">isFinished</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><p class="paragraph"> Returns whether this command has finished. Once a command finishes -- indicated by this method returning true -- the scheduler will call its <a href="end.html">end</a> method. </p><p class="paragraph"> Returning false will result in the command never ending automatically. It may still be cancelled manually or interrupted by another command. Hard coding this command to always return true will result in the command executing once and finishing immediately. It is recommended to use * <span data-unresolved-link="edu.wpi.first.wpilibj2.command/InstantCommand///PointingToDeclaration/">InstantCommand</span> for such an operation. </p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">whether this command has finished.</p></span></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><span data-unresolved-link="edu.wpi.first.wpilibj2.command/InstantCommand///PointingToDeclaration/">InstantCommand</span> <a href="set-coral-state.html"><span class="token function">setCoralState</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="../../frc.robot.utils/-coral-states/index.html">CoralStates</a> state</span></span><span class="token punctuation">)</span></div><p class="paragraph">Creates an <span data-unresolved-link="edu.wpi.first.wpilibj2.command/InstantCommand///PointingToDeclaration/">InstantCommand</span> to set the state of the coral manipulator.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">An <span data-unresolved-link="edu.wpi.first.wpilibj2.command/InstantCommand///PointingToDeclaration/">InstantCommand</span> that sets the coral manipulator state.</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>state</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The desired state of the coral manipulator.</p></div></div></div></div></div></div></div>
 </div>
     <div class="footer">
         <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
