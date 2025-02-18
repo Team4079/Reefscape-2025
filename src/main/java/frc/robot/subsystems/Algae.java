@@ -1,18 +1,18 @@
 package frc.robot.subsystems;
 
-// import static frc.robot.utils.Dash.log;
 import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.AlgaeManipulatorParameters.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.AlgaePivotState;
+import frc.robot.utils.AlgaeStates;
 import frc.robot.utils.RobotParameters.*;
 
 /**
@@ -27,6 +27,7 @@ public class Algae extends SubsystemBase {
   private final TalonFX algaeIntakeMotor;
 
   private final VoltageOut voltageOut;
+  private final PositionVoltage voltagePos;
 
   private Alert algaeManipulatorMotorDisconnectedAlert;
 
@@ -66,20 +67,20 @@ public class Algae extends SubsystemBase {
     algaePivotConfiguration.Slot0.kI = AlgaeManipulatorParameters.ALGAE_PINGU.getI();
     algaePivotConfiguration.Slot0.kD = AlgaeManipulatorParameters.ALGAE_PINGU.getD();
 
-    algaePivotConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-    algaeIntakeConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    algaePivotConfiguration.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    algaeIntakeConfiguration.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
 
     algaePivotMotor.getConfigurator().apply(algaePivotConfiguration);
     algaeIntakeMotor.getConfigurator().apply(algaeIntakeConfiguration);
 
-    algaePivotConfiguration.CurrentLimits.SupplyCurrentLimit = 100;
+    algaePivotConfiguration.CurrentLimits.SupplyCurrentLimit = 30;
     algaePivotConfiguration.CurrentLimits.SupplyCurrentLimitEnable = true;
-    algaePivotConfiguration.CurrentLimits.StatorCurrentLimit = 100;
+    algaePivotConfiguration.CurrentLimits.StatorCurrentLimit = 30;
     algaePivotConfiguration.CurrentLimits.StatorCurrentLimitEnable = true;
 
-    algaeIntakeConfiguration.CurrentLimits.SupplyCurrentLimit = 100;
+    algaeIntakeConfiguration.CurrentLimits.SupplyCurrentLimit = 30;
     algaeIntakeConfiguration.CurrentLimits.SupplyCurrentLimitEnable = true;
-    algaeIntakeConfiguration.CurrentLimits.StatorCurrentLimit = 100;
+    algaeIntakeConfiguration.CurrentLimits.StatorCurrentLimit = 30;
     algaeIntakeConfiguration.CurrentLimits.StatorCurrentLimitEnable = true;
 
     algaePivotConfiguration.SoftwareLimitSwitch.ForwardSoftLimitThreshold = 0.0;
@@ -97,6 +98,7 @@ public class Algae extends SubsystemBase {
     // algaeManipulatorMotorSoftLimitConfig;
 
     voltageOut = new VoltageOut(0);
+    voltagePos = new PositionVoltage(0);
 
     algaePivotMotor.setPosition(0);
 
@@ -106,22 +108,20 @@ public class Algae extends SubsystemBase {
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    setPivotState(pivotState);
+    setPivotPos(algaeState);
+    setIntakeSpeed(algaeState);
+    algaeManipulatorMotorDisconnectedAlert.set(!algaePivotMotor.isConnected());
+
     logs(
         () -> {
-          log("/Algae/Algae Pivot Motor Position", getPivotPosValue());
-          log("/Algae/Algae State", pivotState.toString());
+          log("Algae/Algae Pivot Motor Position", getPivotPosValue());
+          log("Algae/Algae State", algaeState.toString());
+          log("Algae/IsAlgaeIntaking", algaeIntaking);
+          log("Algae/Algae counter", algaeCounter);
+          log(
+              "Algae/Disconnected algaeManipulatorMotor " + algaePivotMotor.getDeviceID(),
+              algaePivotMotor.isConnected());
         });
-  }
-
-  /** Stops the arm motor */
-  public void stopIntake() {
-    algaeIntakeMotor.stopMotor();
-  }
-
-  public void startIntake() {
-    voltageOut.Output = 4.0;
-    algaeIntakeMotor.setControl(voltageOut);
   }
 
   /**
@@ -129,8 +129,8 @@ public class Algae extends SubsystemBase {
    *
    * @param state the state to set the algae pivot
    */
-  public void setPivotState(AlgaePivotState state) {
-    algaePivotMotor.setPosition(state.pos);
+  public void setPivotPos(AlgaeStates state) {
+    algaePivotMotor.setControl(voltagePos.withPosition(state.pos));
   }
 
   /**
@@ -145,11 +145,10 @@ public class Algae extends SubsystemBase {
   public void initializeAlarms() {
     algaeManipulatorMotorDisconnectedAlert =
         new Alert("Disconnected end effector motor " + ALGAE_PIVOT_MOTOR_ID, kError);
+  }
 
-    algaeManipulatorMotorDisconnectedAlert.set(!algaePivotMotor.isConnected());
-
-    logs(
-        "Disconnected algaeManipulatorMotor " + algaePivotMotor.getDeviceID(),
-        algaePivotMotor.isConnected());
+  public void setIntakeSpeed(AlgaeStates state) {
+    voltageOut.Output = state.intakeSpeed;
+    algaeIntakeMotor.setControl(voltageOut);
   }
 }

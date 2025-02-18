@@ -15,13 +15,25 @@ import org.littletonrobotics.junction.LogTable;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 
+/**
+ * A class that implements the Pathfinder interface using the LocalADStar algorithm.
+ * This class is responsible for calculating paths for a robot to follow on a field,
+ * taking into account dynamic obstacles and other constraints.
+ *
+ * <p>Usage in FRC:
+ * This class is used in FRC (FIRST Robotics Competition) to navigate the robot autonomously
+ * on the field. It calculates the optimal path from a start position to a goal position
+ * while avoiding obstacles. The path is updated dynamically based on the current state
+ * of the field and the robot's position.
+ */
 public class LocalADStarAK implements Pathfinder {
   private final ADStarIO io = new ADStarIO();
 
   /**
-   * Get if a new path has been calculated since the last time a path was retrieved
+   * Get if a new path has been calculated since the last time a path was retrieved.
+   * This method checks if a new path is available and logs the current state.
    *
-   * @return True if a new path is available
+   * @return True if a new path is available.
    */
   @Override
   public boolean isNewPathAvailable() {
@@ -35,11 +47,12 @@ public class LocalADStarAK implements Pathfinder {
   }
 
   /**
-   * Get the most recently calculated path
+   * Get the most recently calculated path.
+   * This method retrieves the current path based on the provided constraints and goal end state.
    *
-   * @param constraints The path constraints to use when creating the path
-   * @param goalEndState The goal end state to use when creating the path
-   * @return The PathPlannerPath created from the points calculated by the pathfinder
+   * @param constraints The path constraints to use when creating the path.
+   * @param goalEndState The goal end state to use when creating the path.
+   * @return The PathPlannerPath created from the points calculated by the pathfinder.
    */
   @Override
   public PathPlannerPath getCurrentPath(PathConstraints constraints, GoalEndState goalEndState) {
@@ -57,7 +70,8 @@ public class LocalADStarAK implements Pathfinder {
   }
 
   /**
-   * Set the start position to pathfind from
+   * Set the start position to pathfind from.
+   * This method sets the initial position for the pathfinding algorithm.
    *
    * @param startPosition Start position on the field. If this is within an obstacle it will be
    *     moved to the nearest non-obstacle node.
@@ -70,9 +84,10 @@ public class LocalADStarAK implements Pathfinder {
   }
 
   /**
-   * Set the goal position to pathfind to
+   * Set the goal position to pathfind to.
+   * This method sets the target position for the pathfinding algorithm.
    *
-   * @param goalPosition Goal position on the field. f this is within an obstacle it will be moved
+   * @param goalPosition Goal position on the field. If this is within an obstacle it will be moved
    *     to the nearest non-obstacle node.
    */
   @Override
@@ -84,11 +99,12 @@ public class LocalADStarAK implements Pathfinder {
 
   /**
    * Set the dynamic obstacles that should be avoided while pathfinding.
+   * This method updates the list of obstacles that the pathfinding algorithm should avoid.
    *
    * @param obs A List of Translation2d pairs representing obstacles. Each Translation2d represents
    *     opposite corners of a bounding box.
    * @param currentRobotPos The current position of the robot. This is needed to change the start
-   *     position of the path to properly avoid obstacles
+   *     position of the path to properly avoid obstacles.
    */
   @Override
   public void setDynamicObstacles(
@@ -98,6 +114,12 @@ public class LocalADStarAK implements Pathfinder {
     }
   }
 
+  /**
+   * A class that handles the input/output operations for the LocalADStar pathfinding algorithm.
+   * Implements the LoggableInputs interface to allow logging of pathfinding data.
+   * This class is responsible for managing the state of the pathfinding algorithm, including
+   * whether a new path is available and the current path points.
+   */
   private static class ADStarIO implements LoggableInputs {
     public LocalADStar adStar = new LocalADStar();
     public boolean isNewPathAvailable = false;
@@ -124,7 +146,7 @@ public class LocalADStarAK implements Pathfinder {
 
       double[] pointsLogged = table.get("CurrentPathPoints", new double[0]);
 
-      List<PathPoint> pathPoints = new ArrayList<>();
+      List<PathPoint> pathPoints = new ArrayList<>(pointsLogged.length / 2);
       for (int i = 0; i < pointsLogged.length; i += 2) {
         pathPoints.add(
             new PathPoint(new Translation2d(pointsLogged[i], pointsLogged[i + 1]), null));
@@ -133,10 +155,21 @@ public class LocalADStarAK implements Pathfinder {
       currentPathPoints = pathPoints;
     }
 
+    /**
+     * Updates the isNewPathAvailable flag by querying the LocalADStar instance.
+     * This method checks if a new path has been calculated by the pathfinding algorithm.
+     */
     public void updateIsNewPathAvailable() {
       isNewPathAvailable = adStar.isNewPathAvailable();
     }
 
+    /**
+     * Updates the current path points by querying the LocalADStar instance with the provided constraints and goal end state.
+     * This method retrieves the latest path points calculated by the pathfinding algorithm.
+     *
+     * @param constraints The path constraints to use when creating the path.
+     * @param goalEndState The goal end state to use when creating the path.
+     */
     public void updateCurrentPathPoints(PathConstraints constraints, GoalEndState goalEndState) {
       PathPlannerPath currentPath = adStar.getCurrentPath(constraints, goalEndState);
 

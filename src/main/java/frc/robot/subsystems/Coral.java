@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.Register.Dash.*;
+import static frc.robot.utils.RobotParameters.AlgaeManipulatorParameters.algaeIntaking;
 import static frc.robot.utils.RobotParameters.CoralManipulatorParameters.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
 
@@ -18,6 +19,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.utils.CoralStates;
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters;
 
 public class Coral extends SubsystemBase {
@@ -30,7 +32,8 @@ public class Coral extends SubsystemBase {
 
   private boolean motorsRunning = false;
 
-  private Alert coralFeederDisconnectedAlert;
+  private final Alert coralFeederDisconnectedAlert;
+  private final Alert coralScoreDisconnectedAlert;
 
   /**
    * The Singleton instance of this CoralManipulatorSubsystem. Code should use the {@link
@@ -102,53 +105,72 @@ public class Coral extends SubsystemBase {
 
     coralFeederDisconnectedAlert =
         new Alert("Disconnected coral feeder motor " + CORAL_FEEDER_ID, kError);
+    coralScoreDisconnectedAlert =
+        new Alert("Disconnected coral score motor " + CORAL_SCORE_ID, kError);
   }
 
+  /**
+   * If the coral sensor is triggered, set the hasPiece boolean to true. (hasPiece = true,
+   * sensorDetect = true), motors spinning If the manipulator has a piece, but the sensor no
+   * longer detects it, stop the motors. (hasPiece = true, sensorDetect = false), motors stop If
+   * the manipulator should start, but the motors are not running, start the motors (hasPiece =
+   * false, sensorDetect = false), motors spinning by setting if it has a piece to false, due to
+   * the fact that the manipulator should not have a piece after the motors are started again.
+   * <p>
+   * TODO: Make it so a button can disable and enable the coral
+   * <p>
+   * The manipulator motors should be on by default, as per Aaron's request.
+   */
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-
-    /**
-     * If the coral sensor is triggered, set the hasPiece boolean to true. (hasPiece = true,
-     * sensorDetect = true), motors spinning If the manipulator has a piece, but the sensor no
-     * longer detects it, stop the motors. (hasPiece = true, sensorDetect = false), motors stop If
-     * the manipulator should start, but the motors are not running, start the motors (hasPiece =
-     * false, sensorDetect = false), motors spinning by setting if it has a piece to false, due to
-     * the fact that the manipulator should not have a piece after the motors are started again.
-     *
-     * <p>The manipulator motors should be on by default, as per Aaron's request.
-     */
-    if (!coralSensor.get()) {
-      voltageOut.Output = 3.75;
-      coralScoreMotor.setControl(voltageOut);
-      coralFeederMotor.setControl(voltageOut);
-      this.setHasPiece(true);
-    }
-
-    if (coralSensor.get() && CoralManipulatorParameters.hasPiece) {
-      if (this.motorsRunning) {
+    if (isCoralIntaking && !algaeIntaking) {
+      if (!getCoralSensor() && !CoralManipulatorParameters.hasPiece) {
+        coralState = CoralStates.CORAL_INTAKE;
+      } else if (getCoralSensor() && !CoralManipulatorParameters.hasPiece) {
         // Stop the motors if the manipulator has a piece, but the sensor no longer
         // detects it
-
-        this.stopMotors();
-      }
-    } else {
-      // Will run if the sensor doesn't detect the piece, and it doesn't have a piece
-      // concurrently
-      // Will also run if the coral sensor detects a piece, and it has a piece
-      if (!this.motorsRunning) {
-        this.startMotors();
+        coralState = CoralStates.CORAL_SLOW;
+        setHasPiece(true);
+      } else if (!getCoralSensor() && CoralManipulatorParameters.hasPiece) {
+        coralState = CoralStates.CORAL_HOLD;
+        isCoralIntaking = false;
       }
     }
-
     logs(
         () -> {
-          log("/Coral/Coral Sensor", !coralSensor.get());
-          log("/Coral/Has Piece", CoralManipulatorParameters.hasPiece);
-          log("/Coral/motorsRunning", this.motorsRunning);
+          log("Coral/isCoralIntaking", isCoralIntaking);
+          log("Coral/Coral Sensor", getCoralSensor());
+          log("Coral/Has Piece", CoralManipulatorParameters.hasPiece);
+          log("Coral/motorsRunning", this.motorsRunning);
+          log("Coral/Coral State", coralState.toString());
         });
 
     coralFeederDisconnectedAlert.set(!coralFeederMotor.isConnected());
+    coralScoreDisconnectedAlert.set(!coralScoreMotor.isConnected());
+
+    switch (coralState) {
+      case CORAL_INTAKE:
+        this.startCoralIntake();
+        break;
+      case CORAL_HOLD:
+        this.stopMotors();
+        break;
+      case CORAL_SLOW:
+        this.slowCoralIntake();
+        break;
+      case CORAL_RELEASE:
+        this.scoreCoral();
+        break;
+      case ALGAE_INTAKE:
+        this.algaeIntake();
+        break;
+      case ALGAE_HOLD:
+        this.slowAlgaeScoreMotors();
+        break;
+      case ALGAE_RELEASE:
+        this.ejectAlgae();
+        break;
+    }
   }
 
   /** Stops the coral manipulator motors */
@@ -159,12 +181,32 @@ public class Coral extends SubsystemBase {
   }
 
   /** Starts the coral manipulator motors */
-  public void startMotors() {
+  public void startCoralIntake() {
     voltageOut.Output = 5.0;
     coralFeederMotor.setControl(voltageOut);
     coralScoreMotor.setControl(voltageOut);
+    this.setHasPiece(false);
+    isCoralIntaking = true;
+  }
+
+  public void poopOut() {
+    // TODO: Implement
+  }
+
+  /** Scores the coral motors */
+  public void scoreCoral() {
+    voltageOut.Output = 5.0;
+    coralScoreMotor.setControl(voltageOut);
     this.motorsRunning = true;
-    hasPiece = false;
+    this.setHasPiece(false);
+  }
+
+  /** Starts the coral manipulator motors */
+  public void slowCoralIntake() {
+    voltageOut.Output = 3.75;
+    coralScoreMotor.setControl(voltageOut);
+    coralFeederMotor.setControl(voltageOut);
+    this.setHasPiece(true);
   }
 
   /** Starts the coral manipulator motors */
@@ -175,7 +217,49 @@ public class Coral extends SubsystemBase {
     this.motorsRunning = true;
   }
 
+  public void algaeIntake() {
+    this.stopMotors();
+    voltageOut.Output = 4.5;
+    coralScoreMotor.setControl(voltageOut);
+    this.motorsRunning = true;
+  }
+
   public void setHasPiece(boolean hasPiece) {
     CoralManipulatorParameters.hasPiece = hasPiece;
+  }
+
+  /** Spins the intake to intake algae */
+  public void spinIntakeAlgae() {
+    voltageOut.Output = 4.0;
+    coralScoreMotor.setControl(voltageOut);
+  }
+
+  public void slowAlgaeScoreMotors() {
+    voltageOut.Output = 0.5;
+    coralScoreMotor.setControl(voltageOut);
+  }
+
+  /** Ejects the algae */
+  public void ejectAlgae() {
+    voltageOut.Output = -4.0;
+    coralScoreMotor.setControl(voltageOut);
+  }
+
+  /**
+   * Gets the state of the coral manipulator
+   *
+   * @return The state of the coral manipulator
+   */
+  public boolean getCoralSensor() {
+    return !coralSensor.get();
+  }
+
+  /**
+   * Sets the state of the coral manipulator
+   *
+   * @param state The state to set the coral manipulator to
+   */
+  public void setState(CoralStates state) {
+    coralState = state;
   }
 }

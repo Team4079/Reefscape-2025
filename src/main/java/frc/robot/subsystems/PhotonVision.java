@@ -80,7 +80,7 @@ public class PhotonVision extends SubsystemBase {
     //  AprilTagFieldLayout fieldLayout =
 
     // First camera setup
-    Transform3d c1pos = createCameraPos(0.31, 0.0, CAMERA_ONE_HEIGHT_METER, CAMERA_ONE_ANGLE_DEG);
+    Transform3d c1pos = createCameraPos(0.35, 0.35, CAMERA_ONE_HEIGHT_METER, CAMERA_ONE_ANGLE_DEG);
     //    Transform3d c2pos = createCameraPos(0.31, 0.0, CAMERA_TWO_HEIGHT_METER,
     // CAMERA_TWO_ANGLE_DEG);
     cameras.add(
@@ -109,28 +109,28 @@ public class PhotonVision extends SubsystemBase {
 
     logs(
         () -> {
-          log("/Photonvision/Does any camera exist", cameras.get(0) != null);
-          log("/Photonvision/Does any result pair exist", currentResultPair != null);
-          log("/Photonvision/Has tag", hasTag());
-          log("/Photonvision/resultCamera List length", currentResultPair.size());
+          log("Photonvision/Does any camera exist", cameras.get(0) != null);
+          log("Photonvision/Does any result pair exist", currentResultPair != null);
+          log("Photonvision/Has tag", hasTag());
+          log("Photonvision/resultCamera List length", currentResultPair.size());
           if (currentResultPair != null) {
-            log("/Photonvision/Result pairs have targets", hasTargets(currentResultPair));
+            log("Photonvision/Result pairs have targets", hasTargets(currentResultPair));
           }
         });
 
-    logs("/Photonvision/is current result pair null", currentResultPair != null);
+    logs("Photonvision/is current result pair null", currentResultPair != null);
 
     if (currentResultPair != null) {
-      logs("/Photonvision/Best target list is empty", currentResultPair.isEmpty());
+      logs("Photonvision/Best target list is empty", currentResultPair.isEmpty());
 
       if (!currentResultPair.isEmpty()) {
         logCount++;
-        logs("/Photonvision/BestTarget updated counter", logCount);
+        logs("Photonvision/BestTarget updated counter", logCount);
         PhotonTrackedTarget bestTarget = currentResultPair.get(0).getSecond().getBestTarget();
-        logs("/Photonvision/BestTarget is not null", bestTarget != null);
+        logs("Photonvision/BestTarget is not null", bestTarget != null);
 
-        logs("/Photonvision/Best Target is not null", bestTarget != null);
-        logs("/Photonvision/Best Target is not null", bestTarget != null);
+        logs("Photonvision/Best Target is not null", bestTarget != null);
+        logs("Photonvision/Best Target is not null", bestTarget != null);
 
         if (bestTarget != null) {
           yaw = bestTarget.getYaw();
@@ -160,13 +160,13 @@ public class PhotonVision extends SubsystemBase {
 
     logs(
         () -> {
-          log("/Photonvision/Pairs get", resultPairs.get().isEmpty());
-          log("/Photonvision/resultPairs length", resultPairs.get().size());
-          log("/Photonvision/currentResultPair not null", currentResultPair != null);
+          log("Photonvision/Pairs get", resultPairs.get().isEmpty());
+          log("Photonvision/resultPairs length", resultPairs.get().size());
+          log("Photonvision/currentResultPair not null", currentResultPair != null);
         });
 
     if (currentResultPair != null) {
-      logs("/Photonvision/hasTargets currentResultPair", hasTargets(currentResultPair));
+      logs("Photonvision/hasTargets currentResultPair", hasTargets(currentResultPair));
     }
 
     return currentResultPair != null && hasTargets(currentResultPair);
@@ -225,7 +225,7 @@ public class PhotonVision extends SubsystemBase {
   public static Transform3d createCameraPos(double x, double y, double height, double angleDeg) {
     return new Transform3d(
         new Translation3d(x, y, height),
-        new Rotation3d(0.0, Math.toRadians(360 - angleDeg), Math.toRadians(180.0)));
+        new Rotation3d(0.0, Math.toRadians(-40), Math.toRadians(0.0)));
   }
 
   public List<Pair<PhotonModule, PhotonPipelineResult>> getResultPairs() {

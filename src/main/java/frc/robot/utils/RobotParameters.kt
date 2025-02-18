@@ -161,7 +161,7 @@ object RobotParameters {
 
     /** Class containing constants for the Photonvision subsystem.  */
     object PhotonVisionConstants {
-        const val CAMERA_ONE_HEIGHT_METER: Double = 0.47
+        const val CAMERA_ONE_HEIGHT_METER: Double = 0.13
         const val CAMERA_ONE_ANGLE_DEG: Double = 33.0
         const val OFFSET_TOWARD_MID_LEFT: Double = -15.00
         const val CAMERA_TWO_HEIGHT_METER: Double = 0.61
@@ -215,13 +215,19 @@ object RobotParameters {
     }
 
     object AlgaeManipulatorParameters {
-        @JvmField val ALGAE_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
+        @JvmField val ALGAE_PINGU = Pingu(2.0, 0.0, 0.0, 0.0)
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false
 
         @JvmField
-        var pivotState: AlgaePivotState = AlgaePivotState.UP
+        var algaeState: AlgaeStates = AlgaeStates.UP
+
+        @JvmField
+        var algaeIntaking: Boolean = false
+
+        @JvmField
+        var algaeCounter: Int = 0
     }
 
     object CoralManipulatorParameters {
@@ -234,7 +240,13 @@ object RobotParameters {
         val CORAL_MANIPULATOR_DOWN_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
 
         @JvmField
+        var coralState: CoralStates = CoralStates.CORAL_INTAKE
+
+        @JvmField
         var hasPiece: Boolean = false
+
+        @JvmField
+        var isCoralIntaking: Boolean = true
     }
 
     object FieldParameters {
