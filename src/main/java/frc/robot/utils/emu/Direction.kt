@@ -1,4 +1,4 @@
-package frc.robot.utils
+package frc.robot.utils.emu
 
 /**
  * The Direction enum represents the possible directions that can be used in the robot's navigation

@@ -1,4 +1,4 @@
-package frc.robot.utils
+package frc.robot.utils.emu
 
 /**
  * The LEDState enum represents the color scheme of the LEDs.

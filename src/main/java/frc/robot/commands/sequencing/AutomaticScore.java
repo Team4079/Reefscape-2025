@@ -1,10 +1,10 @@
 package frc.robot.commands.sequencing;
 
 import static frc.robot.commands.Kommand.*;
-import static frc.robot.utils.ElevatorState.*;
+import static frc.robot.utils.emu.ElevatorState.*;
 
 import edu.wpi.first.wpilibj2.command.*;
-import frc.robot.utils.*;
+import frc.robot.utils.emu.*;
 
 /**
  * This command group is used to automatically score the coral manipulator. It aligns the swerve

@@ -1,4 +1,4 @@
-package frc.robot.utils
+package frc.robot.utils.emu
 
 /**
  * Enum class representing the buttons on a joystick or game controller.

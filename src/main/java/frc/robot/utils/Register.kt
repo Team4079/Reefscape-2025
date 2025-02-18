@@ -6,6 +6,7 @@ import edu.wpi.first.util.struct.StructSerializable
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.button.JoystickButton
 import frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.TEST_MODE
+import frc.robot.utils.emu.Button
 import org.littletonrobotics.junction.Logger
 
 /**

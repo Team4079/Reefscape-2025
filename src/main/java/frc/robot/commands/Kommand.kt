@@ -13,13 +13,13 @@ import frc.robot.commands.sequencing.AutomaticScore
 import frc.robot.subsystems.Coral
 import frc.robot.subsystems.Elevator
 import frc.robot.subsystems.Swerve
-import frc.robot.utils.CoralState
-import frc.robot.utils.Direction
-import frc.robot.utils.ElevatorState
-import frc.robot.utils.ElevatorState.L4
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters.isCoralIntaking
 import frc.robot.utils.RobotParameters.SwerveParameters
 import frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.PATH_CONSTRAINTS
+import frc.robot.utils.emu.CoralState
+import frc.robot.utils.emu.Direction
+import frc.robot.utils.emu.ElevatorState
+import frc.robot.utils.emu.ElevatorState.L4
 import kotlin.math.abs
 
 /**

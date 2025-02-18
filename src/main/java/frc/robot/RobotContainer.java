@@ -1,9 +1,9 @@
 package frc.robot;
 
 import static frc.robot.commands.Kommand.*;
-import static frc.robot.utils.Button.*;
-import static frc.robot.utils.Direction.*;
-import static frc.robot.utils.ElevatorState.*;
+import static frc.robot.utils.emu.Button.*;
+import static frc.robot.utils.emu.Direction.*;
+import static frc.robot.utils.emu.ElevatorState.*;
 import static frc.robot.utils.Register.*;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.subsystems.*;
 import frc.robot.utils.*;
+import frc.robot.utils.emu.*;
 import frc.robot.utils.pingu.*;
 import java.util.EnumMap;
 import java.util.Map;

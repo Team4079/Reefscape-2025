@@ -10,7 +10,7 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.AlgaePivotState;
+import frc.robot.utils.emu.AlgaePivotState;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.pingu.*;
 

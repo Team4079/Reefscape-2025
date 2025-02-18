@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
-import static edu.wpi.first.wpilibj.Alert.AlertType.*;
-import static frc.robot.utils.CoralState.*;
+import static frc.robot.utils.emu.CoralState.*;
 import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.AlgaeManipulatorParameters.algaeIntaking;
 import static frc.robot.utils.RobotParameters.CoralManipulatorParameters.*;
@@ -15,7 +14,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.CoralState;
+import frc.robot.utils.emu.CoralState;
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters;
 import frc.robot.utils.pingu.*;
 

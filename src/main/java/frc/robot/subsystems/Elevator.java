@@ -1,7 +1,7 @@
 package frc.robot.subsystems;
 
 import static com.ctre.phoenix6.signals.InvertedValue.*;
-import static frc.robot.utils.ElevatorMotor.*;
+import static frc.robot.utils.emu.ElevatorMotor.*;
 import static frc.robot.utils.ExtensionsKt.*;
 import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
@@ -12,8 +12,8 @@ import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.*;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
+import frc.robot.utils.emu.*;
 import frc.robot.utils.pingu.*;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 

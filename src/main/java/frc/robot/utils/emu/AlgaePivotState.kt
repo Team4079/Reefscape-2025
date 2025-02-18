@@ -1,4 +1,4 @@
-package frc.robot.utils
+package frc.robot.utils.emu
 
 /**
  * Enum class representing the state of the pivot for algae intaking.

@@ -6,7 +6,7 @@ import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.LEDState;
+import frc.robot.utils.emu.LEDState;
 import frc.robot.utils.RobotParameters.*;
 import java.awt.*;
 import java.util.ArrayList;

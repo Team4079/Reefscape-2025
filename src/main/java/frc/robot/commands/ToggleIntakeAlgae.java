@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Elevator;
-import frc.robot.utils.AlgaePivotState;
-import frc.robot.utils.CoralState;
-import frc.robot.utils.ElevatorState;
+import frc.robot.utils.emu.AlgaePivotState;
+import frc.robot.utils.emu.CoralState;
+import frc.robot.utils.emu.ElevatorState;
 
 public class ToggleIntakeAlgae extends Command {
   private final Algae algae = Algae.getInstance();

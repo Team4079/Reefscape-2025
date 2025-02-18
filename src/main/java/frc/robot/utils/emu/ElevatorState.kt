@@ -1,4 +1,4 @@
-package frc.robot.utils
+package frc.robot.utils.emu
 
 /**
  * The ElevatorState enum represents the different levels that the elevator can be in within the

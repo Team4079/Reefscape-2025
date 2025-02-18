@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
 import static frc.robot.commands.Kommand.setElevatorState;
-import static frc.robot.utils.ElevatorState.*;
+import static frc.robot.utils.emu.ElevatorState.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
 
 import edu.wpi.first.wpilibj.*;
