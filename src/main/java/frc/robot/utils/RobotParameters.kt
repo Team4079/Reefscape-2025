@@ -238,9 +238,6 @@ object RobotParameters {
         val CORAL_FEEDER_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
 
         @JvmField
-        val CORAL_MANIPULATOR_DOWN_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
-
-        @JvmField
         var coralState: CoralStates = CoralStates.CORAL_INTAKE
 
         @JvmField
