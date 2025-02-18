@@ -5,10 +5,9 @@ package frc.robot.utils
  *
  * @property pos The position of the pivot in rotations.
  */
-
-enum class AlgaeState(
-    @JvmField var pos: Double,
-    @JvmField var intakeSpeed: Double,
+enum class AlgaePivotState(
+    @JvmField val pos: Double,
+    @JvmField val intakeSpeed: Double,
 ) {
     /** Represents the pivot when it is ready to intake */
     DOWN(2.0, 4.0),

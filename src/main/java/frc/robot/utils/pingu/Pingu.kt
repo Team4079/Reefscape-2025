@@ -1,4 +1,4 @@
-package frc.robot.utils
+package frc.robot.utils.pingu
 
 import edu.wpi.first.math.controller.PIDController
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber
@@ -97,65 +97,3 @@ data class Pingu
             this.g = g.get()
         }
     }
-
-/**
- * A class that represents a PID controller with network logging capabilities.
- *
- * @property p The proportional gain as a LoggedNetworkNumber.
- * @property i The integral gain as a LoggedNetworkNumber.
- * @property d The derivative gain as a LoggedNetworkNumber.
- * @property v The velocity gain as a LoggedNetworkNumber.
- * @property s The static gain as a LoggedNetworkNumber.
- * @property g The gravity gain as a LoggedNetworkNumber.
- * @throws NullPointerException if v, s, or g are not set and are then accessed.
- */
-class NetworkPingu
-    @JvmOverloads
-    constructor(
-        var p: LoggedNetworkNumber,
-        var i: LoggedNetworkNumber,
-        var d: LoggedNetworkNumber,
-        var v: LoggedNetworkNumber? = null,
-        var s: LoggedNetworkNumber? = null,
-        var g: LoggedNetworkNumber? = null,
-    ) : PIDController(p.get(), i.get(), d.get())
-
-/**
- * A data class that represents a MagicPingu with velocity, acceleration, and jerk.
- *
- * @property velocity The velocity of the MagicPingu.
- * @property acceleration The acceleration of the MagicPingu.
- * @property jerk The jerk of the MagicPingu.
- */
-data class MagicPingu(
-    var velocity: Double,
-    var acceleration: Double,
-    var jerk: Double,
-) {
-    /**
-     * Sets the velocity of the MagicPingu.
-     *
-     * @param velocity The new velocity as a LoggedNetworkNumber.
-     */
-    fun setVelocity(velocity: LoggedNetworkNumber) {
-        this.velocity = velocity.get()
-    }
-
-    /**
-     * Sets the acceleration of the MagicPingu.
-     *
-     * @param acceleration The new acceleration as a LoggedNetworkNumber.
-     */
-    fun setAcceleration(acceleration: LoggedNetworkNumber) {
-        this.acceleration = acceleration.get()
-    }
-
-    /**
-     * Sets the jerk of the MagicPingu.
-     *
-     * @param jerk The new jerk as a LoggedNetworkNumber.
-     */
-    fun setJerk(jerk: LoggedNetworkNumber) {
-        this.jerk = jerk.get()
-    }
-}

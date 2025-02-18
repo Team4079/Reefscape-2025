@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import static com.ctre.phoenix6.signals.SensorDirectionValue.*;
 import static edu.wpi.first.math.geometry.Rotation2d.*;
-import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.ExtensionsKt.*;
 import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
@@ -21,9 +20,8 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.Alert;
-import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
+import frc.robot.utils.pingu.*;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 
 /** Represents a swerve module used in a swerve drive system. */
@@ -45,10 +43,6 @@ public class SwerveModule {
 
   private NetworkPingu networkPinguDrive;
   private NetworkPingu networkPinguSteer;
-
-  private Alert disconnectedDriveMotor;
-  private Alert disconnectedSteerMotor;
-  private Alert disconnectedCANCoder;
 
   /**
    * Constructs a new SwerveModule.
@@ -239,16 +233,16 @@ public class SwerveModule {
   public void initializeLoggedNetworkPID() {
     networkPinguDrive =
         new NetworkPingu(
-            new LoggedNetworkNumber("/Tuning/Swerve/Drive P", driveConfigs.Slot0.kP),
-            new LoggedNetworkNumber("/Tuning/Swerve/Drive I", driveConfigs.Slot0.kI),
-            new LoggedNetworkNumber("/Tuning/Swerve/Drive D", driveConfigs.Slot0.kD),
-            new LoggedNetworkNumber("/Tuning/Swerve/Drive V", driveConfigs.Slot0.kV));
+            new LoggedNetworkNumber("Tuning/Swerve/Drive P", driveConfigs.Slot0.kP),
+            new LoggedNetworkNumber("Tuning/Swerve/Drive I", driveConfigs.Slot0.kI),
+            new LoggedNetworkNumber("Tuning/Swerve/Drive D", driveConfigs.Slot0.kD),
+            new LoggedNetworkNumber("Tuning/Swerve/Drive V", driveConfigs.Slot0.kV));
     networkPinguSteer =
         new NetworkPingu(
-            new LoggedNetworkNumber("/Tuning/Swerve/Steer P", steerConfigs.Slot0.kP),
-            new LoggedNetworkNumber("/Tuning/Swerve/Steer I", steerConfigs.Slot0.kI),
-            new LoggedNetworkNumber("/Tuning/Swerve/Steer D", steerConfigs.Slot0.kD),
-            new LoggedNetworkNumber("/Tuning/Swerve/Steer V", steerConfigs.Slot0.kV));
+            new LoggedNetworkNumber("Tuning/Swerve/Steer P", steerConfigs.Slot0.kP),
+            new LoggedNetworkNumber("Tuning/Swerve/Steer I", steerConfigs.Slot0.kI),
+            new LoggedNetworkNumber("Tuning/Swerve/Steer D", steerConfigs.Slot0.kD),
+            new LoggedNetworkNumber("Tuning/Swerve/Steer V", steerConfigs.Slot0.kV));
   }
 
   /**
@@ -283,15 +277,8 @@ public class SwerveModule {
    * @param canCoderId The ID of the CANcoder.
    */
   public void initializeAlarms(int driveId, int steerId, int canCoderId) {
-    disconnectedDriveMotor = new Alert("Disconnected drive motor " + driveId, kError);
-    disconnectedSteerMotor = new Alert("Disconnected turn motor " + steerId, kError);
-    disconnectedCANCoder = new Alert("Disconnected CANCoder " + canCoderId, kError);
-  }
-
-  /** Sets the alarms for disconnected components. */
-  public void setAlarms() {
-    disconnectedDriveMotor.set(!driveMotor.isConnected());
-    disconnectedSteerMotor.set(!steerMotor.isConnected());
-    disconnectedCANCoder.set(!canCoder.isConnected());
+    AlertPingu.getInstance().add(driveMotor, "drive motor");
+    AlertPingu.getInstance().add(steerMotor, "steer motor");
+    AlertPingu.getInstance().add(canCoder);
   }
 }

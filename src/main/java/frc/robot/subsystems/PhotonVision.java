@@ -208,7 +208,7 @@ public class PhotonVision extends SubsystemBase {
         .forEach(
             camera ->
                 logs(
-                    "/Photonvision/Camera %s Std Dev NormF".formatted(camera.getCameraName()),
+                    "Photonvision/Camera %s Std Dev NormF".formatted(camera.getCameraName()),
                     camera.getCurrentStdDevs().normF()));
   }
 

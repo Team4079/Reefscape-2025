@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.AlgaeManipulatorParameters.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
@@ -12,8 +11,9 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.AlgaeState;
+import frc.robot.utils.AlgaePivotState;
 import frc.robot.utils.RobotParameters.*;
+import frc.robot.utils.pingu.*;
 
 /**
  * The PivotSubsystem class is a subsystem that interfaces with the arm system to provide control
@@ -102,20 +102,21 @@ public class Algae extends SubsystemBase {
 
     algaePivotMotor.setPosition(0);
 
-    initializeAlarms();
+    AlertPingu.getInstance().add(algaePivotMotor, "algae pivot");
+    AlertPingu.getInstance().add(algaeIntakeMotor, "algae intake");
   }
 
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    setPivotPos(algaeState);
-    setIntakeSpeed(algaeState);
+    setPivotPos(algaePivotState);
+    setIntakeSpeed(algaePivotState);
     algaeManipulatorMotorDisconnectedAlert.set(!algaePivotMotor.isConnected());
 
     logs(
         () -> {
           log("Algae/Algae Pivot Motor Position", getPivotPosValue());
-          log("Algae/Algae State", algaeState.toString());
+          log("Algae/Algae State", algaePivotState.toString());
           log("Algae/IsAlgaeIntaking", algaeIntaking);
           log("Algae/Algae counter", algaeCounter);
           log(
@@ -129,7 +130,7 @@ public class Algae extends SubsystemBase {
    *
    * @param state the state to set the algae pivot
    */
-  public void setPivotPos(AlgaeState state) {
+  public void setPivotPos(AlgaePivotState state) {
     algaePivotMotor.setControl(voltagePos.withPosition(state.pos));
   }
 
@@ -142,12 +143,7 @@ public class Algae extends SubsystemBase {
     return algaePivotMotor.getPosition().getValueAsDouble();
   }
 
-  public void initializeAlarms() {
-    algaeManipulatorMotorDisconnectedAlert =
-        new Alert("Disconnected end effector motor " + ALGAE_PIVOT_MOTOR_ID, kError);
-  }
-
-  public void setIntakeSpeed(AlgaeState state) {
+  public void setIntakeSpeed(AlgaePivotState state) {
     voltageOut.Output = state.intakeSpeed;
     algaeIntakeMotor.setControl(voltageOut);
   }

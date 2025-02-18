@@ -18,6 +18,8 @@ import edu.wpi.first.units.Units.Inches
 import edu.wpi.first.units.measure.Distance
 import edu.wpi.first.wpilibj.DriverStation
 import frc.robot.utils.Register.Dash.metaLogs
+import frc.robot.utils.pingu.MagicPingu
+import frc.robot.utils.pingu.Pingu
 
 /** Class containing global values for the robot.  */
 object RobotParameters {
@@ -221,7 +223,7 @@ object RobotParameters {
         var isSoftLimitEnabled: Boolean = false
 
         @JvmField
-        var algaeState: AlgaeState = AlgaeState.UP
+        var algaePivotState: AlgaePivotState = AlgaePivotState.UP
 
         @JvmField
         var algaeIntaking: Boolean = false

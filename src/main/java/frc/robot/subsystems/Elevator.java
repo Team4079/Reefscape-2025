@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import static com.ctre.phoenix6.signals.InvertedValue.*;
-import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.ElevatorMotor.*;
 import static frc.robot.utils.ExtensionsKt.*;
 import static frc.robot.utils.Register.Dash.*;
@@ -12,10 +11,10 @@ import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.*;
 import com.ctre.phoenix6.hardware.*;
 import com.ctre.phoenix6.signals.*;
-import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.*;
 import frc.robot.utils.RobotParameters.*;
+import frc.robot.utils.pingu.*;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 
 /**
@@ -24,12 +23,10 @@ import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
  * for the elevator motor.
  */
 public class Elevator extends SubsystemBase {
-  public static final String ELEVATOR_STATE_KEY = "/Elevator/Elevator State";
 
   private final TalonFX elevatorMotorLeft;
   private final TalonFX elevatorMotorRight;
 
-  //    private final PositionTorqueCurrentFOC posRequest;
   private final PositionDutyCycle posRequest;
   private final VelocityTorqueCurrentFOC velocityRequest;
 
@@ -51,9 +48,6 @@ public class Elevator extends SubsystemBase {
   private TalonFXConfiguration elevatorRightConfigs;
 
   private MotionMagicConfigs motionMagicConfigs;
-
-  private Alert elevatorLeftDisconnectedAlert;
-  private Alert elevatorRightDisconnectedAlert;
 
   private ElevatorState currentState = ElevatorState.DEFAULT;
 
@@ -193,10 +187,8 @@ public class Elevator extends SubsystemBase {
     elevatorLeftConfigurator.apply(motionMagicConfigs);
     elevatorRightConfigurator.apply(motionMagicConfigs);
 
-    elevatorLeftDisconnectedAlert =
-        new Alert("Disconnected left elevator motor " + ELEVATOR_MOTOR_LEFT_ID, kError);
-    elevatorRightDisconnectedAlert =
-        new Alert("Disconnected right elevator motor " + ELEVATOR_MOTOR_RIGHT_ID, kError);
+    AlertPingu.getInstance().add(elevatorMotorLeft, "left elevator");
+    AlertPingu.getInstance().add(elevatorMotorRight, "right elevator");
 
     initizalizeLoggedNetworkPID();
   }
@@ -204,9 +196,6 @@ public class Elevator extends SubsystemBase {
   // This method will be called once per scheduler run
   @Override
   public void periodic() {
-    elevatorLeftDisconnectedAlert.set(!elevatorMotorLeft.isConnected());
-    elevatorRightDisconnectedAlert.set(!elevatorMotorRight.isConnected());
-
     // THIS IS JUST FOR TESTING, in reality, elevator set state is based on
     // what Jayden clicks which will be displayed on leds but not necessarily = currenState
     //    elevatorSetState = currentState;
@@ -215,30 +204,30 @@ public class Elevator extends SubsystemBase {
     logs(
         () -> {
           log(
-              "/Elevator/Elevator Left Position",
+              "Elevator/Elevator Left Position",
               elevatorMotorLeft.getPosition().getValueAsDouble());
           log(
-              "/Elevator/Elevator Right Position",
+              "Elevator/Elevator Right Position",
               elevatorMotorRight.getPosition().getValueAsDouble());
           log(
-              "/Elevator/Elevator Left Set Speed",
+              "Elevator/Elevator Left Set Speed",
               elevatorMotorLeft.getVelocity().getValueAsDouble());
           log(
-              "/Elevator/Elevator Right Set Speed",
+              "Elevator/Elevator Right Set Speed",
               elevatorMotorRight.getVelocity().getValueAsDouble());
           log(
-              "/Elevator/Elevator Left Acceleration",
+              "Elevator/Elevator Left Acceleration",
               elevatorMotorLeft.getAcceleration().getValueAsDouble());
           log(
-              "/Elevator/Elevator Right Acceleration",
+              "Elevator/Elevator Right Acceleration",
               elevatorMotorRight.getAcceleration().getValueAsDouble());
           log(
-              "/Elevator/Elevator Supply Voltage",
+              "Elevator/Elevator Supply Voltage",
               elevatorMotorLeft.getSupplyVoltage().getValueAsDouble());
           log(
-              "/Elevator/Elevator Motor Voltage",
+              "Elevator/Elevator Motor Voltage",
               elevatorMotorLeft.getMotorVoltage().getValueAsDouble());
-          log(ELEVATOR_STATE_KEY, currentState.toString());
+          log("Elevator/Elevator State", currentState.toString());
         });
   }
 
@@ -347,25 +336,25 @@ public class Elevator extends SubsystemBase {
 
   public void initizalizeLoggedNetworkPID() {
     elevatorP =
-        new LoggedNetworkNumber("/Tuning/Elevator/Elevator P", elevatorRightConfigs.Slot0.kP);
+        new LoggedNetworkNumber("Tuning/Elevator/Elevator P", elevatorRightConfigs.Slot0.kP);
     elevatorI =
-        new LoggedNetworkNumber("/Tuning/Elevator/Elevator I", elevatorRightConfigs.Slot0.kI);
+        new LoggedNetworkNumber("Tuning/Elevator/Elevator I", elevatorRightConfigs.Slot0.kI);
     elevatorD =
-        new LoggedNetworkNumber("/Tuning/Elevator/Elevator D", elevatorRightConfigs.Slot0.kD);
+        new LoggedNetworkNumber("Tuning/Elevator/Elevator D", elevatorRightConfigs.Slot0.kD);
     elevatorV =
-        new LoggedNetworkNumber("/Tuning/Elevator/Elevator V", elevatorRightConfigs.Slot0.kV);
+        new LoggedNetworkNumber("Tuning/Elevator/Elevator V", elevatorRightConfigs.Slot0.kV);
     elevatorS =
-        new LoggedNetworkNumber("/Tuning/Elevator/Elevator S", elevatorRightConfigs.Slot0.kS);
+        new LoggedNetworkNumber("Tuning/Elevator/Elevator S", elevatorRightConfigs.Slot0.kS);
     elevatorG =
-        new LoggedNetworkNumber("/Tuning/Elevator/Elevator G", elevatorRightConfigs.Slot0.kG);
+        new LoggedNetworkNumber("Tuning/Elevator/Elevator G", elevatorRightConfigs.Slot0.kG);
 
     cruiseV =
         new LoggedNetworkNumber(
-            "/Tuning/Elevator/MM Cruise Velocity", motionMagicConfigs.MotionMagicCruiseVelocity);
+            "Tuning/Elevator/MM Cruise Velocity", motionMagicConfigs.MotionMagicCruiseVelocity);
     acc =
         new LoggedNetworkNumber(
-            "/Tuning/Elevator/MM Acceleration", motionMagicConfigs.MotionMagicAcceleration);
-    jerk = new LoggedNetworkNumber("/Tuning/Elevator/MM Jerk", motionMagicConfigs.MotionMagicJerk);
+            "Tuning/Elevator/MM Acceleration", motionMagicConfigs.MotionMagicAcceleration);
+    jerk = new LoggedNetworkNumber("Tuning/Elevator/MM Jerk", motionMagicConfigs.MotionMagicJerk);
   }
 
   public void updateElevatorPID() {

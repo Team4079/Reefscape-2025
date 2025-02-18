@@ -1,7 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
 import static edu.wpi.first.wpilibj.Alert.AlertType.*;
@@ -17,11 +13,11 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.CoralState;
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters;
+import frc.robot.utils.pingu.*;
 
 public class Coral extends SubsystemBase {
   private final TalonFX coralFeederMotor;
@@ -32,9 +28,6 @@ public class Coral extends SubsystemBase {
   private final DigitalInput coralSensor;
 
   private boolean motorsRunning = false;
-
-  private final Alert coralFeederDisconnectedAlert;
-  private final Alert coralScoreDisconnectedAlert;
 
   /**
    * The Singleton instance of this CoralManipulatorSubsystem. Code should use the {@link
@@ -104,23 +97,19 @@ public class Coral extends SubsystemBase {
 
     voltageOut = new VoltageOut(0);
 
-    coralFeederDisconnectedAlert =
-        new Alert("Disconnected coral feeder motor " + CORAL_FEEDER_ID, kError);
-    coralScoreDisconnectedAlert =
-        new Alert("Disconnected coral score motor " + CORAL_SCORE_ID, kError);
+    AlertPingu.getInstance().add(coralFeederMotor, "coral feeder");
+    AlertPingu.getInstance().add(coralFeederMotor, "coral score");
   }
 
   /**
    * If the coral sensor is triggered, set the hasPiece boolean to true. (hasPiece = true,
-   * sensorDetect = true), motors spinning If the manipulator has a piece, but the sensor no
-   * longer detects it, stop the motors. (hasPiece = true, sensorDetect = false), motors stop If
-   * the manipulator should start, but the motors are not running, start the motors (hasPiece =
-   * false, sensorDetect = false), motors spinning by setting if it has a piece to false, due to
-   * the fact that the manipulator should not have a piece after the motors are started again.
-   * <p>
-   * TODO: Make it so a button can disable and enable the coral
-   * <p>
-   * The manipulator motors should be on by default, as per Aaron's request.
+   * sensorDetect = true), motors spinning If the manipulator has a piece, but the sensor no longer
+   * detects it, stop the motors. (hasPiece = true, sensorDetect = false), motors stop If the
+   * manipulator should start, but the motors are not running, start the motors (hasPiece = false,
+   * sensorDetect = false), motors spinning by setting if it has a piece to false, due to the fact
+   * that the manipulator should not have a piece after the motors are started again.
+   *
+   * <p>The manipulator motors should be on by default, as per Aaron's request.
    */
   @Override
   public void periodic() {
@@ -137,6 +126,7 @@ public class Coral extends SubsystemBase {
         isCoralIntaking = false;
       }
     }
+
     logs(
         () -> {
           log("Coral/isCoralIntaking", isCoralIntaking);
@@ -146,32 +136,7 @@ public class Coral extends SubsystemBase {
           log("Coral/Coral State", coralState.toString());
         });
 
-    coralFeederDisconnectedAlert.set(!coralFeederMotor.isConnected());
-    coralScoreDisconnectedAlert.set(!coralScoreMotor.isConnected());
-
-    switch (coralState) {
-      case CORAL_INTAKE:
-        this.startCoralIntake();
-        break;
-      case CORAL_HOLD:
-        this.stopMotors();
-        break;
-      case CORAL_SLOW:
-        this.slowCoralIntake();
-        break;
-      case CORAL_RELEASE:
-        this.scoreCoral();
-        break;
-      case ALGAE_INTAKE:
-        this.algaeIntake();
-        break;
-      case ALGAE_HOLD:
-        this.slowAlgaeScoreMotors();
-        break;
-      case ALGAE_RELEASE:
-        this.ejectAlgae();
-        break;
-    }
+    coralState.block.run();
   }
 
   /** Stops the coral manipulator motors */

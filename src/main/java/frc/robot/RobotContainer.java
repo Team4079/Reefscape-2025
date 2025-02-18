@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.subsystems.*;
 import frc.robot.utils.*;
+import frc.robot.utils.pingu.*;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -35,6 +36,7 @@ public class RobotContainer {
     //    Elevator.getInstance().setDefaultCommand(padElevator(pad));
     Coral.getInstance();
     Swerve.getInstance().setDefaultCommand(drive(pad));
+    AlertPingu.getInstance();
 
     Button.getEntries()
         .forEach(button -> buttons.put(button, new JoystickButton(pad, button.getButtonNumber())));
