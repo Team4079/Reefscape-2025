@@ -6,15 +6,19 @@ import frc.robot.subsystems.Elevator;
 
 public class Calibration extends Command {
 
+  private Algae algae = Algae.getInstance();
+    private Elevator elevator = Elevator.getInstance();
   public Calibration() {
     // each subsystem used by the command must be passed into the
     // addRequirements() method (which takes a vararg of Subsystem)
-    addRequirements(Algae.getInstance(), Elevator.getInstance());
+    addRequirements(algae, elevator);
   }
 
   /** The initial subroutine of a command. Called once when the command is initially scheduled. */
   @Override
-  public void initialize() {}
+  public void initialize() {
+    elevator.calibrateElevator();
+  }
 
   /**
    * The main body of a command. Called repeatedly while the command is scheduled. (That is, it is

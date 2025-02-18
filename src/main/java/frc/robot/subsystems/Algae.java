@@ -118,6 +118,9 @@ public class Algae extends SubsystemBase {
           log(
               "Algae/Disconnected algaeManipulatorMotor " + algaePivotMotor.getDeviceID(),
               algaePivotMotor.isConnected());
+          log("Algae/Algae Pivot Stator Current", algaePivotMotor.getStatorCurrent().getValueAsDouble());
+          log("Algae/Algae Pivot Supply Current", algaePivotMotor.getSupplyCurrent().getValueAsDouble());
+          log("Algae/Algae Pivot Stall Current", algaePivotMotor.getMotorStallCurrent().getValueAsDouble());
         });
   }
 

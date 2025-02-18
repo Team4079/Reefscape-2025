@@ -229,6 +229,9 @@ public class Elevator extends SubsystemBase {
               elevatorMotorLeft.getMotorVoltage().getValueAsDouble());
           log("Elevator/Elevator State", currentState.toString());
           log("Elevator/Elevator To Be State", elevatorToBeSetState.toString());
+          log("Elevator/Elevator Stator Current", elevatorMotorLeft.getStatorCurrent().getValueAsDouble());
+          log("Elevator/Elevator Supply Current", elevatorMotorLeft.getSupplyCurrent().getValueAsDouble());
+          log("Elevator/Elevator Stall Current", elevatorMotorLeft.getMotorStallCurrent().getValueAsDouble());
         });
   }
 
@@ -400,5 +403,16 @@ public class Elevator extends SubsystemBase {
     // Apply the Motion Magic configurations to the left and right elevator motors
     elevatorMotorLeft.getConfigurator().apply(motionMagicConfigs);
     elevatorMotorRight.getConfigurator().apply(motionMagicConfigs);
+  }
+
+  /**
+   * Calibrates the elevator motor.
+   * This method calibrates the elevator motor by moving the motor up until it stalls.
+   */
+  public void calibrateElevator() {
+    while (elevatorMotorLeft.getMotorStallCurrent().getValueAsDouble() < 3.0) {
+      elevatorMotorLeft.setControl(voltageOut.withOutput(0.5));
+      elevatorMotorRight.setControl(voltageOut.withOutput(0.5));
+    }
   }
 }
