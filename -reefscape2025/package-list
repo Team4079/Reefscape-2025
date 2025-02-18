@@ -281,6 +281,8 @@ $dokka.location:frc.robot.utils/ElevatorMotor///PointingToDeclaration/-reefscap
 $dokka.location:frc.robot.utils/ElevatorMotor/getEntries/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-elevator-motor/get-entries.html
 $dokka.location:frc.robot.utils/ElevatorMotor/valueOf/#kotlin.String/PointingToDeclaration/-reefscape2025/frc.robot.utils/-elevator-motor/value-of.html
 $dokka.location:frc.robot.utils/ElevatorMotor/values/#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-elevator-motor/values.html
+$dokka.location:frc.robot.utils/ElevatorState.ALGAE///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-elevator-state/-a-l-g-a-e/index.html
+$dokka.location:frc.robot.utils/ElevatorState.ALGAE_HOLD///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-elevator-state/-a-l-g-a-e_-h-o-l-d/index.html
 $dokka.location:frc.robot.utils/ElevatorState.DEFAULT///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-elevator-state/-d-e-f-a-u-l-t/index.html
 $dokka.location:frc.robot.utils/ElevatorState.L1///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-elevator-state/-l1/index.html
 $dokka.location:frc.robot.utils/ElevatorState.L2///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils/-elevator-state/-l2/index.html
