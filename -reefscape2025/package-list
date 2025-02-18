@@ -187,8 +187,7 @@ $dokka.location:frc.robot.subsystems/SwerveModule/updateTelePID/#/PointingToDecl
 $dokka.location:frc.robot.utils.pingu////PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/index.html
 $dokka.location:frc.robot.utils.pingu/AlertPingu///PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-alert-pingu/index.html
 $dokka.location:frc.robot.utils.pingu/AlertPingu/add/#com.ctre.phoenix6.hardware.CANcoder/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-alert-pingu/add.html
-$dokka.location:frc.robot.utils.pingu/AlertPingu/add/#com.ctre.phoenix6.hardware.TalonFX#java.lang.String/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-alert-pingu/add.html
-$dokka.location:frc.robot.utils.pingu/AlertPingu/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-alert-pingu/get-instance.html
+$dokka.location:frc.robot.utils.pingu/AlertPingu/add/#com.ctre.phoenix6.hardware.TalonFX#kotlin.String/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-alert-pingu/add.html
 $dokka.location:frc.robot.utils.pingu/AlertPingu/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-alert-pingu/periodic.html
 $dokka.location:frc.robot.utils.pingu/MagicPingu///PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-magic-pingu/index.html
 $dokka.location:frc.robot.utils.pingu/MagicPingu/MagicPingu/#kotlin.Double#kotlin.Double#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-magic-pingu/-magic-pingu.html
