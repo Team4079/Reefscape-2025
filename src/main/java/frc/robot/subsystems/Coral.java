@@ -97,8 +97,8 @@ public class Coral extends SubsystemBase {
 
     voltageOut = new VoltageOut(0);
 
-    AlertPingu.getInstance().add(coralFeederMotor, "coral feeder");
-    AlertPingu.getInstance().add(coralFeederMotor, "coral score");
+    AlertPingu.add(coralFeederMotor, "coral feeder");
+    AlertPingu.add(coralFeederMotor, "coral score");
   }
 
   /**

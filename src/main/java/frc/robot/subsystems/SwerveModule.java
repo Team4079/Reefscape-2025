@@ -277,8 +277,8 @@ public class SwerveModule {
    * @param canCoderId The ID of the CANcoder.
    */
   public void initializeAlarms(int driveId, int steerId, int canCoderId) {
-    AlertPingu.getInstance().add(driveMotor, "drive motor");
-    AlertPingu.getInstance().add(steerMotor, "steer motor");
-    AlertPingu.getInstance().add(canCoder);
+    AlertPingu.add(driveMotor, "drive motor");
+    AlertPingu.add(steerMotor, "steer motor");
+    AlertPingu.add(canCoder);
   }
 }

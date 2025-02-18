@@ -102,8 +102,8 @@ public class Algae extends SubsystemBase {
 
     algaePivotMotor.setPosition(0);
 
-    AlertPingu.getInstance().add(algaePivotMotor, "algae pivot");
-    AlertPingu.getInstance().add(algaeIntakeMotor, "algae intake");
+    AlertPingu.add(algaePivotMotor, "algae pivot");
+    AlertPingu.add(algaeIntakeMotor, "algae intake");
   }
 
   // This method will be called once per scheduler run

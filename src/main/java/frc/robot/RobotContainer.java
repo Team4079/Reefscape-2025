@@ -36,7 +36,7 @@ public class RobotContainer {
     //    Elevator.getInstance().setDefaultCommand(padElevator(pad));
     Coral.getInstance();
     Swerve.getInstance().setDefaultCommand(drive(pad));
-    AlertPingu.getInstance();
+    AlertPingu.INSTANCE.getSubsystem();
 
     Button.getEntries()
         .forEach(button -> buttons.put(button, new JoystickButton(pad, button.getButtonNumber())));

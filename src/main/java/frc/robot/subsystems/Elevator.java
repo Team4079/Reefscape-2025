@@ -187,8 +187,8 @@ public class Elevator extends SubsystemBase {
     elevatorLeftConfigurator.apply(motionMagicConfigs);
     elevatorRightConfigurator.apply(motionMagicConfigs);
 
-    AlertPingu.getInstance().add(elevatorMotorLeft, "left elevator");
-    AlertPingu.getInstance().add(elevatorMotorRight, "right elevator");
+    AlertPingu.add(elevatorMotorLeft, "left elevator");
+    AlertPingu.add(elevatorMotorRight, "right elevator");
 
     initizalizeLoggedNetworkPID();
   }

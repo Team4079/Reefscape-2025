@@ -203,9 +203,6 @@ public class Swerve extends SubsystemBase {
   @Override
   public void periodic() {
     updatePos();
-    for (SwerveModule module : modules) {
-      module.setAlarms();
-    }
 
     /*
      * Updates the robot position based on movement and rotation from the pidgey and
