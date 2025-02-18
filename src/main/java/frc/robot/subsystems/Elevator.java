@@ -260,7 +260,7 @@ public class Elevator extends SubsystemBase {
    * @return double, the state of the elevator motor as a double
    */
   public double getStateDouble() {
-    return currentState.pos;
+    return this.currentState.pos;
   }
 
   /**
@@ -314,9 +314,7 @@ public class Elevator extends SubsystemBase {
     final double deadband = 0.001;
     double velocity = -speed * 0.3309;
     if (Math.abs(velocity) >= deadband) {
-      // TODO THESE MAY BE NEGATIVE DO NOT MURDER THE MOTORS SOFTWARE PLS!!!!!!!!!!!!!!!!!!!!!!!
-      //      elevatorMotorLeft.set(velocity);
-      //      elevatorMotorRight.set(velocity);
+      // TODO: These values may be negative. Be EXTREMELY CAUTIOUS when setting the motors
       elevatorMotorLeft.setControl(cycleOut.withOutput(velocity));
       elevatorMotorRight.setControl(cycleOut.withOutput(velocity));
     } else {
@@ -357,6 +355,10 @@ public class Elevator extends SubsystemBase {
     jerk = new LoggedNetworkNumber("Tuning/Elevator/MM Jerk", motionMagicConfigs.MotionMagicJerk);
   }
 
+  /**
+   * Updates the PID values for the elevator motors.
+   * This method sets the PID values for the elevator motors and updates the Motion Magic configurations.
+   */
   public void updateElevatorPID() {
     ELEVATOR_PINGU.setP(elevatorP);
     ELEVATOR_PINGU.setI(elevatorI);
@@ -372,18 +374,29 @@ public class Elevator extends SubsystemBase {
     applyElevatorPIDValues();
   }
 
+  /**
+   * Applies the PID values to the elevator motors.
+   * This method sets the PID values for both the left and right elevator motor configurations
+   * and applies the Motion Magic configurations.
+   */
   public void applyElevatorPIDValues() {
+    // Set the PID values for the left elevator motor configuration
     setPingu(elevatorLeftConfigs, ELEVATOR_PINGU);
+
+    // Set the PID values for the right elevator motor configuration
     setPingu(elevatorRightConfigs, ELEVATOR_PINGU);
 
+    // Update the Motion Magic configurations with the current PID values
     motionMagicConfigs = elevatorLeftConfigs.MotionMagic;
     motionMagicConfigs.MotionMagicCruiseVelocity = cruiseV.get();
     motionMagicConfigs.MotionMagicAcceleration = acc.get();
     motionMagicConfigs.MotionMagicJerk = jerk.get();
 
+    // Apply the updated configurations to the left elevator motor
     elevatorMotorLeft.getConfigurator().apply(elevatorLeftConfigs);
     elevatorMotorRight.getConfigurator().apply(elevatorRightConfigs);
 
+    // Apply the Motion Magic configurations to the left and right elevator motors
     elevatorMotorLeft.getConfigurator().apply(motionMagicConfigs);
     elevatorMotorRight.getConfigurator().apply(motionMagicConfigs);
   }

@@ -155,10 +155,6 @@ public class Coral extends SubsystemBase {
     //    isCoralIntaking = true;
   }
 
-  public void poopOut() {
-    // TODO: Implement
-  }
-
   /** Scores the coral motors */
   public void scoreCoral() {
     voltageOut.Output = 3.0;
@@ -184,6 +180,11 @@ public class Coral extends SubsystemBase {
     this.motorsRunning = true;
   }
 
+  /**
+   * Activates the algae intake process.
+   * This method stops the current motors, sets the voltage output to 4.5,
+   * and starts the coral score motor to intake algae.
+   */
   public void algaeIntake() {
     this.stopMotors();
     voltageOut.Output = 4.5;
@@ -191,6 +192,11 @@ public class Coral extends SubsystemBase {
     this.motorsRunning = true;
   }
 
+  /**
+   * Sets the state of whether the manipulator has a piece.
+   *
+   * @param hasPiece true if the manipulator has a piece, false otherwise
+   */
   public void setHasPiece(boolean hasPiece) {
     CoralManipulatorParameters.hasPiece = hasPiece;
   }

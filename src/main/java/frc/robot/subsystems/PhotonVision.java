@@ -53,16 +53,6 @@ public class PhotonVision extends SubsystemBase {
    * instance.
    */
   private PhotonVision() {
-    //
-    //    _____                                    _                    _
-    //   |_   _|                                  | |                  | |
-    //     | |    _ __ ___    _ __    ___   _ __  | |_   __ _  _ ___   | |_
-    //     | |   | '_ ` _ \  | '_ \  / _ \ | ___| | __/ / _` | | '_  \ | __|
-    //     |_|   |_| | | | | | | |_) | (_) | |    | |  |  (_|  | | | | | |_
-    //   |_____| |_| |_| |_| | .__/  \___/ |_|     \__  \__,_| |_| |_| \___|
-    //                       | |
-    //                       |_|
-    //
     cameras.add(
         new PhotonModule(
             "RightCamera",
@@ -94,8 +84,6 @@ public class PhotonVision extends SubsystemBase {
             log("Photonvision/Result pairs have targets", hasTargets(currentResultPair));
           }
         });
-
-    logs("Photonvision/is current result pair null", currentResultPair != null);
 
     if (currentResultPair != null) {
       logs("Photonvision/Best target list is empty", currentResultPair.isEmpty());

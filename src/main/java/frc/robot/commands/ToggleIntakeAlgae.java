@@ -23,22 +23,25 @@ public class ToggleIntakeAlgae extends Command {
 
   @Override
   public void initialize() {
-    if (algaeCounter == 0) {
-      algaeIntaking = true;
-      algaePivotState = AlgaePivotState.DOWN;
-      coralState = CoralState.ALGAE_INTAKE;
-    } else if (algaeCounter == 1) {
-      algaePivotState = AlgaePivotState.HOLD;
-      coralState = CoralState.ALGAE_HOLD;
-      Elevator.getInstance().setState(ElevatorState.ALGAE_HOLD);
-    } else if (algaeCounter == 2) {
-      algaePivotState = AlgaePivotState.RELEASE;
-      coralState = CoralState.ALGAE_RELEASE;
-    } else if (algaeCounter == 3) {
-      algaePivotState = AlgaePivotState.UP;
-      coralState = CoralState.CORAL_INTAKE;
-      algaeIntaking = false;
-      algaeCounter = -1;
+    switch (algaeCounter) {
+      case 0:
+        algaePivotState = AlgaePivotState.DOWN;
+        coralState = CoralState.ALGAE_INTAKE;
+        break;
+      case 1:
+        algaePivotState = AlgaePivotState.HOLD;
+        coralState = CoralState.ALGAE_HOLD;
+        Elevator.getInstance().setState(ElevatorState.ALGAE_HOLD);
+        break;
+      case 2:
+        algaePivotState = AlgaePivotState.RELEASE;
+        coralState = CoralState.ALGAE_RELEASE;
+        break;
+      case 3:
+        algaePivotState = AlgaePivotState.UP;
+        coralState = CoralState.CORAL_INTAKE;
+        algaeIntaking = false;
+        break;
     }
   }
 

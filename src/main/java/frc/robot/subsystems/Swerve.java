@@ -61,20 +61,6 @@ public class Swerve extends SubsystemBase {
               }
             }
           });
-  //
-  //  Thread swerveLoggingThreadBeforeSet =
-  //      new Thread(
-  //          () -> {
-  //            while (true) {
-  //              logs("Set Swerve Module States", getSetModuleStates());
-  //              try {
-  //                Thread.sleep(100);
-  //              } catch (InterruptedException e) {
-  //                Thread.currentThread().interrupt();
-  //                break;
-  //              }
-  //            }
-  //          });
 
   // from feeder to the goal and align itself
   // The plan is for it to path towards it then we use a set path to align itself
@@ -115,13 +101,6 @@ public class Swerve extends SubsystemBase {
     photonVision = PhotonVision.getInstance();
 
     swerveLoggingThread.start();
-    //    swerveLoggingThreadBeforeSet.start();
-
-    //    try {
-    //      pathToScore = fromPathFile("Straight Path");
-    //    } catch (Exception e) {
-    //      throw new RobotConfigException("Failed to load robot config", e);
-    //    }
   }
 
   /**

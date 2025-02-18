@@ -28,7 +28,6 @@ public class Algae extends SubsystemBase {
   private final VoltageOut voltageOut;
   private final PositionVoltage voltagePos;
 
-  // om is a stinky poo poo
   // private double absPos = 0;
 
   /**
