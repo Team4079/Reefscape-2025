@@ -83,6 +83,7 @@ $dokka.location:frc.robot.subsystems/Coral/startCoralIntake/#/PointingToDeclarat
 $dokka.location:frc.robot.subsystems/Coral/stopMotors/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-coral/stop-motors.html
 $dokka.location:frc.robot.subsystems/Elevator///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/index.html
 $dokka.location:frc.robot.subsystems/Elevator/applyElevatorPIDValues/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/apply-elevator-p-i-d-values.html
+$dokka.location:frc.robot.subsystems/Elevator/calibrateElevator/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/calibrate-elevator.html
 $dokka.location:frc.robot.subsystems/Elevator/getElevatorPosAvg/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/get-elevator-pos-avg.html
 $dokka.location:frc.robot.subsystems/Elevator/getElevatorPosValue/#frc.robot.utils.emu.ElevatorMotor/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/get-elevator-pos-value.html
 $dokka.location:frc.robot.subsystems/Elevator/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-elevator/get-instance.html
