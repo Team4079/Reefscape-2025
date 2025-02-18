@@ -29,8 +29,7 @@ public class Algae extends SubsystemBase {
   private final VoltageOut voltageOut;
   private final PositionVoltage voltagePos;
 
-  private Alert algaeManipulatorMotorDisconnectedAlert;
-
+  // om is a stinky poo poo
   // private double absPos = 0;
 
   /**
@@ -111,7 +110,6 @@ public class Algae extends SubsystemBase {
   public void periodic() {
     setPivotPos(algaePivotState);
     setIntakeSpeed(algaePivotState);
-    algaeManipulatorMotorDisconnectedAlert.set(!algaePivotMotor.isConnected());
 
     logs(
         () -> {

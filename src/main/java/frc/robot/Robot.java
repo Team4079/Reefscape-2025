@@ -63,9 +63,9 @@ public class Robot extends LoggedRobot {
       // Enables power distribution logging
       new PowerDistribution(1, ModuleType.kRev);
 
-      for (int i = 1; i <= 19; i++) {
-        clearStickyFaults(i);
-      }
+//      for (int i = 1; i <= 19; i++) {
+//        clearStickyFaults(i);
+//      }
 
     } else {
       // Run as fast as possible

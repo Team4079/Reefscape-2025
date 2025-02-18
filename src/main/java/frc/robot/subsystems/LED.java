@@ -77,7 +77,7 @@ public class LED extends SubsystemBase {
     if (DriverStation.isEnabled()) {
       switch (elevatorSetState) {
         case DEFAULT:
-          ledState = LEDState.ROBONAUT;
+          ledState = LEDState.RAINBOW_FLOW;
           break;
         case L1:
           ledState = LEDState.HIGHTIDE_FLOW;
@@ -96,7 +96,7 @@ public class LED extends SubsystemBase {
 
     // Disabled Robot (we can do whatever we want)
     if (DriverStation.isDisabled() && !LiveRobotValues.lowBattery) {
-      ledState = LEDState.RAINBOW_FLOW;
+      ledState = LEDState.ROBONAUT;
     } else if (LiveRobotValues.lowBattery) {
       ledState = LEDState.TWINKLE;
     }

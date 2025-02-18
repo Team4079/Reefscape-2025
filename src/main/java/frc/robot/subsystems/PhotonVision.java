@@ -80,7 +80,7 @@ public class PhotonVision extends SubsystemBase {
     //  AprilTagFieldLayout fieldLayout =
 
     // First camera setup
-    Transform3d c1pos = createCameraPos(0.35, 0.35, CAMERA_ONE_HEIGHT_METER, CAMERA_ONE_ANGLE_DEG);
+    Transform3d c1pos = createCameraPos(-0.35, 0.35, CAMERA_ONE_HEIGHT_METER, CAMERA_ONE_ANGLE_DEG);
     //    Transform3d c2pos = createCameraPos(0.31, 0.0, CAMERA_TWO_HEIGHT_METER,
     // CAMERA_TWO_ANGLE_DEG);
     cameras.add(

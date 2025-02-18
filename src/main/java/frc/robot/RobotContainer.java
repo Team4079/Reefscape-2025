@@ -33,7 +33,7 @@ public class RobotContainer {
   public RobotContainer() {
     pad = new XboxController(0);
 
-    //    Elevator.getInstance().setDefaultCommand(padElevator(pad));
+    Elevator.getInstance().setDefaultCommand(padElevator(pad));
     Coral.getInstance();
     Swerve.getInstance().setDefaultCommand(drive(pad));
     AlertPingu.INSTANCE.getSubsystem();
@@ -75,7 +75,7 @@ public class RobotContainer {
         //        bind(A, align(RIGHT)),
         // TODO: PLEASE TEST
         //                bind(B, createPathfindingCmd(reefs.get(0))),
-        bind(LEFT_BUMPER, score(LEFT, L4)),
+        bind(LEFT_BUMPER, score(LEFT, L3)),
         bind(RIGHT_BUMPER, score(RIGHT, L4)),
         bind(X, reverseIntake().onlyWhile(pad::getXButton)));
   }

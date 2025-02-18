@@ -202,7 +202,7 @@ object RobotParameters {
         var elevatorSetState: ElevatorState = ElevatorState.DEFAULT
 
         @JvmField
-        var elevatorToBeSetState: ElevatorState = ElevatorState.DEFAULT
+        var elevatorToBeSetState: ElevatorState = ElevatorState.L4
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false
@@ -239,13 +239,15 @@ object RobotParameters {
         val CORAL_FEEDER_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
 
         @JvmField
-        var coralState: CoralState = CoralState.CORAL_INTAKE
+        var coralState: CoralState = CoralState.CORAL_HOLD;
 
         @JvmField
-        var hasPiece: Boolean = false
+        var hasPiece: Boolean = true
+        // TODO SHOULD BE FALSE WHEN SENSOR WORKS
+        // coral should be intaking and coral state should be intaking
 
         @JvmField
-        var isCoralIntaking: Boolean = true
+        var isCoralIntaking: Boolean = false
     }
 
     object FieldParameters {
