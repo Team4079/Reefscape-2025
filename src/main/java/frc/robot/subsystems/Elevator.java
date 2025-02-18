@@ -228,6 +228,7 @@ public class Elevator extends SubsystemBase {
               "Elevator/Elevator Motor Voltage",
               elevatorMotorLeft.getMotorVoltage().getValueAsDouble());
           log("Elevator/Elevator State", currentState.toString());
+          log("Elevator/Elevator To Be State", elevatorToBeSetState.toString());
         });
   }
 

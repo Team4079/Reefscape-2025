@@ -166,7 +166,7 @@ public class Coral extends SubsystemBase {
 
   /** Starts the coral manipulator motors */
   public void slowCoralIntake() {
-    voltageOut.Output = 0.75;
+    voltageOut.Output = 0.0;
     coralScoreMotor.setControl(voltageOut);
     coralFeederMotor.setControl(voltageOut);
     this.setHasPiece(true);

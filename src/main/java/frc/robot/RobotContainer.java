@@ -1,6 +1,7 @@
 package frc.robot;
 
 import static frc.robot.commands.Kommand.*;
+import static frc.robot.utils.RobotParameters.ElevatorParameters.elevatorToBeSetState;
 import static frc.robot.utils.emu.Button.*;
 import static frc.robot.utils.emu.Direction.*;
 import static frc.robot.utils.emu.ElevatorState.*;
@@ -25,22 +26,28 @@ import java.util.Map;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  private final Map<Button, JoystickButton> buttons = new EnumMap<>(Button.class);
+  private final Map<Button, JoystickButton> aacrnButtons = new EnumMap<>(Button.class);
+  private final Map<Button, JoystickButton> calamityCowButtons = new EnumMap<>(Button.class);
 
   public final SendableChooser<Command> networkChooser;
-  public final XboxController pad;
+  public final XboxController aacrn;
+  public final XboxController calamityCow;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    pad = new XboxController(0);
+    aacrn = new XboxController(0);
+    calamityCow = new XboxController(1);
 
-    Elevator.getInstance().setDefaultCommand(padElevator(pad));
+    Elevator.getInstance().setDefaultCommand(padElevator(aacrn));
     Coral.getInstance();
-    Swerve.getInstance().setDefaultCommand(drive(pad));
+    Swerve.getInstance().setDefaultCommand(drive(aacrn));
     AlertPingu.INSTANCE.getSubsystem();
 
     Button.getEntries()
-        .forEach(button -> buttons.put(button, new JoystickButton(pad, button.getButtonNumber())));
+        .forEach(button -> aacrnButtons.put(button, new JoystickButton(aacrn, button.getButtonNumber())));
+
+    Button.getEntries()
+        .forEach(button -> calamityCowButtons.put(button, new JoystickButton(calamityCow, button.getButtonNumber())));
 
     networkChooser = AutoBuilder.buildAutoChooser();
 
@@ -65,8 +72,9 @@ public class RobotContainer {
    * CommandPS4Controller} controllers or {@link CommandJoystick}.
    */
   private void configureBindings() {
+    // For aacrn
     Register.bindings(
-        buttons,
+            aacrnButtons,
         bind(START, resetPidgey()),
         bind(B, setElevatorState(DEFAULT)),
         //        bind(B, align(CENTER).onlyWhile(pad::getAButton)),
@@ -76,8 +84,15 @@ public class RobotContainer {
         //        bind(A, align(RIGHT)),
         // TODO: PLEASE TEST
         //                bind(B, createPathfindingCmd(reefs.get(0))),
-        bind(LEFT_BUMPER, score(LEFT, L3)),
-        bind(RIGHT_BUMPER, score(RIGHT, L4)),
-        bind(X, reverseIntake().onlyWhile(pad::getXButton)));
+        bind(LEFT_BUMPER, score(LEFT, elevatorToBeSetState)),
+        bind(RIGHT_BUMPER, score(RIGHT, elevatorToBeSetState)),
+        bind(X, reverseIntake().onlyWhile(aacrn::getXButton)));
+
+    // For calamityCow
+    Register.bindings(
+            calamityCowButtons,
+        // THESE ARE PLACEHOLDERS!!!
+        bind(START, resetPidgey()),
+        bind(B, setElevatorState(DEFAULT)));
   }
 }
