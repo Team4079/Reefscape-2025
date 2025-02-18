@@ -246,7 +246,7 @@ object RobotParameters {
 
         @JvmField
         var hasPiece: Boolean = true
-        // TODO SHOULD BE FALSE WHEN SENSOR WORKS
+        // TODO: SHOULD BE FALSE WHEN SENSOR WORKS
         // coral should be intaking and coral state should be intaking
 
         @JvmField
