@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.XboxController
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.InstantCommand
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup
+import edu.wpi.first.wpilibj2.command.Subsystem
 import edu.wpi.first.wpilibj2.command.WaitCommand
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand
 import frc.robot.commands.sequencing.AutomaticScore
@@ -36,7 +37,10 @@ object Kommand {
      * @return An [InstantCommand] that executes the given function.
      */
     @JvmStatic
-    fun cmd(function: () -> Unit) = InstantCommand(function)
+    fun cmd(
+        vararg reqs: Subsystem,
+        function: () -> Unit,
+    ) = InstantCommand(function, *reqs)
 
     /**
      * Creates an [InstantCommand] to set the state of the elevator.
@@ -56,9 +60,9 @@ object Kommand {
     @JvmStatic
     fun moveElevatorState(state: ElevatorState) =
         SequentialCommandGroup(
-            InstantCommand({
+            cmd(Elevator.getInstance()) {
                 Elevator.getInstance().state = state
-            }, Elevator.getInstance()),
+            },
             WaitUntilCommand {
                 abs(Elevator.getInstance().elevatorPosAvg - state.pos) < 0.3
             },
@@ -206,10 +210,9 @@ object Kommand {
     fun padElevator(controller: XboxController) = PadElevator(controller)
 
     /**
-     * Creates a [PadDrive] command to control the coral manipulator.
+     * Creates an [InstantCommand] to set the coral manipulator intaking state to true.
      *
-     * @param controller The gaming controller used to move the coral manipulator.
-     * @return A [PadDrive] command to control the robot's coral manipulator.
+     * @return An [InstantCommand] that sets the coral intaking state to true.
      */
     @JvmStatic
     fun coralIntaking() = cmd { isCoralIntaking = true }

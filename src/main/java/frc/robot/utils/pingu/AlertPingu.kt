@@ -3,51 +3,58 @@ package frc.robot.utils.pingu
 import com.ctre.phoenix6.hardware.CANcoder
 import com.ctre.phoenix6.hardware.TalonFX
 import edu.wpi.first.wpilibj.Alert
-import edu.wpi.first.wpilibj.Alert.AlertType
+import edu.wpi.first.wpilibj.Alert.AlertType.kError
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 
 /**
- * A subsystem for aggregating Alerts
+ * FRC subsystem that monitors CTRE Phoenix 6 devices and raises alerts for disconnections.
+ *
+ * This singleton object tracks the connection status of TalonFX motors and CANcoders,
+ * providing real-time monitoring through WPILib's alert system. It's designed for early
+ * detection of CAN bus or device issues during matches and testing.
+ *
+ * @property devicePairs Pairs of monitored devices and their corresponding alerts
  */
 object AlertPingu : SubsystemBase() {
-    private val motors = ArrayList<TalonFX>()
-    private val canCoders = ArrayList<CANcoder>()
-    private val motorAlerts = ArrayList<Alert>()
-    private val canCoderAlerts = ArrayList<Alert>()
+    private val devicePairs = mutableListOf<Pair<Any, Alert>>()
 
     /**
-     * Automatically periodically set the alerts to each of the motors
+     * Updates connection status for all monitored devices.
+     * Called periodically by the CommandScheduler during robot operation.
+     * Uses parallel processing for efficient handling of multiple devices.
      */
     override fun periodic() {
-        motors.indices.forEach { i ->
-            motorAlerts[i].set(!motors[i].isConnected)
-        }
-        canCoders.indices.forEach { i ->
-            canCoderAlerts[i].set(!canCoders[i].isConnected)
+        devicePairs.parallelStream().forEach { (device, alert) ->
+            when (device) {
+                is TalonFX -> alert.set(!device.isConnected)
+                is CANcoder -> alert.set(!device.isConnected)
+            }
         }
     }
 
-    /** Add a motor to the [AlertPingu] subsystem
+    /**
+     * Registers a TalonFX motor for connection monitoring.
      *
-     * @param motor The motor to add
-     * @param motorName The name of the motor being added
+     * @param motor TalonFX motor instance to monitor
+     * @param motorName Descriptive name for identifying the motor in Driver Station alerts
      */
     @JvmStatic
     fun add(
         motor: TalonFX,
         motorName: String,
     ) {
-        motors.add(motor)
-        motorAlerts.add(Alert("Disconnected " + motorName + " motor " + motor.deviceID, AlertType.kError))
+        val alert = Alert("Disconnected $motorName motor ${motor.deviceID}", kError)
+        devicePairs.add(Pair(motor, alert))
     }
 
-    /** Add a canCoder to the [AlertPingu] subsystem
+    /**
+     * Registers a CANcoder for connection monitoring.
      *
-     * @param canCoder The canCoder to add
+     * @param canCoder CANcoder instance to monitor
      */
     @JvmStatic
     fun add(canCoder: CANcoder) {
-        canCoders.add(canCoder)
-        canCoderAlerts.add(Alert("Disconnected canCoder " + canCoder.deviceID, AlertType.kError))
+        val alert = Alert("Disconnected CANcoder ${canCoder.deviceID}", kError)
+        devicePairs.add(Pair(canCoder, alert))
     }
 }
