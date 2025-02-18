@@ -228,7 +228,6 @@ object RobotParameters {
 
         @JvmField
         var algaeCounter: Int = 0
-
     }
 
     object CoralManipulatorParameters {

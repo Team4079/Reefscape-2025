@@ -32,7 +32,8 @@ public class Coral extends SubsystemBase {
 
   private boolean motorsRunning = false;
 
-  private Alert coralFeederDisconnectedAlert;
+  private final Alert coralFeederDisconnectedAlert;
+  private final Alert coralScoreDisconnectedAlert;
 
   /**
    * The Singleton instance of this CoralManipulatorSubsystem. Code should use the {@link
@@ -104,22 +105,24 @@ public class Coral extends SubsystemBase {
 
     coralFeederDisconnectedAlert =
         new Alert("Disconnected coral feeder motor " + CORAL_FEEDER_ID, kError);
+    coralScoreDisconnectedAlert =
+        new Alert("Disconnected coral score motor " + CORAL_SCORE_ID, kError);
   }
 
+  /**
+   * If the coral sensor is triggered, set the hasPiece boolean to true. (hasPiece = true,
+   * sensorDetect = true), motors spinning If the manipulator has a piece, but the sensor no
+   * longer detects it, stop the motors. (hasPiece = true, sensorDetect = false), motors stop If
+   * the manipulator should start, but the motors are not running, start the motors (hasPiece =
+   * false, sensorDetect = false), motors spinning by setting if it has a piece to false, due to
+   * the fact that the manipulator should not have a piece after the motors are started again.
+   * <p>
+   * TODO: Make it so a button can disable and enable the coral
+   * <p>
+   * The manipulator motors should be on by default, as per Aaron's request.
+   */
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    /**
-     * If the coral sensor is triggered, set the hasPiece boolean to true. (hasPiece = true,
-     * sensorDetect = true), motors spinning If the manipulator has a piece, but the sensor no
-     * longer detects it, stop the motors. (hasPiece = true, sensorDetect = false), motors stop If
-     * the manipulator should start, but the motors are not running, start the motors (hasPiece =
-     * false, sensorDetect = false), motors spinning by setting if it has a piece to false, due to
-     * the fact that the manipulator should not have a piece after the motors are started again.
-     * TODO Make it so a button can disable and enable the coral
-     *
-     * <p>The manipulator motors should be on by default, as per Aaron's request.
-     */
     if (isCoralIntaking && !algaeIntaking) {
       if (!getCoralSensor() && !CoralManipulatorParameters.hasPiece) {
         coralState = CoralStates.CORAL_INTAKE;
@@ -134,19 +137,18 @@ public class Coral extends SubsystemBase {
       }
     }
     logs(
-            () -> {
-              log("/Coral/isCoralIntaking", isCoralIntaking);
-              log("/Coral/Coral Sensor", getCoralSensor());
-              log("/Coral/Has Piece", CoralManipulatorParameters.hasPiece);
-              log("/Coral/motorsRunning", this.motorsRunning);
-              log("/Coral/Coral State", coralState.toString());
-            }
-            );
+        () -> {
+          log("Coral/isCoralIntaking", isCoralIntaking);
+          log("Coral/Coral Sensor", getCoralSensor());
+          log("Coral/Has Piece", CoralManipulatorParameters.hasPiece);
+          log("Coral/motorsRunning", this.motorsRunning);
+          log("Coral/Coral State", coralState.toString());
+        });
 
     coralFeederDisconnectedAlert.set(!coralFeederMotor.isConnected());
+    coralScoreDisconnectedAlert.set(!coralScoreMotor.isConnected());
 
-
-    switch(coralState){
+    switch (coralState) {
       case CORAL_INTAKE:
         this.startCoralIntake();
         break;
@@ -188,7 +190,7 @@ public class Coral extends SubsystemBase {
   }
 
   public void poopOut() {
-
+    // TODO: Implement
   }
 
   /** Scores the coral motors */
@@ -226,7 +228,7 @@ public class Coral extends SubsystemBase {
     CoralManipulatorParameters.hasPiece = hasPiece;
   }
 
-    /** Spins the intake to intake algae */
+  /** Spins the intake to intake algae */
   public void spinIntakeAlgae() {
     voltageOut.Output = 4.0;
     coralScoreMotor.setControl(voltageOut);

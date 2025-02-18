@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-// import static frc.robot.utils.Dash.log;
 import static edu.wpi.first.wpilibj.Alert.AlertType.*;
 import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.AlgaeManipulatorParameters.*;
@@ -24,6 +23,7 @@ import frc.robot.utils.RobotParameters.*;
 public class Algae extends SubsystemBase {
   /** Creates a new end effector. */
   private final TalonFX algaePivotMotor;
+
   private final TalonFX algaeIntakeMotor;
 
   private final VoltageOut voltageOut;
@@ -91,9 +91,11 @@ public class Algae extends SubsystemBase {
     algaePivotMotor.getConfigurator().apply(algaePivotConfiguration);
     algaeIntakeMotor.getConfigurator().apply(algaeIntakeConfiguration);
 
-//    algaeManipulatorMotorConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-//
-//    algaeManipulatorMotorConfiguration.SoftwareLimitSwitch = algaeManipulatorMotorSoftLimitConfig;
+    //    algaeManipulatorMotorConfiguration.MotorOutput.Inverted =
+    // InvertedValue.Clockwise_Positive;
+    //
+    //    algaeManipulatorMotorConfiguration.SoftwareLimitSwitch =
+    // algaeManipulatorMotorSoftLimitConfig;
 
     voltageOut = new VoltageOut(0);
     voltagePos = new PositionVoltage(0);
@@ -108,16 +110,22 @@ public class Algae extends SubsystemBase {
   public void periodic() {
     setPivotPos(algaeState);
     setIntakeSpeed(algaeState);
+    algaeManipulatorMotorDisconnectedAlert.set(!algaePivotMotor.isConnected());
+
     logs(
-          () -> {
-            log("/Algae/Algae Pivot Motor Position", getPivotPosValue());
-            log("/Algae/Algae State", algaeState.toString());
-            log("/Algae/isAlgaeIntaking", algaeIntaking);
-            log("/Algae/algae counter", algaeCounter);
+        () -> {
+          log("Algae/Algae Pivot Motor Position", getPivotPosValue());
+          log("Algae/Algae State", algaeState.toString());
+          log("Algae/IsAlgaeIntaking", algaeIntaking);
+          log("Algae/Algae counter", algaeCounter);
+          log(
+              "Algae/Disconnected algaeManipulatorMotor " + algaePivotMotor.getDeviceID(),
+              algaePivotMotor.isConnected());
         });
   }
 
-  /** Sets the pivot state *
+  /**
+   * Sets the pivot state *
    *
    * @param state the state to set the algae pivot
    */
@@ -137,12 +145,6 @@ public class Algae extends SubsystemBase {
   public void initializeAlarms() {
     algaeManipulatorMotorDisconnectedAlert =
         new Alert("Disconnected end effector motor " + ALGAE_PIVOT_MOTOR_ID, kError);
-
-    algaeManipulatorMotorDisconnectedAlert.set(!algaePivotMotor.isConnected());
-
-    logs(
-        "Disconnected algaeManipulatorMotor " + algaePivotMotor.getDeviceID(),
-        algaePivotMotor.isConnected());
   }
 
   public void setIntakeSpeed(AlgaeStates state) {

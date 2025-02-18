@@ -118,14 +118,15 @@ public class PhotonModule {
 
   /**
    * Updates the estimated standard deviations based on the provided estimated pose and list of
-   * tracked targets.
-   * This method calculates the number of visible tags and their average 3D distance to the estimated pose.
-   * It then uses this information to adjust the standard deviations used for robot pose estimation.
+   * tracked targets. This method calculates the number of visible tags and their average 3D
+   * distance to the estimated pose. It then uses this information to adjust the standard deviations
+   * used for robot pose estimation.
+   *
    * @param estimatedPose
    * @param targets
    */
   public void updateEstimatedStdDevs3d(
-          Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
+      Optional<EstimatedRobotPose> estimatedPose, List<PhotonTrackedTarget> targets) {
     if (estimatedPose.isEmpty()) {
       currentStdDev3d = PhotonVisionConstants.SINGLE_TARGET_STD_DEV_3D;
       return;
@@ -156,12 +157,13 @@ public class PhotonModule {
 
     double avgDistance = totalDistance / numTags;
     var stdDevs =
-            (numTags > 1)
-                    ? PhotonVisionConstants.MULTI_TARGET_STD_DEV_3D
-                    : PhotonVisionConstants.SINGLE_TARGET_STD_DEV_3D;
+        (numTags > 1)
+            ? PhotonVisionConstants.MULTI_TARGET_STD_DEV_3D
+            : PhotonVisionConstants.SINGLE_TARGET_STD_DEV_3D;
 
     if (numTags == 1 && avgDistance > 4) {
-      currentStdDev3d = fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+      currentStdDev3d =
+          fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
     } else {
       currentStdDev3d = stdDevs.times(1 + (avgDistance * avgDistance / 30));
     }
@@ -184,6 +186,7 @@ public class PhotonModule {
   public Matrix<N4, N1> getCurrentStdDevs3d() {
     return currentStdDev3d;
   }
+
   /**
    * Gets the name of the camera associated with this module.
    *

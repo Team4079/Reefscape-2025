@@ -32,11 +32,9 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import java.util.Optional;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import org.photonvision.EstimatedRobotPose;
-
-import java.util.Optional;
 
 public class Swerve extends SubsystemBase {
   private final SwerveDrivePoseEstimator poseEstimator;
@@ -164,10 +162,10 @@ public class Swerve extends SubsystemBase {
   //
   private SwerveDrivePoseEstimator3d initializePoseEstimator3d() {
     return new SwerveDrivePoseEstimator3d(
-            kinematics,
-            pidgey.getRotation3d(),
-            getModulePositions(),
-            new Pose3d(0.0, 0.0, 0.0 , new Rotation3d(0.0, 0.0, 0.0)));
+        kinematics,
+        pidgey.getRotation3d(),
+        getModulePositions(),
+        new Pose3d(0.0, 0.0, 0.0, new Rotation3d(0.0, 0.0, 0.0)));
   }
 
   /**
@@ -204,8 +202,10 @@ public class Swerve extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    logs("/Swerve/Swerve Module States", getModuleStates());
     updatePos();
+    for (SwerveModule module : modules) {
+      module.setAlarms();
+    }
 
     /*
      * Updates the robot position based on movement and rotation from the pidgey and
@@ -218,13 +218,14 @@ public class Swerve extends SubsystemBase {
 
     logs(
         () -> {
-          log("/Swerve/Pidgey Yaw", getPidgeyYaw());
-          log("/Swerve/Pidgey Heading", getHeading());
-          log("/Swerve/Pidgey Rotation", pidgey.getPitch().getValueAsDouble());
-          log("/Swerve/Pidgey Roll", pidgey.getRoll().getValueAsDouble());
-          log("/Swerve/Pidgey Rotation2D", pidgey.getRotation2d().getDegrees());
-          log("/Swerve/Robot Pose", field.getRobotPose());
-          log("/Swerve/Robot Pose 3D", poseEstimator3d.getEstimatedPosition());
+          log("Swerve/Pidgey Yaw", getPidgeyYaw());
+          log("Swerve/Pidgey Heading", getHeading());
+          log("Swerve/Pidgey Rotation", pidgey.getPitch().getValueAsDouble());
+          log("Swerve/Pidgey Roll", pidgey.getRoll().getValueAsDouble());
+          log("Swerve/Pidgey Rotation2D", pidgey.getRotation2d().getDegrees());
+          log("Swerve/Robot Pose", field.getRobotPose());
+          log("Swerve/Robot Pose 3D", poseEstimator3d.getEstimatedPosition());
+          log("Swerve/Swerve Module States", getModuleStates());
         });
   }
 
@@ -248,9 +249,9 @@ public class Swerve extends SubsystemBase {
                   Pose2d visionMeasurement2d = pose.estimatedPose.toPose2d();
                   Pose3d visionMeasurement3d = pose.estimatedPose;
                   poseEstimator.addVisionMeasurement(
-                    visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
+                      visionMeasurement2d, timestamp, pair.getFirst().getCurrentStdDevs());
                   poseEstimator3d.addVisionMeasurement(
-                    visionMeasurement3d, timestamp, pair.getFirst().getCurrentStdDevs3d());
+                      visionMeasurement3d, timestamp, pair.getFirst().getCurrentStdDevs3d());
                   robotPos = poseEstimator.getEstimatedPosition();
                 }
               });
@@ -280,9 +281,9 @@ public class Swerve extends SubsystemBase {
       double forwardSpeed, double leftSpeed, double turnSpeed, boolean isFieldOriented) {
     logs(
         () -> {
-          log("/Swerve/Forward speed", forwardSpeed);
-          log("/Swerve/Left speed", leftSpeed);
-          log("/Swerve/Turn speed", turnSpeed);
+          log("Swerve/Forward speed", forwardSpeed);
+          log("Swerve/Left speed", leftSpeed);
+          log("Swerve/Turn speed", turnSpeed);
         });
 
     // Converts to a measure that the robot aktualy understands
@@ -291,7 +292,7 @@ public class Swerve extends SubsystemBase {
             ? fromFieldRelativeSpeeds(forwardSpeed, leftSpeed, turnSpeed, getPidgeyRotation())
             : new ChassisSpeeds(forwardSpeed, leftSpeed, turnSpeed);
 
-    logs("/Swerve/Chassis Speeds", speeds);
+    logs("Swerve/Chassis Speeds", speeds);
 
     speeds = discretize(speeds, 0.02);
 

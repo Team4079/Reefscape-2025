@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import static com.ctre.phoenix6.signals.InvertedValue.*;
 import static edu.wpi.first.wpilibj.Alert.AlertType.*;
+import static frc.robot.utils.ElevatorMotor.*;
 import static frc.robot.utils.ExtensionsKt.*;
 import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
@@ -208,7 +209,7 @@ public class Elevator extends SubsystemBase {
 
     // THIS IS JUST FOR TESTING, in reality, elevator set state is based on
     // what Jayden clicks which will be displayed on leds but not necessarily = currenState
-//    elevatorSetState = currentState;
+    //    elevatorSetState = currentState;
     setElevatorPosition(currentState);
 
     logs(
@@ -280,17 +281,11 @@ public class Elevator extends SubsystemBase {
    * @return double, the position of the elevator motor and -1.0 if the motor is not "left" or
    *     "right"
    */
-  public double getElevatorPosValue(String motor) {
-    if (motor.equalsIgnoreCase("left")) {
-      return elevatorMotorLeft.getPosition().getValueAsDouble();
-    } else if (motor.equalsIgnoreCase("right")) {
-      return elevatorMotorRight.getPosition().getValueAsDouble();
-    } else {
-      // This returns if the motor is not "left" or "right"
-      System.out.println(
-          "getElevatorPosValue: Invalid motor type, motor type should only be 'left' or 'right'");
-      return -1.0;
-    }
+  public double getElevatorPosValue(ElevatorMotor motor) {
+    return switch (motor) {
+      case LEFT -> elevatorMotorLeft.getPosition().getValueAsDouble();
+      case RIGHT -> elevatorMotorRight.getPosition().getValueAsDouble();
+    };
   }
 
   /**
@@ -299,7 +294,7 @@ public class Elevator extends SubsystemBase {
    * @return double, the average position of the elevator motors
    */
   public double getElevatorPosAvg() {
-    return (this.getElevatorPosValue("left") + this.getElevatorPosValue("right")) / 2;
+    return (this.getElevatorPosValue(LEFT) + this.getElevatorPosValue(RIGHT)) / 2;
   }
 
   /** Soft resets the encoders on the elevator motors */

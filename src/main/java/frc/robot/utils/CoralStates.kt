@@ -23,5 +23,5 @@ enum class CoralStates {
     ALGAE_HOLD,
 
     /** Represents the state when the coral manipulator is releasing algae. */
-    ALGAE_RELEASE
+    ALGAE_RELEASE,
 }

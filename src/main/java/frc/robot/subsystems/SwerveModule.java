@@ -46,6 +46,10 @@ public class SwerveModule {
   private NetworkPingu networkPinguDrive;
   private NetworkPingu networkPinguSteer;
 
+  private Alert disconnectedDriveMotor;
+  private Alert disconnectedSteerMotor;
+  private Alert disconnectedCANCoder;
+
   /**
    * Constructs a new SwerveModule.
    *
@@ -103,7 +107,8 @@ public class SwerveModule {
      * is straight!
      */
     canCoderConfiguration.MagnetSensor.SensorDirection = CounterClockwise_Positive;
-    canCoderConfiguration.MagnetSensor.MagnetOffset = ENCODER_OFFSET + canCoderDriveStraightSteerSetPoint;
+    canCoderConfiguration.MagnetSensor.MagnetOffset =
+        ENCODER_OFFSET + canCoderDriveStraightSteerSetPoint;
     canCoderConfiguration.MagnetSensor.AbsoluteSensorDiscontinuityPoint = 1;
 
     driveMotor.getConfigurator().apply(driveConfigs);
@@ -144,7 +149,8 @@ public class SwerveModule {
    */
   public SwerveModuleState getState() {
     state.angle = fromRotations(canCoder.getAbsolutePosition().getValueAsDouble());
-    state.speedMetersPerSecond = driveMotor.getRotorVelocity().getValueAsDouble() / DRIVE_MOTOR_GEAR_RATIO * METERS_PER_REV;
+    state.speedMetersPerSecond =
+        driveMotor.getRotorVelocity().getValueAsDouble() / DRIVE_MOTOR_GEAR_RATIO * METERS_PER_REV;
     return state;
   }
 
@@ -155,8 +161,7 @@ public class SwerveModule {
    */
   public void setState(SwerveModuleState desiredState) {
     // Get the current angle
-    Rotation2d currentAngle =
-        fromRotations(canCoder.getAbsolutePosition().getValueAsDouble());
+    Rotation2d currentAngle = fromRotations(canCoder.getAbsolutePosition().getValueAsDouble());
 
     // Optimize the desired state based on current angle
     desiredState.optimize(currentAngle);
@@ -167,18 +172,17 @@ public class SwerveModule {
 
     // Set the velocity for the drive motor
     double velocityToSet =
-        (desiredState.speedMetersPerSecond
-            * (DRIVE_MOTOR_GEAR_RATIO / METERS_PER_REV));
+        (desiredState.speedMetersPerSecond * (DRIVE_MOTOR_GEAR_RATIO / METERS_PER_REV));
     driveMotor.setControl(velocitySetter.withVelocity(velocityToSet));
 
     // Log the actual and set values for debugging
     logs(
         () -> {
-          log("drive actual sped", driveMotor.getVelocity().getValueAsDouble());
-          log("drive set sped", velocityToSet);
-          log("steer actual angle", canCoder.getAbsolutePosition().getValueAsDouble());
-          log("steer set angle", angleToSet);
-          log("desired state after optimize", desiredState.angle.getRotations());
+          log("Swerve/Drive actual sped", driveMotor.getVelocity().getValueAsDouble());
+          log("Swerve/Drive set sped", velocityToSet);
+          log("Swerve/Steer actual angle", canCoder.getAbsolutePosition().getValueAsDouble());
+          log("Swerve/Steer set angle", angleToSet);
+          log("Swerve/Desired state after optimize", desiredState.angle.getRotations());
         });
 
     // Update the state with the optimized values
@@ -279,8 +283,15 @@ public class SwerveModule {
    * @param canCoderId The ID of the CANcoder.
    */
   public void initializeAlarms(int driveId, int steerId, int canCoderId) {
-    new Alert("Disconnected drive motor " + driveId, kError).set(!driveMotor.isConnected());
-    new Alert("Disconnected turn motor " + steerId, kError).set(!steerMotor.isConnected());
-    new Alert("Disconnected CANCoder " + canCoderId, kError).set(!canCoder.isConnected());
+    disconnectedDriveMotor = new Alert("Disconnected drive motor " + driveId, kError);
+    disconnectedSteerMotor = new Alert("Disconnected turn motor " + steerId, kError);
+    disconnectedCANCoder = new Alert("Disconnected CANCoder " + canCoderId, kError);
+  }
+
+  /** Sets the alarms for disconnected components. */
+  public void setAlarms() {
+    disconnectedDriveMotor.set(!driveMotor.isConnected());
+    disconnectedSteerMotor.set(!steerMotor.isConnected());
+    disconnectedCANCoder.set(!canCoder.isConnected());
   }
 }
