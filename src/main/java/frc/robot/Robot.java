@@ -1,6 +1,5 @@
 package frc.robot;
 
-import static edu.wpi.first.hal.PowerDistributionJNI.clearStickyFaults;
 import static edu.wpi.first.wpilibj.RobotController.*;
 import static edu.wpi.first.wpilibj.Threads.*;
 import static frc.robot.utils.RobotParameters.LiveRobotValues.*;
@@ -63,9 +62,9 @@ public class Robot extends LoggedRobot {
       // Enables power distribution logging
       new PowerDistribution(1, ModuleType.kRev);
 
-//      for (int i = 1; i <= 19; i++) {
-//        clearStickyFaults(i);
-//      }
+      //      for (int i = 1; i <= 19; i++) {
+      //        clearStickyFaults(i);
+      //      }
 
     } else {
       // Run as fast as possible

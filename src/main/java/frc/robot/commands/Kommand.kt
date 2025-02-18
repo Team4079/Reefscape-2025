@@ -6,7 +6,9 @@ import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.wpilibj.XboxController
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.InstantCommand
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup
 import edu.wpi.first.wpilibj2.command.WaitCommand
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand
 import frc.robot.commands.sequencing.AutomaticScore
 import frc.robot.subsystems.Coral
 import frc.robot.subsystems.Elevator
@@ -18,6 +20,7 @@ import frc.robot.utils.ElevatorState.L4
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters.isCoralIntaking
 import frc.robot.utils.RobotParameters.SwerveParameters
 import frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.PATH_CONSTRAINTS
+import kotlin.math.abs
 
 /**
  * The [Kommand] object provides factory methods to create various commands
@@ -44,8 +47,22 @@ object Kommand {
     @JvmStatic
     fun setElevatorState(state: ElevatorState) = cmd { Elevator.getInstance().state = state }
 
+    /**
+     * Creates a [SequentialCommandGroup] to move the elevator to a specified state.
+     *
+     * @param state The desired state of the elevator.
+     * @return A [SequentialCommandGroup] that moves the elevator to the specified state.
+     */
     @JvmStatic
-    fun moveToElevatorState(state: ElevatorState) = MoveElevatorState(state)
+    fun moveElevatorState(state: ElevatorState) =
+        SequentialCommandGroup(
+            InstantCommand({
+                Elevator.getInstance().state = state
+            }, Elevator.getInstance()),
+            WaitUntilCommand {
+                abs(Elevator.getInstance().elevatorPosAvg - state.pos) < 0.3
+            },
+        )
 
     /**
      * Creates an [InstantCommand] to set the state of the coral manipulator.

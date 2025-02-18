@@ -7,11 +7,8 @@ import static frc.robot.utils.RobotParameters.PhotonVisionConstants.*;
 import edu.wpi.first.apriltag.*;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.net.PortForwarder;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import java.io.IOException;
 import java.util.*;
-import java.util.function.*;
 import kotlin.*;
 import org.photonvision.targeting.*;
 
@@ -30,21 +27,13 @@ public class PhotonVision extends SubsystemBase {
   private double y = 0.0;
   private double dist = 0.0;
   private int logCount = 0;
-  public Supplier<List<Pair<PhotonModule, PhotonPipelineResult>>> resultPairs =
-      () -> getDecentResultPairs(cameras);
-  public List<PhotonPipelineResult> resultCamera;
   private List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair;
-  private Timer timer;
 
   // Singleton instance
   private static final PhotonVision INSTANCE;
 
   static {
-    try {
-      INSTANCE = new PhotonVision();
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    INSTANCE = new PhotonVision();
   }
 
   /**
@@ -63,10 +52,7 @@ public class PhotonVision extends SubsystemBase {
    * class is a Singleton. Code should use the {@link #getInstance()} method to get the singleton
    * instance.
    */
-  private PhotonVision() throws IOException {
-    //    AprilTagFieldLayout fieldLayout =
-    // AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
-    //      ^ FUCK THIS LINE OF CODE IT BREAKS THE MEMORY ERRORS AND EVEYRTHING IT SUCKS
+  private PhotonVision() {
     //
     //    _____                                    _                    _
     //   |_   _|                                  | |                  | |
@@ -76,22 +62,14 @@ public class PhotonVision extends SubsystemBase {
     //   |_____| |_| |_| |_| | .__/  \___/ |_|     \__  \__,_| |_| |_| \___|
     //                       | |
     //                       |_|
-
-    //  AprilTagFieldLayout fieldLayout =
-
-    // First camera setup
-    Transform3d c1pos = createCameraPos(-0.35, 0.35, CAMERA_ONE_HEIGHT_METER, CAMERA_ONE_ANGLE_DEG);
-    //    Transform3d c2pos = createCameraPos(0.31, 0.0, CAMERA_TWO_HEIGHT_METER,
-    // CAMERA_TWO_ANGLE_DEG);
+    //
     cameras.add(
         new PhotonModule(
             "RightCamera",
-            c1pos,
+            new Transform3d(
+                new Translation3d(0.35, 0.35, CAMERA_ONE_HEIGHT_METER),
+                new Rotation3d(0.0, Math.toRadians(-25), Math.toRadians(CAMERA_ONE_ANGLE_DEG))),
             AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded)));
-    //    cameras.add(new PhotonModule("Camera2", c2pos,
-
-    timer = new Timer();
-    timer.start();
 
     currentResultPair = new ArrayList<>();
 
@@ -104,7 +82,7 @@ public class PhotonVision extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    currentResultPair = resultPairs.get();
+    currentResultPair = getDecentResultPairs(cameras);
 
     logs(
         () -> {
@@ -155,14 +133,7 @@ public class PhotonVision extends SubsystemBase {
    * @return true if there is a visible tag and the current result pair is not null
    */
   public boolean hasTag() {
-    //    List<Pair<PhotonModule, PhotonPipelineResult>> currentResultPair = resultPairs.get();
-
-    logs(
-        () -> {
-          log("Photonvision/Pairs get", resultPairs.get().isEmpty());
-          log("Photonvision/resultPairs length", resultPairs.get().size());
-          log("Photonvision/currentResultPair not null", currentResultPair != null);
-        });
+    logs("Photonvision/currentResultPair not null", currentResultPair != null);
 
     if (currentResultPair != null) {
       logs("Photonvision/hasTargets currentResultPair", hasTargets(currentResultPair));
@@ -210,21 +181,6 @@ public class PhotonVision extends SubsystemBase {
                 logs(
                     "Photonvision/Camera %s Std Dev NormF".formatted(camera.getCameraName()),
                     camera.getCurrentStdDevs().normF()));
-  }
-
-  /**
-   * Creates a new {@link Transform3d} object representing the position and orientation of a camera.
-   *
-   * @param x The X position of the camera in meters.
-   * @param y The Y position of the camera in meters.
-   * @param height The height of the camera in meters.
-   * @param angleDeg The angle of the camera in degrees.
-   * @return A {@link Transform3d} object representing the camera's position and orientation.
-   */
-  public static Transform3d createCameraPos(double x, double y, double height, double angleDeg) {
-    return new Transform3d(
-        new Translation3d(x, y, height),
-        new Rotation3d(0.0, Math.toRadians(-40), Math.toRadians(0.0)));
   }
 
   public List<Pair<PhotonModule, PhotonPipelineResult>> getResultPairs() {

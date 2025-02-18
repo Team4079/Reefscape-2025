@@ -239,7 +239,7 @@ object RobotParameters {
         val CORAL_FEEDER_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
 
         @JvmField
-        var coralState: CoralState = CoralState.CORAL_HOLD;
+        var coralState: CoralState = CoralState.CORAL_HOLD
 
         @JvmField
         var hasPiece: Boolean = true
