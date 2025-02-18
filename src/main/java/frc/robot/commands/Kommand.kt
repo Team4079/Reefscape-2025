@@ -11,7 +11,7 @@ import frc.robot.commands.sequencing.AutomaticScore
 import frc.robot.subsystems.Coral
 import frc.robot.subsystems.Elevator
 import frc.robot.subsystems.Swerve
-import frc.robot.utils.CoralStates
+import frc.robot.utils.CoralState
 import frc.robot.utils.Direction
 import frc.robot.utils.ElevatorState
 import frc.robot.utils.ElevatorState.L4
@@ -54,7 +54,7 @@ object Kommand {
      * @return An [InstantCommand] that sets the coral manipulator state.
      */
     @JvmStatic
-    fun setCoralState(state: CoralStates) = cmd { Coral.getInstance().setState(state) }
+    fun setCoralState(state: CoralState) = cmd { Coral.getInstance().setState(state) }
 
     /**
      * Creates an [InstantCommand] to start the coral manipulator motors.

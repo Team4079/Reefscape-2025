@@ -12,7 +12,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.AlgaeStates;
+import frc.robot.utils.AlgaeState;
 import frc.robot.utils.RobotParameters.*;
 
 /**
@@ -129,7 +129,7 @@ public class Algae extends SubsystemBase {
    *
    * @param state the state to set the algae pivot
    */
-  public void setPivotPos(AlgaeStates state) {
+  public void setPivotPos(AlgaeState state) {
     algaePivotMotor.setControl(voltagePos.withPosition(state.pos));
   }
 
@@ -147,7 +147,7 @@ public class Algae extends SubsystemBase {
         new Alert("Disconnected end effector motor " + ALGAE_PIVOT_MOTOR_ID, kError);
   }
 
-  public void setIntakeSpeed(AlgaeStates state) {
+  public void setIntakeSpeed(AlgaeState state) {
     voltageOut.Output = state.intakeSpeed;
     algaeIntakeMotor.setControl(voltageOut);
   }

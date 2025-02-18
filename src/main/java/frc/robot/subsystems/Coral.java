@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import static edu.wpi.first.wpilibj.Alert.AlertType.*;
+import static frc.robot.utils.CoralState.*;
 import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.AlgaeManipulatorParameters.algaeIntaking;
 import static frc.robot.utils.RobotParameters.CoralManipulatorParameters.*;
@@ -19,7 +20,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.CoralStates;
+import frc.robot.utils.CoralState;
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters;
 
 public class Coral extends SubsystemBase {
@@ -124,15 +125,15 @@ public class Coral extends SubsystemBase {
   @Override
   public void periodic() {
     if (isCoralIntaking && !algaeIntaking) {
-      if (!getCoralSensor() && !CoralManipulatorParameters.hasPiece) {
-        coralState = CoralStates.CORAL_INTAKE;
-      } else if (getCoralSensor() && !CoralManipulatorParameters.hasPiece) {
+      if (!getCoralSensor() && !hasPiece) {
+        coralState = CORAL_INTAKE;
+      } else if (getCoralSensor() && !hasPiece) {
         // Stop the motors if the manipulator has a piece, but the sensor no longer
         // detects it
-        coralState = CoralStates.CORAL_SLOW;
+        coralState = CORAL_SLOW;
         setHasPiece(true);
-      } else if (!getCoralSensor() && CoralManipulatorParameters.hasPiece) {
-        coralState = CoralStates.CORAL_HOLD;
+      } else if (!getCoralSensor() && hasPiece) {
+        coralState = CORAL_HOLD;
         isCoralIntaking = false;
       }
     }
@@ -140,7 +141,7 @@ public class Coral extends SubsystemBase {
         () -> {
           log("Coral/isCoralIntaking", isCoralIntaking);
           log("Coral/Coral Sensor", getCoralSensor());
-          log("Coral/Has Piece", CoralManipulatorParameters.hasPiece);
+          log("Coral/Has Piece", hasPiece);
           log("Coral/motorsRunning", this.motorsRunning);
           log("Coral/Coral State", coralState.toString());
         });
@@ -259,7 +260,7 @@ public class Coral extends SubsystemBase {
    *
    * @param state The state to set the coral manipulator to
    */
-  public void setState(CoralStates state) {
+  public void setState(CoralState state) {
     coralState = state;
   }
 }

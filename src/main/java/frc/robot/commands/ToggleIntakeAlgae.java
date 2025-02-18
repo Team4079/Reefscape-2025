@@ -6,8 +6,8 @@ import static frc.robot.utils.RobotParameters.CoralManipulatorParameters.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.Coral;
-import frc.robot.utils.AlgaeStates;
-import frc.robot.utils.CoralStates;
+import frc.robot.utils.AlgaeState;
+import frc.robot.utils.CoralState;
 
 public class ToggleIntakeAlgae extends Command {
   private final Algae algae = Algae.getInstance();
@@ -23,17 +23,17 @@ public class ToggleIntakeAlgae extends Command {
   public void initialize() {
     if (algaeCounter == 0) {
       algaeIntaking = true;
-      algaeState = AlgaeStates.DOWN;
-      coralState = CoralStates.ALGAE_INTAKE;
+      algaeState = AlgaeState.DOWN;
+      coralState = CoralState.ALGAE_INTAKE;
     } else if (algaeCounter == 1) {
-      algaeState = AlgaeStates.HOLD;
-      coralState = CoralStates.ALGAE_HOLD;
+      algaeState = AlgaeState.HOLD;
+      coralState = CoralState.ALGAE_HOLD;
     } else if (algaeCounter == 2) {
-      algaeState = AlgaeStates.RELEASE;
-      coralState = CoralStates.ALGAE_RELEASE;
+      algaeState = AlgaeState.RELEASE;
+      coralState = CoralState.ALGAE_RELEASE;
     } else if (algaeCounter == 3) {
-      algaeState = AlgaeStates.UP;
-      coralState = CoralStates.CORAL_INTAKE;
+      algaeState = AlgaeState.UP;
+      coralState = CoralState.CORAL_INTAKE;
       algaeIntaking = false;
       algaeCounter = -1;
     }

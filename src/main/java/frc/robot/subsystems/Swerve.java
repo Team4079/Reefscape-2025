@@ -48,19 +48,19 @@ public class Swerve extends SubsystemBase {
 
   private LoggedDashboardChooser reefChooser;
 
-  //  Thread swerveLoggingThread =
-  //      new Thread(
-  //          () -> {
-  //            while (DriverStation.isEnabled()) {
-  //              logs("Swerve Module States", getModuleStates());
-  //              try {
-  //                Thread.sleep(100);
-  //              } catch (InterruptedException e) {
-  //                Thread.currentThread().interrupt();
-  //                break;
-  //              }
-  //            }
-  //          });
+    Thread swerveLoggingThread =
+        new Thread(
+            () -> {
+              while (DriverStation.isEnabled()) {
+                logs("Swerve Module States", getModuleStates());
+                try {
+                  Thread.sleep(100);
+                } catch (InterruptedException e) {
+                  Thread.currentThread().interrupt();
+                  break;
+                }
+              }
+            });
   //
   //  Thread swerveLoggingThreadBeforeSet =
   //      new Thread(
@@ -114,7 +114,7 @@ public class Swerve extends SubsystemBase {
     initializePathPlannerLogging();
     photonVision = PhotonVision.getInstance();
 
-    //    swerveLoggingThread.start();
+        swerveLoggingThread.start();
     //    swerveLoggingThreadBeforeSet.start();
 
     //    try {
@@ -225,7 +225,7 @@ public class Swerve extends SubsystemBase {
           log("Swerve/Pidgey Rotation2D", pidgey.getRotation2d().getDegrees());
           log("Swerve/Robot Pose", field.getRobotPose());
           log("Swerve/Robot Pose 3D", poseEstimator3d.getEstimatedPosition());
-          log("Swerve/Swerve Module States", getModuleStates());
+//          log("Swerve/Swerve Module States", getModuleStates());
         });
   }
 

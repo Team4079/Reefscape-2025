@@ -3,7 +3,7 @@ package frc.robot.utils
 /**
  * Enum class representing the states of the coral manipulator.
  */
-enum class CoralStates {
+enum class CoralState {
     /** Represents the state when the coral manipulator is intaking a coral piece. */
     CORAL_INTAKE,
 

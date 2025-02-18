@@ -221,7 +221,7 @@ object RobotParameters {
         var isSoftLimitEnabled: Boolean = false
 
         @JvmField
-        var algaeState: AlgaeStates = AlgaeStates.UP
+        var algaeState: AlgaeState = AlgaeState.UP
 
         @JvmField
         var algaeIntaking: Boolean = false
@@ -237,7 +237,7 @@ object RobotParameters {
         val CORAL_FEEDER_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
 
         @JvmField
-        var coralState: CoralStates = CoralStates.CORAL_INTAKE
+        var coralState: CoralState = CoralState.CORAL_INTAKE
 
         @JvmField
         var hasPiece: Boolean = false

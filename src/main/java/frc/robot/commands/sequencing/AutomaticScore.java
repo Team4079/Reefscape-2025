@@ -17,7 +17,7 @@ public class AutomaticScore extends SequentialCommandGroup {
     addCommands(
         //        align(offsetSide),
         moveToElevatorState(state),
-        setCoralState(CoralStates.CORAL_RELEASE),
+        setCoralState(CoralState.CORAL_RELEASE),
         waitCmd(0.15),
         setElevatorState(DEFAULT),
         coralIntaking());
