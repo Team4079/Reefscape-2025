@@ -77,7 +77,7 @@ public class LED extends SubsystemBase {
     if (DriverStation.isEnabled()) {
       switch (elevatorSetState) {
         case DEFAULT:
-          ledState = LEDState.RAINBOW_FLOW;
+          ledState = LEDState.ROBONAUT;
           break;
         case L1:
           ledState = LEDState.HIGHTIDE_FLOW;
