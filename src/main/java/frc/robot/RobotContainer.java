@@ -91,8 +91,8 @@ public class RobotContainer {
     // For calamityCow
     Register.bindings(
             calamityCowButtons,
-        // THESE ARE PLACEHOLDERS!!!
-        bind(START, resetPidgey()),
-        bind(B, setElevatorState(DEFAULT)));
+        // THESE ARE PLACEHOLDERS!!! pls om do not delete for real
+        // i dont wanna rewrite this when jayden needs an actual button
+        bind(A, waitCmd(1)));
   }
 }
