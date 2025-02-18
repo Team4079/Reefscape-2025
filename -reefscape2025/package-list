@@ -23,7 +23,7 @@ $dokka.location:frc.robot.commands/Kommand/cmd/#kotlin.Function0[kotlin.Unit]/Po
 $dokka.location:frc.robot.commands/Kommand/coralIntaking/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/coral-intaking.html
 $dokka.location:frc.robot.commands/Kommand/createPathfindingCmd/#edu.wpi.first.math.geometry.Pose2d#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/create-pathfinding-cmd.html
 $dokka.location:frc.robot.commands/Kommand/drive/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/drive.html
-$dokka.location:frc.robot.commands/Kommand/moveToElevatorState/#frc.robot.utils.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/move-to-elevator-state.html
+$dokka.location:frc.robot.commands/Kommand/moveElevatorState/#frc.robot.utils.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/move-elevator-state.html
 $dokka.location:frc.robot.commands/Kommand/padElevator/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/pad-elevator.html
 $dokka.location:frc.robot.commands/Kommand/resetPidgey/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/reset-pidgey.html
 $dokka.location:frc.robot.commands/Kommand/reverseIntake/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/reverse-intake.html
@@ -36,12 +36,6 @@ $dokka.location:frc.robot.commands/Kommand/startCoralManipulator/#/PointingToDec
 $dokka.location:frc.robot.commands/Kommand/startCoralMotors/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/start-coral-motors.html
 $dokka.location:frc.robot.commands/Kommand/stopCoralManipulator/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/stop-coral-manipulator.html
 $dokka.location:frc.robot.commands/Kommand/waitCmd/#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/wait-cmd.html
-$dokka.location:frc.robot.commands/MoveElevatorState///PointingToDeclaration/-reefscape2025/frc.robot.commands/-move-elevator-state/index.html
-$dokka.location:frc.robot.commands/MoveElevatorState/MoveElevatorState/#frc.robot.utils.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands/-move-elevator-state/-move-elevator-state.html
-$dokka.location:frc.robot.commands/MoveElevatorState/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands/-move-elevator-state/end.html
-$dokka.location:frc.robot.commands/MoveElevatorState/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-move-elevator-state/execute.html
-$dokka.location:frc.robot.commands/MoveElevatorState/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-move-elevator-state/initialize.html
-$dokka.location:frc.robot.commands/MoveElevatorState/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-move-elevator-state/is-finished.html
 $dokka.location:frc.robot.commands/PadDrive///PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/index.html
 $dokka.location:frc.robot.commands/PadDrive/PadDrive/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/-pad-drive.html
 $dokka.location:frc.robot.commands/PadDrive/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/execute.html
@@ -134,7 +128,6 @@ $dokka.location:frc.robot.subsystems/PhotonModule/getPoseEstimator/#/PointingToD
 $dokka.location:frc.robot.subsystems/PhotonModule/updateEstimatedStdDevs/#java.util.Optional<org.photonvision.EstimatedRobotPose>#java.util.List<org.photonvision.targeting.PhotonTrackedTarget>/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/update-estimated-std-devs.html
 $dokka.location:frc.robot.subsystems/PhotonModule/updateEstimatedStdDevs3d/#java.util.Optional<org.photonvision.EstimatedRobotPose>#java.util.List<org.photonvision.targeting.PhotonTrackedTarget>/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-module/update-estimated-std-devs3d.html
 $dokka.location:frc.robot.subsystems/PhotonVision///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/index.html
-$dokka.location:frc.robot.subsystems/PhotonVision/createCameraPos/#double#double#double#double/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/create-camera-pos.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getDist/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-dist.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-instance.html
 $dokka.location:frc.robot.subsystems/PhotonVision/getResultPairs/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-photon-vision/get-result-pairs.html
