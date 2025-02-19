@@ -1,13 +1,13 @@
 package frc.robot.subsystems;
 
-import static frc.robot.utils.Register.Dash.log;
-import static frc.robot.utils.Register.Dash.logs;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
+import static frc.robot.utils.pingu.LogPingu.log;
+import static frc.robot.utils.pingu.LogPingu.logs;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.emu.LEDState;
 import frc.robot.utils.RobotParameters.*;
+import frc.robot.utils.emu.LEDState;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;

@@ -1,11 +1,10 @@
 package frc.robot;
 
 import static frc.robot.commands.Kommand.*;
-import static frc.robot.utils.RobotParameters.ElevatorParameters.elevatorToBeSetState;
+import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
 import static frc.robot.utils.emu.Button.*;
 import static frc.robot.utils.emu.Direction.*;
 import static frc.robot.utils.emu.ElevatorState.*;
-import static frc.robot.utils.Register.*;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import edu.wpi.first.wpilibj.*;
@@ -13,7 +12,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.subsystems.*;
-import frc.robot.utils.*;
 import frc.robot.utils.emu.*;
 import frc.robot.utils.pingu.*;
 import java.util.EnumMap;
@@ -41,25 +39,29 @@ public class RobotContainer {
     Elevator.getInstance().setDefaultCommand(padElevator(aacrn));
     Coral.getInstance();
     Swerve.getInstance().setDefaultCommand(drive(aacrn));
-    AlertPingu.INSTANCE.getSubsystem();
 
     Button.getEntries()
-        .forEach(button -> aacrnButtons.put(button, new JoystickButton(aacrn, button.getButtonNumber())));
+        .forEach(
+            button ->
+                aacrnButtons.put(button, new JoystickButton(aacrn, button.getButtonNumber())));
 
     Button.getEntries()
-        .forEach(button -> calamityCowButtons.put(button, new JoystickButton(calamityCow, button.getButtonNumber())));
+        .forEach(
+            button ->
+                calamityCowButtons.put(
+                    button, new JoystickButton(calamityCow, button.getButtonNumber())));
 
     networkChooser = AutoBuilder.buildAutoChooser();
 
     configureBindings();
 
-    Register.commands(
-        cmd("scoreLeft", score(LEFT)),
-        cmd("scoreRight", score(RIGHT)),
-        cmd("SetL1", setElevatorState(L1)),
-        cmd("SetL2", setElevatorState(L2)),
-        cmd("SetL3", setElevatorState(L3)),
-        cmd("SetL4", setElevatorState(L4)));
+    new CommandPingu()
+        .bind("scoreLeft", score(LEFT))
+        .bind("scoreRight", score(RIGHT))
+        .bind("SetL1", setElevatorState(L1))
+        .bind("SetL2", setElevatorState(L2))
+        .bind("SetL3", setElevatorState(L3))
+        .bind("SetL4", setElevatorState(L4));
 
     //    networkChooser.addDefaultOption("Straight Auto", new PathPlannerAuto("Straight Auto"));
     //    networkChooser.addOption("Straight Auto", new InstantCommand());
@@ -72,27 +74,19 @@ public class RobotContainer {
    * CommandPS4Controller} controllers or {@link CommandJoystick}.
    */
   private void configureBindings() {
-    // For aacrn
-    Register.bindings(
-            aacrnButtons,
-        bind(START, resetPidgey()),
-        bind(B, setElevatorState(DEFAULT)),
-        //        bind(B, align(CENTER).onlyWhile(pad::getAButton)),
-        //        bind(B, align(LEFT)),
-        bind(A, setIntakeAlgae()),
-        bind(Y, startCoralMotors()),
-        //        bind(A, align(RIGHT)),
-        // TODO: PLEASE TEST
-        //                bind(B, createPathfindingCmd(reefs.get(0))),
-        bind(LEFT_BUMPER, score(LEFT, elevatorToBeSetState)),
-        bind(RIGHT_BUMPER, score(RIGHT, elevatorToBeSetState)),
-        bind(X, reverseIntake().onlyWhile(aacrn::getXButton)));
+    new Bingu(aacrnButtons)
+        .bind(START, resetPidgey())
+        .bind(B, setElevatorState(DEFAULT))
+        //      .bind(B, align(CENTER).onlyWhile(pad::getAButton))
+        //      .bind(B, align(LEFT))
+        //      .bind(B, createPathfindingCmd(reefs.get(0)))
+        .bind(A, setIntakeAlgae())
+        //      .bind(A, align(RIGHT))
+        .bind(Y, startCoralMotors())
+        .bind(LEFT_BUMPER, score(LEFT, elevatorToBeSetState))
+        .bind(RIGHT_BUMPER, score(RIGHT, elevatorToBeSetState))
+        .bind(X, reverseIntake().onlyWhile(aacrn::getXButton));
 
-    // For calamityCow
-    Register.bindings(
-            calamityCowButtons,
-        // THESE ARE PLACEHOLDERS!!! pls om do not delete for real
-        // i dont wanna rewrite this when jayden needs an actual button
-        bind(A, waitCmd(1)));
+    new Bingu(calamityCowButtons).bind(A, waitCmd(1));
   }
 }

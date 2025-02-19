@@ -1,8 +1,8 @@
 package frc.robot.commands;
 
-import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
+import static frc.robot.utils.pingu.LogPingu.*;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;

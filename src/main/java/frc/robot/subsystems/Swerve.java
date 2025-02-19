@@ -7,11 +7,11 @@ import static edu.wpi.first.math.kinematics.ChassisSpeeds.*;
 import static edu.wpi.first.math.kinematics.SwerveDriveKinematics.*;
 import static edu.wpi.first.math.util.Units.*;
 import static frc.robot.utils.ExtensionsKt.*;
-import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PhysicalParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
+import static frc.robot.utils.pingu.LogPingu.*;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;

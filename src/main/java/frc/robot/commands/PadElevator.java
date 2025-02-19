@@ -1,9 +1,8 @@
 package frc.robot.commands;
 
-import static frc.robot.commands.Kommand.setElevatorState;
-import static frc.robot.utils.emu.ElevatorState.*;
-import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
+import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
+import static frc.robot.utils.emu.ElevatorState.*;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -35,27 +34,27 @@ public class PadElevator extends Command {
     //    Pair<Double, Double> position = positionSet(pad);
     //    Elevator.getInstance().moveElevator(position.getSecond());
 
-//    if (checkDPad(0)) {
-//      setElevatorState(L4).schedule();
-//    } else if (checkDPad(2)) {
-//      setElevatorState(ALGAE).schedule();
-//    } else if (checkDPad(4)) {
-//      setElevatorState(L2).schedule();
-//    } else if (checkDPad(6)) {
-//      setElevatorState(L1).schedule();
-//    }
+    //    if (checkDPad(0)) {
+    //      setElevatorState(L4).schedule();
+    //    } else if (checkDPad(2)) {
+    //      setElevatorState(ALGAE).schedule();
+    //    } else if (checkDPad(4)) {
+    //      setElevatorState(L2).schedule();
+    //    } else if (checkDPad(6)) {
+    //      setElevatorState(L1).schedule();
+    //    }
 
     // THIS IS WHEN WE HAVE TWO CONTROLLERS,
     // JAYDEN WILL CLICK A DPAD AND AUTOSCORE TAKES THIS VARIABLES AND GOES TO THAT HEIGHT
-        if (checkDPad(0)) {
-          elevatorToBeSetState = L4;
-        } else if (checkDPad(2)) {
-          elevatorToBeSetState = L3;
-        } else if (checkDPad(4)) {
-          elevatorToBeSetState = L2;
-        } else if (checkDPad(6)) {
-          elevatorToBeSetState = L1;
-        }
+    if (checkDPad(0)) {
+      elevatorToBeSetState = L4;
+    } else if (checkDPad(2)) {
+      elevatorToBeSetState = L3;
+    } else if (checkDPad(4)) {
+      elevatorToBeSetState = L2;
+    } else if (checkDPad(6)) {
+      elevatorToBeSetState = L1;
+    }
   }
 
   /**

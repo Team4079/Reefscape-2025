@@ -7,7 +7,8 @@ import frc.robot.subsystems.Elevator;
 public class Calibration extends Command {
 
   private Algae algae = Algae.getInstance();
-    private Elevator elevator = Elevator.getInstance();
+  private Elevator elevator = Elevator.getInstance();
+
   public Calibration() {
     // each subsystem used by the command must be passed into the
     // addRequirements() method (which takes a vararg of Subsystem)

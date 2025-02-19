@@ -17,10 +17,10 @@ import edu.wpi.first.units.Units.Feet
 import edu.wpi.first.units.Units.Inches
 import edu.wpi.first.units.measure.Distance
 import edu.wpi.first.wpilibj.DriverStation
-import frc.robot.utils.Register.Dash.metaLogs
 import frc.robot.utils.emu.AlgaePivotState
 import frc.robot.utils.emu.CoralState
 import frc.robot.utils.emu.ElevatorState
+import frc.robot.utils.pingu.LogPingu.metaLogs
 import frc.robot.utils.pingu.MagicPingu
 import frc.robot.utils.pingu.Pingu
 

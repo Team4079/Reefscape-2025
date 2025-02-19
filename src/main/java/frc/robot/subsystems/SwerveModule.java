@@ -3,10 +3,10 @@ package frc.robot.subsystems;
 import static com.ctre.phoenix6.signals.SensorDirectionValue.*;
 import static edu.wpi.first.math.geometry.Rotation2d.*;
 import static frc.robot.utils.ExtensionsKt.*;
-import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
+import static frc.robot.utils.pingu.LogPingu.*;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;

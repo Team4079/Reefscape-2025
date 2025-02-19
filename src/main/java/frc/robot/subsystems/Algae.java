@@ -1,8 +1,8 @@
 package frc.robot.subsystems;
 
-import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.AlgaeManipulatorParameters.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
+import static frc.robot.utils.pingu.LogPingu.*;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
@@ -10,8 +10,8 @@ import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.emu.AlgaePivotState;
 import frc.robot.utils.RobotParameters.*;
+import frc.robot.utils.emu.AlgaePivotState;
 import frc.robot.utils.pingu.*;
 
 /**
@@ -118,9 +118,15 @@ public class Algae extends SubsystemBase {
           log(
               "Algae/Disconnected algaeManipulatorMotor " + algaePivotMotor.getDeviceID(),
               algaePivotMotor.isConnected());
-          log("Algae/Algae Pivot Stator Current", algaePivotMotor.getStatorCurrent().getValueAsDouble());
-          log("Algae/Algae Pivot Supply Current", algaePivotMotor.getSupplyCurrent().getValueAsDouble());
-          log("Algae/Algae Pivot Stall Current", algaePivotMotor.getMotorStallCurrent().getValueAsDouble());
+          log(
+              "Algae/Algae Pivot Stator Current",
+              algaePivotMotor.getStatorCurrent().getValueAsDouble());
+          log(
+              "Algae/Algae Pivot Supply Current",
+              algaePivotMotor.getSupplyCurrent().getValueAsDouble());
+          log(
+              "Algae/Algae Pivot Stall Current",
+              algaePivotMotor.getMotorStallCurrent().getValueAsDouble());
         });
   }
 

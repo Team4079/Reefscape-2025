@@ -1,11 +1,11 @@
 package frc.robot.subsystems;
 
 import static com.ctre.phoenix6.signals.InvertedValue.*;
-import static frc.robot.utils.emu.ElevatorMotor.*;
 import static frc.robot.utils.ExtensionsKt.*;
-import static frc.robot.utils.Register.Dash.*;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
+import static frc.robot.utils.emu.ElevatorMotor.*;
+import static frc.robot.utils.pingu.LogPingu.*;
 
 import com.ctre.phoenix6.configs.*;
 import com.ctre.phoenix6.controls.*;
@@ -229,9 +229,15 @@ public class Elevator extends SubsystemBase {
               elevatorMotorLeft.getMotorVoltage().getValueAsDouble());
           log("Elevator/Elevator State", currentState.toString());
           log("Elevator/Elevator To Be State", elevatorToBeSetState.toString());
-          log("Elevator/Elevator Stator Current", elevatorMotorLeft.getStatorCurrent().getValueAsDouble());
-          log("Elevator/Elevator Supply Current", elevatorMotorLeft.getSupplyCurrent().getValueAsDouble());
-          log("Elevator/Elevator Stall Current", elevatorMotorLeft.getMotorStallCurrent().getValueAsDouble());
+          log(
+              "Elevator/Elevator Stator Current",
+              elevatorMotorLeft.getStatorCurrent().getValueAsDouble());
+          log(
+              "Elevator/Elevator Supply Current",
+              elevatorMotorLeft.getSupplyCurrent().getValueAsDouble());
+          log(
+              "Elevator/Elevator Stall Current",
+              elevatorMotorLeft.getMotorStallCurrent().getValueAsDouble());
         });
   }
 
@@ -360,8 +366,8 @@ public class Elevator extends SubsystemBase {
   }
 
   /**
-   * Updates the PID values for the elevator motors.
-   * This method sets the PID values for the elevator motors and updates the Motion Magic configurations.
+   * Updates the PID values for the elevator motors. This method sets the PID values for the
+   * elevator motors and updates the Motion Magic configurations.
    */
   public void updateElevatorPID() {
     ELEVATOR_PINGU.setP(elevatorP);
@@ -379,9 +385,8 @@ public class Elevator extends SubsystemBase {
   }
 
   /**
-   * Applies the PID values to the elevator motors.
-   * This method sets the PID values for both the left and right elevator motor configurations
-   * and applies the Motion Magic configurations.
+   * Applies the PID values to the elevator motors. This method sets the PID values for both the
+   * left and right elevator motor configurations and applies the Motion Magic configurations.
    */
   public void applyElevatorPIDValues() {
     // Set the PID values for the left elevator motor configuration
@@ -406,8 +411,8 @@ public class Elevator extends SubsystemBase {
   }
 
   /**
-   * Calibrates the elevator motor.
-   * This method calibrates the elevator motor by moving the motor up until it stalls.
+   * Calibrates the elevator motor. This method calibrates the elevator motor by moving the motor up
+   * until it stalls.
    */
   public void calibrateElevator() {
     while (elevatorMotorLeft.getMotorStallCurrent().getValueAsDouble() < 3.0) {
