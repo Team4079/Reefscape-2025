@@ -314,6 +314,8 @@ $dokka.location:frc.robot.utils.pingu/Pingu/setS/#kotlin.Double?/PointingToDecla
 $dokka.location:frc.robot.utils.pingu/Pingu/setS/#org.littletonrobotics.junction.networktables.LoggedNetworkNumber/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-pingu/set-s.html
 $dokka.location:frc.robot.utils.pingu/Pingu/setV/#kotlin.Double?/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-pingu/set-v.html
 $dokka.location:frc.robot.utils.pingu/Pingu/setV/#org.littletonrobotics.junction.networktables.LoggedNetworkNumber/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-pingu/set-v.html
+$dokka.location:frc.robot.utils.pingu/VoltagePingu///PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-voltage-pingu/index.html
+$dokka.location:frc.robot.utils.pingu/VoltagePingu/setOutput/#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-voltage-pingu/set-output.html
 $dokka.location:frc.robot.utils////PointingToDeclaration/-reefscape2025/frc.robot.utils/index.html
 $dokka.location:frc.robot.utils/ExtensionsKt///PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions-kt/index.html
 $dokka.location:frc.robot.utils/ExtensionsKt/getDecentResultPairs/kotlin.collections.List[frc.robot.subsystems.PhotonModule]#/PointingToDeclaration/-reefscape2025/frc.robot.utils/-extensions-kt/get-decent-result-pairs.html
