@@ -68,7 +68,7 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your trigger->command mappings. Triggers can be created via the
+   * Use this method to define your trigger -> command mappings. Triggers can be created via the
    * {@link JoystickButton} constructor with an arbitrary predicate, or via the named factories in
    * {@link CommandGenericHID}'s subclasses for {@link CommandXboxController}/{@link
    * CommandPS4Controller} controllers or {@link CommandJoystick}.

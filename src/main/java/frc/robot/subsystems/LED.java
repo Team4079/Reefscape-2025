@@ -96,7 +96,7 @@ public class LED extends SubsystemBase {
 
     // Disabled Robot (we can do whatever we want)
     if (DriverStation.isDisabled() && !LiveRobotValues.lowBattery) {
-      ledState = LEDState.ROBONAUT;
+      ledState = LEDState.RAINBOW_FLOW;
     } else if (LiveRobotValues.lowBattery) {
       ledState = LEDState.TWINKLE;
     }
