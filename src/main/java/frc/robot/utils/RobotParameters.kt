@@ -102,9 +102,10 @@ object RobotParameters {
             val DIST_PINGU = Pingu(0.2, 0.0, 0.0)
 
             @JvmField
+            // TODO remember to update path planner config values and measure everything (cameras etc)
             val PATH_CONSTRAINTS: PathConstraints =
                 PathConstraints(
-                    3.0,
+                    4.0,
                     4.0,
                     degreesToRadians(540.0),
                     degreesToRadians(720.0),

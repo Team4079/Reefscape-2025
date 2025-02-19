@@ -374,6 +374,7 @@ public class Swerve extends SubsystemBase {
    * @return SwerveModuleState[], The states of the swerve modules.
    */
   public SwerveModuleState[] getModuleStates() {
+    // TODO try returning new states maybe it is calling it too much why is why pp doesnt update
     SwerveModuleState[] moduleStates = new SwerveModuleState[4];
     for (int i = 0; i < modules.length; i++) {
       moduleStates[i] = modules[i].getState();
