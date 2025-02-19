@@ -81,7 +81,7 @@ public class RobotContainer {
 //        .bind(B, setElevatorState(DEFAULT))
         //      .bind(B, align(CENTER).onlyWhile(pad::getAButton))
         //      .bind(B, align(LEFT))
-        .bind(B, createPathfindingCmd(reefs.get(0)))
+//        .bind(B, createPathfindingCmd(reefs.get(0)))
 //        .bind(A, setIntakeAlgae())
         //      .bind(A, align(RIGHT))
         .bind(Y, startCoralMotors())

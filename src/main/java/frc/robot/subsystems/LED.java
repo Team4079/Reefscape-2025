@@ -350,7 +350,10 @@ public class LED extends SubsystemBase {
     leds.setData(ledBuffer);
   }
 
+
   public void quantum_leap_wave() {
     createWave(Color.BLUE, Color.RED, 20, 10);
   }
+
+  public void redWave() { createWave(Color.RED, Color.RED, 20, 10); }
 }
