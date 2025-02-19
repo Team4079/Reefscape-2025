@@ -1,10 +1,10 @@
 {
   "hubs": [
     {
-      "x": -8,
-      "y": -8,
-      "width": 1708,
-      "height": 1020,
+      "x": -7,
+      "y": -7,
+      "width": 1660,
+      "height": 995,
       "state": {
         "sidebar": {
           "width": 500,
@@ -16,11 +16,9 @@
             "/CameraPublisher/photonvision_Port_1181_Input_MJPEG_Server",
             "/CameraPublisher/photonvision_Port_1181_Input_MJPEG_Server/streams",
             "/CameraPublisher/photonvision_Port_1182_Output_MJPEG_Server/streams",
-            "/AdvantageKit/RealOutputs",
             "/SmartDashboard/AutoChooser/options",
             "/SmartDashboard/AutoChooser",
             "/AdvantageKit/RealOutputs/Robot Pose",
-            "/AdvantageKit/RealOutputs/Alerts/errors",
             "/AdvantageKit/RealOutputs/Alerts/infos",
             "/AdvantageKit/RealOutputs/Alerts/warnings",
             "/photonvision/Arducam_OV2311_USB_Camera/rawBytes",
@@ -37,7 +35,13 @@
             "/Tuning",
             "/Tuning/Elevator",
             "/Tuning/Swerve",
-            "/AdvantageKit/RealOutputs/Elevator"
+            "/SmartDashboard/Alerts",
+            "/AdvantageKit/RealOutputs/Alerts/errors",
+            "/AdvantageKit/RealOutputs",
+            "/AdvantageKit/RealOutputs/Alerts",
+            "/AdvantageKit/RealOutputs/Elevator",
+            "/AdvantageKit/RealOutputs/Swerve",
+            "/AdvantageKit/RealOutputs/Photonvision"
           ]
         },
         "tabs": {
@@ -118,7 +122,17 @@
               "type": 3,
               "title": "Cool Field",
               "controller": {
-                "sources": [],
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/Swerve/Robot Pose 3D",
+                    "logType": "Pose3d",
+                    "visible": true,
+                    "options": {
+                      "model": "2025 KitBot"
+                    }
+                  }
+                ],
                 "game": "2025 Field (Welded)",
                 "origin": "blue"
               },
@@ -127,14 +141,14 @@
                 "cameraIndex": -1,
                 "orbitFov": 50,
                 "cameraPosition": [
-                  1.4695761589768238e-15,
-                  5.999999999999999,
-                  -12
+                  5.83059147922085,
+                  9.03751642405006,
+                  -9.50583547567436
                 ],
                 "cameraTarget": [
-                  0,
-                  0.5,
-                  0
+                  4.876141286464434,
+                  0.3662259639110155,
+                  1.0583035704590587
                 ]
               },
               "controlsHeight": 200

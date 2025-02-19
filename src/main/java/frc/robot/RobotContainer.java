@@ -2,6 +2,7 @@ package frc.robot;
 
 import static frc.robot.commands.Kommand.*;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
+import static frc.robot.utils.RobotParameters.FieldParameters.RobotPoses.reefs;
 import static frc.robot.utils.emu.Button.*;
 import static frc.robot.utils.emu.Direction.*;
 import static frc.robot.utils.emu.ElevatorState.*;
@@ -11,6 +12,7 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.*;
+import frc.robot.commands.sequencing.AutomaticScore;
 import frc.robot.subsystems.*;
 import frc.robot.utils.emu.*;
 import frc.robot.utils.pingu.*;
@@ -36,7 +38,7 @@ public class RobotContainer {
     aacrn = new XboxController(0);
     calamityCow = new XboxController(1);
 
-    Elevator.getInstance().setDefaultCommand(padElevator(calamityCow));
+    Elevator.getInstance().setDefaultCommand(padElevator(aacrn, calamityCow));
     Coral.getInstance();
     Swerve.getInstance().setDefaultCommand(drive(aacrn));
 
@@ -56,8 +58,8 @@ public class RobotContainer {
     configureBindings();
 
     new CommandPingu()
-        .bind("scoreLeft", score(LEFT))
-        .bind("scoreRight", score(RIGHT))
+        .bind("scoreLeft", score(LEFT, L4))
+        .bind("scoreRight", score(RIGHT, L4))
         .bind("SetL1", setElevatorState(L1))
         .bind("SetL2", setElevatorState(L2))
         .bind("SetL3", setElevatorState(L3))
@@ -74,19 +76,20 @@ public class RobotContainer {
    * CommandPS4Controller} controllers or {@link CommandJoystick}.
    */
   private void configureBindings() {
-    new Bingu(aacrnButtons)
+            new Bingu(aacrnButtons)
         .bind(START, resetPidgey())
-        .bind(B, setElevatorState(DEFAULT))
+//        .bind(B, setElevatorState(DEFAULT))
         //      .bind(B, align(CENTER).onlyWhile(pad::getAButton))
         //      .bind(B, align(LEFT))
-        //      .bind(B, createPathfindingCmd(reefs.get(0)))
-        .bind(A, setIntakeAlgae())
+        .bind(B, createPathfindingCmd(reefs.get(0)))
+//        .bind(A, setIntakeAlgae())
         //      .bind(A, align(RIGHT))
         .bind(Y, startCoralMotors())
-        .bind(LEFT_BUMPER, score(LEFT, elevatorToBeSetState))
-        .bind(RIGHT_BUMPER, score(RIGHT, elevatorToBeSetState))
+//        .bind(LEFT_BUMPER, score(LEFT, elevatorToBeSetState))
+//        .bind(RIGHT_BUMPER, score(RIGHT, elevatorToBeSetState))
         .bind(X, reverseIntake().onlyWhile(aacrn::getXButton));
 
     new Bingu(calamityCowButtons).bind(A, waitCmd(1));
   }
 }
+

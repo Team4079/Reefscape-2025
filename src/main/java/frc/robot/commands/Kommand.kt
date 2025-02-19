@@ -101,10 +101,9 @@ object Kommand {
      * @return An [AutomaticScore] that performs the scoring action.
      */
     @JvmStatic
-    @JvmOverloads
     fun score(
         dir: Direction,
-        state: ElevatorState = L4,
+        state: ElevatorState
     ) = AutomaticScore(dir, state)
 
     /**
@@ -207,7 +206,7 @@ object Kommand {
      * @return A [PadDrive] command to control the robot's elevator.
      */
     @JvmStatic
-    fun padElevator(controller: XboxController) = PadElevator(controller)
+    fun padElevator(controller: XboxController, controller2: XboxController) = PadElevator(controller, controller2)
 
     /**
      * Creates an [InstantCommand] to set the coral manipulator intaking state to true.

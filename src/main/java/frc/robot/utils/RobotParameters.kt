@@ -202,10 +202,7 @@ object RobotParameters {
         const val ELEVATOR_SOFT_LIMIT_UP: Double = 61.5
 
         @JvmField
-        var elevatorSetState: ElevatorState = ElevatorState.DEFAULT
-
-        @JvmField
-        var elevatorToBeSetState: ElevatorState = ElevatorState.L4
+        var elevatorToBeSetState: ElevatorState = ElevatorState.L1
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false
@@ -265,6 +262,8 @@ object RobotParameters {
             @JvmField
             val reefs =
                 listOf(
+                    //REMVE FIRST ONE
+                    Pose2d(Translation2d(2.5, 2.5), Rotation2d.fromDegrees(0.0)),
                     Pose2d(Translation2d(5.008, 5.279), Rotation2d.fromDegrees(-120.0)),
                     Pose2d(Translation2d(5.345, 5.12), Rotation2d.fromDegrees(-120.0)),
                     Pose2d(Translation2d(5.84, 4.084), Rotation2d.fromDegrees(180.0)),

@@ -2,6 +2,7 @@ package frc.robot.commands.sequencing;
 
 import static frc.robot.commands.Kommand.*;
 import static frc.robot.utils.emu.ElevatorState.*;
+import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
 
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.utils.emu.*;

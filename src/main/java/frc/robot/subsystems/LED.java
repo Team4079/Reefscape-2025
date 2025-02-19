@@ -75,7 +75,7 @@ public class LED extends SubsystemBase {
     // Enabled Robot
 
     if (DriverStation.isEnabled()) {
-      switch (elevatorSetState) {
+      switch (elevatorToBeSetState) {
         case DEFAULT:
           ledState = LEDState.RAINBOW_FLOW;
           break;

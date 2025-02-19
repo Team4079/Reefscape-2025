@@ -6,20 +6,24 @@ import static frc.robot.utils.emu.ElevatorState.*;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.sequencing.AutomaticScore;
 import frc.robot.subsystems.Elevator;
+import frc.robot.utils.emu.Direction;
 import kotlin.*;
 
 /** Command to control the robot's swerve drive using a Logitech gaming pad. */
 public class PadElevator extends Command {
-  private final XboxController pad;
+  private final XboxController aacrn;
+  private final XboxController calamityCow;
 
   /**
    * Constructs a new PadDrive command.
    *
    * @param pad The Logitech gaming pad used to control the robot.
    */
-  public PadElevator(XboxController pad) {
-    this.pad = pad;
+  public PadElevator(XboxController aacrn, XboxController calamityCow) {
+    this.aacrn = aacrn;
+    this.calamityCow = calamityCow;
     addRequirements(Elevator.getInstance());
   }
 
@@ -55,6 +59,15 @@ public class PadElevator extends Command {
     } else if (checkDPad(6)) {
       elevatorToBeSetState = L1;
     }
+
+    // TODO PLS FIX THIS OM CAUSE WE R LAZY (the other way does not work so we r just doing it like this)
+    if (aacrn.getRightBumperButtonPressed()) {
+      new AutomaticScore(Direction.RIGHT, elevatorToBeSetState).schedule();
+    }
+
+    if (aacrn.getLeftBumperButtonPressed()) {
+      new AutomaticScore(Direction.LEFT, elevatorToBeSetState).schedule();
+    }
   }
 
   /**
@@ -68,7 +81,7 @@ public class PadElevator extends Command {
    * @return If the specified combination is pressed.
    */
   public boolean checkDPad(int index) {
-    if (0 <= index && index <= 7) return (index * 45) == pad.getPOV(0);
+    if (0 <= index && index <= 7) return (index * 45) == calamityCow.getPOV(0);
     else return false;
   }
 
