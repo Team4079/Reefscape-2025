@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.sequencing.AutomaticScore;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Swerve;
 import frc.robot.utils.emu.Direction;
 import kotlin.*;
 
@@ -15,7 +16,6 @@ import kotlin.*;
 public class PadElevator extends Command {
   private final XboxController aacrn;
   private final XboxController calamityCow;
-
   /**
    * Constructs a new PadDrive command.
    *

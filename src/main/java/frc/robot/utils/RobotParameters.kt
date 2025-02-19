@@ -3,10 +3,12 @@ package frc.robot.utils
 import com.ctre.phoenix6.signals.InvertedValue
 import com.pathplanner.lib.config.RobotConfig
 import com.pathplanner.lib.path.PathConstraints
+import edu.wpi.first.apriltag.AprilTagFieldLayout
 import edu.wpi.first.math.Matrix
 import edu.wpi.first.math.VecBuilder
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.math.geometry.Rotation2d
+import edu.wpi.first.math.geometry.Rotation2d.fromDegrees
 import edu.wpi.first.math.geometry.Translation2d
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.numbers.N1
@@ -21,8 +23,11 @@ import frc.robot.utils.emu.AlgaePivotState
 import frc.robot.utils.emu.CoralState
 import frc.robot.utils.emu.ElevatorState
 import frc.robot.utils.pingu.LogPingu.metaLogs
-import frc.robot.utils.pingu.MagicPingu
-import frc.robot.utils.pingu.Pingu
+import edu.wpi.first.apriltag.*
+import frc.robot.utils.emu.Direction
+import frc.robot.utils.pingu.*
+import kotlin.math.cos
+import kotlin.math.sin
 
 /** Class containing global values for the robot.  */
 object RobotParameters {
@@ -51,11 +56,11 @@ object RobotParameters {
 
         // Motor Property Values
         const val MAX_SPEED: Double = 5.76
-        const val MAX_ANGULAR_SPEED: Double = (14 * Math.PI) / 3
+        const val MAX_ANGULAR_SPEED: Double = (14 * PI) / 3
         const val STEER_MOTOR_GEAR_RATIO: Double = 150.0 / 7
         const val DRIVE_MOTOR_GEAR_RATIO: Double = 6.750000000000000
         private const val WHEEL_DIAMETER: Double = 0.106
-        const val METERS_PER_REV: Double = WHEEL_DIAMETER * Math.PI * 0.975
+        const val METERS_PER_REV: Double = WHEEL_DIAMETER * PI * 0.975
 
         // Limit Values
         const val DRIVE_SUPPLY_LIMIT: Double = 45.0
@@ -161,6 +166,9 @@ object RobotParameters {
         const val LOW_BATTERY_VOLTAGE: Double = 11.8
 
         @JvmField
+        var ROBOT_POS: Pose2d = Pose2d(0.0, 0.0, Rotation2d(0.0, 0.0))
+
+        @JvmField
         var lowBattery: Boolean = false
     }
 
@@ -254,39 +262,69 @@ object RobotParameters {
         const val FIELD_LENGTH_METERS = 17.3744 // 57 feet + 6 7/8 inches
         const val FIELD_WIDTH_METERS = 8.2296 // 26 feet + 5 inches
 
+        val AprilTagFieldLayout = AprilTagFields.k2025ReefscapeWelded
+
         val FIELD_LENGTH: Distance = Feet.of(57.0).plus(Inches.of(6.0 + 7.0 / 8.0))
         val FIELD_WIDTH: Distance = Feet.of(26.0).plus(Inches.of(5.0))
 
         object RobotPoses {
             // Red first then blue poses
             @JvmField
-            val reefs =
-                listOf(
-                    //REMVE FIRST ONE
-                    Pose2d(Translation2d(2.5, 2.5), Rotation2d.fromDegrees(0.0)),
-                    Pose2d(Translation2d(5.008, 5.279), Rotation2d.fromDegrees(-120.0)),
-                    Pose2d(Translation2d(5.345, 5.12), Rotation2d.fromDegrees(-120.0)),
-                    Pose2d(Translation2d(5.84, 4.084), Rotation2d.fromDegrees(180.0)),
-                    Pose2d(Translation2d(5.84, 3.916), Rotation2d.fromDegrees(180.0)),
-                    Pose2d(Translation2d(5.345, 2.88), Rotation2d.fromDegrees(120.0)),
-                    Pose2d(Translation2d(5.008, 2.721), Rotation2d.fromDegrees(120.0)),
-                    Pose2d(Translation2d(3.972, 2.721), Rotation2d.fromDegrees(60.0)),
-                    Pose2d(Translation2d(3.635, 2.88), Rotation2d.fromDegrees(60.0)),
-                    Pose2d(Translation2d(3.14, 3.916), Rotation2d.fromDegrees(0.0)),
-                    Pose2d(Translation2d(3.14, 4.084), Rotation2d.fromDegrees(0.0)),
-                    Pose2d(Translation2d(3.635, 5.12), Rotation2d.fromDegrees(-60.0)),
-                    Pose2d(Translation2d(3.972, 5.279), Rotation2d.fromDegrees(-60.0)),
-                )
+            val n = 0.131
+
+            val REEF_A = Pose2d(3.171, 4.189, fromDegrees(0.0))
+            val REEF_B = Pose2d(3.171, 3.863, fromDegrees(0.0))
+            val REEF_C = Pose2d(3.688, 2.968, fromDegrees(60.0))
+            val REEF_D = Pose2d(3.975, 2.803, fromDegrees(60.0))
+            val REEF_E = Pose2d(5.001, 2.804, fromDegrees(120.0))
+            val REEF_F = Pose2d(5.285, 2.964, fromDegrees(120.0))
+            val REEF_G = Pose2d(5.805, 3.863, fromDegrees(180.0))
+            val REEF_H = Pose2d(5.805, 4.189, fromDegrees(180.0))
+            val REEF_I = Pose2d(5.288, 5.083, fromDegrees(-120.0))
+            val REEF_J = Pose2d(5.002, 5.248, fromDegrees(-120.0))
+            val REEF_K = Pose2d(3.972, 5.247, fromDegrees(-60.0))
+            val REEF_L = Pose2d(3.693, 5.079, fromDegrees(-60.0))
+
+            val SCORING_A_BLUE = Pose2d(REEF_A.x + (n * cos(REEF_A.rotation.radians)), REEF_A.y + (n * sin(REEF_A.rotation.radians)), REEF_A.rotation)
+            val SCORING_B_BLUE = Pose2d(REEF_B.x + (n * cos(REEF_B.rotation.radians)), REEF_B.y + (n * sin(REEF_B.rotation.radians)), REEF_B.rotation)
+            val SCORING_C_BLUE = Pose2d(REEF_C.x + (n * cos(REEF_C.rotation.radians)), REEF_C.y + (n * sin(REEF_C.rotation.radians)), REEF_C.rotation)
+            val SCORING_D_BLUE = Pose2d(REEF_D.x + (n * cos(REEF_D.rotation.radians)), REEF_D.y + (n * sin(REEF_D.rotation.radians)), REEF_D.rotation)
+            val SCORING_E_BLUE = Pose2d(REEF_E.x + (n * cos(REEF_E.rotation.radians)), REEF_E.y + (n * sin(REEF_E.rotation.radians)), REEF_E.rotation)
+            val SCORING_F_BLUE = Pose2d(REEF_F.x + (n * cos(REEF_F.rotation.radians)), REEF_F.y + (n * sin(REEF_F.rotation.radians)), REEF_F.rotation)
+            val SCORING_G_BLUE = Pose2d(REEF_G.x + (n * cos(REEF_G.rotation.radians)), REEF_G.y + (n * sin(REEF_G.rotation.radians)), REEF_G.rotation)
+            val SCORING_H_BLUE = Pose2d(REEF_H.x + (n * cos(REEF_H.rotation.radians)), REEF_H.y + (n * sin(REEF_H.rotation.radians)), REEF_H.rotation)
+            val SCORING_I_BLUE = Pose2d(REEF_I.x + (n * cos(REEF_I.rotation.radians)), REEF_I.y + (n * sin(REEF_I.rotation.radians)), REEF_I.rotation)
+            val SCORING_J_BLUE = Pose2d(REEF_J.x + (n * cos(REEF_J.rotation.radians)), REEF_J.y + (n * sin(REEF_J.rotation.radians)), REEF_J.rotation)
+            val SCORING_K_BLUE = Pose2d(REEF_K.x + (n * cos(REEF_K.rotation.radians)), REEF_K.y + (n * sin(REEF_K.rotation.radians)), REEF_K.rotation)
+            val SCORING_L_BLUE = Pose2d(REEF_L.x + (n * cos(REEF_L.rotation.radians)), REEF_L.y + (n * sin(REEF_L.rotation.radians)), REEF_L.rotation)
+
+            // Tag order is 18, 19, 20, 21, 22, 17
+            @JvmField
+            val coralScoreBlueList: CoralScore = listOf(
+                Triple(Translation2d(3.6576, 4.0259), SCORING_A_BLUE, SCORING_B_BLUE),
+                Triple(Translation2d(4.0739, 3.3063), SCORING_C_BLUE, SCORING_D_BLUE),
+                Triple(Translation2d(4.9047, 3.3063), SCORING_E_BLUE, SCORING_F_BLUE),
+                Triple(Translation2d(5.321046, 4.0259), SCORING_G_BLUE, SCORING_H_BLUE),
+                Triple(Translation2d(4.90474, 4.7455), SCORING_I_BLUE, SCORING_J_BLUE),
+                Triple(Translation2d(4.0739, 4.7455), SCORING_K_BLUE, SCORING_L_BLUE)
+            )
+
+            @JvmStatic
+            fun addCoralPosList() {
+                PathPingu.addCoralScoringPositions(coralScoreBlueList)
+            }
+
+            // TODO CURRENTLY JUST BLUE SIDE SO ADD RED ASAP
 
             // List of Source positions
             @JvmField
-            val sources =
-                listOf(
-                    Pose2d(Translation2d(1.582, 7.275), Rotation2d.fromDegrees(126.0)),
-                    Pose2d(Translation2d(0.767, 6.692), Rotation2d.fromDegrees(126.0)),
-                    Pose2d(Translation2d(0.767, 1.35), Rotation2d.fromDegrees(-126.0)),
-                    Pose2d(Translation2d(1.582, 0.78), Rotation2d.fromDegrees(-126.0)),
-                )
+            val LEFT_CORAL_STATION_FAR: Pose2d = Pose2d(1.64, 7.33, fromDegrees(-54.5))
+            @JvmField
+            val LEFT_CORAL_STATION_NEAR: Pose2d = Pose2d(0.71, 6.68, fromDegrees(-54.5))
+            @JvmField
+            val RIGHT_CORAL_STATION_FAR: Pose2d = Pose2d(1.61, 0.70, fromDegrees(55.0))
+            @JvmField
+            val RIGHT_CORAL_STATION_NEAR: Pose2d = Pose2d(0.64, 1.37, fromDegrees(55.0))
         }
     }
 
