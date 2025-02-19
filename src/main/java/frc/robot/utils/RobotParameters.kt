@@ -166,7 +166,7 @@ object RobotParameters {
 
     /** Class containing constants for the Photonvision subsystem.  */
     object PhotonVisionConstants {
-        const val CAMERA_ONE_HEIGHT_METER: Double = 0.13
+        const val CAMERA_ONE_HEIGHT_METER: Double = 0.195
         const val CAMERA_ONE_ANGLE_DEG: Double = 33.0
         const val OFFSET_TOWARD_MID_LEFT: Double = -15.00
         const val CAMERA_TWO_HEIGHT_METER: Double = 0.61
@@ -175,16 +175,16 @@ object RobotParameters {
 
         // THESE NEED TO BE REPLACED WITH TESTED VALUES PLS (BUT I KNOW WE WON'T HAVE TIME FOR THIS)
         @JvmField
-        val SINGLE_TARGET_STD_DEV: Matrix<N3, N1> = VecBuilder.fill(1.0, 1.0, 10.0)
+        val SINGLE_TARGET_STD_DEV: Matrix<N3, N1> = VecBuilder.fill(0.08, 0.08, 0.05)
 
         @JvmField
-        val MULTI_TARGET_STD_DEV: Matrix<N3, N1> = VecBuilder.fill(0.3, 0.3, 3.0)
+        val MULTI_TARGET_STD_DEV: Matrix<N3, N1> = VecBuilder.fill(0.05, 0.05, 0.03)
 
         @JvmField
-        val SINGLE_TARGET_STD_DEV_3D: Matrix<N4, N1> = VecBuilder.fill(1.0, 1.0, 10.0, 10.0)
+        val SINGLE_TARGET_STD_DEV_3D: Matrix<N4, N1> = VecBuilder.fill(0.08, 0.08, 0.08, 0.05)
 
         @JvmField
-        val MULTI_TARGET_STD_DEV_3D: Matrix<N4, N1> = VecBuilder.fill(0.3, 0.3, 3.0, 3.0)
+        val MULTI_TARGET_STD_DEV_3D: Matrix<N4, N1> = VecBuilder.fill(0.05, 0.05, 0.05, 0.03)
     }
 
     /** Class containing constants for the elevator subsystem.  */

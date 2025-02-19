@@ -36,7 +36,7 @@ public class RobotContainer {
     aacrn = new XboxController(0);
     calamityCow = new XboxController(1);
 
-    Elevator.getInstance().setDefaultCommand(padElevator(aacrn));
+    Elevator.getInstance().setDefaultCommand(padElevator(calamityCow));
     Coral.getInstance();
     Swerve.getInstance().setDefaultCommand(drive(aacrn));
 
