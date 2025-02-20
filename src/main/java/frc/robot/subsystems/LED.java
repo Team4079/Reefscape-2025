@@ -8,9 +8,10 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.emu.LEDState;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
+import edu.wpi.first.wpilibj.LEDPattern;
+import edu.wpi.first.wpilibj.util.Color;
 
 public class LED extends SubsystemBase {
   // LED Hardware Components
@@ -30,6 +31,9 @@ public class LED extends SubsystemBase {
   private static final int laser_count = 10;
   private static final int spacing = 5;
   private ArrayList<Integer> laserPositions = new ArrayList<>();
+
+  // LED patterns
+  public final LEDPattern red;
 
   /**
    * The Singleton instance of this LEDSubsystem. Code should use the {@link #getInstance()} method
@@ -64,6 +68,9 @@ public class LED extends SubsystemBase {
     for (int i = 0; i < laser_count; i++) {
       laserPositions.add(-i * spacing);
     }
+
+    red = LEDPattern.gradient(LEDPattern.GradientType.kContinuous, Color.kRed);
+
   }
 
   /**
@@ -80,16 +87,16 @@ public class LED extends SubsystemBase {
           ledState = LEDState.RAINBOW_FLOW;
           break;
         case L1:
-          ledState = LEDState.HIGHTIDE_FLOW;
+          ledState = LEDState.RED_WAVE;
           break;
         case L2:
-          ledState = LEDState.ROBONAUT;
+          ledState = LEDState.ORANGE_WAVE;
           break;
         case L3:
-          ledState = LEDState.FUNNY_ROBONAUT;
+          ledState = LEDState.YELLOW_WAVE;
           break;
         case L4:
-          ledState = LEDState.LASER;
+          ledState = LEDState.BLUE_WAVE;
           break;
       }
     }
@@ -119,9 +126,6 @@ public class LED extends SubsystemBase {
         break;
       case LASER:
         laserbeam();
-        break;
-      case QUANTUM_LEAP:
-        quantum_leap_wave();
         break;
       default:
         setRed();
@@ -339,21 +343,66 @@ public class LED extends SubsystemBase {
       }
 
       // Interpolate RGB values between colors
-      int red = (int) ((startColor.getRed() * (1 - blendRatio)) + (endColor.getRed() * blendRatio));
+      int red = (int) ((startColor.red * (1 - blendRatio)) + (endColor.red * blendRatio));
       int green =
-          (int) ((startColor.getGreen() * (1 - blendRatio)) + (endColor.getGreen() * blendRatio));
+          (int) ((startColor.green * (1 - blendRatio)) + (endColor.green * blendRatio));
       int blue =
-          (int) ((startColor.getBlue() * (1 - blendRatio)) + (endColor.getBlue() * blendRatio));
+          (int) ((startColor.blue * (1 - blendRatio)) + (endColor.blue * blendRatio));
 
       ledBuffer.setRGB(ledIndex, red, green, blue);
     }
     leds.setData(ledBuffer);
   }
 
-
-  public void quantum_leap_wave() {
-    createWave(Color.BLUE, Color.RED, 20, 10);
+  /** Creates a solid color effect on the LED strip. */
+  public void solidColor(Color color) {
+      for (int i = 0; i < ledBuffer.getLength(); i++) {
+      ledBuffer.setLED(i, color);
+      }
+      leds.setData(ledBuffer);
   }
 
-  public void redWave() { createWave(Color.RED, Color.RED, 20, 10); }
+  /** Creates a wave red themed effect on the LED strip. */
+  public void redWave() {
+    createWave(Color.kCrimson, Color.kDarkRed, 10, 5);
+  }
+
+  /** Creates a wave green themed effect on the LED strip. */
+  public void greenWave() {
+    createWave(Color.kSpringGreen, Color.kDarkGreen, 10, 5);
+  }
+
+  /** Creates a wave blue themed effect on the LED strip. */
+  public void blueWave() {
+    createWave(Color.kAliceBlue, Color.kAquamarine, 10, 5);
+  }
+
+  /** Creates a wave yellow themed effect on the LED strip. */
+  public void yellowWave() {
+    createWave(Color.kYellow, Color.kGold, 10, 5);
+  }
+
+  /** Creates a wave purple themed effect on the LED strip. */
+  public void purpleWave() {
+      createWave(Color.kViolet, Color.kIndigo, 10, 5);
+  }
+
+    /** Creates a wave orange themed effect on the LED strip. */
+    public void orangeWave() {
+      createWave(Color.kOrange, Color.kDarkOrange, 10, 5);
+    }
+
+    /** Creates a wave pink themed effect on the LED strip. */
+    public void pinkWave() {
+      createWave(Color.kMagenta, Color.kHotPink, 10, 5);
+    }
+
+    public void setDarkGreen() {
+      solidColor(Color.kDarkSeaGreen);
+    }
+
+    public void setLightGreen() {
+      solidColor(Color.kLimeGreen);
+    }
+
 }

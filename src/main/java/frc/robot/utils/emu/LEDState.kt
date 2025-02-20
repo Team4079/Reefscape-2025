@@ -44,4 +44,22 @@ enum class LEDState {
      * Represents a color pattern themed after Quantum Leap.
      */
     QUANTUM_LEAP,
+
+    RED_WAVE,
+
+    GREEN_WAVE,
+
+    BLUE_WAVE,
+
+    YELLOW_WAVE,
+
+    PURPLE_WAVE,
+
+    ORANGE_WAVE,
+
+    PINK_WAVE,
+
+    DARK_GREEN,
+
+    LIGHT_GREEN,
 }
