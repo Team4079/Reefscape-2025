@@ -6,10 +6,7 @@ import static frc.robot.utils.emu.ElevatorState.*;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.commands.sequencing.AutomaticScore;
 import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Swerve;
-import frc.robot.utils.emu.Direction;
 import kotlin.*;
 
 /** Command to control the robot's swerve drive using a Logitech gaming pad. */
@@ -58,15 +55,6 @@ public class PadElevator extends Command {
       elevatorToBeSetState = L2;
     } else if (checkDPad(6)) {
       elevatorToBeSetState = L1;
-    }
-
-    // TODO PLS FIX THIS OM CAUSE WE R LAZY (the other way does not work so we r just doing it like this)
-    if (aacrn.getRightBumperButtonPressed()) {
-      new AutomaticScore(Direction.RIGHT, elevatorToBeSetState).schedule();
-    }
-
-    if (aacrn.getLeftBumperButtonPressed()) {
-      new AutomaticScore(Direction.LEFT, elevatorToBeSetState).schedule();
     }
   }
 

@@ -65,7 +65,7 @@ public class PhotonVision extends SubsystemBase {
         new PhotonModule(
             "LeftCamera",
             new Transform3d(
-                new Translation3d(0.35, 0.35, CAMERA_ONE_HEIGHT_METER),
+                new Translation3d(0.35, 0.35, CAMERA_TWO_HEIGHT_METER),
                 new Rotation3d(0.0, Math.toRadians(-25), Math.toRadians(0))),
             AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded)));
 

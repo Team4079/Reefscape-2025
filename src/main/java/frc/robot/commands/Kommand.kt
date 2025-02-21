@@ -45,6 +45,15 @@ object Kommand {
     ) = InstantCommand(function, *reqs)
 
     /**
+     * Creates a [WaitUntilCommand] that waits until the given condition is true.
+     *
+     * @param function The condition to evaluate.
+     * @return A [WaitUntilCommand] that waits until the condition is true.
+     */
+    @JvmStatic
+    fun waitUntil(function: () -> Boolean) = WaitUntilCommand(function)
+
+    /**
      * Creates an [InstantCommand] to set the state of the elevator.
      *
      * @param state The desired state of the elevator.
@@ -65,7 +74,7 @@ object Kommand {
             cmd(Elevator.getInstance()) {
                 Elevator.getInstance().state = state
             },
-            WaitUntilCommand {
+            waitUntil {
                 abs(Elevator.getInstance().elevatorPosAvg - state.pos) < 0.3
             },
         )
@@ -103,10 +112,7 @@ object Kommand {
      * @return An [AutomaticScore] that performs the scoring action.
      */
     @JvmStatic
-    fun score(
-        dir: Direction,
-        state: ElevatorState
-    ) = AutomaticScore(dir, state)
+    fun score(dir: Direction) = AutomaticScore(dir)
 
     /**
      * Creates an new [ReverseIntake] command to reverse the intake.
@@ -208,7 +214,10 @@ object Kommand {
      * @return A [PadDrive] command to control the robot's elevator.
      */
     @JvmStatic
-    fun padElevator(controller: XboxController, controller2: XboxController) = PadElevator(controller, controller2)
+    fun padElevator(
+        controller: XboxController,
+        controller2: XboxController,
+    ) = PadElevator(controller, controller2)
 
     /**
      * Creates an [InstantCommand] to set the coral manipulator intaking state to true.
@@ -219,12 +228,12 @@ object Kommand {
     fun coralIntaking() = cmd { isCoralIntaking = true }
 
     /**
-    * Creates a command to move the robot to the closest coral
-    * scoring position in the specified coral direction.
+     * Creates a command to move the robot to the closest coral
+     * scoring position in the specified coral direction.
      * @param direction The direction in which to find the closest scoring position.
-    *
-    * @return A command that performs the pathfinding operation.
-    */
+     *
+     * @return A command that performs the pathfinding operation.
+     */
     @JvmStatic
     fun moveToClosestCoralScore(direction: Direction) = findClosestScoringPosition(ROBOT_POS, direction)
 }

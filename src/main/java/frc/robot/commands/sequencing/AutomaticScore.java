@@ -1,8 +1,8 @@
 package frc.robot.commands.sequencing;
 
 import static frc.robot.commands.Kommand.*;
-import static frc.robot.utils.emu.ElevatorState.*;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
+import static frc.robot.utils.emu.ElevatorState.*;
 
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.utils.emu.*;
@@ -14,10 +14,10 @@ import frc.robot.utils.emu.*;
  * first level.
  */
 public class AutomaticScore extends SequentialCommandGroup {
-  public AutomaticScore(Direction offsetSide, ElevatorState state) {
+  public AutomaticScore(Direction offsetSide) {
     addCommands(
         moveToClosestCoralScore(offsetSide),
-        moveElevatorState(state),
+        moveElevatorState(elevatorToBeSetState),
         setCoralState(CoralState.CORAL_RELEASE),
         waitCmd(0.3),
         // TODO MOVE BACK (prob with on the fly move back 0.5 meter path)
