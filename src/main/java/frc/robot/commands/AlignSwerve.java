@@ -8,11 +8,13 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.subsystems.*;
 import frc.robot.utils.emu.*;
+import org.opencv.photo.Photo;
 
 public class AlignSwerve extends Command {
   private double yaw;
   private double y;
   private double dist;
+  private PhotonVision photonVision;
   private PIDController rotationalController;
   private PIDController yController;
   private PIDController disController;
@@ -27,6 +29,7 @@ public class AlignSwerve extends Command {
    *     "center".
    */
   public AlignSwerve(Direction offsetSide) {
+    photonVision = PhotonVision.getInstance();
     switch (offsetSide) {
       case LEFT:
         this.offset = AUTO_ALIGN_SWERVE_LEFT_OFFSET;
@@ -47,9 +50,9 @@ public class AlignSwerve extends Command {
   /** The initial subroutine of a command. Called once when the command is initially scheduled. */
   @Override
   public void initialize() {
-    yaw = PhotonVision.getInstance().getYaw();
-    y = PhotonVision.getInstance().getY();
-    dist = PhotonVision.getInstance().getDist();
+    yaw = photonVision.getYaw();
+    y = photonVision.getY();
+    dist = photonVision.getDist();
 
     rotationalController = ROTATIONAL_PINGU.getPidController();
     rotationalController.setTolerance(0.4); // with L4 branches
@@ -74,11 +77,11 @@ public class AlignSwerve extends Command {
    */
   @Override
   public void execute() {
-    yaw = PhotonVision.getInstance().getYaw();
+    yaw = photonVision.getYaw();
 
-    y = PhotonVision.getInstance().getY() + offset;
+    y = photonVision.getY() + offset;
 
-    dist = PhotonVision.getInstance().getDist();
+    dist = photonVision.getDist();
 
     Swerve.getInstance()
         .setDriveSpeeds(
@@ -87,7 +90,7 @@ public class AlignSwerve extends Command {
             rotationalController.calculate(yaw),
             false);
 
-    if (PhotonVision.getInstance().hasTag()) {
+    if (photonVision.hasTag()) {
       timer.reset();
     }
   }
