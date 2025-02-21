@@ -2,7 +2,7 @@ $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:frc.robot.commands.sequencing////PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/index.html
 $dokka.location:frc.robot.commands.sequencing/AutomaticScore///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/index.html
-$dokka.location:frc.robot.commands.sequencing/AutomaticScore/AutomaticScore/#frc.robot.utils.emu.Direction#frc.robot.utils.emu.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/-automatic-score.html
+$dokka.location:frc.robot.commands.sequencing/AutomaticScore/AutomaticScore/#frc.robot.utils.emu.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/-automatic-score.html
 $dokka.location:frc.robot.commands////PointingToDeclaration/-reefscape2025/frc.robot.commands/index.html
 $dokka.location:frc.robot.commands/AlignSwerve///PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/index.html
 $dokka.location:frc.robot.commands/AlignSwerve/AlignSwerve/#frc.robot.utils.emu.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/-align-swerve.html
@@ -28,7 +28,7 @@ $dokka.location:frc.robot.commands/Kommand/moveToClosestCoralScore/#frc.robot.ut
 $dokka.location:frc.robot.commands/Kommand/padElevator/#edu.wpi.first.wpilibj.XboxController#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/pad-elevator.html
 $dokka.location:frc.robot.commands/Kommand/resetPidgey/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/reset-pidgey.html
 $dokka.location:frc.robot.commands/Kommand/reverseIntake/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/reverse-intake.html
-$dokka.location:frc.robot.commands/Kommand/score/#frc.robot.utils.emu.Direction#frc.robot.utils.emu.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/score.html
+$dokka.location:frc.robot.commands/Kommand/score/#frc.robot.utils.emu.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/score.html
 $dokka.location:frc.robot.commands/Kommand/setCoralState/#frc.robot.utils.emu.CoralState/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/set-coral-state.html
 $dokka.location:frc.robot.commands/Kommand/setElevatorState/#frc.robot.utils.emu.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/set-elevator-state.html
 $dokka.location:frc.robot.commands/Kommand/setIntakeAlgae/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/set-intake-algae.html
@@ -37,6 +37,7 @@ $dokka.location:frc.robot.commands/Kommand/startCoralManipulator/#/PointingToDec
 $dokka.location:frc.robot.commands/Kommand/startCoralMotors/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/start-coral-motors.html
 $dokka.location:frc.robot.commands/Kommand/stopCoralManipulator/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/stop-coral-manipulator.html
 $dokka.location:frc.robot.commands/Kommand/waitCmd/#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/wait-cmd.html
+$dokka.location:frc.robot.commands/Kommand/waitUntil/#kotlin.Function0[kotlin.Boolean]/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/wait-until.html
 $dokka.location:frc.robot.commands/PadDrive///PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/index.html
 $dokka.location:frc.robot.commands/PadDrive/PadDrive/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/-pad-drive.html
 $dokka.location:frc.robot.commands/PadDrive/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/execute.html
@@ -272,6 +273,11 @@ $dokka.location:frc.robot.utils.pingu/AlertPingu/periodic/#/PointingToDeclaratio
 $dokka.location:frc.robot.utils.pingu/Bingu///PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-bingu/index.html
 $dokka.location:frc.robot.utils.pingu/Bingu/Bingu/#kotlin.collections.Map[frc.robot.utils.emu.Button,edu.wpi.first.wpilibj2.command.button.JoystickButton]/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-bingu/-bingu.html
 $dokka.location:frc.robot.utils.pingu/Bingu/bind/#frc.robot.utils.emu.Button#edu.wpi.first.wpilibj2.command.Command/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-bingu/bind.html
+$dokka.location:frc.robot.utils.pingu/Bingu/bind/#frc.robot.utils.emu.Button#java.lang.Runnable/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-bingu/bind.html
+$dokka.location:frc.robot.utils.pingu/Bingu/bind/#frc.robot.utils.emu.Button#java.util.function.Consumer[kotlin.Any]#java.util.concurrent.atomic.AtomicReference[kotlin.Any]/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-bingu/bind.html
+$dokka.location:frc.robot.utils.pingu/BinguKt///PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-bingu-kt/index.html
+$dokka.location:frc.robot.utils.pingu/BinguKt/acceptCmd/java.util.function.Consumer[TypeParam(bounds=[kotlin.Any?])]#java.util.concurrent.atomic.AtomicReference[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-bingu-kt/accept-cmd.html
+$dokka.location:frc.robot.utils.pingu/BinguKt/getCmd/java.lang.Runnable#/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-bingu-kt/get-cmd.html
 $dokka.location:frc.robot.utils.pingu/CommandPingu///PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-command-pingu/index.html
 $dokka.location:frc.robot.utils.pingu/CommandPingu/CommandPingu/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-command-pingu/-command-pingu.html
 $dokka.location:frc.robot.utils.pingu/CommandPingu/bind/#kotlin.String#edu.wpi.first.wpilibj2.command.Command/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-command-pingu/bind.html
@@ -312,7 +318,7 @@ $dokka.location:frc.robot.utils.pingu/NetworkPingu/setP/#org.littletonrobotics.j
 $dokka.location:frc.robot.utils.pingu/NetworkPingu/setS/#org.littletonrobotics.junction.networktables.LoggedNetworkNumber?/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-network-pingu/set-s.html
 $dokka.location:frc.robot.utils.pingu/NetworkPingu/setV/#org.littletonrobotics.junction.networktables.LoggedNetworkNumber?/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-network-pingu/set-v.html
 $dokka.location:frc.robot.utils.pingu/PathPingu///PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-path-pingu/index.html
-$dokka.location:frc.robot.utils.pingu/PathPingu/addCoralScoringPositions/#kotlin.Array[kotlin.collections.List[kotlin.Triple[edu.wpi.first.math.geometry.Translation2d,edu.wpi.first.math.geometry.Pose2d,edu.wpi.first.math.geometry.Pose2d]]]/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-path-pingu/add-coral-scoring-positions.html
+$dokka.location:frc.robot.utils.pingu/PathPingu/addCoralScoringPositions/#kotlin.Array[kotlin.Triple[edu.wpi.first.math.geometry.Translation2d,edu.wpi.first.math.geometry.Pose2d,edu.wpi.first.math.geometry.Pose2d]]/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-path-pingu/add-coral-scoring-positions.html
 $dokka.location:frc.robot.utils.pingu/PathPingu/findClosestScoringPosition/#edu.wpi.first.math.geometry.Pose2d#frc.robot.utils.emu.Direction/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-path-pingu/find-closest-scoring-position.html
 $dokka.location:frc.robot.utils.pingu/Pingu///PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-pingu/index.html
 $dokka.location:frc.robot.utils.pingu/Pingu/Pingu/#kotlin.Double#kotlin.Double#kotlin.Double#kotlin.Double?#kotlin.Double?#kotlin.Double?/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-pingu/-pingu.html
