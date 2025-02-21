@@ -6,13 +6,19 @@ import static frc.robot.utils.emu.ElevatorState.*;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.sequencing.AutomaticScore;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Swerve;
+import frc.robot.utils.RobotParameters;
+import frc.robot.utils.emu.Direction;
 import kotlin.*;
 
 /** Command to control the robot's swerve drive using a Logitech gaming pad. */
 public class PadElevator extends Command {
   private final XboxController aacrn;
   private final XboxController calamityCow;
+
+  private final Swerve swerve;
   /**
    * Constructs a new PadDrive command.
    *
@@ -21,6 +27,7 @@ public class PadElevator extends Command {
   public PadElevator(XboxController aacrn, XboxController calamityCow) {
     this.aacrn = aacrn;
     this.calamityCow = calamityCow;
+    this.swerve = Swerve.getInstance();
     addRequirements(Elevator.getInstance());
   }
 
@@ -44,6 +51,16 @@ public class PadElevator extends Command {
     //    } else if (checkDPad(6)) {
     //      setElevatorState(L1).schedule();
     //    }
+
+
+    if (aacrn.getRightBumperButtonPressed()) {
+      new AutomaticScore(Direction.RIGHT, elevatorToBeSetState, swerve.getPose()).schedule();
+    }
+
+    if (aacrn.getLeftBumperButtonPressed()) {
+      new AutomaticScore(Direction.LEFT, elevatorToBeSetState, swerve.getPose()).schedule();
+    }
+
 
     // THIS IS WHEN WE HAVE TWO CONTROLLERS,
     // JAYDEN WILL CLICK A DPAD AND AUTOSCORE TAKES THIS VARIABLES AND GOES TO THAT HEIGHT

@@ -6,10 +6,15 @@ import static frc.robot.utils.emu.Direction.*;
 import static frc.robot.utils.emu.ElevatorState.*;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.*;
+import frc.robot.commands.sequencing.ScoreL1;
+import frc.robot.commands.sequencing.ScoreL2;
+import frc.robot.commands.sequencing.ScoreL3;
+import frc.robot.commands.sequencing.ScoreL4;
 import frc.robot.subsystems.*;
 import frc.robot.utils.emu.*;
 import frc.robot.utils.pingu.*;
@@ -38,7 +43,7 @@ public class RobotContainer {
     Elevator.getInstance().setDefaultCommand(padElevator(aacrn, calamityCow));
     Coral.getInstance();
     Swerve.getInstance().setDefaultCommand(drive(aacrn));
-
+    Algae.getInstance();
     Button.getEntries()
         .forEach(
             button ->
@@ -49,6 +54,13 @@ public class RobotContainer {
             button ->
                 calamityCowButtons.put(
                     button, new JoystickButton(calamityCow, button.getButtonNumber())));
+
+
+    NamedCommands.registerCommand("ScoreL1", new ScoreL1());
+    NamedCommands.registerCommand("ScoreL2", new ScoreL2());
+    NamedCommands.registerCommand("ScoreL3", new ScoreL3());
+    NamedCommands.registerCommand("ScoreL4", new ScoreL4() );
+
 
     networkChooser = AutoBuilder.buildAutoChooser();
 
@@ -88,4 +100,5 @@ public class RobotContainer {
 
     new Bingu(calamityCowButtons).bind(A, waitCmd(1));
   }
+
 }

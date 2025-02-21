@@ -71,10 +71,6 @@ object RobotParameters {
     object SwerveParameters {
         const val PATHPLANNER_AUTO_NAME: String = "4l4auto"
 
-        // TODO: Placeholder for the offset amount, figure out the correct value
-        const val AUTO_ALIGN_SWERVE_LEFT_OFFSET: Double = -0.1
-        const val AUTO_ALIGN_SWERVE_RIGHT_OFFSET: Double = 0.1
-
         @JvmField
         var robotPos: Pose2d = Pose2d(0.0, 0.0, Rotation2d(0.0, 0.0))
 
@@ -87,10 +83,10 @@ object RobotParameters {
             val STEER_PINGU_AUTO = Pingu(750.0, 5.000, 15.0, 0.0)
 
             @JvmField
-            val DRIVE_PINGU_AUTO = Pingu(5.0, 0.0, 0.0, 0.4)
+            val DRIVE_PINGU_AUTO = Pingu(5.0, 0.0, 0.0, 0.7)
 
             @JvmField
-            val DRIVE_PINGU_TELE = Pingu(5.0, 0.0, 0.0, 0.4)
+            val DRIVE_PINGU_TELE = Pingu(5.0, 0.0, 0.0, 0.7)
 
             @JvmField
             val ROTATIONAL_PINGU = Pingu(0.2, 0.0, 0.0)
@@ -105,8 +101,8 @@ object RobotParameters {
             // TODO remember to update path planner config values and measure everything (cameras etc)
             val PATH_CONSTRAINTS: PathConstraints =
                 PathConstraints(
-                    4.0,
-                    4.0,
+                    5.0,
+                    5.0,
                     degreesToRadians(540.0),
                     degreesToRadians(720.0),
                 )
@@ -165,6 +161,7 @@ object RobotParameters {
     object LiveRobotValues {
         const val LOW_BATTERY_VOLTAGE: Double = 11.8
 
+        // make this a supplier
         @JvmField
         var ROBOT_POS: Pose2d = Pose2d(0.0, 0.0, Rotation2d(0.0, 0.0))
 
@@ -247,11 +244,10 @@ object RobotParameters {
         val CORAL_FEEDER_PINGU = Pingu(0.001, 0.0, 0.0, 0.0)
 
         @JvmField
-        var coralState: CoralState = CoralState.CORAL_HOLD
+        var coralState: CoralState = CoralState.CORAL_INTAKE
 
         @JvmField
-        var hasPiece: Boolean = true
-        // TODO: SHOULD BE FALSE WHEN SENSOR WORKS
+        var hasPiece: Boolean = false
         // coral should be intaking and coral state should be intaking
 
         @JvmField
@@ -301,7 +297,7 @@ object RobotParameters {
 
             // Tag order is 18, 19, 20, 21, 22, 17
             @JvmField
-            val coralScoreBlueList: CoralScore = listOf(
+            val coralScoreBlueList: List<CoralScore> = listOf(
                 Triple(Translation2d(3.6576, 4.0259), SCORING_A_BLUE, SCORING_B_BLUE),
                 Triple(Translation2d(4.0739, 3.3063), SCORING_C_BLUE, SCORING_D_BLUE),
                 Triple(Translation2d(4.9047, 3.3063), SCORING_E_BLUE, SCORING_F_BLUE),

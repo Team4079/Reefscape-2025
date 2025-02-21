@@ -33,7 +33,7 @@ public class LED extends SubsystemBase {
   private ArrayList<Integer> laserPositions = new ArrayList<>();
 
   // LED patterns
-  public final LEDPattern red;
+//  public final LEDPattern red;
 
   /**
    * The Singleton instance of this LEDSubsystem. Code should use the {@link #getInstance()} method
@@ -69,7 +69,7 @@ public class LED extends SubsystemBase {
       laserPositions.add(-i * spacing);
     }
 
-    red = LEDPattern.gradient(LEDPattern.GradientType.kContinuous, Color.kRed);
+//    red = LEDPattern.gradient(LEDPattern.GradientType.kContinuous, Color.kRed);
 
   }
 
@@ -79,6 +79,7 @@ public class LED extends SubsystemBase {
    */
   @Override
   public void periodic() {
+
     // Enabled Robot
 
     if (DriverStation.isEnabled()) {
@@ -102,11 +103,11 @@ public class LED extends SubsystemBase {
     }
 
     // Disabled Robot (we can do whatever we want)
-    if (DriverStation.isDisabled() && !LiveRobotValues.lowBattery) {
-      ledState = LEDState.RAINBOW_FLOW;
-    } else if (LiveRobotValues.lowBattery) {
-      ledState = LEDState.TWINKLE;
-    }
+//    if (DriverStation.isDisabled() && !LiveRobotValues.lowBattery) {
+//      ledState = LEDState.RAINBOW_FLOW;
+//    } else if (LiveRobotValues.lowBattery) {
+//      ledState = LEDState.TWINKLE;
+//    }
 
     switch (this.ledState) {
       case RAINBOW_FLOW:
@@ -127,9 +128,26 @@ public class LED extends SubsystemBase {
       case LASER:
         laserbeam();
         break;
+      case RED_WAVE:
+        redWave();
+        break;
+      case GREEN_WAVE:
+        greenWave();
+        break;
+      case BLUE_WAVE:
+        blueWave();
+        break;
+      case YELLOW_WAVE:
+        yellowWave();
+        break;
+      case PURPLE_WAVE:
+        purpleWave();
+        break;
       default:
         setRed();
     }
+
+    log("LED state", this.ledState);
   }
 
   /**
@@ -364,37 +382,37 @@ public class LED extends SubsystemBase {
 
   /** Creates a wave red themed effect on the LED strip. */
   public void redWave() {
-    createWave(Color.kCrimson, Color.kDarkRed, 10, 5);
+    createWave(Color.kCrimson, Color.kDarkRed, 30, 5);
   }
 
   /** Creates a wave green themed effect on the LED strip. */
   public void greenWave() {
-    createWave(Color.kSpringGreen, Color.kDarkGreen, 10, 5);
+    createWave(Color.kSpringGreen, Color.kDarkGreen, 30, 5);
   }
 
   /** Creates a wave blue themed effect on the LED strip. */
   public void blueWave() {
-    createWave(Color.kAliceBlue, Color.kAquamarine, 10, 5);
+    createWave(Color.kAliceBlue, Color.kAquamarine, 30, 5);
   }
 
   /** Creates a wave yellow themed effect on the LED strip. */
   public void yellowWave() {
-    createWave(Color.kYellow, Color.kGold, 10, 5);
+    createWave(Color.kYellow, Color.kGold, 30, 5);
   }
 
   /** Creates a wave purple themed effect on the LED strip. */
   public void purpleWave() {
-      createWave(Color.kViolet, Color.kIndigo, 10, 5);
+      createWave(Color.kViolet, Color.kIndigo, 30, 5);
   }
 
     /** Creates a wave orange themed effect on the LED strip. */
     public void orangeWave() {
-      createWave(Color.kOrange, Color.kDarkOrange, 10, 5);
+      createWave(Color.kOrange, Color.kDarkOrange, 30, 5);
     }
 
     /** Creates a wave pink themed effect on the LED strip. */
     public void pinkWave() {
-      createWave(Color.kMagenta, Color.kHotPink, 10, 5);
+      createWave(Color.kMagenta, Color.kHotPink, 30, 5);
     }
 
     public void setDarkGreen() {

@@ -63,10 +63,6 @@ public class Robot extends LoggedRobot {
       // Enables power distribution logging
       new PowerDistribution(1, ModuleType.kRev);
 
-      //      for (int i = 1; i <= 19; i++) {
-      //        clearStickyFaults(i);
-      //      }
-
     } else {
       // Run as fast as possible
       setUseTiming(false);
@@ -84,6 +80,9 @@ public class Robot extends LoggedRobot {
     // Start the logger
     Logger.start();
 
+    // Call addCoralPosList
+    RobotPoses.addCoralPosList();
+
     // Initialize the garbage timer
     garbageTimer = new Timer();
     batteryTimer = new Timer();
@@ -97,9 +96,6 @@ public class Robot extends LoggedRobot {
 
     // Schedule the warmup command
     PathfindingCommand.warmupCommand().schedule();
-
-    // Call addCoralPosList
-    RobotPoses.addCoralPosList();
 
     CommandScheduler.getInstance().enable();
   }

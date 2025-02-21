@@ -173,7 +173,7 @@ public class Swerve extends SubsystemBase {
         this::getAutoSpeeds,
         this::chassisSpeedsDrive,
         new PPHolonomicDriveController(
-            new PIDConstants(5.0, 0.0, 0.0), new PIDConstants(5.0, 0.0, 0.0)),
+            new PIDConstants(7.6, 0.0, 0.0), new PIDConstants(10.0, 0.0, 0.0)),
         PinguParameters.config,
         () -> DriverStation.getAlliance().filter(value -> value == Alliance.Red).isPresent(),
         this);

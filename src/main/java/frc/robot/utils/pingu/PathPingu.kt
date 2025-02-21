@@ -14,6 +14,7 @@ import frc.robot.utils.emu.Direction
  */
 typealias CoralScore = Triple<Translation2d, Pose2d, Pose2d>
 
+
 /**
  * Object that manages scoring positions but does not store them directly.
  * Instead, it provides methods to retrieve the closest scoring position.
@@ -26,8 +27,10 @@ object PathPingu {
      *
      * @param positions One or more lists of triples containing the AprilTag location, left coral position, and right coral position.
      */
-    fun addCoralScoringPositions(vararg positions: CoralScore) {
-        scoringPositions.addAll(positions)
+    fun addCoralScoringPositions(vararg positions: List<CoralScore>) {
+        positions.iterator().forEach {
+            scoringPositions.addAll(it)
+        }
     }
 
     /**
@@ -40,13 +43,9 @@ object PathPingu {
      * @param direction The direction in which to find the closest scoring position.
      * @return The command to move to the closest scoring position.
      */
-    fun findClosestScoringPosition(
-        position: Pose2d,
-        direction: Direction,
-    ): Command? {
+    fun findClosestScoringPosition(position: Pose2d, direction: Direction): Command? {
         val closest = scoringPositions.minByOrNull { position.translation.getDistance(it.first) }
-        return closest
-            ?.let { if (direction == Direction.LEFT) it.second else it.third }
+        return closest?.let { if (direction == Direction.LEFT) it.second else it.third }
             ?.let { createPathfindingCmd(it) }
     }
 }

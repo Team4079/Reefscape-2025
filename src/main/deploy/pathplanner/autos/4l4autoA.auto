@@ -11,6 +11,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ScoreL3"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "b4l4a"
@@ -23,6 +29,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ScoreL3"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "d4l4a"
@@ -32,6 +44,12 @@
           "type": "path",
           "data": {
             "pathName": "e4l4a"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ScoreL3"
           }
         }
       ]

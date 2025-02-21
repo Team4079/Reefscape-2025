@@ -112,7 +112,9 @@ object Kommand {
      * @return An [AutomaticScore] that performs the scoring action.
      */
     @JvmStatic
-    fun score(dir: Direction) = AutomaticScore(dir)
+//    fun score(dir: Direction) = AutomaticScore(dir)
+    fun score(dir: Direction) = cmd {}
+
 
     /**
      * Creates an new [ReverseIntake] command to reverse the intake.
@@ -128,15 +130,6 @@ object Kommand {
      */
     @JvmStatic
     fun startCoralMotors() = cmd { Coral.getInstance().startCoralIntake() }
-
-    /**
-     * Creates an [AlignSwerve] command to align the robot in a specified direction.
-     *
-     * @param dir The direction in which to align the robot.
-     * @return An [AlignSwerve] command that aligns the robot.
-     */
-    @JvmStatic
-    fun align(dir: Direction) = AlignSwerve(dir)
 
     /**
      * Creates a [PadDrive] command to control the robot's driving mechanism.
@@ -235,5 +228,5 @@ object Kommand {
      * @return A command that performs the pathfinding operation.
      */
     @JvmStatic
-    fun moveToClosestCoralScore(direction: Direction) = findClosestScoringPosition(ROBOT_POS, direction)
+    fun moveToClosestCoralScore(direction: Direction, pose: Pose2d) = findClosestScoringPosition(pose, direction)
 }
