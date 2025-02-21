@@ -4,9 +4,7 @@ import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.math.geometry.Translation2d
 import edu.wpi.first.wpilibj2.command.Command
 import frc.robot.commands.Kommand.createPathfindingCmd
-import frc.robot.subsystems.Coral
 import frc.robot.utils.emu.Direction
-import kotlin.math.pow
 
 /**
  * Type alias for a list of scoring positions, each defined by an Translation2d AprilTag location,
@@ -14,8 +12,7 @@ import kotlin.math.pow
  * The april tag position is to find the closest pair of reef scoring positions.
  * Sorry Om I barely know how to code in Kotlin :(
  */
-typealias CoralScore = List<Triple<Translation2d, Pose2d, Pose2d>>
-
+typealias CoralScore = Triple<Translation2d, Pose2d, Pose2d>
 
 /**
  * Object that manages scoring positions but does not store them directly.
@@ -43,9 +40,13 @@ object PathPingu {
      * @param direction The direction in which to find the closest scoring position.
      * @return The command to move to the closest scoring position.
      */
-    fun findClosestScoringPosition(position: Pose2d, direction: Direction): Command? {
-        val closest = scoringPositions.flatten().minByOrNull { position.translation.getDistance(it.first) }
-        return closest?.let { if (direction == Direction.LEFT) it.second else it.third }
+    fun findClosestScoringPosition(
+        position: Pose2d,
+        direction: Direction,
+    ): Command? {
+        val closest = scoringPositions.minByOrNull { position.translation.getDistance(it.first) }
+        return closest
+            ?.let { if (direction == Direction.LEFT) it.second else it.third }
             ?.let { createPathfindingCmd(it) }
     }
 }
