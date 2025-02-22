@@ -128,17 +128,19 @@ public class LED extends SubsystemBase {
       case LASER:
         laserbeam();
         break;
+      case ORANGE_WAVE:
+        setRGB(255, 255, 0);
       case RED_WAVE:
-        redWave();
+        setRGB(255, 0, 0);
         break;
       case GREEN_WAVE:
         greenWave();
         break;
       case BLUE_WAVE:
-        blueWave();
+        setRGB(0, 0, 255);
         break;
       case YELLOW_WAVE:
-        yellowWave();
+        setRGB(0, 255, 255);
         break;
       case PURPLE_WAVE:
         purpleWave();

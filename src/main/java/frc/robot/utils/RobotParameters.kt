@@ -92,7 +92,7 @@ object RobotParameters {
             val ROTATIONAL_PINGU = Pingu(0.2, 0.0, 0.0)
 
             @JvmField
-            val Y_PINGU = Pingu(0.2, 0.0, 0.0)
+            val Y_PINGU = Pingu(2.0, 0.0, 0.0)
 
             @JvmField
             val DIST_PINGU = Pingu(0.2, 0.0, 0.0)
@@ -178,8 +178,8 @@ object RobotParameters {
         const val CAMERA_TWO_ANGLE_DEG: Double = 37.5
         const val OFFSET_TOWARD_MID_RIGHT: Double = 15.0
 
-        const val LEFT_OFFSET: Double = 0.0
-        const val RIGHT_OFFSET: Double = 0.0
+        const val LEFT_OFFSET: Double = 0.163
+        const val RIGHT_OFFSET: Double = -0.163
 
         // THESE NEED TO BE REPLACED WITH TESTED VALUES PLS (BUT I KNOW WE WON'T HAVE TIME FOR THIS)
         @JvmField
@@ -207,7 +207,7 @@ object RobotParameters {
 
         const val ELEVATOR_SOFT_LIMIT_DOWN: Double = 0.0
 
-        const val ELEVATOR_SOFT_LIMIT_UP: Double = 61.5
+        const val ELEVATOR_SOFT_LIMIT_UP: Double = 65.0
 
         @JvmField
         var elevatorToBeSetState: ElevatorState = ElevatorState.L1
@@ -280,7 +280,7 @@ object RobotParameters {
             val REEF_F = Pose2d(5.285, 2.964, fromDegrees(120.0))
             val REEF_G = Pose2d(5.805, 3.863, fromDegrees(180.0))
             val REEF_H = Pose2d(5.805, 4.189, fromDegrees(180.0))
-            val REEF_I = Pose2d(5.288, 5.083, fromDegrees(-120.0))
+            val REEF_I = Pose2d(5.288,  5.083, fromDegrees(-120.0))
             val REEF_J = Pose2d(5.002, 5.248, fromDegrees(-120.0))
             val REEF_K = Pose2d(3.972, 5.247, fromDegrees(-60.0))
             val REEF_L = Pose2d(3.693, 5.079, fromDegrees(-60.0))

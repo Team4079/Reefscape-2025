@@ -211,12 +211,12 @@ public class PhotonVision extends SubsystemBase {
   {
     for (Pair<PhotonModule, PhotonPipelineResult> pair : currentResultPair)
     {
-      if (pair.getFirst().getCamera().equals(camera))
+      if (pair.getFirst().getCamera().equals(camera) && currentResultPair != null)
       {
         return pair.getSecond().getBestTarget().getBestCameraToTarget().getY();
       }
     }
-    return 0.0;
+    return 7157;
   }
 
   /**

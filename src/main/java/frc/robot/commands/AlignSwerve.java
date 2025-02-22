@@ -1,10 +1,13 @@
 package frc.robot.commands;
 
+import static frc.robot.utils.ExtensionsKt.hasTargets;
 import static frc.robot.utils.RobotParameters.MotorParameters.MAX_ANGULAR_SPEED;
 import static frc.robot.utils.RobotParameters.MotorParameters.MAX_SPEED;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.X_DEADZONE;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.Y_DEADZONE;
+import static frc.robot.utils.pingu.LogPingu.log;
+import static frc.robot.utils.pingu.LogPingu.logs;
 
 import edu.wpi.first.math.controller.*;
 import edu.wpi.first.wpilibj.*;
@@ -41,21 +44,24 @@ public class AlignSwerve extends Command {
     photonVision = PhotonVision.getInstance();
     this.pad = pad;
     switch (offsetSide) {
-      case LEFT:
+      case RIGHT:
         camera = photonVision.requestCamera("RightCamera");
         offset = RobotParameters.PhotonVisionConstants.LEFT_OFFSET;
         break;
-      case RIGHT:
+      case LEFT:
         camera = photonVision.requestCamera("LeftCamera");
         offset = RobotParameters.PhotonVisionConstants.RIGHT_OFFSET;
         break;
       case CENTER:
         this.offset = 0;
+        System.out.println("nhujolikhohuikb'ghuibghyuihuo98iao98i0oa0p9ipaoiaoihaiohjahoia");
         break;
       default:
         throw new IllegalStateException("Unexpected value: " + offsetSide);
     }
 
+    timer = new Timer();
+    timer.start();
     addRequirements(Swerve.getInstance());
   }
 
@@ -71,11 +77,11 @@ public class AlignSwerve extends Command {
     rotationalController.setSetpoint(0);
 
     yController = Y_PINGU.getPidController();
-    yController.setTolerance(1.5);
-    yController.setSetpoint(0);
+    yController.setTolerance(1.0);
+    yController.setSetpoint(offset);
 
     disController = DIST_PINGU.getPidController();
-    disController.setTolerance(1.5);
+    disController.setTolerance(1.0);
     disController.setSetpoint(0);
 
     timer = new Timer();
@@ -99,13 +105,21 @@ public class AlignSwerve extends Command {
 
     double padRotation = Math.abs(pad.getRightX()) >= 0.1 ? -pad.getRightX() * MAX_ANGULAR_SPEED : 0.0;
 
+    logs(
+            () -> {
+              log("Alignment/Used camera", camera.getName());
+              log("Alignment/Fetched Yaw", yaw);
+              log("Alignment/Fetched y", y);
+              log("Alignment/Fetched dist(x)", dist);
+              log("Alignment/Fetched error", error);
+              log("Alignment/Caluclated val", yController.calculate(y, offset));
+            });
 
-    Swerve.getInstance()
-        .setDriveSpeeds(0, yController.calculate(error), 0.0);
-
-    if (photonVision.hasTag()) {
-      timer.reset();
+    if (y != 7157) {
+      Swerve.getInstance()
+              .setDriveSpeeds(positionSet(pad).getFirst(), yController.calculate(y, offset), padRotation);
     }
+
   }
 
   /**
@@ -132,7 +146,12 @@ public class AlignSwerve extends Command {
    */
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(1.0);
+    if (timer.get() > 2.0)
+    {
+      timer.stop();
+      return  true;
+    }
+    return false;
   }
 
   /**

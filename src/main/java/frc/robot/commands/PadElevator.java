@@ -7,9 +7,11 @@ import static frc.robot.utils.emu.ElevatorState.*;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.sequencing.AutomaticScore;
+import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.RobotParameters;
+import frc.robot.utils.emu.CoralState;
 import frc.robot.utils.emu.Direction;
 import kotlin.*;
 
@@ -17,6 +19,8 @@ import kotlin.*;
 public class PadElevator extends Command {
   private final XboxController aacrn;
   private final XboxController calamityCow;
+
+  private final Coral coral;
 
   private final Swerve swerve;
   /**
@@ -28,6 +32,7 @@ public class PadElevator extends Command {
     this.aacrn = aacrn;
     this.calamityCow = calamityCow;
     this.swerve = Swerve.getInstance();
+    this.coral = Coral.getInstance();
     addRequirements(Elevator.getInstance());
   }
 
@@ -54,11 +59,17 @@ public class PadElevator extends Command {
 
 
     if (aacrn.getRightBumperButtonPressed()) {
-      new AutomaticScore(Direction.RIGHT, elevatorToBeSetState, swerve.getPose()).schedule();
+      new AutomaticScore(Direction.RIGHT, elevatorToBeSetState, aacrn).schedule();
     }
 
     if (aacrn.getLeftBumperButtonPressed()) {
-      new AutomaticScore(Direction.LEFT, elevatorToBeSetState, swerve.getPose()).schedule();
+      new AutomaticScore(Direction.LEFT, elevatorToBeSetState, aacrn).schedule();
+    }
+
+    if (aacrn.getYButton()) {
+      RobotParameters.CoralManipulatorParameters.coralState = CoralState.CORAL_INTAKE;
+    } else {
+      RobotParameters.CoralManipulatorParameters.coralState = CoralState.CORAL_HOLD;
     }
 
 

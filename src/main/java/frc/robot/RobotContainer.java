@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.*;
+import frc.robot.commands.AlignSwerve;
 import frc.robot.commands.sequencing.ScoreL1;
 import frc.robot.commands.sequencing.ScoreL2;
 import frc.robot.commands.sequencing.ScoreL3;
@@ -61,6 +62,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("ScoreL3", new ScoreL3());
     NamedCommands.registerCommand("ScoreL4", new ScoreL4() );
 
+    NamedCommands.registerCommand("AlignLeft", new AlignSwerve(LEFT, aacrn));
+    NamedCommands.registerCommand("AlignRight", new AlignSwerve(RIGHT, aacrn));
+
 
     networkChooser = AutoBuilder.buildAutoChooser();
 
@@ -93,7 +97,7 @@ public class RobotContainer {
 //        .bind(B, createPathfindingCmd(reefs.get(0)))
 //        .bind(A, setIntakeAlgae())
 //        .bind(A, align(RIGHT))
-        .bind(Y, startCoralMotors())
+//        .bind(Y, startCoralMotors())
         .bind(LEFT_BUMPER, score(LEFT))
         .bind(RIGHT_BUMPER, score(RIGHT))
         .bind(X, reverseIntake().onlyWhile(aacrn::getXButton));
