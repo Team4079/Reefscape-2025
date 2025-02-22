@@ -178,6 +178,9 @@ object RobotParameters {
         const val CAMERA_TWO_ANGLE_DEG: Double = 37.5
         const val OFFSET_TOWARD_MID_RIGHT: Double = 15.0
 
+        const val LEFT_OFFSET: Double = 0.0
+        const val RIGHT_OFFSET: Double = 0.0
+
         // THESE NEED TO BE REPLACED WITH TESTED VALUES PLS (BUT I KNOW WE WON'T HAVE TIME FOR THIS)
         @JvmField
         val SINGLE_TARGET_STD_DEV: Matrix<N3, N1> = VecBuilder.fill(0.08, 0.08, 0.05)

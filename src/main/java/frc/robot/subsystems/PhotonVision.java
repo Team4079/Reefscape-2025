@@ -10,6 +10,7 @@ import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.*;
 import kotlin.*;
+import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.*;
 
 /**
@@ -168,6 +169,54 @@ public class PhotonVision extends SubsystemBase {
    */
   public double getY() {
     return y;
+  }
+
+  public PhotonCamera requestCamera(String cameraName)
+  {
+    for (PhotonModule camera : cameras)
+    {
+      if (camera.getCameraName().equals(cameraName))
+      {
+        return camera.getCamera();
+      }
+    }
+    return null;
+  }
+
+  public double fetchYaw(PhotonCamera camera)
+  {
+    for (Pair<PhotonModule, PhotonPipelineResult> pair : currentResultPair)
+    {
+      if (pair.getFirst().getCamera().equals(camera))
+      {
+        return pair.getSecond().getBestTarget().getYaw();
+      }
+    }
+    return 0.0;
+  }
+
+  public double fetchDist(PhotonCamera camera)
+  {
+    for (Pair<PhotonModule, PhotonPipelineResult> pair : currentResultPair)
+    {
+      if (pair.getFirst().getCamera().equals(camera))
+      {
+        return pair.getSecond().getBestTarget().getBestCameraToTarget().getX();
+      }
+    }
+    return 0.0;
+  }
+
+  public double fetchY(PhotonCamera camera)
+  {
+    for (Pair<PhotonModule, PhotonPipelineResult> pair : currentResultPair)
+    {
+      if (pair.getFirst().getCamera().equals(camera))
+      {
+        return pair.getSecond().getBestTarget().getBestCameraToTarget().getY();
+      }
+    }
+    return 0.0;
   }
 
   /**
