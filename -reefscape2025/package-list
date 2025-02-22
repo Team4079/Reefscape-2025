@@ -2,7 +2,7 @@ $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:frc.robot.commands.sequencing////PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/index.html
 $dokka.location:frc.robot.commands.sequencing/AutomaticScore///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/index.html
-$dokka.location:frc.robot.commands.sequencing/AutomaticScore/AutomaticScore/#frc.robot.utils.emu.Direction#frc.robot.utils.emu.ElevatorState#edu.wpi.first.math.geometry.Pose2d/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/-automatic-score.html
+$dokka.location:frc.robot.commands.sequencing/AutomaticScore/AutomaticScore/#frc.robot.utils.emu.Direction#frc.robot.utils.emu.ElevatorState#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/-automatic-score.html
 $dokka.location:frc.robot.commands.sequencing/ScoreL1///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l1/index.html
 $dokka.location:frc.robot.commands.sequencing/ScoreL1/ScoreL1/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l1/-score-l1.html
 $dokka.location:frc.robot.commands.sequencing/ScoreL2///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l2/index.html
