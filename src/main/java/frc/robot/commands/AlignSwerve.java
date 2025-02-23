@@ -95,6 +95,22 @@ public class AlignSwerve extends Command {
    */
   @Override
   public void execute() {
+    if (photonVision.fetchYaw(camera) == 7157) {
+      Timer tempTimer = new Timer();
+      tempTimer.start();
+      if (tempTimer.get() < 0.2) {
+        if (photonVision.fetchYaw(camera) != 7157) {
+          return;
+      }
+      if (camera.getName().equals("RightCamera")) {
+        camera = photonVision.requestCamera("LeftCamera");
+      } else {
+        camera = photonVision.requestCamera("RightCamera");
+      }
+      }
+      return;
+    }
+
     yaw = photonVision.fetchYaw(camera);
 
     y = photonVision.fetchY(camera);

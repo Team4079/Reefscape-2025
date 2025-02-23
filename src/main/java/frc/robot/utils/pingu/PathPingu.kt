@@ -43,9 +43,8 @@ object PathPingu {
      * @param direction The direction in which to find the closest scoring position.
      * @return The command to move to the closest scoring position.
      */
-    fun findClosestScoringPosition(position: Pose2d, direction: Direction): Command? {
+    fun findClosestScoringPosition(position: Pose2d, direction: Direction): Pose2d? {
         val closest = scoringPositions.minByOrNull { position.translation.getDistance(it.first) }
         return closest?.let { if (direction == Direction.LEFT) it.second else it.third }
-            ?.let { createPathfindingCmd(it) }
     }
 }
