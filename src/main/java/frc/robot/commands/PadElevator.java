@@ -66,11 +66,11 @@ public class PadElevator extends Command {
       new AutomaticScore(Direction.LEFT, elevatorToBeSetState, aacrn).schedule();
     }
 
-    if (aacrn.getYButton()) {
-      RobotParameters.CoralManipulatorParameters.coralState = CoralState.CORAL_INTAKE;
-    } else {
-      RobotParameters.CoralManipulatorParameters.coralState = CoralState.CORAL_HOLD;
-    }
+//    if (aacrn.getYButton()) {
+//      RobotParameters.CoralManipulatorParameters.coralState = CoralState.CORAL_INTAKE;
+//    } else {
+//      RobotParameters.CoralManipulatorParameters.coralState = CoralState.CORAL_HOLD;
+//    }
 
 
     // THIS IS WHEN WE HAVE TWO CONTROLLERS,
