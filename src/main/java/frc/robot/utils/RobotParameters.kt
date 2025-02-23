@@ -95,6 +95,9 @@ object RobotParameters {
             val Y_PINGU = Pingu(2.0, 0.0, 0.0)
 
             @JvmField
+            val X_PINGU = Pingu(2.0, 0.0, 0.0)
+
+            @JvmField
             val DIST_PINGU = Pingu(0.2, 0.0, 0.0)
 
             @JvmField

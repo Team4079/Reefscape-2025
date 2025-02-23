@@ -14,6 +14,7 @@ import org.photonvision.PhotonCamera;
 
 import static frc.robot.commands.Kommand.moveToClosestCoralScore;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
+import static frc.robot.utils.pingu.LogPingu.log;
 import static frc.robot.utils.pingu.LogPingu.logs;
 
 public class AlignToPose extends Command {
@@ -61,7 +62,7 @@ public class AlignToPose extends Command {
     yController.setTolerance(1.0);
     yController.setSetpoint(targetPose.getY());
 
-    xController = DIST_PINGU.getPidController();
+    xController = X_PINGU.getPidController();
     xController.setTolerance(1.0);
     xController.setSetpoint(targetPose.getX());
   }
@@ -79,11 +80,26 @@ public class AlignToPose extends Command {
 //    yController.calculate(currentPose.getY());
 //    xController.calculate(currentPose.getX());
 
+
+    // Swerve drive set speeds is x y then rotation, so we need to set the speeds in the correct order
     swerve.setDriveSpeeds(
-        rotationalController.calculate(currentPose.getRotation().getDegrees()),
-        yController.calculate(currentPose.getY()),
         xController.calculate(currentPose.getX()),
+        yController.calculate(currentPose.getY()),
+        rotationalController.calculate(currentPose.getRotation().getDegrees()),
         false);
+
+
+    logs(
+        () -> {
+          log("AlignToPose/Current Pose", currentPose);
+          log("AlignToPose/Target Pose", targetPose);
+          log("AlignToPose/Rotational Controller", rotationalController.getError());
+          log("AlignToPose/Y Controller", yController.getError());
+          log("AlignToPose/X Controller ", xController.getError());
+          log("AlignToPose/Rotational Controller Setpoint", rotationalController.getSetpoint());
+          log("AlignToPose/Y Controller Setpoint", yController.getSetpoint());
+          log("AlignToPose/X Controller Setpoint ", xController.getSetpoint());
+        });
   }
 
   /**
