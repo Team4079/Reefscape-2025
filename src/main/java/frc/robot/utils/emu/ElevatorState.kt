@@ -13,7 +13,7 @@ enum class ElevatorState(
     DEFAULT(0.1),
 
     /** Represents the first level of the elevator (aka the trough).  */
-    L1(10.0),
+    L1(8.0),
 
     /** Represents the second level of the elevator.  */
     L2(15.0),
