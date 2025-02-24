@@ -32,6 +32,15 @@ object PathPingu {
     }
 
     /**
+     * Clears the list of potential scoring positions.
+     */
+    @JvmStatic
+    fun clearCoralScoringPositions() {
+        scoringPositionsL4.clear()
+        scoringPositionsNotL4.clear()
+    }
+
+    /**
      * Adds any number of coral scoring positions to the list of potential scoring positions for not L4.
      *
      * @param positions One or more lists of triples containing the AprilTag location, left coral position, and right coral position.

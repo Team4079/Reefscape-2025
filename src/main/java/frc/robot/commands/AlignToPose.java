@@ -3,9 +3,11 @@ package frc.robot.commands;
 import static frc.robot.commands.Kommand.moveToClosestCoralScore;
 import static frc.robot.commands.Kommand.moveToClosestCoralScoreNotL4;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.elevatorToBeSetState;
+import static frc.robot.utils.RobotParameters.FieldParameters.RobotPoses.addCoralPosList;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
 import static frc.robot.utils.pingu.LogPingu.log;
 import static frc.robot.utils.pingu.LogPingu.logs;
+import static frc.robot.utils.pingu.PathPingu.clearCoralScoringPositions;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -17,6 +19,7 @@ import frc.robot.subsystems.PhotonVision;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.emu.Direction;
 import frc.robot.utils.emu.ElevatorState;
+import frc.robot.utils.pingu.PathPingu;
 import kotlin.Pair;
 import org.photonvision.PhotonCamera;
 
@@ -57,6 +60,10 @@ public class AlignToPose extends Command {
   /** The initial subroutine of a command. Called once when the command is initially scheduled. */
   @Override
   public void initialize() {
+    // Update the list of coral scoring positions to the correct side (hopefully)
+    clearCoralScoringPositions();
+    addCoralPosList();
+
     if (elevatorToBeSetState == ElevatorState.L4) {
       targetPose = moveToClosestCoralScore(offsetSide, Swerve.getInstance().getPose());
     } else {
@@ -82,6 +89,7 @@ public class AlignToPose extends Command {
    */
   @Override
   public void execute() {
+
     // Using PID for x, y and rotation, align it to the target pose
 
     currentPose = swerve.getPose();

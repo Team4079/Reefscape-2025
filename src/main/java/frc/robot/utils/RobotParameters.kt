@@ -261,8 +261,8 @@ object RobotParameters {
     }
 
     object FieldParameters {
-        const val FIELD_LENGTH_METERS = 17.3744 // 57 feet + 6 7/8 inches
-        const val FIELD_WIDTH_METERS = 8.2296 // 26 feet + 5 inches
+        const val FIELD_LENGTH_METERS = 17.5483 // 57 feet + 6 7/8 inches
+        const val FIELD_WIDTH_METERS = 8.0518 // 26 feet + 5 inches
 
         val AprilTagFieldLayout = AprilTagFields.k2025ReefscapeWelded
 
@@ -271,6 +271,7 @@ object RobotParameters {
 
         @Suppress("MemberVisibilityCanBePrivate")
         object RobotPoses {
+
             // Red first then blue poses
 
             // Represents how far we want to go from the pole
@@ -364,12 +365,45 @@ object RobotParameters {
                 )
 
             @JvmStatic
-            fun addCoralPosList() {
-                PathPingu.addCoralScoringPositions(coralScoreBlueList)
-                PathPingu.addCoralScoringPositionsNotL4(coralScoreBlueListNotL4)
+            fun getRedAlliancePose(bluePose: Pose2d): Pose2d {
+                return Pose2d(
+                    FIELD_LENGTH_METERS - bluePose.x,
+                    FIELD_WIDTH_METERS - bluePose.y,
+                    bluePose.rotation.plus(Rotation2d.fromDegrees(180.0))
+                )
             }
 
-            // TODO CURRENTLY JUST BLUE SIDE SO ADD RED ASAP
+            @JvmStatic
+            fun getRedAllianceTranslation(blueTranslation: Translation2d): Translation2d {
+                return Translation2d(
+                    FIELD_LENGTH_METERS - blueTranslation.x,
+                    FIELD_WIDTH_METERS - blueTranslation.y
+                )
+            }
+
+            @JvmStatic
+            fun addCoralPosList() {
+                if (DriverStation.getAlliance().isPresent) {
+                    if (DriverStation.getAlliance().get() == DriverStation.Alliance.Blue) {
+                        PathPingu.addCoralScoringPositions(coralScoreBlueList)
+                        PathPingu.addCoralScoringPositionsNotL4(coralScoreBlueListNotL4)
+                    } else {
+                        val coralScoreRedList = coralScoreBlueList.map {
+                            Triple(getRedAllianceTranslation(it.first), getRedAlliancePose(it.second), getRedAlliancePose(it.third))
+                        }
+                        val coralScoreRedListNotL4 = coralScoreBlueListNotL4.map {
+                            Triple(getRedAllianceTranslation(it.first), getRedAlliancePose(it.second), getRedAlliancePose(it.third))
+                        }
+                        PathPingu.addCoralScoringPositions(coralScoreRedList)
+                        PathPingu.addCoralScoringPositionsNotL4(coralScoreRedListNotL4)
+                    }
+                }
+//                PathPingu.addCoralScoringPositions(coralScoreBlueList)
+//                PathPingu.addCoralScoringPositionsNotL4(coralScoreBlueListNotL4)
+            }
+
+            // TODO convert to red, now we need to implement it so that we do not have to swap sides every deploy
+            // REMEMBER EVERY DEPLOY CHANGE THE DRIVERSATION TO THE CORRECT COLOR
 
             // List of Source positions
             @JvmField

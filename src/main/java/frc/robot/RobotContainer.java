@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.commands.AlignSwerve;
+import frc.robot.commands.AlignToPose;
 import frc.robot.commands.sequencing.*;
 import frc.robot.subsystems.*;
 import frc.robot.utils.emu.*;
@@ -58,8 +59,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("ScoreL3", new ScoreL3());
     NamedCommands.registerCommand("ScoreL4", new ScoreL4());
 
-    NamedCommands.registerCommand("AlignLeft", new AlignSwerve(LEFT, aacrn));
-    NamedCommands.registerCommand("AlignRight", new AlignSwerve(RIGHT, aacrn));
+    NamedCommands.registerCommand("AlignLeft", new AlignToPose(LEFT, aacrn));
+    NamedCommands.registerCommand("AlignRight", new AlignToPose(RIGHT, aacrn));
 
     networkChooser = AutoBuilder.buildAutoChooser();
 

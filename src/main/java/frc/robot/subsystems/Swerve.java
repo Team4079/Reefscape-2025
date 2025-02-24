@@ -36,6 +36,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters;
 import frc.robot.utils.pingu.NetworkPingu;
+
+import java.sql.Driver;
 import java.util.Optional;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
@@ -321,6 +323,16 @@ public class Swerve extends SubsystemBase {
 
   /** Resets the Pigeon2 IMU. */
   public void resetPidgey() {
+//    if (DriverStation.getAlliance().get() == Alliance.Blue) {
+//      pidgey.setYaw(0.0);
+//    } else {
+//      pidgey.setYaw(180.0);
+//    }
+    //TODO Red side may have a starting angle of 180 instead of 0 for blue side which may mess stuff up
+    // Check to make sure 180 words or otherwise I can just flip everything
+    // and ignore the flipping of the rotation cause it should be
+    // just a note to future ppl: you should revert x maybe y controls for red side
+    // odometry is seprate from pidgey so path planner should be fine? (it reverts paths interestingly)
     pidgey.reset();
   }
 
