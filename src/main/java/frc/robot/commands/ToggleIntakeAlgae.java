@@ -24,8 +24,7 @@ public class ToggleIntakeAlgae extends Command {
     addRequirements();
   }
 
-  // TODO CHECK IF L2 or L3 and move depending on it
-  // TODO Reverse direction of coral intake motor when intaking algae
+  // TODO Reverse direction of coral intake motor when intaking algae (double check this works)
   @Override
   public void initialize() {
     switch (algaeCounter) {

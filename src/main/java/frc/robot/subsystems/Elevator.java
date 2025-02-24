@@ -324,7 +324,6 @@ public class Elevator extends SubsystemBase {
     final double deadband = 0.001;
     double velocity = -speed * 0.3309;
     if (Math.abs(velocity) >= deadband) {
-      // TODO: These values may be negative. Be EXTREMELY CAUTIOUS when setting the motors
       elevatorMotorLeft.setControl(cycleOut.withOutput(velocity));
       elevatorMotorRight.setControl(cycleOut.withOutput(velocity));
     } else {

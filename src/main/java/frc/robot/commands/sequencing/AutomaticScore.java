@@ -23,7 +23,7 @@ public class AutomaticScore extends SequentialCommandGroup {
         new WaitCommand(0.5),
         setCoralState(CoralState.CORAL_RELEASE),
         waitCmd(0.3),
-        // TODO MOVE BACK (prob with on the fly move back 0.5 meter path)
+        // TODO MOVE BACK (prob with on the fly move back 0.5 meter path) jayden u should do this cus im lazy
         setElevatorState(DEFAULT),
         coralIntaking());
   }

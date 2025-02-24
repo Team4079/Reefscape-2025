@@ -124,7 +124,6 @@ public class PhotonVision extends SubsystemBase {
         logs("Yaw", yaw);
       }
 
-      // TODO: If stddev above 0.09, reject the target
       logStdDev();
     }
   }
