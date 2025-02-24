@@ -3,6 +3,8 @@ $dokka.linkExtension:html
 $dokka.location:frc.robot.commands.sequencing////PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/index.html
 $dokka.location:frc.robot.commands.sequencing/AutomaticScore///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/index.html
 $dokka.location:frc.robot.commands.sequencing/AutomaticScore/AutomaticScore/#frc.robot.utils.emu.Direction#frc.robot.utils.emu.ElevatorState#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/-automatic-score.html
+$dokka.location:frc.robot.commands.sequencing/ResetScore///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-reset-score/index.html
+$dokka.location:frc.robot.commands.sequencing/ResetScore/ResetScore/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-reset-score/-reset-score.html
 $dokka.location:frc.robot.commands.sequencing/ScoreL1///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l1/index.html
 $dokka.location:frc.robot.commands.sequencing/ScoreL1/ScoreL1/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l1/-score-l1.html
 $dokka.location:frc.robot.commands.sequencing/ScoreL2///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l2/index.html
@@ -253,8 +255,9 @@ $dokka.location:frc.robot.utils.emu/ElevatorMotor///PointingToDeclaration/-reef
 $dokka.location:frc.robot.utils.emu/ElevatorMotor/getEntries/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.emu/-elevator-motor/get-entries.html
 $dokka.location:frc.robot.utils.emu/ElevatorMotor/valueOf/#kotlin.String/PointingToDeclaration/-reefscape2025/frc.robot.utils.emu/-elevator-motor/value-of.html
 $dokka.location:frc.robot.utils.emu/ElevatorMotor/values/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.emu/-elevator-motor/values.html
-$dokka.location:frc.robot.utils.emu/ElevatorState.ALGAE///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils.emu/-elevator-state/-a-l-g-a-e/index.html
+$dokka.location:frc.robot.utils.emu/ElevatorState.ALGAE_HIGH///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils.emu/-elevator-state/-a-l-g-a-e_-h-i-g-h/index.html
 $dokka.location:frc.robot.utils.emu/ElevatorState.ALGAE_HOLD///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils.emu/-elevator-state/-a-l-g-a-e_-h-o-l-d/index.html
+$dokka.location:frc.robot.utils.emu/ElevatorState.ALGAE_LOW///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils.emu/-elevator-state/-a-l-g-a-e_-l-o-w/index.html
 $dokka.location:frc.robot.utils.emu/ElevatorState.DEFAULT///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils.emu/-elevator-state/-d-e-f-a-u-l-t/index.html
 $dokka.location:frc.robot.utils.emu/ElevatorState.L1///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils.emu/-elevator-state/-l1/index.html
 $dokka.location:frc.robot.utils.emu/ElevatorState.L2///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils.emu/-elevator-state/-l2/index.html
