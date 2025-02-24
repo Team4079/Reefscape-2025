@@ -25,6 +25,7 @@ public class ToggleIntakeAlgae extends Command {
   }
 
   // TODO Reverse direction of coral intake motor when intaking algae (double check this works)
+  // stop stealing my commits erick
   @Override
   public void initialize() {
     switch (algaeCounter) {
