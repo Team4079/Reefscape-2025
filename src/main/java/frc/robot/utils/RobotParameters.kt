@@ -59,7 +59,8 @@ object RobotParameters {
         const val STEER_MOTOR_GEAR_RATIO: Double = 150.0 / 7
         const val DRIVE_MOTOR_GEAR_RATIO: Double = 6.750000000000000
         private const val WHEEL_DIAMETER: Double = 0.106
-        const val METERS_PER_REV: Double = WHEEL_DIAMETER * PI * 0.975
+        // TODO CALIBRATE WHEELS
+        const val METERS_PER_REV: Double = WHEEL_DIAMETER * PI * 0.99
 
         // Limit Values
         const val DRIVE_SUPPLY_LIMIT: Double = 45.0
@@ -89,16 +90,16 @@ object RobotParameters {
             val DRIVE_PINGU_TELE = Pingu(5.0, 0.0, 0.0, 0.7)
 
             @JvmField
-            val ROTATIONAL_PINGU = Pingu(0.2, 0.0, 0.0)
+            val ROTATIONAL_PINGU = Pingu(0.16, 0.0, 0.0)
 
             @JvmField
-            val Y_PINGU = Pingu(2.0, 0.0, 0.0)
+            val Y_PINGU = Pingu(4.8, 0.0, 0.0045)
 
             @JvmField
-            val X_PINGU = Pingu(2.0, 0.0, 0.0)
+            val X_PINGU = Pingu(4.8, 0.0, 0.0045)
 
             @JvmField
-            val DIST_PINGU = Pingu(0.2, 0.0, 0.0)
+            val DIST_PINGU = Pingu(0.15, 0.0, 0.1)
 
             @JvmField
             // TODO remember to update path planner config values and measure everything (cameras etc)
@@ -273,7 +274,9 @@ object RobotParameters {
             // Red first then blue poses
 
             // Represents how far we want to go from the pole
-            private const val DIS = 0.131
+            // TODO for L2 and L3, align to dis of 0
+            // TODO make for blue and red
+            private const val DIS = 0.02
 
             val REEF_A = Pose2d(3.171, 4.189, fromDegrees(0.0))
             val REEF_B = Pose2d(3.171, 3.863, fromDegrees(0.0))

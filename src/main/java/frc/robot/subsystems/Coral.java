@@ -156,7 +156,7 @@ public class Coral extends SubsystemBase {
 
   /** Scores the coral motors */
   public void scoreCoral() {
-    voltageOut.Output = 3.0;
+    voltageOut.Output = 4.0;
     coralScoreMotor.setControl(voltageOut);
     this.motorsRunning = true;
     this.setHasPiece(false);
@@ -164,8 +164,8 @@ public class Coral extends SubsystemBase {
 
   /** Starts the coral manipulator motors */
   public void slowCoralIntake() {
-    coralScoreMotor.setControl(VoltagePingu.setOutput(1.0));
-    coralFeederMotor.setControl(VoltagePingu.setOutput(1.0));
+    coralScoreMotor.setControl(VoltagePingu.setOutput(4.0));
+    coralFeederMotor.setControl(VoltagePingu.setOutput(4.0));
     this.setHasPiece(true);
   }
 

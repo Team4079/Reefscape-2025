@@ -3,11 +3,11 @@
     {
       "x": -7,
       "y": -7,
-      "width": 1660,
-      "height": 995,
+      "width": 1934,
+      "height": 1166,
       "state": {
         "sidebar": {
-          "width": 500,
+          "width": 435,
           "expanded": [
             "/AdvantageKit/NetworkInputs/SmartDashboard",
             "/CameraPublisher/FrontRight",
@@ -32,7 +32,6 @@
             "/photonvision/RightCamera/rawBytes/metadata",
             "/photonvision/RightCamera/rawBytes/targets/0",
             "/AdvantageKit",
-            "/Tuning",
             "/Tuning/Elevator",
             "/Tuning/Swerve",
             "/SmartDashboard/Alerts",
@@ -41,11 +40,21 @@
             "/AdvantageKit/RealOutputs/Alerts",
             "/AdvantageKit/RealOutputs/Elevator",
             "/AdvantageKit/RealOutputs/Swerve",
-            "/AdvantageKit/RealOutputs/Photonvision"
+            "/AdvantageKit/RealOutputs/Photonvision",
+            "/AdvantageKit/RealOutputs/Coral",
+            "/Tuning",
+            "/AdvantageKit/RealOutputs/AlignToPose",
+            "/photonvision",
+            "/AdvantageKit/RealOutputs/AlignToPose/Target Pose",
+            "/AdvantageKit/RealOutputs/AlignToPose/Target Pose/translation",
+            "/AdvantageKit/RealOutputs/AlignToPose/Current Pose",
+            "/AdvantageKit/RealOutputs/AlignToPose/Current Pose/translation",
+            "/AdvantageKit/RealOutputs/AlignToPose/Current Pose/rotation",
+            "/AdvantageKit/RealOutputs/AlignToPose/Target Pose/rotation"
           ]
         },
         "tabs": {
-          "selected": 3,
+          "selected": 9,
           "tabs": [
             {
               "type": 0,
@@ -131,6 +140,16 @@
                     "options": {
                       "model": "2025 KitBot"
                     }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/AlignToPose/Target Pose",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "2025 KitBot",
+                      "color": "#00ff00"
+                    }
                   }
                 ],
                 "game": "2025 Field (Welded)",
@@ -141,14 +160,14 @@
                 "cameraIndex": -1,
                 "orbitFov": 50,
                 "cameraPosition": [
-                  5.83059147922085,
-                  9.03751642405006,
-                  -9.50583547567436
+                  10.06102416885918,
+                  6.363055585561339,
+                  -6.1845350817260405
                 ],
                 "cameraTarget": [
-                  4.876141286464434,
-                  0.3662259639110155,
-                  1.0583035704590587
+                  2.8650844236482413,
+                  -0.5500346670744579,
+                  -1.5033984087995245
                 ]
               },
               "controlsHeight": 200
@@ -235,27 +254,66 @@
                 "leftSources": [
                   {
                     "type": "stepped",
-                    "logKey": "NT:/AdvantageKit/RealOutputs//Elevator/Elevator Motor Voltage",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/AlignToPose/Current Pose/translation/x",
                     "logType": "Number",
                     "visible": true,
                     "options": {
                       "color": "#2b66a2",
                       "size": "normal"
                     }
-                  }
-                ],
-                "rightSources": [
+                  },
                   {
                     "type": "stepped",
-                    "logKey": "NT:/AdvantageKit/RealOutputs//Elevator/Elevator Supply Voltage",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/AlignToPose/Target Pose/translation/x",
                     "logType": "Number",
                     "visible": true,
                     "options": {
                       "color": "#e5b31b",
                       "size": "normal"
                     }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/AlignToPose/Target Pose/translation/y",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#af2437",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/AlignToPose/Current Pose/translation/y",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#80588e",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/AlignToPose/Target Pose/rotation/value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#e48b32",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "stepped",
+                    "logKey": "NT:/AdvantageKit/RealOutputs/AlignToPose/Current Pose/rotation/value",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#c0b487",
+                      "size": "normal"
+                    }
                   }
                 ],
+                "rightSources": [],
                 "discreteSources": [],
                 "leftLockedRange": null,
                 "rightLockedRange": null,

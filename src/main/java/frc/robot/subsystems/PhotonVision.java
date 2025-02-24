@@ -58,20 +58,20 @@ public class PhotonVision extends SubsystemBase {
   // y = 12
   private PhotonVision() {
     cameras.add(
-            new PhotonModule(
-                    "RightCamera",
-                    new Transform3d(
-                            new Translation3d(0.27305, -0.2985, CAMERA_ONE_HEIGHT_METER),
-                            new Rotation3d(0.0, Math.toRadians(-25), Math.toRadians(0))),
-                    AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded)));
+        new PhotonModule(
+            "RightCamera",
+            new Transform3d(
+                new Translation3d(0.28448, -0.2985, CAMERA_ONE_HEIGHT_METER),
+                new Rotation3d(0.0, Math.toRadians(-25), Math.toRadians(0))),
+            AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded)));
     // well calibrated camera is left camera
     cameras.add(
-            new PhotonModule(
-                    "LeftCamera",
-                    new Transform3d(
-                            new Translation3d(0.27305 , 0.2985, CAMERA_ONE_HEIGHT_METER),
-                            new Rotation3d(0.0, Math.toRadians(-25), Math.toRadians(0))),
-                    AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded)));
+        new PhotonModule(
+            "LeftCamera",
+            new Transform3d(
+                new Translation3d(0.28448, 0.2985, CAMERA_ONE_HEIGHT_METER),
+                new Rotation3d(0.0, Math.toRadians(-25), Math.toRadians(0))),
+            AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded)));
 
     currentResultPair = new ArrayList<>();
 
@@ -87,15 +87,15 @@ public class PhotonVision extends SubsystemBase {
     currentResultPair = getDecentResultPairs(cameras);
 
     logs(
-            () -> {
-              log("Photonvision/Does any camera exist", cameras.get(0) != null);
-              log("Photonvision/Does any result pair exist", currentResultPair != null);
-              log("Photonvision/Has tag", hasTag());
-              log("Photonvision/resultCamera List length", currentResultPair.size());
-              if (currentResultPair != null) {
-                log("Photonvision/Result pairs have targets", hasTargets(currentResultPair));
-              }
-            });
+        () -> {
+          log("Photonvision/Does any camera exist", cameras.get(0) != null);
+          log("Photonvision/Does any result pair exist", currentResultPair != null);
+          log("Photonvision/Has tag", hasTag());
+          log("Photonvision/resultCamera List length", currentResultPair.size());
+          if (currentResultPair != null) {
+            log("Photonvision/Result pairs have targets", hasTargets(currentResultPair));
+          }
+        });
 
     if (currentResultPair != null) {
       logs("Photonvision/Best target list is empty", currentResultPair.isEmpty());
@@ -171,48 +171,36 @@ public class PhotonVision extends SubsystemBase {
     return y;
   }
 
-  public PhotonCamera requestCamera(String cameraName)
-  {
-    for (PhotonModule camera : cameras)
-    {
-      if (camera.getCameraName().equals(cameraName))
-      {
+  public PhotonCamera requestCamera(String cameraName) {
+    for (PhotonModule camera : cameras) {
+      if (camera.getCameraName().equals(cameraName)) {
         return camera.getCamera();
       }
     }
     return null;
   }
 
-  public double fetchYaw(PhotonCamera camera)
-  {
-    for (Pair<PhotonModule, PhotonPipelineResult> pair : currentResultPair)
-    {
-      if (pair.getFirst().getCamera().equals(camera))
-      {
+  public double fetchYaw(PhotonCamera camera) {
+    for (Pair<PhotonModule, PhotonPipelineResult> pair : currentResultPair) {
+      if (pair.getFirst().getCamera().equals(camera)) {
         return pair.getSecond().getBestTarget().getYaw();
       }
     }
     return 0.0;
   }
 
-  public double fetchDist(PhotonCamera camera)
-  {
-    for (Pair<PhotonModule, PhotonPipelineResult> pair : currentResultPair)
-    {
-      if (pair.getFirst().getCamera().equals(camera))
-      {
+  public double fetchDist(PhotonCamera camera) {
+    for (Pair<PhotonModule, PhotonPipelineResult> pair : currentResultPair) {
+      if (pair.getFirst().getCamera().equals(camera)) {
         return pair.getSecond().getBestTarget().getBestCameraToTarget().getX();
       }
     }
     return 0.0;
   }
 
-  public double fetchY(PhotonCamera camera)
-  {
-    for (Pair<PhotonModule, PhotonPipelineResult> pair : currentResultPair)
-    {
-      if (pair.getFirst().getCamera().equals(camera) && currentResultPair != null)
-      {
+  public double fetchY(PhotonCamera camera) {
+    for (Pair<PhotonModule, PhotonPipelineResult> pair : currentResultPair) {
+      if (pair.getFirst().getCamera().equals(camera) && currentResultPair != null) {
         return pair.getSecond().getBestTarget().getBestCameraToTarget().getY();
       }
     }
@@ -225,12 +213,12 @@ public class PhotonVision extends SubsystemBase {
    */
   public void logStdDev() {
     cameras.stream()
-            .filter(camera -> camera.getCurrentStdDevs() != null)
-            .forEach(
-                    camera ->
-                            logs(
-                                    "Photonvision/Camera %s Std Dev NormF".formatted(camera.getCameraName()),
-                                    camera.getCurrentStdDevs().normF()));
+        .filter(camera -> camera.getCurrentStdDevs() != null)
+        .forEach(
+            camera ->
+                logs(
+                    "Photonvision/Camera %s Std Dev NormF".formatted(camera.getCameraName()),
+                    camera.getCurrentStdDevs().normF()));
   }
 
   public List<Pair<PhotonModule, PhotonPipelineResult>> getResultPairs() {

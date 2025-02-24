@@ -10,8 +10,6 @@ import frc.robot.commands.sequencing.AutomaticScore;
 import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Swerve;
-import frc.robot.utils.RobotParameters;
-import frc.robot.utils.emu.CoralState;
 import frc.robot.utils.emu.Direction;
 import kotlin.*;
 
@@ -23,6 +21,7 @@ public class PadElevator extends Command {
   private final Coral coral;
 
   private final Swerve swerve;
+
   /**
    * Constructs a new PadDrive command.
    *
@@ -57,7 +56,6 @@ public class PadElevator extends Command {
     //      setElevatorState(L1).schedule();
     //    }
 
-
     if (aacrn.getRightBumperButtonPressed()) {
       new AutomaticScore(Direction.RIGHT, elevatorToBeSetState, aacrn).schedule();
     }
@@ -66,12 +64,11 @@ public class PadElevator extends Command {
       new AutomaticScore(Direction.LEFT, elevatorToBeSetState, aacrn).schedule();
     }
 
-//    if (aacrn.getYButton()) {
-//      RobotParameters.CoralManipulatorParameters.coralState = CoralState.CORAL_INTAKE;
-//    } else {
-//      RobotParameters.CoralManipulatorParameters.coralState = CoralState.CORAL_HOLD;
-//    }
-
+    //    if (aacrn.getYButton()) {
+    //      RobotParameters.CoralManipulatorParameters.coralState = CoralState.CORAL_INTAKE;
+    //    } else {
+    //      RobotParameters.CoralManipulatorParameters.coralState = CoralState.CORAL_HOLD;
+    //    }
 
     // THIS IS WHEN WE HAVE TWO CONTROLLERS,
     // JAYDEN WILL CLICK A DPAD AND AUTOSCORE TAKES THIS VARIABLES AND GOES TO THAT HEIGHT

@@ -1,11 +1,7 @@
 package frc.robot.commands;
 
-import static frc.robot.utils.ExtensionsKt.hasTargets;
 import static frc.robot.utils.RobotParameters.MotorParameters.MAX_ANGULAR_SPEED;
-import static frc.robot.utils.RobotParameters.MotorParameters.MAX_SPEED;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
-import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.X_DEADZONE;
-import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.Y_DEADZONE;
 import static frc.robot.utils.pingu.LogPingu.log;
 import static frc.robot.utils.pingu.LogPingu.logs;
 
@@ -30,8 +26,7 @@ public class AlignSwerve extends Command {
   private double
       offset; // double offset is the left/right offset from the april tag to make it properly align
   PhotonCamera camera;
-    private XboxController pad;
-
+  private XboxController pad;
 
   /**
    * Creates a new AlignSwerve using the Direction Enum.
@@ -101,12 +96,12 @@ public class AlignSwerve extends Command {
       if (tempTimer.get() < 0.2) {
         if (photonVision.fetchYaw(camera) != 7157) {
           return;
-      }
-      if (camera.getName().equals("RightCamera")) {
-        camera = photonVision.requestCamera("LeftCamera");
-      } else {
-        camera = photonVision.requestCamera("RightCamera");
-      }
+        }
+        if (camera.getName().equals("RightCamera")) {
+          camera = photonVision.requestCamera("LeftCamera");
+        } else {
+          camera = photonVision.requestCamera("RightCamera");
+        }
       }
       return;
     }
@@ -119,23 +114,24 @@ public class AlignSwerve extends Command {
 
     double error = y - offset;
 
-    double padRotation = Math.abs(pad.getRightX()) >= 0.1 ? -pad.getRightX() * MAX_ANGULAR_SPEED : 0.0;
+    double padRotation =
+        Math.abs(pad.getRightX()) >= 0.1 ? -pad.getRightX() * MAX_ANGULAR_SPEED : 0.0;
 
     logs(
-            () -> {
-              log("Alignment/Used camera", camera.getName());
-              log("Alignment/Fetched Yaw", yaw);
-              log("Alignment/Fetched y", y);
-              log("Alignment/Fetched dist(x)", dist);
-              log("Alignment/Fetched error", error);
-              log("Alignment/Caluclated val", yController.calculate(y, offset));
-            });
+        () -> {
+          log("Alignment/Used camera", camera.getName());
+          log("Alignment/Fetched Yaw", yaw);
+          log("Alignment/Fetched y", y);
+          log("Alignment/Fetched dist(x)", dist);
+          log("Alignment/Fetched error", error);
+          log("Alignment/Caluclated val", yController.calculate(y, offset));
+        });
 
     if (y != 7157) {
       Swerve.getInstance()
-              .setDriveSpeeds(positionSet(pad).getFirst(), yController.calculate(y, offset), padRotation);
+          .setDriveSpeeds(
+              positionSet(pad).getFirst(), yController.calculate(y, offset), padRotation);
     }
-
   }
 
   /**
@@ -146,7 +142,7 @@ public class AlignSwerve extends Command {
    *     the second element is the y-coordinate.
    */
   public static Pair<Double, Double> positionSet(XboxController pad) {
-      return PadDrive.positionSet(pad);
+    return PadDrive.positionSet(pad);
   }
 
   /**
@@ -162,10 +158,9 @@ public class AlignSwerve extends Command {
    */
   @Override
   public boolean isFinished() {
-    if (timer.get() > 2.0)
-    {
+    if (timer.get() > 2.0) {
       timer.stop();
-      return  true;
+      return true;
     }
     return false;
   }

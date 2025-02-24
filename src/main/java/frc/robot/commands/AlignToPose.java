@@ -1,5 +1,10 @@
 package frc.robot.commands;
 
+import static frc.robot.commands.Kommand.moveToClosestCoralScore;
+import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
+import static frc.robot.utils.pingu.LogPingu.log;
+import static frc.robot.utils.pingu.LogPingu.logs;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.Timer;
@@ -11,11 +16,6 @@ import frc.robot.subsystems.Swerve;
 import frc.robot.utils.emu.Direction;
 import kotlin.Pair;
 import org.photonvision.PhotonCamera;
-
-import static frc.robot.commands.Kommand.moveToClosestCoralScore;
-import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
-import static frc.robot.utils.pingu.LogPingu.log;
-import static frc.robot.utils.pingu.LogPingu.logs;
 
 public class AlignToPose extends Command {
   private double yaw;
@@ -31,9 +31,8 @@ public class AlignToPose extends Command {
   private double
       offset; // double offset is the left/right offset from the april tag to make it properly align
   PhotonCamera camera;
-    private XboxController pad;
-    private Swerve swerve;
-
+  private XboxController pad;
+  private Swerve swerve;
 
   /**
    * Creates a new AlignSwerve using the Direction Enum.
@@ -55,15 +54,16 @@ public class AlignToPose extends Command {
   @Override
   public void initialize() {
     rotationalController = ROTATIONAL_PINGU.getPidController();
-    rotationalController.setTolerance(2.0); // with L4 branches
+    rotationalController.setTolerance(1.0); // with L4 branches
     rotationalController.setSetpoint(targetPose.getRotation().getDegrees());
+    rotationalController.enableContinuousInput(-180, 180);
 
     yController = Y_PINGU.getPidController();
-    yController.setTolerance(1.0);
+    yController.setTolerance(0.02);
     yController.setSetpoint(targetPose.getY());
 
     xController = X_PINGU.getPidController();
-    xController.setTolerance(1.0);
+    xController.setTolerance(0.02);
     xController.setSetpoint(targetPose.getX());
   }
 
@@ -76,29 +76,40 @@ public class AlignToPose extends Command {
     // Using PID for x, y and rotation, align it to the target pose
 
     currentPose = swerve.getPose();
-//    rotationalController.calculate(currentPose.getRotation().getDegrees());
-//    yController.calculate(currentPose.getY());
-//    xController.calculate(currentPose.getX());
+    //    rotationalController.calculate(currentPose.getRotation().getDegrees());
+    //    yController.calculate(currentPose.getY());
+    //    xController.calculate(currentPose.getX());
 
-
-    // Swerve drive set speeds is x y then rotation, so we need to set the speeds in the correct order
+    // Swerve drive set speeds is x y then rotation, so we need to set the speeds in the correct
+    // order
+    if (targetPose.getX() < 4.5) {
+      swerve.setDriveSpeeds(
+              xController.calculate(currentPose.getX(), targetPose.getX()),
+              yController.calculate(currentPose.getY(), targetPose.getY()),
+              rotationalController.calculate(currentPose.getRotation().getDegrees()),
+              false);
+    } else {
     swerve.setDriveSpeeds(
-        xController.calculate(currentPose.getX()),
-        yController.calculate(currentPose.getY()),
+        -xController.calculate(currentPose.getX(), targetPose.getX()),
+        -yController.calculate(currentPose.getY(), targetPose.getY()),
         rotationalController.calculate(currentPose.getRotation().getDegrees()),
         false);
-
-
+    }
     logs(
         () -> {
           log("AlignToPose/Current Pose", currentPose);
           log("AlignToPose/Target Pose", targetPose);
-          log("AlignToPose/Rotational Controller", rotationalController.getError());
-          log("AlignToPose/Y Controller", yController.getError());
-          log("AlignToPose/X Controller ", xController.getError());
-          log("AlignToPose/Rotational Controller Setpoint", rotationalController.getSetpoint());
-          log("AlignToPose/Y Controller Setpoint", yController.getSetpoint());
-          log("AlignToPose/X Controller Setpoint ", xController.getSetpoint());
+          log("AlignToPose/Rotational Error", rotationalController.getError());
+          log("AlignToPose/Y Error", yController.getError());
+          log("AlignToPose/X Error ", xController.getError());
+          log("AlignToPose/Rotational Controller Setpoint", rotationalController.atSetpoint());
+          log("AlignToPose/Y Controller Setpoint", yController.atSetpoint());
+          log("AlignToPose/X Controller Setpoint ", xController.atSetpoint());
+          log("AlignToPose/X Set Speed ", xController.calculate(currentPose.getX()));
+          log("AlignToPose/Y Set Speed ", yController.calculate(currentPose.getY()));
+          log("AlignToPose/Rot Set Speed ", rotationalController.calculate(currentPose.getRotation().getDegrees()));
+          log("AlignToPose/ X Set Pos", currentPose.getX());
+          log("AlignToPose/ Y Set Pos", currentPose.getY());
         });
   }
 
@@ -110,7 +121,7 @@ public class AlignToPose extends Command {
    *     the second element is the y-coordinate.
    */
   public static Pair<Double, Double> positionSet(XboxController pad) {
-      return PadDrive.positionSet(pad);
+    return PadDrive.positionSet(pad);
   }
 
   /**
@@ -126,7 +137,9 @@ public class AlignToPose extends Command {
    */
   @Override
   public boolean isFinished() {
-      return rotationalController.atSetpoint() && yController.atSetpoint() && xController.atSetpoint();
+    return rotationalController.atSetpoint()
+        && yController.atSetpoint()
+        && xController.atSetpoint();
   }
 
   /**

@@ -5,13 +5,12 @@ import static frc.robot.utils.pingu.LogPingu.log;
 import static frc.robot.utils.pingu.LogPingu.logs;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters.*;
 import frc.robot.utils.emu.LEDState;
 import java.util.ArrayList;
 import java.util.Random;
-import edu.wpi.first.wpilibj.LEDPattern;
-import edu.wpi.first.wpilibj.util.Color;
 
 public class LED extends SubsystemBase {
   // LED Hardware Components
@@ -33,7 +32,7 @@ public class LED extends SubsystemBase {
   private ArrayList<Integer> laserPositions = new ArrayList<>();
 
   // LED patterns
-//  public final LEDPattern red;
+  //  public final LEDPattern red;
 
   /**
    * The Singleton instance of this LEDSubsystem. Code should use the {@link #getInstance()} method
@@ -69,7 +68,7 @@ public class LED extends SubsystemBase {
       laserPositions.add(-i * spacing);
     }
 
-//    red = LEDPattern.gradient(LEDPattern.GradientType.kContinuous, Color.kRed);
+    //    red = LEDPattern.gradient(LEDPattern.GradientType.kContinuous, Color.kRed);
 
   }
 
@@ -103,11 +102,11 @@ public class LED extends SubsystemBase {
     }
 
     // Disabled Robot (we can do whatever we want)
-//    if (DriverStation.isDisabled() && !LiveRobotValues.lowBattery) {
-//      ledState = LEDState.RAINBOW_FLOW;
-//    } else if (LiveRobotValues.lowBattery) {
-//      ledState = LEDState.TWINKLE;
-//    }
+    //    if (DriverStation.isDisabled() && !LiveRobotValues.lowBattery) {
+    //      ledState = LEDState.RAINBOW_FLOW;
+    //    } else if (LiveRobotValues.lowBattery) {
+    //      ledState = LEDState.TWINKLE;
+    //    }
 
     switch (this.ledState) {
       case RAINBOW_FLOW:
@@ -364,10 +363,8 @@ public class LED extends SubsystemBase {
 
       // Interpolate RGB values between colors
       int red = (int) ((startColor.red * (1 - blendRatio)) + (endColor.red * blendRatio));
-      int green =
-          (int) ((startColor.green * (1 - blendRatio)) + (endColor.green * blendRatio));
-      int blue =
-          (int) ((startColor.blue * (1 - blendRatio)) + (endColor.blue * blendRatio));
+      int green = (int) ((startColor.green * (1 - blendRatio)) + (endColor.green * blendRatio));
+      int blue = (int) ((startColor.blue * (1 - blendRatio)) + (endColor.blue * blendRatio));
 
       ledBuffer.setRGB(ledIndex, red, green, blue);
     }
@@ -376,10 +373,10 @@ public class LED extends SubsystemBase {
 
   /** Creates a solid color effect on the LED strip. */
   public void solidColor(Color color) {
-      for (int i = 0; i < ledBuffer.getLength(); i++) {
+    for (int i = 0; i < ledBuffer.getLength(); i++) {
       ledBuffer.setLED(i, color);
-      }
-      leds.setData(ledBuffer);
+    }
+    leds.setData(ledBuffer);
   }
 
   /** Creates a wave red themed effect on the LED strip. */
@@ -404,25 +401,24 @@ public class LED extends SubsystemBase {
 
   /** Creates a wave purple themed effect on the LED strip. */
   public void purpleWave() {
-      createWave(Color.kViolet, Color.kIndigo, 30, 5);
+    createWave(Color.kViolet, Color.kIndigo, 30, 5);
   }
 
-    /** Creates a wave orange themed effect on the LED strip. */
-    public void orangeWave() {
-      createWave(Color.kOrange, Color.kDarkOrange, 30, 5);
-    }
+  /** Creates a wave orange themed effect on the LED strip. */
+  public void orangeWave() {
+    createWave(Color.kOrange, Color.kDarkOrange, 30, 5);
+  }
 
-    /** Creates a wave pink themed effect on the LED strip. */
-    public void pinkWave() {
-      createWave(Color.kMagenta, Color.kHotPink, 30, 5);
-    }
+  /** Creates a wave pink themed effect on the LED strip. */
+  public void pinkWave() {
+    createWave(Color.kMagenta, Color.kHotPink, 30, 5);
+  }
 
-    public void setDarkGreen() {
-      solidColor(Color.kDarkSeaGreen);
-    }
+  public void setDarkGreen() {
+    solidColor(Color.kDarkSeaGreen);
+  }
 
-    public void setLightGreen() {
-      solidColor(Color.kLimeGreen);
-    }
-
+  public void setLightGreen() {
+    solidColor(Color.kLimeGreen);
+  }
 }

@@ -16,15 +16,17 @@ enum class ElevatorState(
     L1(10.0),
 
     /** Represents the second level of the elevator.  */
-    L2(15.0),
+    L2(18.0),
 
     /** Represents the third level of the elevator.  */
-    L3(34.0),
+    L3(37.0),
 
     /** Represents the fourth level of the elevator.  */
-    L4(62.0),
+    L4(64.5),
 
-    ALGAE(25.0),
+    ALGAE_LOW(25.0),
+
+    ALGAE_HIGH(42.01),
 
     ALGAE_HOLD(5.0),
 }

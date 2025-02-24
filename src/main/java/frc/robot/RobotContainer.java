@@ -12,10 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.commands.AlignSwerve;
-import frc.robot.commands.sequencing.ScoreL1;
-import frc.robot.commands.sequencing.ScoreL2;
-import frc.robot.commands.sequencing.ScoreL3;
-import frc.robot.commands.sequencing.ScoreL4;
+import frc.robot.commands.sequencing.*;
 import frc.robot.subsystems.*;
 import frc.robot.utils.emu.*;
 import frc.robot.utils.pingu.*;
@@ -56,15 +53,13 @@ public class RobotContainer {
                 calamityCowButtons.put(
                     button, new JoystickButton(calamityCow, button.getButtonNumber())));
 
-
     NamedCommands.registerCommand("ScoreL1", new ScoreL1());
     NamedCommands.registerCommand("ScoreL2", new ScoreL2());
     NamedCommands.registerCommand("ScoreL3", new ScoreL3());
-    NamedCommands.registerCommand("ScoreL4", new ScoreL4() );
+    NamedCommands.registerCommand("ScoreL4", new ScoreL4());
 
     NamedCommands.registerCommand("AlignLeft", new AlignSwerve(LEFT, aacrn));
     NamedCommands.registerCommand("AlignRight", new AlignSwerve(RIGHT, aacrn));
-
 
     networkChooser = AutoBuilder.buildAutoChooser();
 
@@ -89,20 +84,19 @@ public class RobotContainer {
    * CommandPS4Controller} controllers or {@link CommandJoystick}.
    */
   private void configureBindings() {
-            new Bingu(aacrnButtons)
+    new Bingu(aacrnButtons)
         .bind(START, resetPidgey())
-//        .bind(B, setElevatorState(DEFAULT))
-//        .bind(B, align(CENTER).onlyWhile(pad::getAButton))
-//        .bind(B, align(LEFT))
-//        .bind(B, createPathfindingCmd(reefs.get(0)))
-//        .bind(A, setIntakeAlgae())
-//        .bind(A, align(RIGHT))
-//        .bind(Y, startCoralMotors())
+        //        .bind(B, setElevatorState(DEFAULT))
+        //        .bind(B, align(CENTER).onlyWhile(pad::getAButton))
+        .bind(B, new ResetScore())
+        //        .bind(B, createPathfindingCmd(reefs.get(0)))
+        .bind(A, setIntakeAlgae())
+        //        .bind(A, align(RIGHT))
+        .bind(Y, startCoralMotors())
         .bind(LEFT_BUMPER, score(LEFT))
         .bind(RIGHT_BUMPER, score(RIGHT))
         .bind(X, reverseIntake().onlyWhile(aacrn::getXButton));
 
     new Bingu(calamityCowButtons).bind(A, waitCmd(1));
   }
-
 }
