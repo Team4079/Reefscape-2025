@@ -1,5 +1,10 @@
 package frc.robot.commands;
 
+import static frc.robot.commands.Kommand.moveToClosestCoralScore;
+import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
+import static frc.robot.utils.pingu.LogPingu.log;
+import static frc.robot.utils.pingu.LogPingu.logs;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.Timer;
@@ -11,11 +16,6 @@ import frc.robot.subsystems.Swerve;
 import frc.robot.utils.emu.Direction;
 import kotlin.Pair;
 import org.photonvision.PhotonCamera;
-
-import static frc.robot.commands.Kommand.moveToClosestCoralScore;
-import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
-import static frc.robot.utils.pingu.LogPingu.log;
-import static frc.robot.utils.pingu.LogPingu.logs;
 
 public class AlignToPose extends Command {
   private double yaw;
@@ -31,9 +31,8 @@ public class AlignToPose extends Command {
   private double
       offset; // double offset is the left/right offset from the april tag to make it properly align
   PhotonCamera camera;
-    private XboxController pad;
-    private Swerve swerve;
-
+  private XboxController pad;
+  private Swerve swerve;
 
   /**
    * Creates a new AlignSwerve using the Direction Enum.
@@ -76,18 +75,17 @@ public class AlignToPose extends Command {
     // Using PID for x, y and rotation, align it to the target pose
 
     currentPose = swerve.getPose();
-//    rotationalController.calculate(currentPose.getRotation().getDegrees());
-//    yController.calculate(currentPose.getY());
-//    xController.calculate(currentPose.getX());
+    //    rotationalController.calculate(currentPose.getRotation().getDegrees());
+    //    yController.calculate(currentPose.getY());
+    //    xController.calculate(currentPose.getX());
 
-
-    // Swerve drive set speeds is x y then rotation, so we need to set the speeds in the correct order
+    // Swerve drive set speeds is x y then rotation, so we need to set the speeds in the correct
+    // order
     swerve.setDriveSpeeds(
         xController.calculate(currentPose.getX()),
         yController.calculate(currentPose.getY()),
         rotationalController.calculate(currentPose.getRotation().getDegrees()),
         false);
-
 
     logs(
         () -> {
@@ -110,7 +108,7 @@ public class AlignToPose extends Command {
    *     the second element is the y-coordinate.
    */
   public static Pair<Double, Double> positionSet(XboxController pad) {
-      return PadDrive.positionSet(pad);
+    return PadDrive.positionSet(pad);
   }
 
   /**
@@ -126,7 +124,9 @@ public class AlignToPose extends Command {
    */
   @Override
   public boolean isFinished() {
-      return rotationalController.atSetpoint() && yController.atSetpoint() && xController.atSetpoint();
+    return rotationalController.atSetpoint()
+        && yController.atSetpoint()
+        && xController.atSetpoint();
   }
 
   /**

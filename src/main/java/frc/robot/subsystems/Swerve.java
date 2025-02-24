@@ -12,7 +12,6 @@ import static frc.robot.utils.RobotParameters.SwerveParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PhysicalParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
-import static frc.robot.utils.RobotParameters.LiveRobotValues.*;
 import static frc.robot.utils.pingu.LogPingu.*;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
@@ -34,10 +33,9 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import java.util.Optional;
-
 import frc.robot.utils.RobotParameters;
 import frc.robot.utils.pingu.NetworkPingu;
+import java.util.Optional;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 import org.photonvision.EstimatedRobotPose;
@@ -204,7 +202,7 @@ public class Swerve extends SubsystemBase {
     poseEstimator3d.update(pidgey.getRotation3d(), getModulePositions());
 
     field.setRobotPose(poseEstimator.getEstimatedPosition());
-    RobotParameters.LiveRobotValues.ROBOT_POS = poseEstimator.getEstimatedPosition();
+    RobotParameters.LiveRobotValues.robotPos = poseEstimator.getEstimatedPosition();
 
     logs(
         () -> {
@@ -215,7 +213,7 @@ public class Swerve extends SubsystemBase {
           log("Swerve/Pidgey Rotation2D", pidgey.getRotation2d().getDegrees());
           log("Swerve/Robot Pose", field.getRobotPose());
           log("Swerve/Robot Pose 3D", poseEstimator3d.getEstimatedPosition());
-          log("Swerve/Robot Pose 2D extra", ROBOT_POS);
+          log("Swerve/Robot Pose 2D extra", robotPos);
           //          log("Swerve/Swerve Module States", getModuleStates());
         });
   }
@@ -478,22 +476,22 @@ public class Swerve extends SubsystemBase {
   }
 
   private void initializationAlignPing() {
-    networkPinguXAutoAlign = new NetworkPingu(
-          new LoggedNetworkNumber("Tuning/Swerve/Align X P", X_PINGU.getP()),
-          new LoggedNetworkNumber("Tuning/Swerve/Align X I", X_PINGU.getI()),
-          new LoggedNetworkNumber("Tuning/Swerve/Align X D", X_PINGU.getD())
-      );
+    networkPinguXAutoAlign =
+        new NetworkPingu(
+            new LoggedNetworkNumber("Tuning/Swerve/Align X P", X_PINGU.getP()),
+            new LoggedNetworkNumber("Tuning/Swerve/Align X I", X_PINGU.getI()),
+            new LoggedNetworkNumber("Tuning/Swerve/Align X D", X_PINGU.getD()));
 
-    networkPinguYAutoAlign = new NetworkPingu(
-          new LoggedNetworkNumber("Tuning/Swerve/Align Y P", Y_PINGU.getP()),
-          new LoggedNetworkNumber("Tuning/Swerve/Align Y I", Y_PINGU.getI()),
-          new LoggedNetworkNumber("Tuning/Swerve/Align Y D", Y_PINGU.getD())
-      );
+    networkPinguYAutoAlign =
+        new NetworkPingu(
+            new LoggedNetworkNumber("Tuning/Swerve/Align Y P", Y_PINGU.getP()),
+            new LoggedNetworkNumber("Tuning/Swerve/Align Y I", Y_PINGU.getI()),
+            new LoggedNetworkNumber("Tuning/Swerve/Align Y D", Y_PINGU.getD()));
 
-    networkPinguRotAutoAlign = new NetworkPingu(
-          new LoggedNetworkNumber("Tuning/Swerve/Align Rot P", ROTATIONAL_PINGU.getP()),
-          new LoggedNetworkNumber("Tuning/Swerve/Align Rot I", ROTATIONAL_PINGU.getI()),
-          new LoggedNetworkNumber("Tuning/Swerve/Align Rot D", ROTATIONAL_PINGU.getD())
-      );
+    networkPinguRotAutoAlign =
+        new NetworkPingu(
+            new LoggedNetworkNumber("Tuning/Swerve/Align Rot P", ROTATIONAL_PINGU.getP()),
+            new LoggedNetworkNumber("Tuning/Swerve/Align Rot I", ROTATIONAL_PINGU.getI()),
+            new LoggedNetworkNumber("Tuning/Swerve/Align Rot D", ROTATIONAL_PINGU.getD()));
   }
 }

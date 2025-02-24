@@ -15,7 +15,6 @@ import frc.robot.subsystems.Coral
 import frc.robot.subsystems.Elevator
 import frc.robot.subsystems.Swerve
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters.isCoralIntaking
-import frc.robot.utils.RobotParameters.LiveRobotValues.ROBOT_POS
 import frc.robot.utils.RobotParameters.SwerveParameters
 import frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.PATH_CONSTRAINTS
 import frc.robot.utils.emu.CoralState
@@ -112,16 +111,14 @@ object Kommand {
      * @return An [AutomaticScore] that performs the scoring action.
      */
     @JvmStatic
-//    fun score(dir: Direction) = AutomaticScore(dir)
     fun score(dir: Direction) = cmd {}
-
+//    fun score(dir: Direction) = AutomaticScore(dir)
 
     /**
      * Creates an new [ReverseIntake] command to reverse the intake.
      *
      * @return A [ReverseIntake] command that reverses the intake.
      */
-
     @JvmStatic
     fun reverseIntake() = ReverseIntake()
 
@@ -228,5 +225,8 @@ object Kommand {
      * @return A command that performs the pathfinding operation.
      */
     @JvmStatic
-    fun moveToClosestCoralScore(direction: Direction, pose: Pose2d) = findClosestScoringPosition(pose, direction)
+    fun moveToClosestCoralScore(
+        direction: Direction,
+        pose: Pose2d,
+    ) = findClosestScoringPosition(pose, direction)
 }

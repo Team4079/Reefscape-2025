@@ -4,10 +4,8 @@ import static frc.robot.commands.Kommand.*;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
 import static frc.robot.utils.emu.ElevatorState.*;
 
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.*;
-import frc.robot.commands.AlignSwerve;
 import frc.robot.utils.emu.*;
 
 /**
@@ -19,7 +17,7 @@ import frc.robot.utils.emu.*;
 public class AutomaticScore extends SequentialCommandGroup {
   public AutomaticScore(Direction offsetSide, ElevatorState state, XboxController pad) {
     addCommands(
-//        new AlignSwerve(offsetSide, pad).withTimeout(2));
+        //        new AlignSwerve(offsetSide, pad).withTimeout(2));
         moveElevatorState(elevatorToBeSetState),
         setCoralState(CoralState.CORAL_RELEASE),
         waitCmd(0.3),

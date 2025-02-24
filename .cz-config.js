@@ -46,7 +46,8 @@ module.exports = {
       { name: 'dokka' },
       { name: 'cz' },
       { name: 'commitlint' },
-      { name: 'husky' }
+      { name: 'husky' },
+      { name: 'format' }
     ],
     tune: [
       { name: 'swerve' },
