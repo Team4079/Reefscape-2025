@@ -22,6 +22,7 @@ import frc.robot.utils.emu.Direction
 import frc.robot.utils.emu.ElevatorState
 import frc.robot.utils.emu.ElevatorState.L4
 import frc.robot.utils.pingu.PathPingu.findClosestScoringPosition
+import frc.robot.utils.pingu.PathPingu.findClosestScoringPositionNotL4
 import kotlin.math.abs
 
 /**
@@ -166,8 +167,8 @@ object Kommand {
      *
      * @return A [PathPlannerAuto] command for autonomous operation.
      */
-    @JvmStatic
-    fun autonomousCommand() = PathPlannerAuto(SwerveParameters.PATHPLANNER_AUTO_NAME)
+//    @JvmStatic
+//    fun autonomousCommand() = PathPlannerAuto(SwerveParameters.PATHPLANNER_AUTO_NAME)
 
     /**
      * Creates a [WaitCommand] to wait for a specified number of seconds.
@@ -229,4 +230,17 @@ object Kommand {
         direction: Direction,
         pose: Pose2d,
     ) = findClosestScoringPosition(pose, direction)
+
+    /**
+     * Creates a command to move the robot to the closest coral
+     * scoring position in the specified coral direction.
+     * @param direction The direction in which to find the closest scoring position.
+     *
+     * @return A command that performs the pathfinding operation.
+     */
+    @JvmStatic
+    fun moveToClosestCoralScoreNotL4(
+        direction: Direction,
+        pose: Pose2d,
+    ) = findClosestScoringPositionNotL4(pose, direction)
 }

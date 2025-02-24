@@ -203,7 +203,7 @@ public class Swerve extends SubsystemBase {
     poseEstimator3d.update(pidgey.getRotation3d(), getModulePositions());
 
     field.setRobotPose(poseEstimator.getEstimatedPosition());
-    RobotParameters.LiveRobotValues.robotPos = poseEstimator.getEstimatedPosition();
+    robotPos = poseEstimator.getEstimatedPosition();
 
     logs(
         () -> {

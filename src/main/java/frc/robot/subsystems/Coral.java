@@ -182,7 +182,7 @@ public class Coral extends SubsystemBase {
    */
   public void algaeIntake() {
     this.stopMotors();
-    voltageOut.Output = 4.5;
+    voltageOut.Output = -4.5;
     coralScoreMotor.setControl(voltageOut);
     this.motorsRunning = true;
   }

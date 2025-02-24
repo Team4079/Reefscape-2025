@@ -1,6 +1,8 @@
 package frc.robot.commands;
 
 import static frc.robot.commands.Kommand.moveToClosestCoralScore;
+import static frc.robot.commands.Kommand.moveToClosestCoralScoreNotL4;
+import static frc.robot.utils.RobotParameters.ElevatorParameters.elevatorToBeSetState;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
 import static frc.robot.utils.pingu.LogPingu.log;
 import static frc.robot.utils.pingu.LogPingu.logs;
@@ -14,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.PhotonVision;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.emu.Direction;
+import frc.robot.utils.emu.ElevatorState;
 import kotlin.Pair;
 import org.photonvision.PhotonCamera;
 
@@ -33,6 +36,7 @@ public class AlignToPose extends Command {
   PhotonCamera camera;
   private XboxController pad;
   private Swerve swerve;
+  private Direction offsetSide;
 
   /**
    * Creates a new AlignSwerve using the Direction Enum.
@@ -44,8 +48,8 @@ public class AlignToPose extends Command {
 
     photonVision = PhotonVision.getInstance();
     swerve = Swerve.getInstance();
+    this.offsetSide = offsetSide;
     this.pad = pad;
-    targetPose = moveToClosestCoralScore(offsetSide, Swerve.getInstance().getPose());
     currentPose = swerve.getPose();
     addRequirements(swerve);
   }
@@ -53,6 +57,11 @@ public class AlignToPose extends Command {
   /** The initial subroutine of a command. Called once when the command is initially scheduled. */
   @Override
   public void initialize() {
+    if (elevatorToBeSetState == ElevatorState.L4) {
+      targetPose = moveToClosestCoralScore(offsetSide, Swerve.getInstance().getPose());
+    } else {
+      targetPose = moveToClosestCoralScoreNotL4(offsetSide, Swerve.getInstance().getPose());
+    }
     rotationalController = ROTATIONAL_PINGU.getPidController();
     rotationalController.setTolerance(1.0); // with L4 branches
     rotationalController.setSetpoint(targetPose.getRotation().getDegrees());

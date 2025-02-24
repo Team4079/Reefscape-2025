@@ -3,6 +3,7 @@ package frc.robot.commands;
 import static frc.robot.commands.Kommand.setCoralState;
 import static frc.robot.utils.RobotParameters.AlgaeManipulatorParameters.*;
 import static frc.robot.utils.RobotParameters.CoralManipulatorParameters.*;
+import static frc.robot.utils.RobotParameters.ElevatorParameters.elevatorToBeSetState;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Algae;
@@ -29,9 +30,18 @@ public class ToggleIntakeAlgae extends Command {
   public void initialize() {
     switch (algaeCounter) {
       case 0:
-        algaePivotState = AlgaePivotState.DOWN;
-        coralState = CoralState.ALGAE_INTAKE;
-        elevator.setState(ElevatorState.ALGAE_LOW);
+        if (elevatorToBeSetState == ElevatorState.L2) {
+          algaePivotState = AlgaePivotState.DOWN;
+          coralState = CoralState.ALGAE_INTAKE;
+          elevator.setState(ElevatorState.ALGAE_LOW);
+        } else if (elevatorToBeSetState == ElevatorState.L3) {
+          algaePivotState = AlgaePivotState.DOWN;
+          coralState = CoralState.ALGAE_INTAKE;
+          elevator.setState(ElevatorState.ALGAE_HIGH);
+        } else {
+          algaeCounter = -1;
+          return;
+        }
         break;
       case 1:
         algaePivotState = AlgaePivotState.HOLD;
