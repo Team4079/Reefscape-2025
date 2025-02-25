@@ -35,6 +35,7 @@ $dokka.location:frc.robot.commands/Calibration/execute/#/PointingToDeclaration/
 $dokka.location:frc.robot.commands/Calibration/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-calibration/initialize.html
 $dokka.location:frc.robot.commands/Calibration/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-calibration/is-finished.html
 $dokka.location:frc.robot.commands/Kommand///PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/index.html
+$dokka.location:frc.robot.commands/Kommand/cancelCmd/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/cancel-cmd.html
 $dokka.location:frc.robot.commands/Kommand/cmd/#kotlin.Array[edu.wpi.first.wpilibj2.command.Subsystem]#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/cmd.html
 $dokka.location:frc.robot.commands/Kommand/coralIntaking/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/coral-intaking.html
 $dokka.location:frc.robot.commands/Kommand/createPathfindingCmd/#edu.wpi.first.math.geometry.Pose2d#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/create-pathfinding-cmd.html
