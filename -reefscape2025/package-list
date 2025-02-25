@@ -180,6 +180,7 @@ $dokka.location:frc.robot.subsystems/Swerve/getModuleStates/#/PointingToDeclarat
 $dokka.location:frc.robot.subsystems/Swerve/getPidgeyRotation/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/get-pidgey-rotation.html
 $dokka.location:frc.robot.subsystems/Swerve/getPidgeyYaw/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/get-pidgey-yaw.html
 $dokka.location:frc.robot.subsystems/Swerve/getPose/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/get-pose.html
+$dokka.location:frc.robot.subsystems/Swerve/getPose2Dfrom3D/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/get-pose2-dfrom3-d.html
 $dokka.location:frc.robot.subsystems/Swerve/getRotationPidggy/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/get-rotation-pidggy.html
 $dokka.location:frc.robot.subsystems/Swerve/getSetModuleStates/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/get-set-module-states.html
 $dokka.location:frc.robot.subsystems/Swerve/newPose/#edu.wpi.first.math.geometry.Pose2d/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/new-pose.html
