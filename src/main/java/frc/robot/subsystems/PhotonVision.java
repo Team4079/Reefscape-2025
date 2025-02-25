@@ -62,7 +62,7 @@ public class PhotonVision extends SubsystemBase {
             "RightCamera",
             new Transform3d(
                 new Translation3d(0.27305, -0.2985, CAMERA_ONE_HEIGHT_METER),
-                new Rotation3d(0.0, Math.toRadians(-25), Math.toRadians(0))),
+                new Rotation3d(0.0, Math.toRadians(-25), Math.toRadians(45))),
             AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded)));
     // well calibrated camera is left camera
     cameras.add(
@@ -70,7 +70,7 @@ public class PhotonVision extends SubsystemBase {
             "LeftCamera",
             new Transform3d(
                 new Translation3d(0.27305, 0.2985, CAMERA_ONE_HEIGHT_METER),
-                new Rotation3d(0.0, Math.toRadians(-25), Math.toRadians(0))),
+                new Rotation3d(0.0, Math.toRadians(-25), Math.toRadians(-45))),
             AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded)));
 
     currentResultPair = new ArrayList<>();

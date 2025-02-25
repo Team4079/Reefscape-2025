@@ -133,7 +133,7 @@ public class Robot extends LoggedRobot {
   @Override
   public void autonomousInit() {
 //    autonomousCommand = robotContainer.networkChooser.getSelected();
-    autonomousCommand = new PathPlannerAuto("4l4autoA");
+    autonomousCommand = new PathPlannerAuto("4l4autoB");
     autonomousCommand.schedule();
   }
 

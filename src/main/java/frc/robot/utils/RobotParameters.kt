@@ -92,10 +92,10 @@ object RobotParameters {
             val ROTATIONAL_PINGU = Pingu(0.15, 0.0, 0.01)
 
             @JvmField
-            val Y_PINGU = Pingu(9.0, 0.0, 0.2)
+            val Y_PINGU = Pingu(9.0, 0.0, 0.3)
 
             @JvmField
-            val X_PINGU = Pingu(9.0, 0.0, 0.2)
+            val X_PINGU = Pingu(9.0, 0.0, 0.3)
 
             @JvmField
             val DIST_PINGU = Pingu(0.15, 0.0, 0.1)
@@ -276,7 +276,7 @@ object RobotParameters {
 
             // Represents how far we want to go from the pole
             // TODO make for blue and red
-            private const val DIS = 0.0
+            private const val DIS = -0.02
 
             val REEF_A = Pose2d(3.171, 4.189, fromDegrees(0.0))
             val REEF_B = Pose2d(3.171, 3.863, fromDegrees(0.0))

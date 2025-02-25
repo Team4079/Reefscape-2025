@@ -4,18 +4,12 @@ import com.pathplanner.lib.auto.AutoBuilder
 import com.pathplanner.lib.commands.PathPlannerAuto
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.wpilibj.XboxController
-import edu.wpi.first.wpilibj2.command.Command
-import edu.wpi.first.wpilibj2.command.InstantCommand
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup
-import edu.wpi.first.wpilibj2.command.Subsystem
-import edu.wpi.first.wpilibj2.command.WaitCommand
-import edu.wpi.first.wpilibj2.command.WaitUntilCommand
+import edu.wpi.first.wpilibj2.command.*
 import frc.robot.commands.sequencing.AutomaticScore
 import frc.robot.subsystems.Coral
 import frc.robot.subsystems.Elevator
 import frc.robot.subsystems.Swerve
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters.isCoralIntaking
-import frc.robot.utils.RobotParameters.SwerveParameters
 import frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.PATH_CONSTRAINTS
 import frc.robot.utils.emu.CoralState
 import frc.robot.utils.emu.Direction
@@ -178,6 +172,9 @@ object Kommand {
      */
     @JvmStatic
     fun waitCmd(seconds: Double) = WaitCommand(seconds)
+
+    @JvmStatic
+    fun cancelCmd() = cmd{ CommandScheduler.getInstance().cancelAll() }
 
     /**
      * Creates a pathfinding command to move to a specified pose.
