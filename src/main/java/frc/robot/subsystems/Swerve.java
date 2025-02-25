@@ -473,6 +473,10 @@ public class Swerve extends SubsystemBase {
     }
   }
 
+  public Pose2d getPose2Dfrom3D() {
+    return poseEstimator3d.getEstimatedPosition().toPose2d();
+  }
+
   /**
    * The pose to path find to.
    *

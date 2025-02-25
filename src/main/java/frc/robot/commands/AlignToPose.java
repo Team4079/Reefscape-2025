@@ -19,8 +19,10 @@ import frc.robot.subsystems.PhotonVision;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.emu.Direction;
 import frc.robot.utils.emu.ElevatorState;
+import frc.robot.utils.pingu.NetworkPingu;
 import frc.robot.utils.pingu.PathPingu;
 import kotlin.Pair;
+import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 import org.photonvision.PhotonCamera;
 
 public class AlignToPose extends Command {
@@ -41,6 +43,10 @@ public class AlignToPose extends Command {
   private Swerve swerve;
   private Direction offsetSide;
 
+  private NetworkPingu networkPinguRotation;
+  private NetworkPingu networkPinguY;
+  private NetworkPingu networkPinguX;
+
   /**
    * Creates a new AlignSwerve using the Direction Enum.
    *
@@ -53,7 +59,8 @@ public class AlignToPose extends Command {
     swerve = Swerve.getInstance();
     this.offsetSide = offsetSide;
     this.pad = pad;
-    currentPose = swerve.getPose();
+    currentPose = swerve.getPose2Dfrom3D();
+    timer = new Timer();
     addRequirements(swerve);
   }
 
@@ -65,21 +72,28 @@ public class AlignToPose extends Command {
     addCoralPosList();
 
     if (elevatorToBeSetState == ElevatorState.L4) {
-      targetPose = moveToClosestCoralScore(offsetSide, Swerve.getInstance().getPose());
+      targetPose = moveToClosestCoralScore(offsetSide, Swerve.getInstance().getPose2Dfrom3D());
     } else {
-      targetPose = moveToClosestCoralScoreNotL4(offsetSide, Swerve.getInstance().getPose());
+      targetPose = moveToClosestCoralScoreNotL4(offsetSide, Swerve.getInstance().getPose2Dfrom3D());
     }
+
+//    initializeLoggedNetworkPingu();
+//
+//    ROTATIONAL_PINGU.setPID(networkPinguRotation);
+//    Y_PINGU.setPID(networkPinguY);
+//    X_PINGU.setPID(networkPinguX);
+
     rotationalController = ROTATIONAL_PINGU.getPidController();
-    rotationalController.setTolerance(1.0); // with L4 branches
+    rotationalController.setTolerance(1.3); // with L4 branches
     rotationalController.setSetpoint(targetPose.getRotation().getDegrees());
     rotationalController.enableContinuousInput(-180, 180);
 
     yController = Y_PINGU.getPidController();
-    yController.setTolerance(0.02);
+    yController.setTolerance(0.01);
     yController.setSetpoint(targetPose.getY());
 
     xController = X_PINGU.getPidController();
-    xController.setTolerance(0.02);
+    xController.setTolerance(0.01);
     xController.setSetpoint(targetPose.getX());
   }
 
@@ -92,7 +106,7 @@ public class AlignToPose extends Command {
 
     // Using PID for x, y and rotation, align it to the target pose
 
-    currentPose = swerve.getPose();
+    currentPose = swerve.getPose2Dfrom3D();
     //    rotationalController.calculate(currentPose.getRotation().getDegrees());
     //    yController.calculate(currentPose.getY());
     //    xController.calculate(currentPose.getX());
@@ -154,9 +168,12 @@ public class AlignToPose extends Command {
    */
   @Override
   public boolean isFinished() {
-    return rotationalController.atSetpoint()
-        && yController.atSetpoint()
-        && xController.atSetpoint();
+    if (rotationalController.atSetpoint() && yController.atSetpoint() && xController.atSetpoint()) {
+      timer.start();
+    } else {
+      timer.reset();
+    }
+    return timer.hasElapsed(0.5);
   }
 
   /**
@@ -171,4 +188,10 @@ public class AlignToPose extends Command {
   public void end(boolean interrupted) {
     Swerve.getInstance().stop();
   }
+
+//  public void initializeLoggedNetworkPingu() {
+//    networkPinguRotation = new NetworkPingu(new LoggedNetworkNumber("Tuning/AlignToPose/Rotational P", rotationalController.getP()), new LoggedNetworkNumber("Tuning/AlignToPose/Rotational I", rotationalController.getI()), new LoggedNetworkNumber("Tuning/AlignToPose/Rotational D", rotationalController.getD()));
+//    networkPinguY = new NetworkPingu(new LoggedNetworkNumber("Tuning/AlignToPose/Y P", yController.getP()), new LoggedNetworkNumber("Tuning/AlignToPose/Y I", yController.getI()), new LoggedNetworkNumber("Tuning/AlignToPose/Y D", yController.getD()));
+//    networkPinguX = new NetworkPingu(new LoggedNetworkNumber("Tuning/AlignToPose/X P", xController.getP()), new LoggedNetworkNumber("Tuning/AlignToPose/X I", xController.getI()), new LoggedNetworkNumber("Tuning/AlignToPose/X D", xController.getD()));
+//  }
 }

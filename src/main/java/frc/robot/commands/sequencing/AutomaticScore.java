@@ -18,8 +18,10 @@ import frc.robot.utils.emu.*;
 public class AutomaticScore extends SequentialCommandGroup {
   public AutomaticScore(Direction offsetSide, ElevatorState state, XboxController pad) {
     addCommands(
-        moveElevatorState(elevatorToBeSetState),
-        new AlignToPose(offsetSide, pad).withTimeout(1.25),
+        new ParallelCommandGroup(
+          moveElevatorState(elevatorToBeSetState),
+          new AlignToPose(offsetSide, pad)
+        ),
         new WaitCommand(0.5),
         setCoralState(CoralState.CORAL_RELEASE),
         waitCmd(0.3),

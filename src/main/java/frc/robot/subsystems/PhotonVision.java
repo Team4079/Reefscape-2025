@@ -61,7 +61,7 @@ public class PhotonVision extends SubsystemBase {
         new PhotonModule(
             "RightCamera",
             new Transform3d(
-                new Translation3d(0.28448, -0.2985, CAMERA_ONE_HEIGHT_METER),
+                new Translation3d(0.27305, -0.2985, CAMERA_ONE_HEIGHT_METER),
                 new Rotation3d(0.0, Math.toRadians(-25), Math.toRadians(0))),
             AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded)));
     // well calibrated camera is left camera
@@ -69,7 +69,7 @@ public class PhotonVision extends SubsystemBase {
         new PhotonModule(
             "LeftCamera",
             new Transform3d(
-                new Translation3d(0.28448, 0.2985, CAMERA_ONE_HEIGHT_METER),
+                new Translation3d(0.27305, 0.2985, CAMERA_ONE_HEIGHT_METER),
                 new Rotation3d(0.0, Math.toRadians(-25), Math.toRadians(0))),
             AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded)));
 

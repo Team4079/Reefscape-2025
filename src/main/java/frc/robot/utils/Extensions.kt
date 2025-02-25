@@ -26,7 +26,7 @@ fun List<PhotonModule>.getDecentResultPairs(): List<Pair<PhotonModule, PhotonPip
             module.allUnreadResults
                 .getOrNull(0)
                 //TODO make sure this isnt rejecting too much maybe lower it idk
-                ?.takeIf { it.hasTargets() && module.currentStdDevs.normF() < 0.9 }
+                ?.takeIf { it.hasTargets() /* && module.currentStdDevs.normF() < 0.9 */ }
                 ?.let { module to it }
         }.sortedBy { it.second.bestTarget.poseAmbiguity }
 
