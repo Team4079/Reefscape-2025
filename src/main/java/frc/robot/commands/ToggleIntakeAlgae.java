@@ -1,7 +1,9 @@
 package frc.robot.commands;
 
+import static frc.robot.commands.Kommand.setCoralState;
 import static frc.robot.utils.RobotParameters.AlgaeManipulatorParameters.*;
 import static frc.robot.utils.RobotParameters.CoralManipulatorParameters.*;
+import static frc.robot.utils.RobotParameters.ElevatorParameters.elevatorToBeSetState;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Algae;
@@ -14,6 +16,7 @@ import frc.robot.utils.emu.ElevatorState;
 public class ToggleIntakeAlgae extends Command {
   private final Algae algae = Algae.getInstance();
   private final Coral coral = Coral.getInstance();
+  private final Elevator elevator = Elevator.getInstance();
 
   public ToggleIntakeAlgae() {
     // each subsystem used by the command must be passed into the
@@ -21,17 +24,29 @@ public class ToggleIntakeAlgae extends Command {
     addRequirements();
   }
 
+  // TODO Reverse direction of coral intake motor when intaking algae (double check this works)
+  // stop stealing my commits erick
   @Override
   public void initialize() {
     switch (algaeCounter) {
       case 0:
-        algaePivotState = AlgaePivotState.DOWN;
-        coralState = CoralState.ALGAE_INTAKE;
+        if (elevatorToBeSetState == ElevatorState.L2) {
+          algaePivotState = AlgaePivotState.DOWN;
+          coralState = CoralState.ALGAE_INTAKE;
+          elevator.setState(ElevatorState.ALGAE_LOW);
+        } else if (elevatorToBeSetState == ElevatorState.L3) {
+          algaePivotState = AlgaePivotState.DOWN;
+          coralState = CoralState.ALGAE_INTAKE;
+          elevator.setState(ElevatorState.ALGAE_HIGH);
+        } else {
+          algaeCounter = -1;
+          return;
+        }
         break;
       case 1:
         algaePivotState = AlgaePivotState.HOLD;
         coralState = CoralState.ALGAE_HOLD;
-        Elevator.getInstance().setState(ElevatorState.ALGAE_HOLD);
+        elevator.setState(ElevatorState.ALGAE_HOLD);
         break;
       case 2:
         algaePivotState = AlgaePivotState.RELEASE;
@@ -41,6 +56,7 @@ public class ToggleIntakeAlgae extends Command {
         algaePivotState = AlgaePivotState.UP;
         coralState = CoralState.CORAL_INTAKE;
         algaeIntaking = false;
+        elevator.setState(ElevatorState.DEFAULT);
         break;
     }
   }
@@ -57,5 +73,8 @@ public class ToggleIntakeAlgae extends Command {
   @Override
   public void end(boolean interrupted) {
     algaeCounter++;
+    if (algaeCounter > 3){
+      algaeCounter = 0;
+    }
   }
 }

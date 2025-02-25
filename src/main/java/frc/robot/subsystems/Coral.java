@@ -112,19 +112,19 @@ public class Coral extends SubsystemBase {
    */
   @Override
   public void periodic() {
-//    if (isCoralIntaking && !algaeIntaking) {
-//      if (!getCoralSensor() && !hasPiece) {
-//        coralState = CORAL_INTAKE;
-//      } else if (getCoralSensor() && !hasPiece) {
-//        // Stop the motors if the manipulator has a piece, but the sensor no longer
-//        // detects it
-//        coralState = CORAL_SLOW;
-//        setHasPiece(true);
-//      } else if (!getCoralSensor() && hasPiece) {
-//        coralState = CORAL_HOLD;
-//        isCoralIntaking = false;
-//      }
-//    }
+    if (isCoralIntaking && !algaeIntaking) {
+      if (!getCoralSensor() && !hasPiece) {
+        coralState = CORAL_INTAKE;
+      } else if (getCoralSensor() && !hasPiece) {
+        // Stop the motors if the manipulator has a piece, but the sensor no longer
+        // detects it
+        coralState = CORAL_SLOW;
+        setHasPiece(true);
+      } else if (!getCoralSensor() && hasPiece) {
+        coralState = CORAL_HOLD;
+        isCoralIntaking = false;
+      }
+    }
 
     logs(
         () -> {
@@ -156,7 +156,7 @@ public class Coral extends SubsystemBase {
 
   /** Scores the coral motors */
   public void scoreCoral() {
-    voltageOut.Output = 3.0;
+    voltageOut.Output = 4.0;
     coralScoreMotor.setControl(voltageOut);
     this.motorsRunning = true;
     this.setHasPiece(false);
@@ -164,8 +164,8 @@ public class Coral extends SubsystemBase {
 
   /** Starts the coral manipulator motors */
   public void slowCoralIntake() {
-    coralScoreMotor.setControl(VoltagePingu.setOutput(1.0));
-    coralFeederMotor.setControl(VoltagePingu.setOutput(1.0));
+    coralScoreMotor.setControl(VoltagePingu.setOutput(4.0));
+    coralFeederMotor.setControl(VoltagePingu.setOutput(4.0));
     this.setHasPiece(true);
   }
 
@@ -182,7 +182,7 @@ public class Coral extends SubsystemBase {
    */
   public void algaeIntake() {
     this.stopMotors();
-    voltageOut.Output = 4.5;
+    voltageOut.Output = -4.5;
     coralScoreMotor.setControl(voltageOut);
     this.motorsRunning = true;
   }

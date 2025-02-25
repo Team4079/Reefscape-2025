@@ -16,13 +16,13 @@ import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.LocalADStarAK;
 import frc.robot.utils.RobotParameters;
+import frc.robot.utils.RobotParameters.FieldParameters.*;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
-import frc.robot.utils.RobotParameters.FieldParameters.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to

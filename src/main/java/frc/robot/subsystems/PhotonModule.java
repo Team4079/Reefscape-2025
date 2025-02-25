@@ -196,7 +196,7 @@ public class PhotonModule {
     return camera.getName();
   }
 
-  public  PhotonCamera getCamera() {
+  public PhotonCamera getCamera() {
     return camera;
   }
 }
