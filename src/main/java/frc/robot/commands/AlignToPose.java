@@ -47,8 +47,6 @@ public class AlignToPose extends Command {
   private NetworkPingu networkPinguY;
   private NetworkPingu networkPinguX;
 
-
-
   /**
    * Creates a new AlignSwerve using the Direction Enum.
    *
@@ -56,7 +54,6 @@ public class AlignToPose extends Command {
    *     "center".
    */
   public AlignToPose(Direction offsetSide, XboxController pad) {
-
     photonVision = PhotonVision.getInstance();
     swerve = Swerve.getInstance();
     this.offsetSide = offsetSide;
@@ -114,23 +111,31 @@ public class AlignToPose extends Command {
     if (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)) {
       if (targetPose.getX() < 4.5) {
         swerve.setDriveSpeeds(
-          yController.calculate(currentPose.getY(), targetPose.getY()),
-          xController.calculate(currentPose.getX(), targetPose.getX()),
-          rotationalController.calculate(currentPose.getRotation().getDegrees()),
-          false);
+            yController.calculate(currentPose.getY(), targetPose.getY()),
+            xController.calculate(currentPose.getX(), targetPose.getX()),
+            rotationalController.calculate(currentPose.getRotation().getDegrees()),
+            false);
       } else {
         swerve.setDriveSpeeds(
-          -xController.calculate(currentPose.getX(), targetPose.getX()),
-          -yController.calculate(currentPose.getY(), targetPose.getY()),
-          rotationalController.calculate(currentPose.getRotation().getDegrees()),
-          false);
+            -xController.calculate(currentPose.getX(), targetPose.getX()),
+            -yController.calculate(currentPose.getY(), targetPose.getY()),
+            rotationalController.calculate(currentPose.getRotation().getDegrees()),
+            false);
       }
     } else {
-        if (targetPose.getX() < 13) {
-          swerve.setDriveSpeeds(-xController.calculate(currentPose.getX()), -yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), false);
-        } else {
-          swerve.setDriveSpeeds(-xController.calculate(currentPose.getX()), -yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), false);
-        }
+      if (targetPose.getX() < 13) {
+        swerve.setDriveSpeeds(
+            -xController.calculate(currentPose.getX()),
+            -yController.calculate(currentPose.getY()),
+            rotationalController.calculate(currentPose.getRotation().getDegrees()),
+            false);
+      } else {
+        swerve.setDriveSpeeds(
+            -xController.calculate(currentPose.getX()),
+            -yController.calculate(currentPose.getY()),
+            rotationalController.calculate(currentPose.getRotation().getDegrees()),
+            false);
+      }
     }
     logs(
         () -> {
@@ -144,7 +149,9 @@ public class AlignToPose extends Command {
           log("AlignToPose/Rotational Controller Setpoint", rotationalController.atSetpoint());
           log("AlignToPose/Y Controller Setpoint", yController.atSetpoint());
           log("AlignToPose/X Controller Setpoint ", xController.atSetpoint());
-          log("AlignToPose/X Set Speed ", xController.calculate(currentPose.getX(), targetPose.getX()));
+          log(
+              "AlignToPose/X Set Speed ",
+              xController.calculate(currentPose.getX(), targetPose.getX()));
           log("AlignToPose/Y Set Speed ", yController.calculate(currentPose.getY()));
           log(
               "AlignToPose/Rot Set Speed ",
@@ -180,14 +187,13 @@ public class AlignToPose extends Command {
    */
   @Override
   public boolean isFinished() {
-        if (rotationalController.atSetpoint() && yController.atSetpoint() &&
-     xController.atSetpoint()) {
-          timer.start();
-        } else {
-          timer.reset();
-        }
-        return timer.hasElapsed(0.15);
-//    return false;
+    if (rotationalController.atSetpoint() && yController.atSetpoint() && xController.atSetpoint()) {
+      timer.start();
+    } else {
+      timer.reset();
+    }
+    return timer.hasElapsed(0.15);
+    //    return false;
   }
 
   /**

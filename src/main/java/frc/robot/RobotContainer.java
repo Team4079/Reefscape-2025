@@ -1,6 +1,8 @@
 package frc.robot;
 
 import static frc.robot.commands.Kommand.*;
+import static frc.robot.commands.sequencing.ResetScoreKt.*;
+import static frc.robot.commands.sequencing.VariableScoreKt.*;
 import static frc.robot.utils.emu.Button.*;
 import static frc.robot.utils.emu.Direction.*;
 import static frc.robot.utils.emu.ElevatorState.*;
@@ -53,10 +55,10 @@ public class RobotContainer {
                 calamityCowButtons.put(
                     button, new JoystickButton(calamityCow, button.getButtonNumber())));
 
-    NamedCommands.registerCommand("ScoreL1", new ScoreL1());
-    NamedCommands.registerCommand("ScoreL2", new ScoreL2());
-    NamedCommands.registerCommand("ScoreL3", new ScoreL3());
-    NamedCommands.registerCommand("ScoreL4", new ScoreL4());
+    NamedCommands.registerCommand("ScoreL1", variableScore(L1));
+    NamedCommands.registerCommand("ScoreL2", variableScore(L2));
+    NamedCommands.registerCommand("ScoreL3", variableScore(L3));
+    NamedCommands.registerCommand("ScoreL4", variableScore(L4));
 
     // TODO add autoalign for auto
 
@@ -68,8 +70,6 @@ public class RobotContainer {
     configureBindings();
 
     new CommandPingu()
-        .bind("scoreLeft", score(LEFT))
-        .bind("scoreRight", score(RIGHT))
         .bind("SetL1", setElevatorState(L1))
         .bind("SetL2", setElevatorState(L2))
         .bind("SetL3", setElevatorState(L3))
@@ -90,15 +90,13 @@ public class RobotContainer {
         .bind(START, resetPidgey())
         //        .bind(B, setElevatorState(DEFAULT))
         //        .bind(B, align(CENTER).onlyWhile(pad::getAButton))
-        .bind(B, new ResetScore())
+        .bind(B, resetScore())
         //        .bind(B, createPathfindingCmd(reefs.get(0)))
         //        .bind(A, setIntakeAlgae())
         //        .bind(A, align(RIGHT))
         .bind(Y, startCoralMotors())
-        .bind(LEFT_BUMPER, score(LEFT))
-        .bind(RIGHT_BUMPER, score(RIGHT))
         .bind(X, reverseIntake().onlyWhile(aacrn::getXButton));
 
-    new Bingu(calamityCowButtons).bind(A, waitCmd(1));
+    new Bingu(calamityCowButtons).bind(A, waitFor(1));
   }
 }

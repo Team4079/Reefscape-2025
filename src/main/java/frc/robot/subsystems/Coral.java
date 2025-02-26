@@ -125,20 +125,20 @@ public class Coral extends SubsystemBase {
         coralState = CORAL_SLOW;
         setHasPiece(true);
       } else if (!getCoralSensor() && hasPiece) {
-//        coralTimer.start();
-//        if (coralTimer.advanceIfElapsed(0.05)) {
-          coralState = CORAL_HOLD;
-//          isCoralIntaking = false;
-//          coralTimer.stop();
-//        }
+        //        coralTimer.start();
+        //        if (coralTimer.advanceIfElapsed(0.05)) {
+        coralState = CORAL_HOLD;
+        //          isCoralIntaking = false;
+        //          coralTimer.stop();
+        //        }
       } else {
-          coralState = CORAL_SLOW;
+        coralState = CORAL_SLOW;
       }
     }
 
     logs(
         () -> {
-//          log("Coral/isCoralIntaking", isCoralIntaking);
+          //          log("Coral/isCoralIntaking", isCoralIntaking);
           log("Coral/Coral Sensor", getCoralSensor());
           log("Coral/Has Piece", hasPiece);
           log("Coral/motorsRunning", this.motorsRunning);
@@ -161,7 +161,7 @@ public class Coral extends SubsystemBase {
     coralFeederMotor.setControl(voltageOut);
     coralScoreMotor.setControl(voltageOut);
     this.setHasPiece(false);
-//    isCoralIntaking = true;
+    //    isCoralIntaking = true;
   }
 
   /** Scores the coral motors */

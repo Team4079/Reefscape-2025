@@ -1,11 +1,16 @@
 package frc.robot.commands
 
 import com.pathplanner.lib.auto.AutoBuilder
-import com.pathplanner.lib.commands.PathPlannerAuto
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.wpilibj.XboxController
-import edu.wpi.first.wpilibj2.command.*
-import frc.robot.commands.sequencing.AutomaticScore
+import edu.wpi.first.wpilibj2.command.Command
+import edu.wpi.first.wpilibj2.command.CommandScheduler
+import edu.wpi.first.wpilibj2.command.InstantCommand
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup
+import edu.wpi.first.wpilibj2.command.Subsystem
+import edu.wpi.first.wpilibj2.command.WaitCommand
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand
 import frc.robot.subsystems.Coral
 import frc.robot.subsystems.Elevator
 import frc.robot.subsystems.Swerve
@@ -14,7 +19,6 @@ import frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.PATH_CON
 import frc.robot.utils.emu.CoralState
 import frc.robot.utils.emu.Direction
 import frc.robot.utils.emu.ElevatorState
-import frc.robot.utils.emu.ElevatorState.L4
 import frc.robot.utils.pingu.PathPingu.findClosestScoringPosition
 import frc.robot.utils.pingu.PathPingu.findClosestScoringPositionNotL4
 import kotlin.math.abs
@@ -39,6 +43,15 @@ object Kommand {
     ) = InstantCommand(function, *reqs)
 
     /**
+     * Creates a [WaitCommand] to wait for a specified number of seconds.
+     *
+     * @param seconds The number of seconds to wait.
+     * @return A [WaitCommand] that waits for the specified number of seconds.
+     */
+    @JvmStatic
+    fun waitFor(seconds: Double) = WaitCommand(seconds)
+
+    /**
      * Creates a [WaitUntilCommand] that waits until the given condition is true.
      *
      * @param function The condition to evaluate.
@@ -46,6 +59,84 @@ object Kommand {
      */
     @JvmStatic
     fun waitUntil(function: () -> Boolean) = WaitUntilCommand(function)
+
+    /**
+     * Creates an [InstantCommand] to cancel all running commands.
+     *
+     * @return An [InstantCommand] that cancels all running commands.
+     */
+    @JvmStatic
+    fun cancel() = cmd { CommandScheduler.getInstance().cancelAll() }
+
+    /**
+     * A builder class for creating a [SequentialCommandGroup].
+     */
+    class SequentialBuilder {
+        private val commands = mutableListOf<Command>()
+
+        /**
+         * Adds a command to the sequence.
+         */
+        operator fun Command.unaryPlus() {
+            commands.add(this)
+        }
+
+        /**
+         * Builds and returns a [SequentialCommandGroup] with the added commands.
+         */
+        fun build(): SequentialCommandGroup = SequentialCommandGroup(*commands.toTypedArray())
+    }
+
+/**
+     * Creates a [SequentialCommandGroup] using the provided block to add commands.
+     *
+     * @param block The block to add commands to the sequence.
+     * @return A [SequentialCommandGroup] with the added commands.
+     */
+    fun sequential(block: SequentialBuilder.() -> Unit): SequentialCommandGroup = SequentialBuilder().apply(block).build()
+
+    /**
+     * Creates a [SequentialCommandGroup] that runs the given commands in sequence.
+     *
+     * @param command The commands to run in sequence.
+     * @return A [SequentialCommandGroup] that runs the given commands in sequence.
+     */
+    fun sequential(vararg command: Command) = SequentialCommandGroup(*command)
+
+    /**
+     * A builder class for creating a [ParallelCommandGroup].
+     */
+    class ParallelBuilder {
+        private val commands = mutableListOf<Command>()
+
+        /**
+         * Adds a command to the sequence.
+         */
+        operator fun Command.unaryPlus() {
+            commands.add(this)
+        }
+
+        /**
+         * Builds and returns a [ParallelCommandGroup] with the added commands.
+         */
+        fun build(): ParallelCommandGroup = ParallelCommandGroup(*commands.toTypedArray())
+    }
+
+    /**
+     * Creates a [ParallelCommandGroup] that runs the given commands in parallel.
+     *
+     * @param command The commands to run in sequence.
+     * @return A [ParallelCommandGroup] that runs the given commands in parallel.
+     */
+    fun parallel(block: ParallelBuilder.() -> Unit): ParallelCommandGroup = ParallelBuilder().apply(block).build()
+
+    /**
+     * Creates a [ParallelCommandGroup] that runs the given commands in parallel.
+     *
+     * @param command The commands to run in parallel.
+     * @return A [ParallelCommandGroup] that runs the given commands in parallel.
+     */
+    fun parallel(vararg command: Command) = ParallelCommandGroup(*command)
 
     /**
      * Creates an [InstantCommand] to set the state of the elevator.
@@ -99,17 +190,6 @@ object Kommand {
     fun stopCoralManipulator() = cmd { Coral.getInstance().stopMotors() }
 
     /**
-     * Creates an [AutomaticScore] command to score in a specified direction.
-     *
-     * @param dir The direction in which to score.
-     * @param state The desired state of the elevator. Defaults to [L4].
-     * @return An [AutomaticScore] that performs the scoring action.
-     */
-    @JvmStatic
-    fun score(dir: Direction) = cmd {}
-//    fun score(dir: Direction) = AutomaticScore(dir)
-
-    /**
      * Creates an new [ReverseIntake] command to reverse the intake.
      *
      * @return A [ReverseIntake] command that reverses the intake.
@@ -155,26 +235,6 @@ object Kommand {
      */
     @JvmStatic
     fun setIntakeAlgae() = ToggleIntakeAlgae()
-
-    /**
-     * Creates a [PathPlannerAuto] command for autonomous operation.
-     *
-     * @return A [PathPlannerAuto] command for autonomous operation.
-     */
-//    @JvmStatic
-//    fun autonomousCommand() = PathPlannerAuto(SwerveParameters.PATHPLANNER_AUTO_NAME)
-
-    /**
-     * Creates a [WaitCommand] to wait for a specified number of seconds.
-     *
-     * @param seconds The number of seconds to wait.
-     * @return A [WaitCommand] that waits for the specified number of seconds.
-     */
-    @JvmStatic
-    fun waitCmd(seconds: Double) = WaitCommand(seconds)
-
-    @JvmStatic
-    fun cancelCmd() = cmd{ CommandScheduler.getInstance().cancelAll() }
 
     /**
      * Creates a pathfinding command to move to a specified pose.

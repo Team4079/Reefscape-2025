@@ -31,9 +31,6 @@ public class LED extends SubsystemBase {
   private static final int spacing = 5;
   private ArrayList<Integer> laserPositions = new ArrayList<>();
 
-  // LED patterns
-  //  public final LEDPattern red;
-
   /**
    * The Singleton instance of this LEDSubsystem. Code should use the {@link #getInstance()} method
    * to get the single instance (rather than trying to construct an instance of this class.)
@@ -67,9 +64,6 @@ public class LED extends SubsystemBase {
     for (int i = 0; i < laser_count; i++) {
       laserPositions.add(-i * spacing);
     }
-
-    //    red = LEDPattern.gradient(LEDPattern.GradientType.kContinuous, Color.kRed);
-
   }
 
   /**
@@ -129,6 +123,7 @@ public class LED extends SubsystemBase {
         break;
       case ORANGE_WAVE:
         setRGB(255, 255, 0);
+        break;
       case RED_WAVE:
         setRGB(255, 0, 0);
         break;
