@@ -1,18 +1,12 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:frc.robot.commands.sequencing////PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/index.html
-$dokka.location:frc.robot.commands.sequencing/AutomaticScore///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/index.html
-$dokka.location:frc.robot.commands.sequencing/AutomaticScore/AutomaticScore/#frc.robot.utils.emu.Direction#frc.robot.utils.emu.ElevatorState#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/-automatic-score.html
-$dokka.location:frc.robot.commands.sequencing/ResetScore///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-reset-score/index.html
-$dokka.location:frc.robot.commands.sequencing/ResetScore/ResetScore/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-reset-score/-reset-score.html
-$dokka.location:frc.robot.commands.sequencing/ScoreL1///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l1/index.html
-$dokka.location:frc.robot.commands.sequencing/ScoreL1/ScoreL1/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l1/-score-l1.html
-$dokka.location:frc.robot.commands.sequencing/ScoreL2///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l2/index.html
-$dokka.location:frc.robot.commands.sequencing/ScoreL2/ScoreL2/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l2/-score-l2.html
-$dokka.location:frc.robot.commands.sequencing/ScoreL3///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l3/index.html
-$dokka.location:frc.robot.commands.sequencing/ScoreL3/ScoreL3/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l3/-score-l3.html
-$dokka.location:frc.robot.commands.sequencing/ScoreL4///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l4/index.html
-$dokka.location:frc.robot.commands.sequencing/ScoreL4/ScoreL4/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l4/-score-l4.html
+$dokka.location:frc.robot.commands.sequencing/AutomaticScoreKt///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score-kt/index.html
+$dokka.location:frc.robot.commands.sequencing/AutomaticScoreKt/autoScore/#frc.robot.utils.emu.Direction?#edu.wpi.first.wpilibj.XboxController?/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score-kt/auto-score.html
+$dokka.location:frc.robot.commands.sequencing/ResetScoreKt///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-reset-score-kt/index.html
+$dokka.location:frc.robot.commands.sequencing/ResetScoreKt/resetScore/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-reset-score-kt/reset-score.html
+$dokka.location:frc.robot.commands.sequencing/VariableScoreKt///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-variable-score-kt/index.html
+$dokka.location:frc.robot.commands.sequencing/VariableScoreKt/variableScore/#frc.robot.utils.emu.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-variable-score-kt/variable-score.html
 $dokka.location:frc.robot.commands////PointingToDeclaration/-reefscape2025/frc.robot.commands/index.html
 $dokka.location:frc.robot.commands/AlignSwerve///PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/index.html
 $dokka.location:frc.robot.commands/AlignSwerve/AlignSwerve/#frc.robot.utils.emu.Direction#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/-align-swerve.html
@@ -34,8 +28,16 @@ $dokka.location:frc.robot.commands/Calibration/end/#boolean/PointingToDeclaratio
 $dokka.location:frc.robot.commands/Calibration/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-calibration/execute.html
 $dokka.location:frc.robot.commands/Calibration/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-calibration/initialize.html
 $dokka.location:frc.robot.commands/Calibration/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-calibration/is-finished.html
+$dokka.location:frc.robot.commands/Kommand.ParallelBuilder///PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/-parallel-builder/index.html
+$dokka.location:frc.robot.commands/Kommand.ParallelBuilder/Kommand.ParallelBuilder/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/-parallel-builder/-kommand.-parallel-builder.html
+$dokka.location:frc.robot.commands/Kommand.ParallelBuilder/build/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/-parallel-builder/build.html
+$dokka.location:frc.robot.commands/Kommand.ParallelBuilder/unaryPlus/edu.wpi.first.wpilibj2.command.Command#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/-parallel-builder/unary-plus.html
+$dokka.location:frc.robot.commands/Kommand.SequentialBuilder///PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/-sequential-builder/index.html
+$dokka.location:frc.robot.commands/Kommand.SequentialBuilder/Kommand.SequentialBuilder/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/-sequential-builder/-kommand.-sequential-builder.html
+$dokka.location:frc.robot.commands/Kommand.SequentialBuilder/build/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/-sequential-builder/build.html
+$dokka.location:frc.robot.commands/Kommand.SequentialBuilder/unaryPlus/edu.wpi.first.wpilibj2.command.Command#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/-sequential-builder/unary-plus.html
 $dokka.location:frc.robot.commands/Kommand///PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/index.html
-$dokka.location:frc.robot.commands/Kommand/cancelCmd/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/cancel-cmd.html
+$dokka.location:frc.robot.commands/Kommand/cancel/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/cancel.html
 $dokka.location:frc.robot.commands/Kommand/cmd/#kotlin.Array[edu.wpi.first.wpilibj2.command.Subsystem]#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/cmd.html
 $dokka.location:frc.robot.commands/Kommand/coralIntaking/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/coral-intaking.html
 $dokka.location:frc.robot.commands/Kommand/createPathfindingCmd/#edu.wpi.first.math.geometry.Pose2d#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/create-pathfinding-cmd.html
@@ -44,9 +46,12 @@ $dokka.location:frc.robot.commands/Kommand/moveElevatorState/#frc.robot.utils.em
 $dokka.location:frc.robot.commands/Kommand/moveToClosestCoralScore/#frc.robot.utils.emu.Direction#edu.wpi.first.math.geometry.Pose2d/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/move-to-closest-coral-score.html
 $dokka.location:frc.robot.commands/Kommand/moveToClosestCoralScoreNotL4/#frc.robot.utils.emu.Direction#edu.wpi.first.math.geometry.Pose2d/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/move-to-closest-coral-score-not-l4.html
 $dokka.location:frc.robot.commands/Kommand/padElevator/#edu.wpi.first.wpilibj.XboxController#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/pad-elevator.html
+$dokka.location:frc.robot.commands/Kommand/parallel/#kotlin.Array[edu.wpi.first.wpilibj2.command.Command]/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/parallel.html
+$dokka.location:frc.robot.commands/Kommand/parallel/#kotlin.Function1[frc.robot.commands.Kommand.ParallelBuilder,kotlin.Unit]/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/parallel.html
 $dokka.location:frc.robot.commands/Kommand/resetPidgey/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/reset-pidgey.html
 $dokka.location:frc.robot.commands/Kommand/reverseIntake/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/reverse-intake.html
-$dokka.location:frc.robot.commands/Kommand/score/#frc.robot.utils.emu.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/score.html
+$dokka.location:frc.robot.commands/Kommand/sequential/#kotlin.Array[edu.wpi.first.wpilibj2.command.Command]/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/sequential.html
+$dokka.location:frc.robot.commands/Kommand/sequential/#kotlin.Function1[frc.robot.commands.Kommand.SequentialBuilder,kotlin.Unit]/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/sequential.html
 $dokka.location:frc.robot.commands/Kommand/setCoralState/#frc.robot.utils.emu.CoralState/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/set-coral-state.html
 $dokka.location:frc.robot.commands/Kommand/setElevatorState/#frc.robot.utils.emu.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/set-elevator-state.html
 $dokka.location:frc.robot.commands/Kommand/setIntakeAlgae/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/set-intake-algae.html
@@ -54,7 +59,7 @@ $dokka.location:frc.robot.commands/Kommand/setTelePid/#/PointingToDeclaration/-
 $dokka.location:frc.robot.commands/Kommand/startCoralManipulator/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/start-coral-manipulator.html
 $dokka.location:frc.robot.commands/Kommand/startCoralMotors/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/start-coral-motors.html
 $dokka.location:frc.robot.commands/Kommand/stopCoralManipulator/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/stop-coral-manipulator.html
-$dokka.location:frc.robot.commands/Kommand/waitCmd/#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/wait-cmd.html
+$dokka.location:frc.robot.commands/Kommand/waitFor/#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/wait-for.html
 $dokka.location:frc.robot.commands/Kommand/waitUntil/#kotlin.Function0[kotlin.Boolean]/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/wait-until.html
 $dokka.location:frc.robot.commands/PadDrive///PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/index.html
 $dokka.location:frc.robot.commands/PadDrive/PadDrive/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/-pad-drive.html
