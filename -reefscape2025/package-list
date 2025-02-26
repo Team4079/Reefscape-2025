@@ -2,7 +2,9 @@ $dokka.format:html-v1
 $dokka.linkExtension:html
 $dokka.location:frc.robot.commands.sequencing////PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/index.html
 $dokka.location:frc.robot.commands.sequencing/AutomaticScore///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/index.html
-$dokka.location:frc.robot.commands.sequencing/AutomaticScore/AutomaticScore/#frc.robot.utils.emu.Direction#frc.robot.utils.emu.ElevatorState#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/-automatic-score.html
+$dokka.location:frc.robot.commands.sequencing/AutomaticScore/AutomaticScore/#frc.robot.utils.emu.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score/-automatic-score.html
+$dokka.location:frc.robot.commands.sequencing/AutomaticScoreAuto///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score-auto/index.html
+$dokka.location:frc.robot.commands.sequencing/AutomaticScoreAuto/AutomaticScoreAuto/#frc.robot.utils.emu.Direction#frc.robot.utils.emu.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score-auto/-automatic-score-auto.html
 $dokka.location:frc.robot.commands.sequencing/ResetScore///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-reset-score/index.html
 $dokka.location:frc.robot.commands.sequencing/ResetScore/ResetScore/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-reset-score/-reset-score.html
 $dokka.location:frc.robot.commands.sequencing/ScoreL1///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l1/index.html
@@ -22,12 +24,11 @@ $dokka.location:frc.robot.commands/AlignSwerve/initialize/#/PointingToDeclaratio
 $dokka.location:frc.robot.commands/AlignSwerve/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/is-finished.html
 $dokka.location:frc.robot.commands/AlignSwerve/positionSet/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-swerve/position-set.html
 $dokka.location:frc.robot.commands/AlignToPose///PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose/index.html
-$dokka.location:frc.robot.commands/AlignToPose/AlignToPose/#frc.robot.utils.emu.Direction#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose/-align-to-pose.html
+$dokka.location:frc.robot.commands/AlignToPose/AlignToPose/#frc.robot.utils.emu.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose/-align-to-pose.html
 $dokka.location:frc.robot.commands/AlignToPose/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose/end.html
 $dokka.location:frc.robot.commands/AlignToPose/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose/execute.html
 $dokka.location:frc.robot.commands/AlignToPose/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose/initialize.html
 $dokka.location:frc.robot.commands/AlignToPose/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose/is-finished.html
-$dokka.location:frc.robot.commands/AlignToPose/positionSet/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose/position-set.html
 $dokka.location:frc.robot.commands/Calibration///PointingToDeclaration/-reefscape2025/frc.robot.commands/-calibration/index.html
 $dokka.location:frc.robot.commands/Calibration/Calibration/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-calibration/-calibration.html
 $dokka.location:frc.robot.commands/Calibration/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands/-calibration/end.html
