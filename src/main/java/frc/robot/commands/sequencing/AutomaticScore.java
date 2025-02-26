@@ -19,14 +19,14 @@ public class AutomaticScore extends SequentialCommandGroup {
   public AutomaticScore(Direction offsetSide, ElevatorState state, XboxController pad) {
     addCommands(
         new ParallelCommandGroup(
-            //          moveElevatorState(elevatorToBeSetState),
-            new AlignToPose(offsetSide, pad).withTimeout(2.0)),
+            moveElevatorState(elevatorToBeSetState),
+            new AlignToPose(offsetSide, pad)),
         new WaitCommand(0.5),
         setCoralState(CoralState.CORAL_RELEASE),
         waitCmd(0.3),
         // TODO MOVE BACK (prob with on the fly move back 0.5 meter path) jayden u should do this
         // cus im lazy
-        //        setElevatorState(DEFAULT),
+        setElevatorState(DEFAULT),
         coralIntaking());
   }
 }

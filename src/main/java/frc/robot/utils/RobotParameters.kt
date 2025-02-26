@@ -14,7 +14,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.numbers.N1
 import edu.wpi.first.math.numbers.N3
 import edu.wpi.first.math.numbers.N4
-import edu.wpi.first.math.trajectory.TrapezoidProfile
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints
 import edu.wpi.first.math.util.Units.degreesToRadians
 import edu.wpi.first.units.Units.Feet
@@ -94,16 +93,16 @@ object RobotParameters {
             val ROTATIONAL_PINGU = Pingu(0.15, 0.0, 0.01)
 
             @JvmField
-            val Y_PINGU = Pingu(9.0, 0.0, 0.3)
+            val Y_PINGU = Pingu(4.079, 0.0, 0.0)
 
             @JvmField
-            val X_PINGU = Pingu(9.0, 0.0, 0.3)
+            val X_PINGU = Pingu(4.079, 0.0, 0.0)
 
             @JvmField
-            val DIST_PINGU = Pingu(0.15, 0.0, 0.1)
+            val DIST_PINGU = Pingu(0.2910, 0.0, 0.0)
 
             @JvmField
-            val PROFILE_CONSTANTS = Constraints(0.3, 0.3)
+            val PROFILE_CONSTRAINTS = Constraints(0.4, 0.4)
 
             // TODO remember to update path planner config values and measure everything (cameras etc)
             @JvmField
@@ -261,8 +260,8 @@ object RobotParameters {
         var hasPiece: Boolean = false
         // coral should be intaking and coral state should be intaking
 
-        @JvmField
-        var isCoralIntaking: Boolean = false
+//        @JvmField
+//        var isCoralIntaking: Boolean = false
     }
 
     object FieldParameters {

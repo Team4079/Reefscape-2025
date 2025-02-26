@@ -9,7 +9,7 @@ import frc.robot.commands.sequencing.AutomaticScore
 import frc.robot.subsystems.Coral
 import frc.robot.subsystems.Elevator
 import frc.robot.subsystems.Swerve
-import frc.robot.utils.RobotParameters.CoralManipulatorParameters.isCoralIntaking
+import frc.robot.utils.RobotParameters.CoralManipulatorParameters.hasPiece
 import frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.PATH_CONSTRAINTS
 import frc.robot.utils.emu.CoralState
 import frc.robot.utils.emu.Direction
@@ -213,7 +213,7 @@ object Kommand {
      * @return An [InstantCommand] that sets the coral intaking state to true.
      */
     @JvmStatic
-    fun coralIntaking() = cmd { isCoralIntaking = true }
+    fun coralIntaking() = cmd { hasPiece = false }
 
     /**
      * Creates a command to move the robot to the closest coral

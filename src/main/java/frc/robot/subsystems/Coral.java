@@ -13,6 +13,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters;
 import frc.robot.utils.emu.CoralState;
@@ -27,6 +28,8 @@ public class Coral extends SubsystemBase {
   private final DigitalInput coralSensor;
 
   private boolean motorsRunning = false;
+
+  private Timer coralTimer = new Timer();
 
   /**
    * The Singleton instance of this CoralManipulatorSubsystem. Code should use the {@link
@@ -112,23 +115,30 @@ public class Coral extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    if (isCoralIntaking && !algaeIntaking) {
+    if (!algaeIntaking) {
       if (!getCoralSensor() && !hasPiece) {
         coralState = CORAL_INTAKE;
       } else if (getCoralSensor() && !hasPiece) {
         // Stop the motors if the manipulator has a piece, but the sensor no longer
         // detects it
+        coralTimer.reset();
         coralState = CORAL_SLOW;
         setHasPiece(true);
       } else if (!getCoralSensor() && hasPiece) {
-        coralState = CORAL_HOLD;
-        isCoralIntaking = false;
+//        coralTimer.start();
+//        if (coralTimer.advanceIfElapsed(0.05)) {
+          coralState = CORAL_HOLD;
+//          isCoralIntaking = false;
+//          coralTimer.stop();
+//        }
+      } else {
+          coralState = CORAL_SLOW;
       }
     }
 
     logs(
         () -> {
-          log("Coral/isCoralIntaking", isCoralIntaking);
+//          log("Coral/isCoralIntaking", isCoralIntaking);
           log("Coral/Coral Sensor", getCoralSensor());
           log("Coral/Has Piece", hasPiece);
           log("Coral/motorsRunning", this.motorsRunning);
@@ -151,7 +161,7 @@ public class Coral extends SubsystemBase {
     coralFeederMotor.setControl(voltageOut);
     coralScoreMotor.setControl(voltageOut);
     this.setHasPiece(false);
-    isCoralIntaking = true;
+//    isCoralIntaking = true;
   }
 
   /** Scores the coral motors */

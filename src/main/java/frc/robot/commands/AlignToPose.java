@@ -9,7 +9,6 @@ import static frc.robot.utils.pingu.LogPingu.log;
 import static frc.robot.utils.pingu.LogPingu.logs;
 import static frc.robot.utils.pingu.PathPingu.clearCoralScoringPositions;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -31,9 +30,9 @@ public class AlignToPose extends Command {
   private double y;
   private double dist;
   private PhotonVision photonVision;
-  private PIDController rotationalController;
-  private PIDController yController;
-  private PIDController xController;
+  private ProfiledPIDController rotationalController;
+  private ProfiledPIDController yController;
+  private ProfiledPIDController xController;
   private Pose2d targetPose;
   private Pose2d currentPose;
   private Timer timer;
@@ -48,13 +47,7 @@ public class AlignToPose extends Command {
   private NetworkPingu networkPinguY;
   private NetworkPingu networkPinguX;
 
-  private TrapezoidProfile trapProfileX;
-  private TrapezoidProfile trapProfileY;
-  private TrapezoidProfile trapProfileRot;
 
-  private TrapezoidProfile.State trapProfileXGoal;
-  private TrapezoidProfile.State trapProfileXCurrent;
-  private TrapezoidProfile.State trapSetX;
 
   /**
    * Creates a new AlignSwerve using the Direction Enum.
@@ -69,22 +62,13 @@ public class AlignToPose extends Command {
     this.offsetSide = offsetSide;
     this.pad = pad;
     currentPose = swerve.getPose2Dfrom3D();
-    trapProfileX = new TrapezoidProfile(new TrapezoidProfile.Constraints(1.5, 1.0));
-    trapProfileY = new TrapezoidProfile(new TrapezoidProfile.Constraints(1.5, 1.0));
-    trapProfileRot = new TrapezoidProfile(new TrapezoidProfile.Constraints(1.5, 1.0));
-    trapProfileXCurrent = new TrapezoidProfile.State();
-    trapSetX = new TrapezoidProfile.State();
 
     timer = new Timer();
     addRequirements(swerve);
-  }
 
-  /** The initial subroutine of a command. Called once when the command is initially scheduled. */
-  @Override
-  public void initialize() {
-    // Update the list of coral scoring positions to the correct side (hopefully)
     clearCoralScoringPositions();
     addCoralPosList();
+    currentPose = swerve.getPose2Dfrom3D();
 
     if (elevatorToBeSetState == ElevatorState.L4) {
       targetPose = moveToClosestCoralScore(offsetSide, Swerve.getInstance().getPose2Dfrom3D());
@@ -92,28 +76,31 @@ public class AlignToPose extends Command {
       targetPose = moveToClosestCoralScoreNotL4(offsetSide, Swerve.getInstance().getPose2Dfrom3D());
     }
 
-    trapProfileXCurrent.position = targetPose.getX();
-
-    //    initializeLoggedNetworkPingu();
-    //
-    //    ROTATIONAL_PINGU.setPID(networkPinguRotation);
-    //    Y_PINGU.setPID(networkPinguY);
-    //    X_PINGU.setPID(networkPinguX);
-
-    rotationalController = ROTATIONAL_PINGU.getPidController();
-    rotationalController.setTolerance(1.3); // with L4 branches
-    rotationalController.setSetpoint(targetPose.getRotation().getDegrees());
-    rotationalController.enableContinuousInput(-180, 180);
-
-    yController = Y_PINGU.getPidController();
-    yController.setTolerance(0.01);
-    yController.setSetpoint(targetPose.getY());
-
-//    xController = X_PINGU.getProfiledPIDController();
-    xController = X_PINGU.getPidController();
+    xController = X_PINGU.getProfiledPIDController();
     xController.setTolerance(0.01);
-    xController.setSetpoint(targetPose.getX());
-//    xController.setConstraints(PROFILE_CONSTANTS);
+    xController.setConstraints(PROFILE_CONSTRAINTS);
+    xController.setGoal(targetPose.getX());
+    xController.reset(currentPose.getX());
+
+    yController = Y_PINGU.getProfiledPIDController();
+    yController.setTolerance(0.01);
+    yController.setConstraints(PROFILE_CONSTRAINTS);
+    yController.setGoal(targetPose.getY());
+    yController.reset(currentPose.getY());
+
+    rotationalController = ROTATIONAL_PINGU.getProfiledPIDController();
+    rotationalController.setTolerance(1.5);
+    rotationalController.setConstraints(new TrapezoidProfile.Constraints(5, 5));
+    rotationalController.setGoal(targetPose.getRotation().getDegrees());
+    rotationalController.reset(currentPose.getRotation().getDegrees());
+    rotationalController.enableContinuousInput(-180, 180);
+  }
+
+  /** The initial subroutine of a command. Called once when the command is initially scheduled. */
+  @Override
+  public void initialize() {
+    // Update the list of coral scoring positions to the correct side (hopefully)
+    currentPose = swerve.getPose2Dfrom3D();
   }
 
   /**
@@ -122,21 +109,7 @@ public class AlignToPose extends Command {
    */
   @Override
   public void execute() {
-
-    // Using PID for x, y and rotation, align it to the target pose
-
     currentPose = swerve.getPose2Dfrom3D();
-
-    trapProfileXCurrent.position = targetPose.getX();
-
-    trapProfileXGoal = new TrapezoidProfile.State(targetPose.getX(), 0.0);
-    trapSetX = trapProfileX.calculate(0.02, trapProfileXCurrent, trapProfileXGoal);
-    //    rotationalController.calculate(currentPose.getRotation().getDegrees());
-    //    yController.calculate(currentPose.getY());
-    //    xController.calculate(currentPose.getX());
-
-    // Swerve drive set speeds is x y then rotation, so we need to set the speeds in the correct
-    // order
 
     if (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)) {
       if (targetPose.getX() < 4.5) {
@@ -153,26 +126,33 @@ public class AlignToPose extends Command {
           false);
       }
     } else {
-      swerve.setDriveSpeeds(0, 0, 0, false);
+        if (targetPose.getX() < 13) {
+          swerve.setDriveSpeeds(-xController.calculate(currentPose.getX()), -yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), false);
+        } else {
+          swerve.setDriveSpeeds(-xController.calculate(currentPose.getX()), -yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), false);
+        }
     }
     logs(
         () -> {
           log("AlignToPose/Current Pose", currentPose);
           log("AlignToPose/Target Pose", targetPose);
-          log("AlignToPose/Rotational Error", rotationalController.getError());
-          log("AlignToPose/Y Error", yController.getError());
+          log("AlignToPose/Rotational Error", rotationalController.getPositionError());
+          log("AlignToPose/Y Error", yController.getPositionError());
           log("AlignToPose/X Error ", xController.getPositionError());
+          log("AlignToPose/X Set ", xController.getSetpoint().position);
+          log("AlignToPose/X Goal ", xController.getGoal().position);
           log("AlignToPose/Rotational Controller Setpoint", rotationalController.atSetpoint());
           log("AlignToPose/Y Controller Setpoint", yController.atSetpoint());
           log("AlignToPose/X Controller Setpoint ", xController.atSetpoint());
-          log("AlignToPose/X Set Speed ", -xController.calculate(currentPose.getX(), targetPose.getX()));
+          log("AlignToPose/X Set Speed ", xController.calculate(currentPose.getX(), targetPose.getX()));
           log("AlignToPose/Y Set Speed ", yController.calculate(currentPose.getY()));
           log(
               "AlignToPose/Rot Set Speed ",
               rotationalController.calculate(currentPose.getRotation().getDegrees()));
           log("AlignToPose/ X Set Pos", currentPose.getX());
           log("AlignToPose/ Y Set Pos", currentPose.getY());
-          log("AlignToPose/ TrapProf set speed x", trapProfileXCurrent.velocity);
+          log("AlignToPose/ X Target Pos", targetPose.getX());
+          log("AlignToPose/ Y Target Pos", targetPose.getY());
         });
   }
 
@@ -200,14 +180,14 @@ public class AlignToPose extends Command {
    */
   @Override
   public boolean isFinished() {
-    //    if (rotationalController.atSetpoint() && yController.atSetpoint() &&
-    // xController.atSetpoint()) {
-    //      timer.start();
-    //    } else {
-    //      timer.reset();
-    //    }
-    //    return timer.hasElapsed(0.5);
-    return false;
+        if (rotationalController.atSetpoint() && yController.atSetpoint() &&
+     xController.atSetpoint()) {
+          timer.start();
+        } else {
+          timer.reset();
+        }
+        return timer.hasElapsed(0.15);
+//    return false;
   }
 
   /**
