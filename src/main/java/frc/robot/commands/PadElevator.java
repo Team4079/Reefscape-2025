@@ -57,11 +57,11 @@ public class PadElevator extends Command {
     //    }
 
     if (aacrn.getRightBumperButtonPressed()) {
-      new AutomaticScore(Direction.RIGHT, elevatorToBeSetState, aacrn).schedule();
+      new AutomaticScore(Direction.RIGHT).schedule();
     }
 
     if (aacrn.getLeftBumperButtonPressed()) {
-      new AutomaticScore(Direction.LEFT, elevatorToBeSetState, aacrn).schedule();
+      new AutomaticScore(Direction.LEFT).schedule();
     }
 
     //    if (aacrn.getYButton()) {

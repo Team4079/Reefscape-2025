@@ -56,13 +56,13 @@ public class RobotContainer {
     NamedCommands.registerCommand("ScoreL1", new ScoreL1());
     NamedCommands.registerCommand("ScoreL2", new ScoreL2());
     NamedCommands.registerCommand("ScoreL3", new ScoreL3());
-    NamedCommands.registerCommand("ScoreL4Left", new AutomaticScore(LEFT, L4, aacrn));
-    NamedCommands.registerCommand("ScoreL4Right", new AutomaticScore(RIGHT, L4, aacrn));
+    NamedCommands.registerCommand("ScoreL4Left", new AutomaticScoreAuto(LEFT, L4));
+    NamedCommands.registerCommand("ScoreL4Right", new AutomaticScoreAuto(RIGHT, L4));
 
     // TODO add autoalign for auto
 
-    NamedCommands.registerCommand("AlignLeft", new AlignToPose(LEFT, aacrn).withTimeout(1.3));
-    NamedCommands.registerCommand("AlignRight", new AlignToPose(RIGHT, aacrn).withTimeout(1.3));
+    NamedCommands.registerCommand("AlignLeft", new AlignToPose(LEFT).withTimeout(1.3));
+    NamedCommands.registerCommand("AlignRight", new AlignToPose(RIGHT).withTimeout(1.3));
 
     networkChooser = AutoBuilder.buildAutoChooser();
 

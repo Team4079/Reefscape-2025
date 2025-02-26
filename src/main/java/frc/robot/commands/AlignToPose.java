@@ -39,7 +39,6 @@ public class AlignToPose extends Command {
   private double
       offset; // double offset is the left/right offset from the april tag to make it properly align
   PhotonCamera camera;
-  private XboxController pad;
   private Swerve swerve;
   private Direction offsetSide;
 
@@ -55,12 +54,11 @@ public class AlignToPose extends Command {
    * @param offsetSide The side of the robot to offset the alignment to. Can be "left", "right", or
    *     "center".
    */
-  public AlignToPose(Direction offsetSide, XboxController pad) {
+  public AlignToPose(Direction offsetSide) {
 
     photonVision = PhotonVision.getInstance();
     swerve = Swerve.getInstance();
     this.offsetSide = offsetSide;
-    this.pad = pad;
     currentPose = swerve.getPose2Dfrom3D();
 
     timer = new Timer();
@@ -154,17 +152,6 @@ public class AlignToPose extends Command {
           log("AlignToPose/ X Target Pos", targetPose.getX());
           log("AlignToPose/ Y Target Pos", targetPose.getY());
         });
-  }
-
-  /**
-   * Sets the position based on the input from the Logitech gaming pad.
-   *
-   * @param pad The Logitech gaming pad.
-   * @return The coordinate representing the position. The first element is the x-coordinate, and
-   *     the second element is the y-coordinate.
-   */
-  public static Pair<Double, Double> positionSet(XboxController pad) {
-    return PadDrive.positionSet(pad);
   }
 
   /**
