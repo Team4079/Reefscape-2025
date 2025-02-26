@@ -1,6 +1,8 @@
 package frc.robot;
 
 import static frc.robot.commands.Kommand.*;
+import static frc.robot.commands.sequencing.AutomaticScoreKt.*;
+import static frc.robot.commands.sequencing.FullScoreAutoKt.*;
 import static frc.robot.commands.sequencing.ResetScoreKt.*;
 import static frc.robot.commands.sequencing.VariableScoreKt.*;
 import static frc.robot.utils.emu.Button.*;
@@ -59,13 +61,13 @@ public class RobotContainer {
     NamedCommands.registerCommand("ScoreL2", variableScore(L2));
     NamedCommands.registerCommand("ScoreL3", variableScore(L3));
     NamedCommands.registerCommand("ScoreL4", variableScore(L4));
-    NamedCommands.registerCommand("Score4Left", automaticScore(LEFT, L4, aacrn));
-    NamedCommands.registerCommand("Score4Right", automaticScore(RIGHT, L4, aacrn));
-    
+    NamedCommands.registerCommand("Score4Left", fullScoreAuto(LEFT, L4));
+    NamedCommands.registerCommand("Score4Right", fullScoreAuto(RIGHT, L4));
+
     // TODO add autoalign for auto
 
-    NamedCommands.registerCommand("AlignLeft", new AlignToPose(LEFT, aacrn).withTimeout(1.3));
-    NamedCommands.registerCommand("AlignRight", new AlignToPose(RIGHT, aacrn).withTimeout(1.3));
+    NamedCommands.registerCommand("AlignLeft", new AlignToPose(LEFT).withTimeout(1.3));
+    NamedCommands.registerCommand("AlignRight", new AlignToPose(RIGHT).withTimeout(1.3));
 
     networkChooser = AutoBuilder.buildAutoChooser();
 

@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import static edu.wpi.first.wpilibj.DriverStation.Alliance.*;
 import static frc.robot.commands.Kommand.moveToClosestCoralScore;
 import static frc.robot.commands.Kommand.moveToClosestCoralScoreNotL4;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.elevatorToBeSetState;
@@ -17,35 +18,27 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.PhotonVision;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.emu.Direction;
 import frc.robot.utils.emu.ElevatorState;
-import frc.robot.utils.pingu.NetworkPingu;
 import kotlin.Pair;
-import org.photonvision.PhotonCamera;
 
 public class AlignToPose extends Command {
-  private double yaw;
-  private double y;
-  private double dist;
-  private PhotonVision photonVision;
   private ProfiledPIDController rotationalController;
   private ProfiledPIDController yController;
   private ProfiledPIDController xController;
-  private Pose2d targetPose;
+  private final Pose2d targetPose;
   private Pose2d currentPose;
-  private Timer timer;
-  private double
-      offset; // double offset is the left/right offset from the april tag to make it properly align
-  PhotonCamera camera;
-  private XboxController pad;
-  private Swerve swerve;
+  private final Timer timer;
+  // double offset is the left/right offset from the april tag to make it properly align
+  private double offset;
+  private final Swerve swerve;
+  // Not used outside the constructor
   private Direction offsetSide;
 
-  private NetworkPingu networkPinguRotation;
-  private NetworkPingu networkPinguY;
-  private NetworkPingu networkPinguX;
+  //  private NetworkPingu networkPinguRotation;
+  //  private NetworkPingu networkPinguY;
+  //  private NetworkPingu networkPinguX;
 
   /**
    * Creates a new AlignSwerve using the Direction Enum.
@@ -53,11 +46,10 @@ public class AlignToPose extends Command {
    * @param offsetSide The side of the robot to offset the alignment to. Can be "left", "right", or
    *     "center".
    */
-  public AlignToPose(Direction offsetSide, XboxController pad) {
-    photonVision = PhotonVision.getInstance();
+  public AlignToPose(Direction offsetSide) {
     swerve = Swerve.getInstance();
+
     this.offsetSide = offsetSide;
-    this.pad = pad;
     currentPose = swerve.getPose2Dfrom3D();
 
     timer = new Timer();
@@ -107,12 +99,11 @@ public class AlignToPose extends Command {
   @Override
   public void execute() {
     currentPose = swerve.getPose2Dfrom3D();
-
-    if (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)) {
+    if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(Blue)) {
       if (targetPose.getX() < 4.5) {
         swerve.setDriveSpeeds(
-            yController.calculate(currentPose.getY(), targetPose.getY()),
             xController.calculate(currentPose.getX(), targetPose.getX()),
+            yController.calculate(currentPose.getY(), targetPose.getY()),
             rotationalController.calculate(currentPose.getRotation().getDegrees()),
             false);
       } else {
@@ -123,7 +114,7 @@ public class AlignToPose extends Command {
             false);
       }
     } else {
-      if (targetPose.getX() < 13) {
+      if (targetPose.getX() < 13) { // TODO: These are the same
         swerve.setDriveSpeeds(
             -xController.calculate(currentPose.getX()),
             -yController.calculate(currentPose.getY()),
@@ -193,7 +184,6 @@ public class AlignToPose extends Command {
       timer.reset();
     }
     return timer.hasElapsed(0.15);
-    //    return false;
   }
 
   /**

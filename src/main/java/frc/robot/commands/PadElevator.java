@@ -8,9 +8,7 @@ import static frc.robot.utils.emu.ElevatorState.*;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Coral;
 import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Swerve;
 import kotlin.*;
 
 /** Command to control the robot's swerve drive using a Logitech gaming pad. */
@@ -18,20 +16,10 @@ public class PadElevator extends Command {
   private final XboxController aacrn;
   private final XboxController calamityCow;
 
-  private final Coral coral;
-
-  private final Swerve swerve;
-
-  /**
-   * Constructs a new PadDrive command.
-   *
-   * @param pad The Logitech gaming pad used to control the robot.
-   */
+  /** Constructs a new PadDrive command. */
   public PadElevator(XboxController aacrn, XboxController calamityCow) {
     this.aacrn = aacrn;
     this.calamityCow = calamityCow;
-    this.swerve = Swerve.getInstance();
-    this.coral = Coral.getInstance();
     addRequirements(Elevator.getInstance());
   }
 
@@ -57,11 +45,11 @@ public class PadElevator extends Command {
     //    }
 
     if (aacrn.getRightBumperButtonPressed()) {
-      autoScore(RIGHT, aacrn).schedule();
+      fullScore(RIGHT).schedule();
     }
 
     if (aacrn.getLeftBumperButtonPressed()) {
-      autoScore(LEFT, aacrn).schedule();
+      fullScore(LEFT).schedule();
     }
 
     //    if (aacrn.getYButton()) {

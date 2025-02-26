@@ -18,13 +18,12 @@ public class AlignSwerve extends Command {
   private double yaw;
   private double y;
   private double dist;
-  private PhotonVision photonVision;
   private PIDController rotationalController;
   private PIDController yController;
   private PIDController disController;
   private Timer timer;
-  private double
-      offset; // double offset is the left/right offset from the april tag to make it properly align
+  // double offset is the left/right offset from the april tag to make it properly align
+  private double offset;
   PhotonCamera camera;
   private XboxController pad;
 
@@ -35,16 +34,14 @@ public class AlignSwerve extends Command {
    *     "center".
    */
   public AlignSwerve(Direction offsetSide, XboxController pad) {
-
-    photonVision = PhotonVision.getInstance();
     this.pad = pad;
     switch (offsetSide) {
       case RIGHT:
-        camera = photonVision.requestCamera("RightCamera");
+        camera = PhotonVision.getInstance().requestCamera("RightCamera");
         offset = RobotParameters.PhotonVisionConstants.LEFT_OFFSET;
         break;
       case LEFT:
-        camera = photonVision.requestCamera("LeftCamera");
+        camera = PhotonVision.getInstance().requestCamera("LeftCamera");
         offset = RobotParameters.PhotonVisionConstants.RIGHT_OFFSET;
         break;
       case CENTER:
@@ -63,9 +60,9 @@ public class AlignSwerve extends Command {
   /** The initial subroutine of a command. Called once when the command is initially scheduled. */
   @Override
   public void initialize() {
-    yaw = photonVision.getYaw();
-    y = photonVision.getY();
-    dist = photonVision.getDist();
+    yaw = PhotonVision.getInstance().getYaw();
+    y = PhotonVision.getInstance().getY();
+    dist = PhotonVision.getInstance().getDist();
 
     rotationalController = ROTATIONAL_PINGU.getPidController();
     rotationalController.setTolerance(0.4); // with L4 branches
@@ -90,27 +87,27 @@ public class AlignSwerve extends Command {
    */
   @Override
   public void execute() {
-    if (photonVision.fetchYaw(camera) == 7157) {
+    if (PhotonVision.getInstance().fetchYaw(camera) == 7157) {
       Timer tempTimer = new Timer();
       tempTimer.start();
       if (tempTimer.get() < 0.2) {
-        if (photonVision.fetchYaw(camera) != 7157) {
+        if (PhotonVision.getInstance().fetchYaw(camera) != 7157) {
           return;
         }
         if (camera.getName().equals("RightCamera")) {
-          camera = photonVision.requestCamera("LeftCamera");
+          camera = PhotonVision.getInstance().requestCamera("LeftCamera");
         } else {
-          camera = photonVision.requestCamera("RightCamera");
+          camera = PhotonVision.getInstance().requestCamera("RightCamera");
         }
       }
       return;
     }
 
-    yaw = photonVision.fetchYaw(camera);
+    yaw = PhotonVision.getInstance().fetchYaw(camera);
 
-    y = photonVision.fetchY(camera);
+    y = PhotonVision.getInstance().fetchY(camera);
 
-    dist = photonVision.fetchDist(camera);
+    dist = PhotonVision.getInstance().fetchDist(camera);
 
     double error = y - offset;
 
