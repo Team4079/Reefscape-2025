@@ -57,7 +57,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ScoreL2", new ScoreL2());
     NamedCommands.registerCommand("ScoreL3", new ScoreL3());
     NamedCommands.registerCommand("ScoreL4Left", new AutomaticScore(LEFT, L4, aacrn));
-    NamedCommands.registerCommand("ScoreL4Right", new AutomaticScore(LEFT, L4, aacrn));
+    NamedCommands.registerCommand("ScoreL4Right", new AutomaticScore(RIGHT, L4, aacrn));
 
     // TODO add autoalign for auto
 
