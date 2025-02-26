@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.*;
-import frc.robot.commands.AlignSwerve;
 import frc.robot.commands.AlignToPose;
 import frc.robot.commands.sequencing.*;
 import frc.robot.subsystems.*;
@@ -93,7 +92,7 @@ public class RobotContainer {
         //        .bind(B, align(CENTER).onlyWhile(pad::getAButton))
         .bind(B, new ResetScore())
         //        .bind(B, createPathfindingCmd(reefs.get(0)))
-//        .bind(A, setIntakeAlgae())
+        //        .bind(A, setIntakeAlgae())
         //        .bind(A, align(RIGHT))
         .bind(Y, startCoralMotors())
         .bind(LEFT_BUMPER, score(LEFT))

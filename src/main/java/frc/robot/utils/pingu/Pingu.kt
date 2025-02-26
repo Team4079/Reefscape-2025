@@ -1,6 +1,8 @@
 package frc.robot.utils.pingu
 
 import edu.wpi.first.math.controller.PIDController
+import edu.wpi.first.math.controller.ProfiledPIDController
+import frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.PROFILE_CONSTANTS
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber
 
 /**
@@ -31,6 +33,9 @@ data class Pingu
          */
         val pidController
             get() = PIDController(p, i, d)
+
+        val profiledPIDController
+            get() = ProfiledPIDController(p, i, d, PROFILE_CONSTANTS)
 
         /**
          * Sets the PID values from the given PIDController instance.

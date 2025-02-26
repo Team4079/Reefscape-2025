@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import static frc.robot.commands.Kommand.setCoralState;
 import static frc.robot.utils.RobotParameters.AlgaeManipulatorParameters.*;
 import static frc.robot.utils.RobotParameters.CoralManipulatorParameters.*;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.elevatorToBeSetState;
@@ -73,7 +72,7 @@ public class ToggleIntakeAlgae extends Command {
   @Override
   public void end(boolean interrupted) {
     algaeCounter++;
-    if (algaeCounter > 3){
+    if (algaeCounter > 3) {
       algaeCounter = 0;
     }
   }

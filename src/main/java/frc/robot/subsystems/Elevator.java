@@ -199,7 +199,7 @@ public class Elevator extends SubsystemBase {
     // THIS IS JUST FOR TESTING, in reality, elevator set state is based on
     // what Jayden clicks which will be displayed on leds but not necessarily = currenState
     //    elevatorSetState = currentState;
-    setElevatorPosition(currentState);
+    //    setElevatorPosition(currentState);
 
     logs(
         () -> {

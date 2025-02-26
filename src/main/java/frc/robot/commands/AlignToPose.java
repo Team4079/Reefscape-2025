@@ -10,20 +10,20 @@ import static frc.robot.utils.pingu.LogPingu.logs;
 import static frc.robot.utils.pingu.PathPingu.clearCoralScoringPositions;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.PhotonVision;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.emu.Direction;
 import frc.robot.utils.emu.ElevatorState;
 import frc.robot.utils.pingu.NetworkPingu;
-import frc.robot.utils.pingu.PathPingu;
 import kotlin.Pair;
-import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 import org.photonvision.PhotonCamera;
 
 public class AlignToPose extends Command {
@@ -48,6 +48,14 @@ public class AlignToPose extends Command {
   private NetworkPingu networkPinguY;
   private NetworkPingu networkPinguX;
 
+  private TrapezoidProfile trapProfileX;
+  private TrapezoidProfile trapProfileY;
+  private TrapezoidProfile trapProfileRot;
+
+  private TrapezoidProfile.State trapProfileXGoal;
+  private TrapezoidProfile.State trapProfileXCurrent;
+  private TrapezoidProfile.State trapSetX;
+
   /**
    * Creates a new AlignSwerve using the Direction Enum.
    *
@@ -61,6 +69,12 @@ public class AlignToPose extends Command {
     this.offsetSide = offsetSide;
     this.pad = pad;
     currentPose = swerve.getPose2Dfrom3D();
+    trapProfileX = new TrapezoidProfile(new TrapezoidProfile.Constraints(1.5, 1.0));
+    trapProfileY = new TrapezoidProfile(new TrapezoidProfile.Constraints(1.5, 1.0));
+    trapProfileRot = new TrapezoidProfile(new TrapezoidProfile.Constraints(1.5, 1.0));
+    trapProfileXCurrent = new TrapezoidProfile.State();
+    trapSetX = new TrapezoidProfile.State();
+
     timer = new Timer();
     addRequirements(swerve);
   }
@@ -78,11 +92,13 @@ public class AlignToPose extends Command {
       targetPose = moveToClosestCoralScoreNotL4(offsetSide, Swerve.getInstance().getPose2Dfrom3D());
     }
 
-//    initializeLoggedNetworkPingu();
-//
-//    ROTATIONAL_PINGU.setPID(networkPinguRotation);
-//    Y_PINGU.setPID(networkPinguY);
-//    X_PINGU.setPID(networkPinguX);
+    trapProfileXCurrent.position = targetPose.getX();
+
+    //    initializeLoggedNetworkPingu();
+    //
+    //    ROTATIONAL_PINGU.setPID(networkPinguRotation);
+    //    Y_PINGU.setPID(networkPinguY);
+    //    X_PINGU.setPID(networkPinguX);
 
     rotationalController = ROTATIONAL_PINGU.getPidController();
     rotationalController.setTolerance(1.3); // with L4 branches
@@ -93,9 +109,11 @@ public class AlignToPose extends Command {
     yController.setTolerance(0.01);
     yController.setSetpoint(targetPose.getY());
 
+//    xController = X_PINGU.getProfiledPIDController();
     xController = X_PINGU.getPidController();
     xController.setTolerance(0.01);
     xController.setSetpoint(targetPose.getX());
+//    xController.setConstraints(PROFILE_CONSTANTS);
   }
 
   /**
@@ -108,24 +126,34 @@ public class AlignToPose extends Command {
     // Using PID for x, y and rotation, align it to the target pose
 
     currentPose = swerve.getPose2Dfrom3D();
+
+    trapProfileXCurrent.position = targetPose.getX();
+
+    trapProfileXGoal = new TrapezoidProfile.State(targetPose.getX(), 0.0);
+    trapSetX = trapProfileX.calculate(0.02, trapProfileXCurrent, trapProfileXGoal);
     //    rotationalController.calculate(currentPose.getRotation().getDegrees());
     //    yController.calculate(currentPose.getY());
     //    xController.calculate(currentPose.getX());
 
     // Swerve drive set speeds is x y then rotation, so we need to set the speeds in the correct
     // order
-    if (targetPose.getX() < 4.5) {
-      swerve.setDriveSpeeds(
-              xController.calculate(currentPose.getX(), targetPose.getX()),
-              yController.calculate(currentPose.getY(), targetPose.getY()),
-              rotationalController.calculate(currentPose.getRotation().getDegrees()),
-              false);
+
+    if (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)) {
+      if (targetPose.getX() < 4.5) {
+        swerve.setDriveSpeeds(
+          yController.calculate(currentPose.getY(), targetPose.getY()),
+          xController.calculate(currentPose.getX(), targetPose.getX()),
+          rotationalController.calculate(currentPose.getRotation().getDegrees()),
+          false);
+      } else {
+        swerve.setDriveSpeeds(
+          -xController.calculate(currentPose.getX(), targetPose.getX()),
+          -yController.calculate(currentPose.getY(), targetPose.getY()),
+          rotationalController.calculate(currentPose.getRotation().getDegrees()),
+          false);
+      }
     } else {
-    swerve.setDriveSpeeds(
-        -xController.calculate(currentPose.getX(), targetPose.getX()),
-        -yController.calculate(currentPose.getY(), targetPose.getY()),
-        rotationalController.calculate(currentPose.getRotation().getDegrees()),
-        false);
+      swerve.setDriveSpeeds(0, 0, 0, false);
     }
     logs(
         () -> {
@@ -133,15 +161,18 @@ public class AlignToPose extends Command {
           log("AlignToPose/Target Pose", targetPose);
           log("AlignToPose/Rotational Error", rotationalController.getError());
           log("AlignToPose/Y Error", yController.getError());
-          log("AlignToPose/X Error ", xController.getError());
+          log("AlignToPose/X Error ", xController.getPositionError());
           log("AlignToPose/Rotational Controller Setpoint", rotationalController.atSetpoint());
           log("AlignToPose/Y Controller Setpoint", yController.atSetpoint());
           log("AlignToPose/X Controller Setpoint ", xController.atSetpoint());
-          log("AlignToPose/X Set Speed ", xController.calculate(currentPose.getX()));
+          log("AlignToPose/X Set Speed ", -xController.calculate(currentPose.getX(), targetPose.getX()));
           log("AlignToPose/Y Set Speed ", yController.calculate(currentPose.getY()));
-          log("AlignToPose/Rot Set Speed ", rotationalController.calculate(currentPose.getRotation().getDegrees()));
+          log(
+              "AlignToPose/Rot Set Speed ",
+              rotationalController.calculate(currentPose.getRotation().getDegrees()));
           log("AlignToPose/ X Set Pos", currentPose.getX());
           log("AlignToPose/ Y Set Pos", currentPose.getY());
+          log("AlignToPose/ TrapProf set speed x", trapProfileXCurrent.velocity);
         });
   }
 
@@ -169,12 +200,14 @@ public class AlignToPose extends Command {
    */
   @Override
   public boolean isFinished() {
-    if (rotationalController.atSetpoint() && yController.atSetpoint() && xController.atSetpoint()) {
-      timer.start();
-    } else {
-      timer.reset();
-    }
-    return timer.hasElapsed(0.5);
+    //    if (rotationalController.atSetpoint() && yController.atSetpoint() &&
+    // xController.atSetpoint()) {
+    //      timer.start();
+    //    } else {
+    //      timer.reset();
+    //    }
+    //    return timer.hasElapsed(0.5);
+    return false;
   }
 
   /**
@@ -190,9 +223,16 @@ public class AlignToPose extends Command {
     Swerve.getInstance().stop();
   }
 
-//  public void initializeLoggedNetworkPingu() {
-//    networkPinguRotation = new NetworkPingu(new LoggedNetworkNumber("Tuning/AlignToPose/Rotational P", rotationalController.getP()), new LoggedNetworkNumber("Tuning/AlignToPose/Rotational I", rotationalController.getI()), new LoggedNetworkNumber("Tuning/AlignToPose/Rotational D", rotationalController.getD()));
-//    networkPinguY = new NetworkPingu(new LoggedNetworkNumber("Tuning/AlignToPose/Y P", yController.getP()), new LoggedNetworkNumber("Tuning/AlignToPose/Y I", yController.getI()), new LoggedNetworkNumber("Tuning/AlignToPose/Y D", yController.getD()));
-//    networkPinguX = new NetworkPingu(new LoggedNetworkNumber("Tuning/AlignToPose/X P", xController.getP()), new LoggedNetworkNumber("Tuning/AlignToPose/X I", xController.getI()), new LoggedNetworkNumber("Tuning/AlignToPose/X D", xController.getD()));
-//  }
+  //  public void initializeLoggedNetworkPingu() {
+  //    networkPinguRotation = new NetworkPingu(new
+  // LoggedNetworkNumber("Tuning/AlignToPose/Rotational P", rotationalController.getP()), new
+  // LoggedNetworkNumber("Tuning/AlignToPose/Rotational I", rotationalController.getI()), new
+  // LoggedNetworkNumber("Tuning/AlignToPose/Rotational D", rotationalController.getD()));
+  //    networkPinguY = new NetworkPingu(new LoggedNetworkNumber("Tuning/AlignToPose/Y P",
+  // yController.getP()), new LoggedNetworkNumber("Tuning/AlignToPose/Y I", yController.getI()), new
+  // LoggedNetworkNumber("Tuning/AlignToPose/Y D", yController.getD()));
+  //    networkPinguX = new NetworkPingu(new LoggedNetworkNumber("Tuning/AlignToPose/X P",
+  // xController.getP()), new LoggedNetworkNumber("Tuning/AlignToPose/X I", xController.getI()), new
+  // LoggedNetworkNumber("Tuning/AlignToPose/X D", xController.getD()));
+  //  }
 }

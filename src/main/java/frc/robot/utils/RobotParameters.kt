@@ -14,6 +14,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.numbers.N1
 import edu.wpi.first.math.numbers.N3
 import edu.wpi.first.math.numbers.N4
+import edu.wpi.first.math.trajectory.TrapezoidProfile
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints
 import edu.wpi.first.math.util.Units.degreesToRadians
 import edu.wpi.first.units.Units.Feet
 import edu.wpi.first.units.Units.Inches
@@ -62,6 +64,7 @@ object RobotParameters {
         const val STEER_MOTOR_GEAR_RATIO: Double = 150.0 / 7
         const val DRIVE_MOTOR_GEAR_RATIO: Double = 6.750000000000000
         private const val WHEEL_DIAMETER: Double = 0.106
+
         // TODO CALIBRATE WHEELS
         const val METERS_PER_REV: Double = WHEEL_DIAMETER * PI * 0.99
 
@@ -73,7 +76,6 @@ object RobotParameters {
 
     /** Class containing global values related to the swerve drive system.  */
     object SwerveParameters {
-
         /** Class containing PID constants for the swerve drive system.  */
         object PinguParameters {
             @JvmField
@@ -99,6 +101,9 @@ object RobotParameters {
 
             @JvmField
             val DIST_PINGU = Pingu(0.15, 0.0, 0.1)
+
+            @JvmField
+            val PROFILE_CONSTANTS = Constraints(0.3, 0.3)
 
             // TODO remember to update path planner config values and measure everything (cameras etc)
             @JvmField
@@ -271,7 +276,6 @@ object RobotParameters {
 
         @Suppress("MemberVisibilityCanBePrivate")
         object RobotPoses {
-
             // Red first then blue poses
 
             // Represents how far we want to go from the pole
@@ -365,21 +369,19 @@ object RobotParameters {
                 )
 
             @JvmStatic
-            fun getRedAlliancePose(bluePose: Pose2d): Pose2d {
-                return Pose2d(
+            fun getRedAlliancePose(bluePose: Pose2d): Pose2d =
+                Pose2d(
                     FIELD_LENGTH_METERS - bluePose.x,
                     FIELD_WIDTH_METERS - bluePose.y,
-                    bluePose.rotation.plus(Rotation2d.fromDegrees(180.0))
+                    bluePose.rotation.plus(Rotation2d.fromDegrees(180.0)),
                 )
-            }
 
             @JvmStatic
-            fun getRedAllianceTranslation(blueTranslation: Translation2d): Translation2d {
-                return Translation2d(
+            fun getRedAllianceTranslation(blueTranslation: Translation2d): Translation2d =
+                Translation2d(
                     FIELD_LENGTH_METERS - blueTranslation.x,
-                    FIELD_WIDTH_METERS - blueTranslation.y
+                    FIELD_WIDTH_METERS - blueTranslation.y,
                 )
-            }
 
             @JvmStatic
             fun addCoralPosList() {
@@ -388,12 +390,14 @@ object RobotParameters {
                         PathPingu.addCoralScoringPositions(coralScoreBlueList)
                         PathPingu.addCoralScoringPositionsNotL4(coralScoreBlueListNotL4)
                     } else {
-                        val coralScoreRedList = coralScoreBlueList.map {
-                            Triple(getRedAllianceTranslation(it.first), getRedAlliancePose(it.second), getRedAlliancePose(it.third))
-                        }
-                        val coralScoreRedListNotL4 = coralScoreBlueListNotL4.map {
-                            Triple(getRedAllianceTranslation(it.first), getRedAlliancePose(it.second), getRedAlliancePose(it.third))
-                        }
+                        val coralScoreRedList =
+                            coralScoreBlueList.map {
+                                Triple(getRedAllianceTranslation(it.first), getRedAlliancePose(it.second), getRedAlliancePose(it.third))
+                            }
+                        val coralScoreRedListNotL4 =
+                            coralScoreBlueListNotL4.map {
+                                Triple(getRedAllianceTranslation(it.first), getRedAlliancePose(it.second), getRedAlliancePose(it.third))
+                            }
                         PathPingu.addCoralScoringPositions(coralScoreRedList)
                         PathPingu.addCoralScoringPositionsNotL4(coralScoreRedListNotL4)
                     }
