@@ -1,13 +1,11 @@
 package frc.robot;
 
 import static frc.robot.commands.Kommand.*;
-import static frc.robot.commands.sequencing.AutomaticScoreKt.*;
-import static frc.robot.commands.sequencing.FullScoreAutoKt.*;
-import static frc.robot.commands.sequencing.ResetScoreKt.*;
-import static frc.robot.commands.sequencing.VariableScoreKt.*;
+import static frc.robot.commands.sequencing.Sequences.*;
 import static frc.robot.utils.emu.Button.*;
 import static frc.robot.utils.emu.Direction.*;
 import static frc.robot.utils.emu.ElevatorState.*;
+import static frc.robot.utils.pingu.Bingu.*;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -15,13 +13,10 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.*;
-import frc.robot.commands.AlignToPose;
+import frc.robot.commands.*;
 import frc.robot.commands.sequencing.*;
 import frc.robot.subsystems.*;
-import frc.robot.utils.emu.*;
 import frc.robot.utils.pingu.*;
-import java.util.EnumMap;
-import java.util.Map;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,9 +25,6 @@ import java.util.Map;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  private final Map<Button, JoystickButton> aacrnButtons = new EnumMap<>(Button.class);
-  private final Map<Button, JoystickButton> calamityCowButtons = new EnumMap<>(Button.class);
-
   public final SendableChooser<Command> networkChooser;
   public final XboxController aacrn;
   public final XboxController calamityCow;
@@ -46,16 +38,6 @@ public class RobotContainer {
     Coral.getInstance();
     Swerve.getInstance().setDefaultCommand(drive(aacrn));
     Algae.getInstance();
-    Button.getEntries()
-        .forEach(
-            button ->
-                aacrnButtons.put(button, new JoystickButton(aacrn, button.getButtonNumber())));
-
-    Button.getEntries()
-        .forEach(
-            button ->
-                calamityCowButtons.put(
-                    button, new JoystickButton(calamityCow, button.getButtonNumber())));
 
     NamedCommands.registerCommand("ScoreL1", variableScore(L1));
     NamedCommands.registerCommand("ScoreL2", variableScore(L2));
@@ -90,17 +72,20 @@ public class RobotContainer {
    * CommandPS4Controller} controllers or {@link CommandJoystick}.
    */
   private void configureBindings() {
-    new Bingu(aacrnButtons)
-        .bind(START, resetPidgey())
-        //        .bind(B, setElevatorState(DEFAULT))
-        //        .bind(B, align(CENTER).onlyWhile(pad::getAButton))
-        .bind(B, resetScore())
-        //        .bind(B, createPathfindingCmd(reefs.get(0)))
-        //        .bind(A, setIntakeAlgae())
-        //        .bind(A, align(RIGHT))
-        .bind(Y, startCoralMotors())
-        .bind(X, reverseIntake().onlyWhile(aacrn::getXButton));
+    bindings(
+        aacrn,
+        bind(START, Kommand::resetPidgey),
+        // bind(B, () -> setElevatorState(DEFAULT)),
+        // bind(B, () -> align(CENTER).onlyWhile(pad::getAButton)),
+        bind(B, Sequences::resetScore),
+        // bind(B, () -> createPathfindingCmd(reefs.get(0))),
+        // bind(A, Kommand::setIntakeAlgae),
+        // bind(A, () -> align(RIGHT)),
+        bind(Y, Kommand::startCoralMotors),
+        bind(X, () -> reverseIntake().onlyWhile(aacrn::getXButton)),
+        bind(RIGHT_BUMPER, () -> fullScore(RIGHT)),
+        bind(LEFT_BUMPER, () -> fullScore(LEFT)));
 
-    new Bingu(calamityCowButtons).bind(A, waitFor(1));
+    bindings(calamityCow, bind(A, () -> waitFor(1)));
   }
 }

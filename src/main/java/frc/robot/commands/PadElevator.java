@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import static frc.robot.commands.sequencing.AutomaticScoreKt.*;
+import static frc.robot.commands.sequencing.Sequences.*;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.Thresholds.*;
 import static frc.robot.utils.emu.Direction.*;
@@ -44,13 +44,13 @@ public class PadElevator extends Command {
     //      setElevatorState(L1).schedule();
     //    }
 
-    if (aacrn.getRightBumperButtonPressed()) {
-      fullScore(RIGHT).schedule();
-    }
-
-    if (aacrn.getLeftBumperButtonPressed()) {
-      fullScore(LEFT).schedule();
-    }
+//    if (aacrn.getRightBumperButtonPressed()) {
+//      fullScore(RIGHT).schedule();
+//    }
+//
+//    if (aacrn.getLeftBumperButtonPressed()) {
+//      fullScore(LEFT).schedule();
+//    }
 
     //    if (aacrn.getYButton()) {
     //      RobotParameters.CoralManipulatorParameters.coralState = CoralState.CORAL_INTAKE;
