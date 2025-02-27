@@ -55,6 +55,7 @@ $dokka.location:frc.robot.commands/Kommand/setTelePid/#/PointingToDeclaration/-
 $dokka.location:frc.robot.commands/Kommand/startCoralManipulator/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/start-coral-manipulator.html
 $dokka.location:frc.robot.commands/Kommand/startCoralMotors/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/start-coral-motors.html
 $dokka.location:frc.robot.commands/Kommand/stopCoralManipulator/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/stop-coral-manipulator.html
+$dokka.location:frc.robot.commands/Kommand/toggleVisionKillSwitch/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/toggle-vision-kill-switch.html
 $dokka.location:frc.robot.commands/Kommand/waitCmd/#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/wait-cmd.html
 $dokka.location:frc.robot.commands/Kommand/waitUntil/#kotlin.Function0[kotlin.Boolean]/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/wait-until.html
 $dokka.location:frc.robot.commands/PadDrive///PointingToDeclaration/-reefscape2025/frc.robot.commands/-pad-drive/index.html
