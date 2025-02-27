@@ -114,7 +114,7 @@ public class AlignToPose extends Command {
             false);
       }
     } else {
-      if (targetPose.getX() < 13) { // TODO: These are the same
+      if (targetPose.getX() < 13) {
         swerve.setDriveSpeeds(
             -xController.calculate(currentPose.getX()),
             -yController.calculate(currentPose.getY()),
@@ -122,8 +122,8 @@ public class AlignToPose extends Command {
             false);
       } else {
         swerve.setDriveSpeeds(
-            -xController.calculate(currentPose.getX()),
-            -yController.calculate(currentPose.getY()),
+            xController.calculate(currentPose.getX()),
+            yController.calculate(currentPose.getY()),
             rotationalController.calculate(currentPose.getRotation().getDegrees()),
             false);
       }
