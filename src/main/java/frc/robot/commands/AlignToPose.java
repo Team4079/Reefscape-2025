@@ -109,11 +109,13 @@ public class AlignToPose extends Command {
   public void execute() {
     currentPose = swerve.getPose2Dfrom3D();
 
+    //TODO PLS CHECK BOTH SIDES AND BOTH APRIL TAG SIDES AND MAKE SURE IT ACTUALLY ALIGNS -SHAWN
+
     if (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)) {
       if (targetPose.getX() < 4.5) {
         swerve.setDriveSpeeds(
-          yController.calculate(currentPose.getY(), targetPose.getY()),
           xController.calculate(currentPose.getX(), targetPose.getX()),
+          yController.calculate(currentPose.getY(), targetPose.getY()),
           rotationalController.calculate(currentPose.getRotation().getDegrees()),
           false);
       } else {
@@ -127,7 +129,7 @@ public class AlignToPose extends Command {
         if (targetPose.getX() < 13) {
           swerve.setDriveSpeeds(-xController.calculate(currentPose.getX()), -yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), false);
         } else {
-          swerve.setDriveSpeeds(-xController.calculate(currentPose.getX()), -yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), false);
+          swerve.setDriveSpeeds(xController.calculate(currentPose.getX()), yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), false);
         }
     }
     logs(
