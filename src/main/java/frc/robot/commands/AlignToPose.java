@@ -4,6 +4,7 @@ import static frc.robot.commands.Kommand.moveToClosestCoralScore;
 import static frc.robot.commands.Kommand.moveToClosestCoralScoreNotL4;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.elevatorToBeSetState;
 import static frc.robot.utils.RobotParameters.FieldParameters.RobotPoses.addCoralPosList;
+import static frc.robot.utils.RobotParameters.LiveRobotValues.visionDead;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
 import static frc.robot.utils.pingu.LogPingu.log;
 import static frc.robot.utils.pingu.LogPingu.logs;
@@ -169,8 +170,8 @@ public class AlignToPose extends Command {
    */
   @Override
   public boolean isFinished() {
-        if (rotationalController.atSetpoint() && yController.atSetpoint() &&
-     xController.atSetpoint()) {
+        if ((rotationalController.atSetpoint() && yController.atSetpoint() &&
+     xController.atSetpoint()) || visionDead) {
           timer.start();
         } else {
           timer.reset();

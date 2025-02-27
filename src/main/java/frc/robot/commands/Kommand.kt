@@ -10,6 +10,7 @@ import frc.robot.subsystems.Coral
 import frc.robot.subsystems.Elevator
 import frc.robot.subsystems.Swerve
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters.hasPiece
+import frc.robot.utils.RobotParameters.LiveRobotValues.visionDead
 import frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.PATH_CONSTRAINTS
 import frc.robot.utils.emu.CoralState
 import frc.robot.utils.emu.Direction
@@ -240,4 +241,7 @@ object Kommand {
         direction: Direction,
         pose: Pose2d,
     ) = findClosestScoringPositionNotL4(pose, direction)
+
+    @JvmStatic
+    fun toggleVisionKillSwitch() = cmd { visionDead = !visionDead }
 }

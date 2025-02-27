@@ -174,6 +174,9 @@ object RobotParameters {
 
         @JvmField
         var lowBattery: Boolean = false
+
+        @JvmField
+        var visionDead: Boolean = false
     }
 
     /** Class containing constants for the Photonvision subsystem.  */

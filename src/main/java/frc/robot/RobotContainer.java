@@ -100,6 +100,6 @@ public class RobotContainer {
         .bind(RIGHT_BUMPER, score(RIGHT))
         .bind(X, reverseIntake().onlyWhile(aacrn::getXButton));
 
-    new Bingu(calamityCowButtons).bind(A, waitCmd(1));
+    new Bingu(calamityCowButtons).bind(X, toggleVisionKillSwitch());
   }
 }
