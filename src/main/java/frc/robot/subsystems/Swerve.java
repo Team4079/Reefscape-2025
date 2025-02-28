@@ -7,6 +7,7 @@ import static edu.wpi.first.math.kinematics.ChassisSpeeds.*;
 import static edu.wpi.first.math.kinematics.SwerveDriveKinematics.*;
 import static edu.wpi.first.math.util.Units.*;
 import static frc.robot.utils.ExtensionsKt.*;
+import static frc.robot.utils.RobotParameters.LiveRobotValues.*;
 import static frc.robot.utils.RobotParameters.MotorParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.*;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PhysicalParameters.*;
@@ -33,7 +34,6 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.utils.RobotParameters;
 import frc.robot.utils.pingu.NetworkPingu;
 import java.util.Optional;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
@@ -145,7 +145,7 @@ public class Swerve extends SubsystemBase {
         fromDegrees(getHeading()),
         getModulePositions(),
         new Pose2d(0.0, 0.0, fromDegrees(0.0)),
-        fill(0.05, 0.05, degreesToRadians(5)),
+        fill(0.02, 0.02, degreesToRadians(5)),
         fill(0.3, 0.3, degreesToRadians(10)));
   }
 
@@ -202,7 +202,7 @@ public class Swerve extends SubsystemBase {
     poseEstimator3d.update(pidgey.getRotation3d(), getModulePositions());
 
     field.setRobotPose(poseEstimator.getEstimatedPosition());
-    RobotParameters.LiveRobotValues.robotPos = poseEstimator.getEstimatedPosition();
+    robotPos = poseEstimator.getEstimatedPosition();
 
     logs(
         () -> {
@@ -320,6 +320,18 @@ public class Swerve extends SubsystemBase {
 
   /** Resets the Pigeon2 IMU. */
   public void resetPidgey() {
+    //    if (DriverStation.getAlliance().get() == Alliance.Blue) {
+    //      pidgey.setYaw(0.0);
+    //    } else {
+    //      pidgey.setYaw(180.0);
+    //    }
+    // TODO Red side may have a starting angle of 180 instead of 0 for blue side which may mess
+    // stuff up
+    // Check to make sure 180 words or otherwise I can just flip everything
+    // and ignore the flipping of the rotation cause it should be
+    // just a note to future ppl: you should revert x maybe y controls for red side
+    // odometry is seprate from pidgey so path planner should be fine? (it reverts paths
+    // interestingly)
     pidgey.reset();
   }
 
@@ -345,6 +357,7 @@ public class Swerve extends SubsystemBase {
    */
   public void newPose(Pose2d pose) {
     poseEstimator.resetPosition(getPidgeyRotation(), getModulePositions(), pose);
+    poseEstimator3d.resetPosition(getPidgeyRotation3d(), getModulePositions(), new Pose3d(pose));
   }
 
   /**
@@ -460,6 +473,10 @@ public class Swerve extends SubsystemBase {
     }
   }
 
+  public Pose2d getPose2Dfrom3D() {
+    return poseEstimator3d.getEstimatedPosition().toPose2d();
+  }
+
   /**
    * The pose to path find to.
    *
@@ -493,5 +510,9 @@ public class Swerve extends SubsystemBase {
             new LoggedNetworkNumber("Tuning/Swerve/Align Rot P", ROTATIONAL_PINGU.getP()),
             new LoggedNetworkNumber("Tuning/Swerve/Align Rot I", ROTATIONAL_PINGU.getI()),
             new LoggedNetworkNumber("Tuning/Swerve/Align Rot D", ROTATIONAL_PINGU.getD()));
+  }
+
+  protected Rotation3d getPidgeyRotation3d() {
+    return pidgey.getRotation3d();
   }
 }

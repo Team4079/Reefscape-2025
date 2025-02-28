@@ -13,6 +13,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters;
 import frc.robot.utils.emu.CoralState;
@@ -23,10 +24,13 @@ public class Coral extends SubsystemBase {
   private final TalonFX coralScoreMotor;
 
   private final VoltageOut voltageOut;
+  private final VoltageOut voltageOutFeeder;
 
   private final DigitalInput coralSensor;
 
   private boolean motorsRunning = false;
+
+  private Timer coralTimer = new Timer();
 
   /**
    * The Singleton instance of this CoralManipulatorSubsystem. Code should use the {@link
@@ -95,6 +99,7 @@ public class Coral extends SubsystemBase {
     coralFeederMotor.getConfigurator().apply(coralFeederConfiguration);
 
     voltageOut = new VoltageOut(0);
+    voltageOutFeeder = new VoltageOut(0);
 
     AlertPingu.add(coralFeederMotor, "coral feeder");
     AlertPingu.add(coralFeederMotor, "coral score");
@@ -112,7 +117,10 @@ public class Coral extends SubsystemBase {
    */
   @Override
   public void periodic() {
-    if (isCoralIntaking && !algaeIntaking) {
+    voltageOutFeeder.Output = 5;
+    coralFeederMotor.setControl(voltageOutFeeder);
+
+    if (!algaeIntaking && !coralScoring) {
       if (!getCoralSensor() && !hasPiece) {
         coralState = CORAL_INTAKE;
       } else if (getCoralSensor() && !hasPiece) {
@@ -121,16 +129,18 @@ public class Coral extends SubsystemBase {
         coralState = CORAL_SLOW;
         setHasPiece(true);
       } else if (!getCoralSensor() && hasPiece) {
-        coralState = CORAL_HOLD;
-        isCoralIntaking = false;
+          coralState = CORAL_HOLD;
+      } else {
+          coralState = CORAL_SLOW;
       }
     }
 
     logs(
         () -> {
-          log("Coral/isCoralIntaking", isCoralIntaking);
+//          log("Coral/isCoralIntaking", isCoralIntaking);
           log("Coral/Coral Sensor", getCoralSensor());
           log("Coral/Has Piece", hasPiece);
+          log("Coral/Coral Scoring", coralScoring);
           log("Coral/motorsRunning", this.motorsRunning);
           log("Coral/Coral State", coralState.toString());
         });
@@ -140,7 +150,7 @@ public class Coral extends SubsystemBase {
 
   /** Stops the coral manipulator motors */
   public void stopMotors() {
-    coralFeederMotor.stopMotor();
+//    coralFeederMotor.stopMotor();
     coralScoreMotor.stopMotor();
     this.motorsRunning = false;
   }
@@ -148,10 +158,9 @@ public class Coral extends SubsystemBase {
   /** Starts the coral manipulator motors */
   public void startCoralIntake() {
     voltageOut.Output = 5.0;
-    coralFeederMotor.setControl(voltageOut);
     coralScoreMotor.setControl(voltageOut);
     this.setHasPiece(false);
-    isCoralIntaking = true;
+//    isCoralIntaking = true;
   }
 
   /** Scores the coral motors */
@@ -164,8 +173,8 @@ public class Coral extends SubsystemBase {
 
   /** Starts the coral manipulator motors */
   public void slowCoralIntake() {
-    coralScoreMotor.setControl(VoltagePingu.setOutput(1.0));
-    coralFeederMotor.setControl(VoltagePingu.setOutput(1.0));
+    coralScoreMotor.setControl(VoltagePingu.setOutput(4.0));
+//    coralFeederMotor.setControl(VoltagePingu.setOutput(4.0));
     this.setHasPiece(true);
   }
 

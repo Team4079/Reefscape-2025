@@ -11,9 +11,21 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ScoreL4Right"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "b4l4b"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
           }
         },
         {
@@ -23,15 +35,33 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ScoreL4Left"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "d4l4b"
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "e4l4b"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ScoreL4Right"
           }
         }
       ]

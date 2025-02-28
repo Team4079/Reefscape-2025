@@ -4,6 +4,7 @@ import static edu.wpi.first.wpilibj.RobotController.*;
 import static edu.wpi.first.wpilibj.Threads.*;
 import static frc.robot.utils.RobotParameters.LiveRobotValues.*;
 
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -131,7 +132,8 @@ public class Robot extends LoggedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    autonomousCommand = robotContainer.networkChooser.getSelected();
+    //    autonomousCommand = robotContainer.networkChooser.getSelected();
+    autonomousCommand = new PathPlannerAuto("4l4autoA");
     autonomousCommand.schedule();
   }
 

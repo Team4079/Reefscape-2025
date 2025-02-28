@@ -14,6 +14,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics
 import edu.wpi.first.math.numbers.N1
 import edu.wpi.first.math.numbers.N3
 import edu.wpi.first.math.numbers.N4
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints
 import edu.wpi.first.math.util.Units.degreesToRadians
 import edu.wpi.first.units.Units.Feet
 import edu.wpi.first.units.Units.Inches
@@ -62,7 +63,9 @@ object RobotParameters {
         const val STEER_MOTOR_GEAR_RATIO: Double = 150.0 / 7
         const val DRIVE_MOTOR_GEAR_RATIO: Double = 6.750000000000000
         private const val WHEEL_DIAMETER: Double = 0.106
-        const val METERS_PER_REV: Double = WHEEL_DIAMETER * PI * 0.975
+
+        // TODO CALIBRATE WHEELS
+        const val METERS_PER_REV: Double = WHEEL_DIAMETER * PI * 0.99
 
         // Limit Values
         const val DRIVE_SUPPLY_LIMIT: Double = 45.0
@@ -72,11 +75,6 @@ object RobotParameters {
 
     /** Class containing global values related to the swerve drive system.  */
     object SwerveParameters {
-        const val PATHPLANNER_AUTO_NAME: String = "4l4auto"
-
-        @JvmField
-        var robotPos: Pose2d = Pose2d(0.0, 0.0, Rotation2d(0.0, 0.0))
-
         /** Class containing PID constants for the swerve drive system.  */
         object PinguParameters {
             @JvmField
@@ -92,16 +90,19 @@ object RobotParameters {
             val DRIVE_PINGU_TELE = Pingu(5.0, 0.0, 0.0, 0.7)
 
             @JvmField
-            val ROTATIONAL_PINGU = Pingu(0.2, 0.0, 0.0)
+            val ROTATIONAL_PINGU = Pingu(0.15, 0.0, 0.01)
 
             @JvmField
-            val Y_PINGU = Pingu(2.0, 0.0, 0.0)
+            val Y_PINGU = Pingu(4.079, 0.0, 0.0)
 
             @JvmField
-            val X_PINGU = Pingu(2.0, 0.0, 0.0)
+            val X_PINGU = Pingu(4.079, 0.0, 0.0)
 
             @JvmField
-            val DIST_PINGU = Pingu(0.2, 0.0, 0.0)
+            val DIST_PINGU = Pingu(0.2910, 0.0, 0.0)
+
+            @JvmField
+            val PROFILE_CONSTRAINTS = Constraints(0.4, 0.4)
 
             // TODO remember to update path planner config values and measure everything (cameras etc)
             @JvmField
@@ -173,6 +174,9 @@ object RobotParameters {
 
         @JvmField
         var lowBattery: Boolean = false
+
+        @JvmField
+        var visionDead: Boolean = false
     }
 
     /** Class containing constants for the Photonvision subsystem.  */
@@ -216,7 +220,7 @@ object RobotParameters {
         const val ELEVATOR_SOFT_LIMIT_UP: Double = 65.0
 
         @JvmField
-        var elevatorToBeSetState: ElevatorState = ElevatorState.L1
+        var elevatorToBeSetState: ElevatorState = ElevatorState.L4
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false
@@ -257,15 +261,18 @@ object RobotParameters {
 
         @JvmField
         var hasPiece: Boolean = false
-        // coral should be intaking and coral state should be intaking
 
         @JvmField
-        var isCoralIntaking: Boolean = false
+        var coralScoring: Boolean = false
+        // coral should be intaking and coral state should be intaking
+
+//        @JvmField
+//        var isCoralIntaking: Boolean = false
     }
 
     object FieldParameters {
-        const val FIELD_LENGTH_METERS = 17.3744 // 57 feet + 6 7/8 inches
-        const val FIELD_WIDTH_METERS = 8.2296 // 26 feet + 5 inches
+        const val FIELD_LENGTH_METERS = 17.5483 // 57 feet + 6 7/8 inches
+        const val FIELD_WIDTH_METERS = 8.0518 // 26 feet + 5 inches
 
         val AprilTagFieldLayout = AprilTagFields.k2025ReefscapeWelded
 
@@ -277,7 +284,8 @@ object RobotParameters {
             // Red first then blue poses
 
             // Represents how far we want to go from the pole
-            private const val DIS = 0.131
+            // TODO make for blue and red
+            private const val DIS = -0.02
 
             val REEF_A = Pose2d(3.171, 4.189, fromDegrees(0.0))
             val REEF_B = Pose2d(3.171, 3.863, fromDegrees(0.0))
@@ -317,6 +325,31 @@ object RobotParameters {
             val SCORING_L_BLUE =
                 Pose2d(REEF_L.x - (DIS * cos(REEF_L.rotation.radians)), REEF_L.y - (DIS * sin(REEF_L.rotation.radians)), REEF_L.rotation)
 
+            val SCORING_A_BLUE_NOT_L4 =
+                Pose2d(REEF_A.x, REEF_A.y, REEF_A.rotation)
+            val SCORING_B_BLUE_NOT_L4 =
+                Pose2d(REEF_B.x, REEF_B.y, REEF_B.rotation)
+            val SCORING_C_BLUE_NOT_L4 =
+                Pose2d(REEF_C.x, REEF_C.y, REEF_C.rotation)
+            val SCORING_D_BLUE_NOT_L4 =
+                Pose2d(REEF_D.x, REEF_D.y, REEF_D.rotation)
+            val SCORING_E_BLUE_NOT_L4 =
+                Pose2d(REEF_E.x, REEF_E.y, REEF_E.rotation)
+            val SCORING_F_BLUE_NOT_L4 =
+                Pose2d(REEF_F.x, REEF_F.y, REEF_F.rotation)
+            val SCORING_G_BLUE_NOT_L4 =
+                Pose2d(REEF_G.x, REEF_G.y, REEF_G.rotation)
+            val SCORING_H_BLUE_NOT_L4 =
+                Pose2d(REEF_H.x, REEF_H.y, REEF_H.rotation)
+            val SCORING_I_BLUE_NOT_L4 =
+                Pose2d(REEF_I.x, REEF_I.y, REEF_I.rotation)
+            val SCORING_J_BLUE_NOT_L4 =
+                Pose2d(REEF_J.x, REEF_J.y, REEF_J.rotation)
+            val SCORING_K_BLUE_NOT_L4 =
+                Pose2d(REEF_K.x, REEF_K.y, REEF_K.rotation)
+            val SCORING_L_BLUE_NOT_L4 =
+                Pose2d(REEF_L.x, REEF_L.y, REEF_L.rotation)
+
             // Tag order is 18, 19, 20, 21, 22, 17
             @JvmField
             val coralScoreBlueList: List<CoralScore> =
@@ -329,12 +362,57 @@ object RobotParameters {
                     Triple(Translation2d(4.0739, 4.7455), SCORING_K_BLUE, SCORING_L_BLUE),
                 )
 
+            @JvmField
+            val coralScoreBlueListNotL4: List<CoralScore> =
+                listOf(
+                    Triple(Translation2d(3.6576, 4.0259), SCORING_A_BLUE_NOT_L4, SCORING_B_BLUE_NOT_L4),
+                    Triple(Translation2d(4.0739, 3.3063), SCORING_C_BLUE_NOT_L4, SCORING_D_BLUE_NOT_L4),
+                    Triple(Translation2d(4.9047, 3.3063), SCORING_E_BLUE_NOT_L4, SCORING_F_BLUE_NOT_L4),
+                    Triple(Translation2d(5.321046, 4.0259), SCORING_G_BLUE_NOT_L4, SCORING_H_BLUE_NOT_L4),
+                    Triple(Translation2d(4.90474, 4.7455), SCORING_I_BLUE_NOT_L4, SCORING_J_BLUE_NOT_L4),
+                    Triple(Translation2d(4.0739, 4.7455), SCORING_K_BLUE_NOT_L4, SCORING_L_BLUE_NOT_L4),
+                )
+
+            @JvmStatic
+            fun getRedAlliancePose(bluePose: Pose2d): Pose2d =
+                Pose2d(
+                    FIELD_LENGTH_METERS - bluePose.x,
+                    FIELD_WIDTH_METERS - bluePose.y,
+                    bluePose.rotation.plus(Rotation2d.fromDegrees(180.0)),
+                )
+
+            @JvmStatic
+            fun getRedAllianceTranslation(blueTranslation: Translation2d): Translation2d =
+                Translation2d(
+                    FIELD_LENGTH_METERS - blueTranslation.x,
+                    FIELD_WIDTH_METERS - blueTranslation.y,
+                )
+
             @JvmStatic
             fun addCoralPosList() {
-                PathPingu.addCoralScoringPositions(coralScoreBlueList)
+                if (DriverStation.getAlliance().isPresent) {
+                    if (DriverStation.getAlliance().get() == DriverStation.Alliance.Blue) {
+                        PathPingu.addCoralScoringPositions(coralScoreBlueList)
+                        PathPingu.addCoralScoringPositionsNotL4(coralScoreBlueListNotL4)
+                    } else {
+                        val coralScoreRedList =
+                            coralScoreBlueList.map {
+                                Triple(getRedAllianceTranslation(it.first), getRedAlliancePose(it.second), getRedAlliancePose(it.third))
+                            }
+                        val coralScoreRedListNotL4 =
+                            coralScoreBlueListNotL4.map {
+                                Triple(getRedAllianceTranslation(it.first), getRedAlliancePose(it.second), getRedAlliancePose(it.third))
+                            }
+                        PathPingu.addCoralScoringPositions(coralScoreRedList)
+                        PathPingu.addCoralScoringPositionsNotL4(coralScoreRedListNotL4)
+                    }
+                }
+//                PathPingu.addCoralScoringPositions(coralScoreBlueList)
+//                PathPingu.addCoralScoringPositionsNotL4(coralScoreBlueListNotL4)
             }
 
-            // TODO CURRENTLY JUST BLUE SIDE SO ADD RED ASAP
+            // TODO convert to red, now we need to implement it so that we do not have to swap sides every deploy
+            // REMEMBER EVERY DEPLOY CHANGE THE DRIVERSATION TO THE CORRECT COLOR
 
             // List of Source positions
             @JvmField

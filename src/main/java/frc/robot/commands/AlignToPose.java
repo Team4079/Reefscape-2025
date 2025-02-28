@@ -1,12 +1,19 @@
 package frc.robot.commands;
 
 import static frc.robot.commands.Kommand.moveToClosestCoralScore;
+import static frc.robot.commands.Kommand.moveToClosestCoralScoreNotL4;
+import static frc.robot.utils.RobotParameters.ElevatorParameters.elevatorToBeSetState;
+import static frc.robot.utils.RobotParameters.FieldParameters.RobotPoses.addCoralPosList;
+import static frc.robot.utils.RobotParameters.LiveRobotValues.visionDead;
 import static frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.*;
 import static frc.robot.utils.pingu.LogPingu.log;
 import static frc.robot.utils.pingu.LogPingu.logs;
+import static frc.robot.utils.pingu.PathPingu.clearCoralScoringPositions;
 
-import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -14,6 +21,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.PhotonVision;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.emu.Direction;
+import frc.robot.utils.emu.ElevatorState;
+import frc.robot.utils.pingu.NetworkPingu;
 import kotlin.Pair;
 import org.photonvision.PhotonCamera;
 
@@ -22,17 +31,23 @@ public class AlignToPose extends Command {
   private double y;
   private double dist;
   private PhotonVision photonVision;
-  private PIDController rotationalController;
-  private PIDController yController;
-  private PIDController xController;
+  private ProfiledPIDController rotationalController;
+  private ProfiledPIDController yController;
+  private ProfiledPIDController xController;
   private Pose2d targetPose;
   private Pose2d currentPose;
   private Timer timer;
   private double
       offset; // double offset is the left/right offset from the april tag to make it properly align
   PhotonCamera camera;
-  private XboxController pad;
   private Swerve swerve;
+  private Direction offsetSide;
+
+  private NetworkPingu networkPinguRotation;
+  private NetworkPingu networkPinguY;
+  private NetworkPingu networkPinguX;
+
+
 
   /**
    * Creates a new AlignSwerve using the Direction Enum.
@@ -40,30 +55,50 @@ public class AlignToPose extends Command {
    * @param offsetSide The side of the robot to offset the alignment to. Can be "left", "right", or
    *     "center".
    */
-  public AlignToPose(Direction offsetSide, XboxController pad) {
+  public AlignToPose(Direction offsetSide) {
 
     photonVision = PhotonVision.getInstance();
     swerve = Swerve.getInstance();
-    this.pad = pad;
-    targetPose = moveToClosestCoralScore(offsetSide, Swerve.getInstance().getPose());
-    currentPose = swerve.getPose();
-    addRequirements(swerve);
+    this.offsetSide = offsetSide;
   }
 
   /** The initial subroutine of a command. Called once when the command is initially scheduled. */
   @Override
   public void initialize() {
-    rotationalController = ROTATIONAL_PINGU.getPidController();
-    rotationalController.setTolerance(2.0); // with L4 branches
-    rotationalController.setSetpoint(targetPose.getRotation().getDegrees());
+    // Update the list of coral scoring positions to the correct side (hopefully)
+      currentPose = swerve.getPose2Dfrom3D();
 
-    yController = Y_PINGU.getPidController();
-    yController.setTolerance(1.0);
-    yController.setSetpoint(targetPose.getY());
+      timer = new Timer();
+      addRequirements(swerve);
 
-    xController = X_PINGU.getPidController();
-    xController.setTolerance(1.0);
-    xController.setSetpoint(targetPose.getX());
+      clearCoralScoringPositions();
+      addCoralPosList();
+      currentPose = swerve.getPose2Dfrom3D();
+
+      if (elevatorToBeSetState == ElevatorState.L4) {
+          targetPose = moveToClosestCoralScore(offsetSide, Swerve.getInstance().getPose2Dfrom3D());
+      } else {
+          targetPose = moveToClosestCoralScoreNotL4(offsetSide, Swerve.getInstance().getPose2Dfrom3D());
+      }
+
+      xController = X_PINGU.getProfiledPIDController();
+      xController.setTolerance(0.015);
+      xController.setConstraints(PROFILE_CONSTRAINTS);
+      xController.setGoal(targetPose.getX());
+      xController.reset(currentPose.getX());
+
+      yController = Y_PINGU.getProfiledPIDController();
+      yController.setTolerance(0.015);
+      yController.setConstraints(PROFILE_CONSTRAINTS);
+      yController.setGoal(targetPose.getY());
+      yController.reset(currentPose.getY());
+
+      rotationalController = ROTATIONAL_PINGU.getProfiledPIDController();
+      rotationalController.setTolerance(2.0);
+      rotationalController.setConstraints(new TrapezoidProfile.Constraints(5, 5));
+      rotationalController.setGoal(targetPose.getRotation().getDegrees());
+      rotationalController.reset(currentPose.getRotation().getDegrees());
+      rotationalController.enableContinuousInput(-180, 180);
   }
 
   /**
@@ -72,43 +107,53 @@ public class AlignToPose extends Command {
    */
   @Override
   public void execute() {
-    // Using PID for x, y and rotation, align it to the target pose
+    currentPose = swerve.getPose2Dfrom3D();
 
-    currentPose = swerve.getPose();
-    //    rotationalController.calculate(currentPose.getRotation().getDegrees());
-    //    yController.calculate(currentPose.getY());
-    //    xController.calculate(currentPose.getX());
+    //TODO PLS CHECK BOTH SIDES AND BOTH APRIL TAG SIDES AND MAKE SURE IT ACTUALLY ALIGNS -SHAWN
 
-    // Swerve drive set speeds is x y then rotation, so we need to set the speeds in the correct
-    // order
-    swerve.setDriveSpeeds(
-        xController.calculate(currentPose.getX()),
-        yController.calculate(currentPose.getY()),
-        rotationalController.calculate(currentPose.getRotation().getDegrees()),
-        false);
-
+    if (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)) {
+      if (targetPose.getX() < 4.5) {
+        swerve.setDriveSpeeds(
+          xController.calculate(currentPose.getX(), targetPose.getX()),
+          yController.calculate(currentPose.getY(), targetPose.getY()),
+          rotationalController.calculate(currentPose.getRotation().getDegrees()),
+          false);
+      } else {
+        swerve.setDriveSpeeds(
+          -xController.calculate(currentPose.getX(), targetPose.getX()),
+          -yController.calculate(currentPose.getY(), targetPose.getY()),
+          rotationalController.calculate(currentPose.getRotation().getDegrees()),
+          false);
+      }
+    } else {
+        if (targetPose.getX() < 13) {
+          swerve.setDriveSpeeds(xController.calculate(currentPose.getX()), yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), false);
+        } else {
+          swerve.setDriveSpeeds(-xController.calculate(currentPose.getX()), -yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), false);
+        }
+    }
     logs(
         () -> {
           log("AlignToPose/Current Pose", currentPose);
           log("AlignToPose/Target Pose", targetPose);
-          log("AlignToPose/Rotational Controller", rotationalController.getError());
-          log("AlignToPose/Y Controller", yController.getError());
-          log("AlignToPose/X Controller ", xController.getError());
-          log("AlignToPose/Rotational Controller Setpoint", rotationalController.getSetpoint());
-          log("AlignToPose/Y Controller Setpoint", yController.getSetpoint());
-          log("AlignToPose/X Controller Setpoint ", xController.getSetpoint());
+          log("AlignToPose/Rotational Error", rotationalController.getPositionError());
+          log("AlignToPose/Y Error", yController.getPositionError());
+          log("AlignToPose/X Error ", xController.getPositionError());
+          log("AlignToPose/X Set ", xController.getSetpoint().position);
+          log("AlignToPose/X Goal ", xController.getGoal().position);
+          log("AlignToPose/Rotational Controller Setpoint", rotationalController.atSetpoint());
+          log("AlignToPose/Y Controller Setpoint", yController.atSetpoint());
+          log("AlignToPose/X Controller Setpoint ", xController.atSetpoint());
+          log("AlignToPose/X Set Speed ", xController.calculate(currentPose.getX(), targetPose.getX()));
+          log("AlignToPose/Y Set Speed ", yController.calculate(currentPose.getY()));
+          log(
+              "AlignToPose/Rot Set Speed ",
+              rotationalController.calculate(currentPose.getRotation().getDegrees()));
+          log("AlignToPose/ X Set Pos", currentPose.getX());
+          log("AlignToPose/ Y Set Pos", currentPose.getY());
+          log("AlignToPose/ X Target Pos", targetPose.getX());
+          log("AlignToPose/ Y Target Pos", targetPose.getY());
         });
-  }
-
-  /**
-   * Sets the position based on the input from the Logitech gaming pad.
-   *
-   * @param pad The Logitech gaming pad.
-   * @return The coordinate representing the position. The first element is the x-coordinate, and
-   *     the second element is the y-coordinate.
-   */
-  public static Pair<Double, Double> positionSet(XboxController pad) {
-    return PadDrive.positionSet(pad);
   }
 
   /**
@@ -124,9 +169,14 @@ public class AlignToPose extends Command {
    */
   @Override
   public boolean isFinished() {
-    return rotationalController.atSetpoint()
-        && yController.atSetpoint()
-        && xController.atSetpoint();
+        if ((rotationalController.atSetpoint() && yController.atSetpoint() &&
+     xController.atSetpoint()) || visionDead) {
+          timer.start();
+        } else {
+          timer.reset();
+        }
+        return timer.hasElapsed(0.15);
+//    return false;
   }
 
   /**
@@ -141,4 +191,17 @@ public class AlignToPose extends Command {
   public void end(boolean interrupted) {
     Swerve.getInstance().stop();
   }
+
+  //  public void initializeLoggedNetworkPingu() {
+  //    networkPinguRotation = new NetworkPingu(new
+  // LoggedNetworkNumber("Tuning/AlignToPose/Rotational P", rotationalController.getP()), new
+  // LoggedNetworkNumber("Tuning/AlignToPose/Rotational I", rotationalController.getI()), new
+  // LoggedNetworkNumber("Tuning/AlignToPose/Rotational D", rotationalController.getD()));
+  //    networkPinguY = new NetworkPingu(new LoggedNetworkNumber("Tuning/AlignToPose/Y P",
+  // yController.getP()), new LoggedNetworkNumber("Tuning/AlignToPose/Y I", yController.getI()), new
+  // LoggedNetworkNumber("Tuning/AlignToPose/Y D", yController.getD()));
+  //    networkPinguX = new NetworkPingu(new LoggedNetworkNumber("Tuning/AlignToPose/X P",
+  // xController.getP()), new LoggedNetworkNumber("Tuning/AlignToPose/X I", xController.getI()), new
+  // LoggedNetworkNumber("Tuning/AlignToPose/X D", xController.getD()));
+  //  }
 }

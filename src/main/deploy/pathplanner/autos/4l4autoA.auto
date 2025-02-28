@@ -13,13 +13,19 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL3"
+            "name": "ScoreL4Left"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "b4l4a"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
           }
         },
         {
@@ -31,13 +37,19 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL3"
+            "name": "ScoreL4Right"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "d4l4a"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
           }
         },
         {
@@ -49,7 +61,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL3"
+            "name": "ScoreL4Left"
           }
         }
       ]

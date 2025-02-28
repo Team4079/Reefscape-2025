@@ -4,24 +4,20 @@ import com.pathplanner.lib.auto.AutoBuilder
 import com.pathplanner.lib.commands.PathPlannerAuto
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.wpilibj.XboxController
-import edu.wpi.first.wpilibj2.command.Command
-import edu.wpi.first.wpilibj2.command.InstantCommand
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup
-import edu.wpi.first.wpilibj2.command.Subsystem
-import edu.wpi.first.wpilibj2.command.WaitCommand
-import edu.wpi.first.wpilibj2.command.WaitUntilCommand
+import edu.wpi.first.wpilibj2.command.*
 import frc.robot.commands.sequencing.AutomaticScore
 import frc.robot.subsystems.Coral
 import frc.robot.subsystems.Elevator
 import frc.robot.subsystems.Swerve
-import frc.robot.utils.RobotParameters.CoralManipulatorParameters.isCoralIntaking
-import frc.robot.utils.RobotParameters.SwerveParameters
+import frc.robot.utils.RobotParameters.CoralManipulatorParameters.coralScoring
+import frc.robot.utils.RobotParameters.LiveRobotValues.visionDead
 import frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.PATH_CONSTRAINTS
 import frc.robot.utils.emu.CoralState
 import frc.robot.utils.emu.Direction
 import frc.robot.utils.emu.ElevatorState
 import frc.robot.utils.emu.ElevatorState.L4
 import frc.robot.utils.pingu.PathPingu.findClosestScoringPosition
+import frc.robot.utils.pingu.PathPingu.findClosestScoringPositionNotL4
 import kotlin.math.abs
 
 /**
@@ -95,6 +91,10 @@ object Kommand {
     @JvmStatic
     fun startCoralManipulator() = cmd { Coral.getInstance().setHasPiece(false) }
 
+    //TODO FIX THIS
+    @JvmStatic
+    fun coralScoring() = cmd { coralScoring = true }
+
     /**
      * Creates an [InstantCommand] to stop the coral manipulator motors.
      *
@@ -166,8 +166,8 @@ object Kommand {
      *
      * @return A [PathPlannerAuto] command for autonomous operation.
      */
-    @JvmStatic
-    fun autonomousCommand() = PathPlannerAuto(SwerveParameters.PATHPLANNER_AUTO_NAME)
+//    @JvmStatic
+//    fun autonomousCommand() = PathPlannerAuto(SwerveParameters.PATHPLANNER_AUTO_NAME)
 
     /**
      * Creates a [WaitCommand] to wait for a specified number of seconds.
@@ -177,6 +177,9 @@ object Kommand {
      */
     @JvmStatic
     fun waitCmd(seconds: Double) = WaitCommand(seconds)
+
+    @JvmStatic
+    fun cancelCmd() = cmd{ CommandScheduler.getInstance().cancelAll() }
 
     /**
      * Creates a pathfinding command to move to a specified pose.
@@ -215,7 +218,10 @@ object Kommand {
      * @return An [InstantCommand] that sets the coral intaking state to true.
      */
     @JvmStatic
-    fun coralIntaking() = cmd { isCoralIntaking = true }
+    fun hasPieceFalse() = cmd { Coral.getInstance().setHasPiece(false)}
+
+    @JvmStatic
+    fun coralScoreFalse() = cmd { coralScoring = false}
 
     /**
      * Creates a command to move the robot to the closest coral
@@ -229,4 +235,20 @@ object Kommand {
         direction: Direction,
         pose: Pose2d,
     ) = findClosestScoringPosition(pose, direction)
+
+    /**
+     * Creates a command to move the robot to the closest coral
+     * scoring position in the specified coral direction.
+     * @param direction The direction in which to find the closest scoring position.
+     *
+     * @return A command that performs the pathfinding operation.
+     */
+    @JvmStatic
+    fun moveToClosestCoralScoreNotL4(
+        direction: Direction,
+        pose: Pose2d,
+    ) = findClosestScoringPositionNotL4(pose, direction)
+
+    @JvmStatic
+    fun toggleVisionKillSwitch() = cmd { visionDead = !visionDead }
 }
