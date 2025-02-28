@@ -38,9 +38,11 @@ $dokka.location:frc.robot.commands/Calibration/isFinished/#/PointingToDeclaratio
 $dokka.location:frc.robot.commands/Kommand///PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/index.html
 $dokka.location:frc.robot.commands/Kommand/cancelCmd/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/cancel-cmd.html
 $dokka.location:frc.robot.commands/Kommand/cmd/#kotlin.Array[edu.wpi.first.wpilibj2.command.Subsystem]#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/cmd.html
-$dokka.location:frc.robot.commands/Kommand/coralIntaking/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/coral-intaking.html
+$dokka.location:frc.robot.commands/Kommand/coralScoreFalse/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/coral-score-false.html
+$dokka.location:frc.robot.commands/Kommand/coralScoring/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/coral-scoring.html
 $dokka.location:frc.robot.commands/Kommand/createPathfindingCmd/#edu.wpi.first.math.geometry.Pose2d#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/create-pathfinding-cmd.html
 $dokka.location:frc.robot.commands/Kommand/drive/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/drive.html
+$dokka.location:frc.robot.commands/Kommand/hasPieceFalse/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/has-piece-false.html
 $dokka.location:frc.robot.commands/Kommand/moveElevatorState/#frc.robot.utils.emu.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/move-elevator-state.html
 $dokka.location:frc.robot.commands/Kommand/moveToClosestCoralScore/#frc.robot.utils.emu.Direction#edu.wpi.first.math.geometry.Pose2d/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/move-to-closest-coral-score.html
 $dokka.location:frc.robot.commands/Kommand/moveToClosestCoralScoreNotL4/#frc.robot.utils.emu.Direction#edu.wpi.first.math.geometry.Pose2d/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/move-to-closest-coral-score-not-l4.html
