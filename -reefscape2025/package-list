@@ -7,6 +7,8 @@ $dokka.location:frc.robot.commands.sequencing/AutomaticScoreAuto///PointingToDec
 $dokka.location:frc.robot.commands.sequencing/AutomaticScoreAuto/AutomaticScoreAuto/#frc.robot.utils.emu.Direction#frc.robot.utils.emu.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-automatic-score-auto/-automatic-score-auto.html
 $dokka.location:frc.robot.commands.sequencing/ResetScore///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-reset-score/index.html
 $dokka.location:frc.robot.commands.sequencing/ResetScore/ResetScore/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-reset-score/-reset-score.html
+$dokka.location:frc.robot.commands.sequencing/ScoreCoralAuto///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-coral-auto/index.html
+$dokka.location:frc.robot.commands.sequencing/ScoreCoralAuto/ScoreCoralAuto/#frc.robot.utils.emu.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-coral-auto/-score-coral-auto.html
 $dokka.location:frc.robot.commands.sequencing/ScoreL1///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l1/index.html
 $dokka.location:frc.robot.commands.sequencing/ScoreL1/ScoreL1/#/PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l1/-score-l1.html
 $dokka.location:frc.robot.commands.sequencing/ScoreL2///PointingToDeclaration/-reefscape2025/frc.robot.commands.sequencing/-score-l2/index.html
