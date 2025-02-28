@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.commands.AlignToPose;
 import frc.robot.commands.sequencing.*;
+import frc.robot.commands.sequencing.NewAutos.AutomaticScoreAuto;
 import frc.robot.subsystems.*;
 import frc.robot.utils.emu.*;
 import frc.robot.utils.pingu.*;
@@ -64,6 +65,14 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("AlignLeft", new AlignToPose(LEFT).withTimeout(1.3));
     NamedCommands.registerCommand("AlignRight", new AlignToPose(RIGHT).withTimeout(1.3));
+
+    // jayden did this 2/27 not tested
+
+    NamedCommands.registerCommand("ScoreCoralLeft", new ScoreCoralAuto(LEFT).withTimeout(1.3));
+    NamedCommands.registerCommand("ScoreCoralRight", new ScoreCoralAuto(RIGHT).withTimeout(1.3));
+
+    NamedCommands.registerCommand("MoveElevatorL4Auto", moveElevatorState(L4));
+
 
     networkChooser = AutoBuilder.buildAutoChooser();
 

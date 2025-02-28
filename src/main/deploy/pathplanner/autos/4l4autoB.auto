@@ -13,7 +13,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL4Right"
+            "name": "ScoreCoralRight"
           }
         },
         {
@@ -37,7 +37,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL4Left"
+            "name": "ScoreCoralLeft"
           }
         },
         {
@@ -61,7 +61,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ScoreL4Right"
+            "name": "ScoreCoralRight"
           }
         }
       ]

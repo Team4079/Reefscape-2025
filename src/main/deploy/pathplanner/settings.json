@@ -3,9 +3,10 @@
   "robotLength": 0.864,
   "holonomicMode": true,
   "pathFolders": [
-    "Test",
+    "4L4a",
     "4L4b",
-    "4L4a"
+    "CenterL4",
+    "Test"
   ],
   "autoFolders": [],
   "defaultMaxVel": 3.0,
