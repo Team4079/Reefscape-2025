@@ -13,6 +13,6 @@ public class ResetScore extends SequentialCommandGroup {
         setCoralState(CoralState.CORAL_RELEASE),
         setElevatorState(DEFAULT),
         cancelCmd(),
-        coralIntaking());
+        hasPieceFalse());
   }
 }

@@ -1,6 +1,5 @@
 package frc.robot.commands.sequencing;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -10,7 +9,6 @@ import frc.robot.utils.emu.Direction;
 import frc.robot.utils.emu.ElevatorState;
 
 import static frc.robot.commands.Kommand.*;
-import static frc.robot.utils.RobotParameters.ElevatorParameters.elevatorToBeSetState;
 import static frc.robot.utils.emu.ElevatorState.DEFAULT;
 
 /**
@@ -24,13 +22,15 @@ public class AutomaticScoreAuto extends SequentialCommandGroup {
     addCommands(
         new ParallelCommandGroup(
             moveElevatorState(state),
-            new AlignToPose(offsetSide)),
-        new WaitCommand(0.5),
+            new AlignToPose(offsetSide).withTimeout(0.9)),
+        new WaitCommand(0.1),
+        coralScoring(),
         setCoralState(CoralState.CORAL_RELEASE),
-        waitCmd(0.3),
+        waitCmd(1.0),
         // TODO MOVE BACK (prob with on the fly move back 0.5 meter path) jayden u should do this
         // cus im lazy
         setElevatorState(DEFAULT),
-        coralIntaking());
+        coralScoreFalse(),
+        hasPieceFalse());
   }
 }

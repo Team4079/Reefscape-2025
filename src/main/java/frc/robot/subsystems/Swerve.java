@@ -357,6 +357,7 @@ public class Swerve extends SubsystemBase {
    */
   public void newPose(Pose2d pose) {
     poseEstimator.resetPosition(getPidgeyRotation(), getModulePositions(), pose);
+    poseEstimator3d.resetPosition(getPidgeyRotation3d(), getModulePositions(), new Pose3d(pose));
   }
 
   /**
@@ -509,5 +510,9 @@ public class Swerve extends SubsystemBase {
             new LoggedNetworkNumber("Tuning/Swerve/Align Rot P", ROTATIONAL_PINGU.getP()),
             new LoggedNetworkNumber("Tuning/Swerve/Align Rot I", ROTATIONAL_PINGU.getI()),
             new LoggedNetworkNumber("Tuning/Swerve/Align Rot D", ROTATIONAL_PINGU.getD()));
+  }
+
+  protected Rotation3d getPidgeyRotation3d() {
+    return pidgey.getRotation3d();
   }
 }

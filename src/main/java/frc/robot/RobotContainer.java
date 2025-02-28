@@ -58,6 +58,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ScoreL3", new ScoreL3());
     NamedCommands.registerCommand("ScoreL4Left", new AutomaticScoreAuto(LEFT, L4));
     NamedCommands.registerCommand("ScoreL4Right", new AutomaticScoreAuto(RIGHT, L4));
+    NamedCommands.registerCommand("HasPieceFalse", hasPieceFalse());
 
     // TODO add autoalign for auto
 
@@ -93,7 +94,7 @@ public class RobotContainer {
         //        .bind(B, align(CENTER).onlyWhile(pad::getAButton))
         .bind(B, new ResetScore())
         //        .bind(B, createPathfindingCmd(reefs.get(0)))
-        //        .bind(A, setIntakeAlgae())
+        .bind(A, setIntakeAlgae())
         //        .bind(A, align(RIGHT))
         .bind(Y, startCoralMotors())
         .bind(LEFT_BUMPER, score(LEFT))

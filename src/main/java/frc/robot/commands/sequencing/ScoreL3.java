@@ -20,6 +20,6 @@ public class ScoreL3 extends SequentialCommandGroup {
         setCoralState(CoralState.CORAL_RELEASE),
         waitCmd(0.3),
         setElevatorState(DEFAULT),
-        coralIntaking());
+        hasPieceFalse());
   }
 }

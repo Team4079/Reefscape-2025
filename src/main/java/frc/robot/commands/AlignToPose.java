@@ -60,46 +60,45 @@ public class AlignToPose extends Command {
     photonVision = PhotonVision.getInstance();
     swerve = Swerve.getInstance();
     this.offsetSide = offsetSide;
-    currentPose = swerve.getPose2Dfrom3D();
-
-    timer = new Timer();
-    addRequirements(swerve);
-
-    clearCoralScoringPositions();
-    addCoralPosList();
-    currentPose = swerve.getPose2Dfrom3D();
-
-    if (elevatorToBeSetState == ElevatorState.L4) {
-      targetPose = moveToClosestCoralScore(offsetSide, Swerve.getInstance().getPose2Dfrom3D());
-    } else {
-      targetPose = moveToClosestCoralScoreNotL4(offsetSide, Swerve.getInstance().getPose2Dfrom3D());
-    }
-
-    xController = X_PINGU.getProfiledPIDController();
-    xController.setTolerance(0.01);
-    xController.setConstraints(PROFILE_CONSTRAINTS);
-    xController.setGoal(targetPose.getX());
-    xController.reset(currentPose.getX());
-
-    yController = Y_PINGU.getProfiledPIDController();
-    yController.setTolerance(0.01);
-    yController.setConstraints(PROFILE_CONSTRAINTS);
-    yController.setGoal(targetPose.getY());
-    yController.reset(currentPose.getY());
-
-    rotationalController = ROTATIONAL_PINGU.getProfiledPIDController();
-    rotationalController.setTolerance(1.5);
-    rotationalController.setConstraints(new TrapezoidProfile.Constraints(5, 5));
-    rotationalController.setGoal(targetPose.getRotation().getDegrees());
-    rotationalController.reset(currentPose.getRotation().getDegrees());
-    rotationalController.enableContinuousInput(-180, 180);
   }
 
   /** The initial subroutine of a command. Called once when the command is initially scheduled. */
   @Override
   public void initialize() {
     // Update the list of coral scoring positions to the correct side (hopefully)
-    currentPose = swerve.getPose2Dfrom3D();
+      currentPose = swerve.getPose2Dfrom3D();
+
+      timer = new Timer();
+      addRequirements(swerve);
+
+      clearCoralScoringPositions();
+      addCoralPosList();
+      currentPose = swerve.getPose2Dfrom3D();
+
+      if (elevatorToBeSetState == ElevatorState.L4) {
+          targetPose = moveToClosestCoralScore(offsetSide, Swerve.getInstance().getPose2Dfrom3D());
+      } else {
+          targetPose = moveToClosestCoralScoreNotL4(offsetSide, Swerve.getInstance().getPose2Dfrom3D());
+      }
+
+      xController = X_PINGU.getProfiledPIDController();
+      xController.setTolerance(0.015);
+      xController.setConstraints(PROFILE_CONSTRAINTS);
+      xController.setGoal(targetPose.getX());
+      xController.reset(currentPose.getX());
+
+      yController = Y_PINGU.getProfiledPIDController();
+      yController.setTolerance(0.015);
+      yController.setConstraints(PROFILE_CONSTRAINTS);
+      yController.setGoal(targetPose.getY());
+      yController.reset(currentPose.getY());
+
+      rotationalController = ROTATIONAL_PINGU.getProfiledPIDController();
+      rotationalController.setTolerance(2.0);
+      rotationalController.setConstraints(new TrapezoidProfile.Constraints(5, 5));
+      rotationalController.setGoal(targetPose.getRotation().getDegrees());
+      rotationalController.reset(currentPose.getRotation().getDegrees());
+      rotationalController.enableContinuousInput(-180, 180);
   }
 
   /**
@@ -128,9 +127,9 @@ public class AlignToPose extends Command {
       }
     } else {
         if (targetPose.getX() < 13) {
-          swerve.setDriveSpeeds(-xController.calculate(currentPose.getX()), -yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), false);
-        } else {
           swerve.setDriveSpeeds(xController.calculate(currentPose.getX()), yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), false);
+        } else {
+          swerve.setDriveSpeeds(-xController.calculate(currentPose.getX()), -yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), false);
         }
     }
     logs(
