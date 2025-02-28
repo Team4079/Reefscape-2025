@@ -160,7 +160,8 @@ object RobotParameters {
             const val Y_DEADZONE: Double = 0.1
 
             // Testing boolean for logging (to not slow down the robot)
-            val TEST_MODE: Boolean = !DriverStation.isFMSAttached()
+//            val TEST_MODE: Boolean = !DriverStation.isFMSAttached()
+            val TEST_MODE: Boolean = false
         }
     }
 
@@ -235,7 +236,7 @@ object RobotParameters {
     }
 
     object AlgaeManipulatorParameters {
-        @JvmField val ALGAE_PINGU = Pingu(2.0, 0.0, 0.0, 0.0)
+        @JvmField val ALGAE_PINGU = Pingu(8.033, 0.0, 0.0, 0.0)
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false

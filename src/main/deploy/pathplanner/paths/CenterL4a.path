@@ -35,8 +35,13 @@
     {
       "name": "MoveElevatorL4Auto",
       "waypointRelativePos": 0.29,
-      "endWaypointRelativePos": null,
-      "command": null
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "MoveElevatorL4Auto"
+        }
+      }
     }
   ],
   "globalConstraints": {

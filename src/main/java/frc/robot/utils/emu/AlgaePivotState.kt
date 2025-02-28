@@ -16,7 +16,7 @@ enum class AlgaePivotState(
     UP(0.0, 0.0),
 
     /** Represents the pivot when it is in the process of intaking algae */
-    HOLD(2.0, 0.5),
+    HOLD(1.78, 2.0),
 
     /** Represents the pivot when it is in the process of scoring algae */
     RELEASE(2.0, -4.0),

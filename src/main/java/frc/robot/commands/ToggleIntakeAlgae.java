@@ -33,10 +33,12 @@ public class ToggleIntakeAlgae extends Command {
           algaePivotState = AlgaePivotState.DOWN;
           coralState = CoralState.ALGAE_INTAKE;
           elevator.setState(ElevatorState.ALGAE_LOW);
+          algaeIntaking = true;
         } else if (elevatorToBeSetState == ElevatorState.L3) {
           algaePivotState = AlgaePivotState.DOWN;
           coralState = CoralState.ALGAE_INTAKE;
           elevator.setState(ElevatorState.ALGAE_HIGH);
+          algaeIntaking = true;
         } else {
           algaeCounter = -1;
           return;

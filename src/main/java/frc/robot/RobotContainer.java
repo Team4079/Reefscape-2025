@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.commands.AlignToPose;
 import frc.robot.commands.sequencing.*;
-import frc.robot.commands.sequencing.NewAutos.AutomaticScoreAuto;
+import frc.robot.commands.sequencing.AutomaticScoreAuto;
 import frc.robot.subsystems.*;
 import frc.robot.utils.emu.*;
 import frc.robot.utils.pingu.*;

@@ -162,12 +162,6 @@ public class AlignSwerve extends Command {
       timer.stop();
       return true;
     }
-
-    // needs testing
-    else if (|y - offset| < 0.1)
-    {
-      return true;
-    }
     return false;
   }
 
