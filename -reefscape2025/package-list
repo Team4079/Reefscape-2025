@@ -50,6 +50,7 @@ $dokka.location:frc.robot.commands/Kommand/coralScoreFalse/#/PointingToDeclarati
 $dokka.location:frc.robot.commands/Kommand/coralScoring/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/coral-scoring.html
 $dokka.location:frc.robot.commands/Kommand/createPathfindingCmd/#edu.wpi.first.math.geometry.Pose2d#kotlin.Double/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/create-pathfinding-cmd.html
 $dokka.location:frc.robot.commands/Kommand/drive/#edu.wpi.first.wpilibj.XboxController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/drive.html
+$dokka.location:frc.robot.commands/Kommand/flipPidgey/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/flip-pidgey.html
 $dokka.location:frc.robot.commands/Kommand/hasPieceFalse/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/has-piece-false.html
 $dokka.location:frc.robot.commands/Kommand/moveElevatorState/#frc.robot.utils.emu.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/move-elevator-state.html
 $dokka.location:frc.robot.commands/Kommand/moveToClosestCoralScore/#frc.robot.utils.emu.Direction#edu.wpi.first.math.geometry.Pose2d/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/move-to-closest-coral-score.html
@@ -185,6 +186,7 @@ $dokka.location:frc.robot.subsystems/PhotonVision/requestCamera/#java.lang.Strin
 $dokka.location:frc.robot.subsystems/Swerve///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/index.html
 $dokka.location:frc.robot.subsystems/Swerve/chassisSpeedsDrive/#edu.wpi.first.math.kinematics.ChassisSpeeds/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/chassis-speeds-drive.html
 $dokka.location:frc.robot.subsystems/Swerve/configureAutoBuilder/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/configure-auto-builder.html
+$dokka.location:frc.robot.subsystems/Swerve/flipPidgey/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/flip-pidgey.html
 $dokka.location:frc.robot.subsystems/Swerve/getAutoSpeeds/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/get-auto-speeds.html
 $dokka.location:frc.robot.subsystems/Swerve/getHeading/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/get-heading.html
 $dokka.location:frc.robot.subsystems/Swerve/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve/get-instance.html
