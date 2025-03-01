@@ -2,11 +2,13 @@ package frc.robot;
 
 import static edu.wpi.first.wpilibj.RobotController.*;
 import static edu.wpi.first.wpilibj.Threads.*;
+import static frc.robot.commands.Kommand.flipPidgey;
 import static frc.robot.utils.RobotParameters.LiveRobotValues.*;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.pathfinding.Pathfinding;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.Timer;
@@ -134,7 +136,7 @@ public class Robot extends LoggedRobot {
   @Override
   public void autonomousInit() {
     //    autonomousCommand = robotContainer.networkChooser.getSelected();
-    autonomousCommand = new PathPlannerAuto("4l4autoA");
+    autonomousCommand = new PathPlannerAuto("4l4autoB");
     autonomousCommand.schedule();
   }
 

@@ -112,28 +112,29 @@ public class AlignToPoseTele extends Command {
     //TODO the swerve should not need a negative anymore and we should not even have to check poses theoretically??????? TEST THIS IN THE PIT ASAP
     //THIS IS FOR TELEOP ONLY!!!!!
 
-    if (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)) {
-      if (targetPose.getX() < 4.5) {
-        swerve.setDriveSpeeds(
-          xController.calculate(currentPose.getX(), targetPose.getX()),
-          yController.calculate(currentPose.getY(), targetPose.getY()),
-          rotationalController.calculate(currentPose.getRotation().getDegrees()),
-          true);
-      } else {
-        swerve.setDriveSpeeds(
-          -xController.calculate(currentPose.getX(), targetPose.getX()),
-          -yController.calculate(currentPose.getY(), targetPose.getY()),
-          rotationalController.calculate(currentPose.getRotation().getDegrees()),
-          true);
-      }
-    } else {
-        // TODO MAKE A COPY OF ALIGNTOPOSE FOR AUTO WITH FIELD CENTRIC TURE!@!!!!@
-        if (targetPose.getX() < 13) {
-          swerve.setDriveSpeeds(xController.calculate(currentPose.getX()), yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), true);
-        } else {
-          swerve.setDriveSpeeds(-xController.calculate(currentPose.getX()), -yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), true);
-        }
-    }
+      swerve.setDriveSpeeds(xController.calculate(currentPose.getX()), yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), true);
+//    if (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)) {
+//      if (targetPose.getX() < 4.5) {
+//        swerve.setDriveSpeeds(
+//          xController.calculate(currentPose.getX(), targetPose.getX()),
+//          yController.calculate(currentPose.getY(), targetPose.getY()),
+//          rotationalController.calculate(currentPose.getRotation().getDegrees()),
+//          true);
+//      } else {
+//        swerve.setDriveSpeeds(
+//          -xController.calculate(currentPose.getX(), targetPose.getX()),
+//          -yController.calculate(currentPose.getY(), targetPose.getY()),
+//          rotationalController.calculate(currentPose.getRotation().getDegrees()),
+//          true);
+//      }
+//    } else {
+//        // TODO MAKE A COPY OF ALIGNTOPOSE FOR AUTO WITH FIELD CENTRIC TURE!@!!!!@
+//        if (targetPose.getX() < 13) {
+//          swerve.setDriveSpeeds(xController.calculate(currentPose.getX()), yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), true);
+//        } else {
+//          swerve.setDriveSpeeds(-xController.calculate(currentPose.getX()), -yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), true);
+//        }
+//    }
     logs(
         () -> {
           log("AlignToPose/Current Pose", currentPose);

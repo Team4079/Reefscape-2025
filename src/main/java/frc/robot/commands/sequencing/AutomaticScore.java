@@ -21,7 +21,7 @@ public class AutomaticScore extends SequentialCommandGroup {
         new ParallelCommandGroup(
             moveElevatorState(elevatorToBeSetState),
 //            new AlignToPose(offsetSide)).withTimeout(1.7),
-            new AlignToPoseTele(offsetSide)),
+            new AlignToPoseTele(offsetSide).withTimeout(2)),
         new WaitCommand(0.1),
         coralScoring(),
         setCoralState(CoralState.CORAL_RELEASE),

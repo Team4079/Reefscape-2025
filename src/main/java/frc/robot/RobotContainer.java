@@ -106,8 +106,8 @@ public class RobotContainer {
         .bind(A, setIntakeAlgae())
         //        .bind(A, align(RIGHT))
         .bind(Y, startCoralMotors())
-        .bind(LEFT_BUMPER, score(LEFT))
-        .bind(RIGHT_BUMPER, score(RIGHT))
+//        .bind(LEFT_BUMPER, score(LEFT))
+//        .bind(RIGHT_BUMPER, score(RIGHT))
         .bind(X, reverseIntake().onlyWhile(aacrn::getXButton));
 
     new Bingu(calamityCowButtons).bind(X, toggleVisionKillSwitch());

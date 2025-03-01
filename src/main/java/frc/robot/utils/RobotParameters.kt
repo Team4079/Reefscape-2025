@@ -161,7 +161,7 @@ object RobotParameters {
 
             // Testing boolean for logging (to not slow down the robot)
 //            val TEST_MODE: Boolean = !DriverStation.isFMSAttached()
-            val TEST_MODE: Boolean = true
+            val TEST_MODE: Boolean = false
         }
     }
 

@@ -336,9 +336,8 @@ public class Swerve extends SubsystemBase {
   }
 
   // om add docs pls
-  public void flipPidgey()
-  {
-    pidgey.setYaw(180.0);
+  public void flipPidgey() {
+    pidgey.setYaw(180.0 + pidgey.getYaw().getValueAsDouble());
   }
 
   /**
