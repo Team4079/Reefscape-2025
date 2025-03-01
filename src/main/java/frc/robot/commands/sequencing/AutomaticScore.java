@@ -6,6 +6,7 @@ import static frc.robot.utils.emu.ElevatorState.*;
 
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.commands.AlignToPose;
+import frc.robot.commands.AlignToPoseTele;
 import frc.robot.utils.emu.*;
 
 /**
@@ -19,7 +20,8 @@ public class AutomaticScore extends SequentialCommandGroup {
     addCommands(
         new ParallelCommandGroup(
             moveElevatorState(elevatorToBeSetState),
-            new AlignToPose(offsetSide)).withTimeout(1.7),
+//            new AlignToPose(offsetSide)).withTimeout(1.7),
+            new AlignToPoseTele(offsetSide)),
         new WaitCommand(0.1),
         coralScoring(),
         setCoralState(CoralState.CORAL_RELEASE),

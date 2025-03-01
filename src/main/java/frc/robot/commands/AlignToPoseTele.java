@@ -1,5 +1,19 @@
 package frc.robot.commands;
 
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.subsystems.PhotonVision;
+import frc.robot.subsystems.Swerve;
+import frc.robot.utils.emu.Direction;
+import frc.robot.utils.emu.ElevatorState;
+import frc.robot.utils.pingu.NetworkPingu;
+import org.photonvision.PhotonCamera;
+
 import static frc.robot.commands.Kommand.moveToClosestCoralScore;
 import static frc.robot.commands.Kommand.moveToClosestCoralScoreNotL4;
 import static frc.robot.utils.RobotParameters.ElevatorParameters.elevatorToBeSetState;
@@ -10,23 +24,7 @@ import static frc.robot.utils.pingu.LogPingu.log;
 import static frc.robot.utils.pingu.LogPingu.logs;
 import static frc.robot.utils.pingu.PathPingu.clearCoralScoringPositions;
 
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.PhotonVision;
-import frc.robot.subsystems.Swerve;
-import frc.robot.utils.emu.Direction;
-import frc.robot.utils.emu.ElevatorState;
-import frc.robot.utils.pingu.NetworkPingu;
-import kotlin.Pair;
-import org.photonvision.PhotonCamera;
-
-public class AlignToPose extends Command {
+public class AlignToPoseTele extends Command {
   private double yaw;
   private double y;
   private double dist;
@@ -55,7 +53,7 @@ public class AlignToPose extends Command {
    * @param offsetSide The side of the robot to offset the alignment to. Can be "left", "right", or
    *     "center".
    */
-  public AlignToPose(Direction offsetSide) {
+  public AlignToPoseTele(Direction offsetSide) {
 
     photonVision = PhotonVision.getInstance();
     swerve = Swerve.getInstance();
@@ -112,6 +110,7 @@ public class AlignToPose extends Command {
     //TODO PLS CHECK BOTH SIDES AND BOTH APRIL TAG SIDES AND MAKE SURE IT ACTUALLY ALIGNS -SHAWN
     //TODO when aligning the x and y axes, you need to add sin/cos of the other axes angles and feed it into the PID (probably need to test)
     //TODO the swerve should not need a negative anymore and we should not even have to check poses theoretically??????? TEST THIS IN THE PIT ASAP
+    //THIS IS FOR TELEOP ONLY!!!!!
 
     if (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)) {
       if (targetPose.getX() < 4.5) {
@@ -119,20 +118,20 @@ public class AlignToPose extends Command {
           xController.calculate(currentPose.getX(), targetPose.getX()),
           yController.calculate(currentPose.getY(), targetPose.getY()),
           rotationalController.calculate(currentPose.getRotation().getDegrees()),
-          false);
+          true);
       } else {
         swerve.setDriveSpeeds(
           -xController.calculate(currentPose.getX(), targetPose.getX()),
           -yController.calculate(currentPose.getY(), targetPose.getY()),
           rotationalController.calculate(currentPose.getRotation().getDegrees()),
-          false);
+          true);
       }
     } else {
         // TODO MAKE A COPY OF ALIGNTOPOSE FOR AUTO WITH FIELD CENTRIC TURE!@!!!!@
         if (targetPose.getX() < 13) {
-          swerve.setDriveSpeeds(xController.calculate(currentPose.getX()), yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), false);
+          swerve.setDriveSpeeds(xController.calculate(currentPose.getX()), yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), true);
         } else {
-          swerve.setDriveSpeeds(-xController.calculate(currentPose.getX()), -yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), false);
+          swerve.setDriveSpeeds(-xController.calculate(currentPose.getX()), -yController.calculate(currentPose.getY()), rotationalController.calculate(currentPose.getRotation().getDegrees()), true);
         }
     }
     logs(
