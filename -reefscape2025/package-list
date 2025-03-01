@@ -31,6 +31,12 @@ $dokka.location:frc.robot.commands/AlignToPose/end/#boolean/PointingToDeclaratio
 $dokka.location:frc.robot.commands/AlignToPose/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose/execute.html
 $dokka.location:frc.robot.commands/AlignToPose/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose/initialize.html
 $dokka.location:frc.robot.commands/AlignToPose/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose/is-finished.html
+$dokka.location:frc.robot.commands/AlignToPoseTele///PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose-tele/index.html
+$dokka.location:frc.robot.commands/AlignToPoseTele/AlignToPoseTele/#frc.robot.utils.emu.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose-tele/-align-to-pose-tele.html
+$dokka.location:frc.robot.commands/AlignToPoseTele/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose-tele/end.html
+$dokka.location:frc.robot.commands/AlignToPoseTele/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose-tele/execute.html
+$dokka.location:frc.robot.commands/AlignToPoseTele/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose-tele/initialize.html
+$dokka.location:frc.robot.commands/AlignToPoseTele/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose-tele/is-finished.html
 $dokka.location:frc.robot.commands/Calibration///PointingToDeclaration/-reefscape2025/frc.robot.commands/-calibration/index.html
 $dokka.location:frc.robot.commands/Calibration/Calibration/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-calibration/-calibration.html
 $dokka.location:frc.robot.commands/Calibration/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands/-calibration/end.html
