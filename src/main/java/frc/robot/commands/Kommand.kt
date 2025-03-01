@@ -145,6 +145,10 @@ object Kommand {
     @JvmStatic
     fun resetPidgey() = cmd { Swerve.getInstance().resetPidgey() }
 
+    // om add docs pls
+    @JvmStatic
+    fun flipPidgey() = cmd { Swerve.getInstance().flipPidgey() }
+
     /**
      * Creates an [InstantCommand] to set the teleoperation PID.
      *

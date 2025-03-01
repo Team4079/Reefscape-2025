@@ -17,6 +17,7 @@ import frc.robot.subsystems.Swerve;
 import frc.robot.utils.LocalADStarAK;
 import frc.robot.utils.RobotParameters;
 import frc.robot.utils.RobotParameters.FieldParameters.*;
+import frc.robot.commands.Kommand.*;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -141,6 +142,7 @@ public class Robot extends LoggedRobot {
   @Override
   public void teleopInit() {
     if (autonomousCommand != null) autonomousCommand.cancel();
+    flipPidgey();
   }
 
   /** This function is called once when test mode is initialized. */
