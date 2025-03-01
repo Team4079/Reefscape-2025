@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.24934659090909,
-        "y": 5.555639204545454
+        "x": 7.2,
+        "y": 5.633003826530612
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.821569693244579,
-        "y": 5.598521836586456
+        "x": 6.772223102335489,
+        "y": 5.675886458571615
       },
       "isLocked": false,
       "linkedName": null
@@ -34,7 +34,7 @@
   "eventMarkers": [
     {
       "name": "MoveElevatorL4Auto",
-      "waypointRelativePos": 0.435,
+      "waypointRelativePos": 0.3309,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",

@@ -110,6 +110,7 @@ public class AlignToPose extends Command {
     currentPose = swerve.getPose2Dfrom3D();
 
     //TODO PLS CHECK BOTH SIDES AND BOTH APRIL TAG SIDES AND MAKE SURE IT ACTUALLY ALIGNS -SHAWN
+    //TODO when aligning the x and y axes, you need to add sin/cos of the other axes angles and feed it into the PID (probably need to test)
 
     if (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue)) {
       if (targetPose.getX() < 4.5) {
