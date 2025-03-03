@@ -97,14 +97,6 @@ object Kommand {
     fun sequential(block: SequentialBuilder.() -> Unit): SequentialCommandGroup = SequentialBuilder().apply(block).build()
 
     /**
-     * Creates a [SequentialCommandGroup] that runs the given commands in sequence.
-     *
-     * @param command The commands to run in sequence.
-     * @return A [SequentialCommandGroup] that runs the given commands in sequence.
-     */
-    fun sequential(vararg command: Command) = SequentialCommandGroup(*command)
-
-    /**
      * A builder class for creating a [ParallelCommandGroup].
      */
     class ParallelBuilder {
@@ -130,14 +122,6 @@ object Kommand {
      * @return A [ParallelCommandGroup] that runs the given commands in parallel.
      */
     fun parallel(block: ParallelBuilder.() -> Unit): ParallelCommandGroup = ParallelBuilder().apply(block).build()
-
-    /**
-     * Creates a [ParallelCommandGroup] that runs the given commands in parallel.
-     *
-     * @param command The commands to run in parallel.
-     * @return A [ParallelCommandGroup] that runs the given commands in parallel.
-     */
-    fun parallel(vararg command: Command) = ParallelCommandGroup(*command)
 
     /**
      * Creates an [InstantCommand] to set the state of the elevator.
@@ -225,7 +209,11 @@ object Kommand {
     @JvmStatic
     fun resetPidgey() = cmd { Swerve.getInstance().resetPidgey() }
 
-    // om add docs pls
+    /**
+     * Creates an [InstantCommand] to flip the Pidgey sensor.
+     *
+     * @return An [InstantCommand] that flips the Pidgey sensor.
+     */
     @JvmStatic
     fun flipPidgey() = cmd { Swerve.getInstance().flipPidgey() }
 
@@ -243,7 +231,7 @@ object Kommand {
      * @return An [InstantCommand] that sets the intake to algae.
      */
     @JvmStatic
-    fun setIntakeAlgae() = ToggleIntakeAlgae()
+    fun setIntakeAlgae() = toggleIntakeAlgae
 
     /**
      * Creates a pathfinding command to move to a specified pose.
