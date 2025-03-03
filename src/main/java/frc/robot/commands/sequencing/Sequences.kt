@@ -1,6 +1,6 @@
 package frc.robot.commands.sequencing
 
-import frc.robot.commands.AlignToPose
+import frc.robot.commands.AlignToPoseAuto
 import frc.robot.commands.AlignToPoseTele
 import frc.robot.commands.Kommand.cancel
 import frc.robot.commands.Kommand.coralScoreFalse
@@ -45,7 +45,7 @@ object Sequences {
     ) = sequential {
         +parallel {
             +moveElevatorState(state)
-            +AlignToPose(offsetSide).withTimeout(1.5)
+            +AlignToPoseAuto(offsetSide).withTimeout(1.5)
         }
         +waitFor(0.1)
         +coralScoring()
@@ -79,7 +79,7 @@ object Sequences {
     @JvmStatic
     fun scoreCoralAuto(offsetSide: Direction) =
         sequential {
-            +AlignToPose(offsetSide).withTimeout(0.9)
+            +AlignToPoseAuto(offsetSide).withTimeout(0.9)
             +waitFor(0.1)
             +coralScoring()
             +setCoralState(CORAL_RELEASE)
