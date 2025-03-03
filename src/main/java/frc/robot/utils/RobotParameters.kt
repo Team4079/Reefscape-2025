@@ -20,6 +20,7 @@ import edu.wpi.first.units.Units.Feet
 import edu.wpi.first.units.Units.Inches
 import edu.wpi.first.units.measure.Distance
 import edu.wpi.first.wpilibj.DriverStation
+import frc.robot.utils.emu.AlgaeCounter
 import frc.robot.utils.emu.AlgaePivotState
 import frc.robot.utils.emu.CoralState
 import frc.robot.utils.emu.ElevatorState
@@ -160,7 +161,8 @@ object RobotParameters {
             const val Y_DEADZONE: Double = 0.1
 
             // Testing boolean for logging (to not slow down the robot)
-            val TEST_MODE: Boolean = !DriverStation.isFMSAttached()
+//            val TEST_MODE: Boolean = !DriverStation.isFMSAttached()
+            val TEST_MODE: Boolean = false
         }
     }
 
@@ -174,6 +176,9 @@ object RobotParameters {
 
         @JvmField
         var lowBattery: Boolean = false
+
+        @JvmField
+        var visionDead: Boolean = false
     }
 
     /** Class containing constants for the Photonvision subsystem.  */
@@ -217,7 +222,7 @@ object RobotParameters {
         const val ELEVATOR_SOFT_LIMIT_UP: Double = 65.0
 
         @JvmField
-        var elevatorToBeSetState: ElevatorState = ElevatorState.L1
+        var elevatorToBeSetState: ElevatorState = ElevatorState.L4
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false
@@ -232,7 +237,7 @@ object RobotParameters {
     }
 
     object AlgaeManipulatorParameters {
-        @JvmField val ALGAE_PINGU = Pingu(2.0, 0.0, 0.0, 0.0)
+        @JvmField val ALGAE_PINGU = Pingu(8.033, 0.0, 0.0, 0.0)
 
         @JvmField
         var isSoftLimitEnabled: Boolean = false
@@ -244,7 +249,7 @@ object RobotParameters {
         var algaeIntaking: Boolean = false
 
         @JvmField
-        var algaeCounter: Int = 0
+        var algaeCounter: AlgaeCounter = AlgaeCounter.INTAKE
     }
 
     object CoralManipulatorParameters {
@@ -258,6 +263,9 @@ object RobotParameters {
 
         @JvmField
         var hasPiece: Boolean = false
+
+        @JvmField
+        var coralScoring: Boolean = false
         // coral should be intaking and coral state should be intaking
 
 //        @JvmField

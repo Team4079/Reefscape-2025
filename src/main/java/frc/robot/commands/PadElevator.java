@@ -44,14 +44,6 @@ public class PadElevator extends Command {
     //      setElevatorState(L1).schedule();
     //    }
 
-//    if (aacrn.getRightBumperButtonPressed()) {
-//      fullScore(RIGHT).schedule();
-//    }
-//
-//    if (aacrn.getLeftBumperButtonPressed()) {
-//      fullScore(LEFT).schedule();
-//    }
-
     //    if (aacrn.getYButton()) {
     //      RobotParameters.CoralManipulatorParameters.coralState = CoralState.CORAL_INTAKE;
     //    } else {

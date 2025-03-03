@@ -8,7 +8,6 @@ import static frc.robot.utils.emu.ElevatorState.*;
 import static frc.robot.utils.pingu.Bingu.*;
 
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -39,27 +38,30 @@ public class RobotContainer {
     Swerve.getInstance().setDefaultCommand(drive(aacrn));
     Algae.getInstance();
 
-    NamedCommands.registerCommand("ScoreL1", variableScore(L1));
-    NamedCommands.registerCommand("ScoreL2", variableScore(L2));
-    NamedCommands.registerCommand("ScoreL3", variableScore(L3));
-    NamedCommands.registerCommand("ScoreL4", variableScore(L4));
-    NamedCommands.registerCommand("Score4Left", fullScoreAuto(LEFT, L4));
-    NamedCommands.registerCommand("Score4Right", fullScoreAuto(RIGHT, L4));
-
-    // TODO add autoalign for auto
-
-    NamedCommands.registerCommand("AlignLeft", new AlignToPose(LEFT).withTimeout(1.3));
-    NamedCommands.registerCommand("AlignRight", new AlignToPose(RIGHT).withTimeout(1.3));
-
-    networkChooser = AutoBuilder.buildAutoChooser();
-
-    configureBindings();
-
     new CommandPingu()
+        .bind("ScoreL1", variableScore(L1))
+        .bind("ScoreL2", variableScore(L2))
+        .bind("ScoreL3", variableScore(L3))
+        .bind("ScoreL4", variableScore(L4))
+        .bind("ScoreL4Left", fullScoreAuto(LEFT, L4))
+        .bind("ScoreL4Right", fullScoreAuto(RIGHT, L4))
+        .bind("HasPieceFalse", hasPieceFalse())
+        .bind("AlignLeft", new AlignToPose(LEFT).withTimeout(1.3))
+        .bind("AlignRight", new AlignToPose(RIGHT).withTimeout(1.3))
+        .bind("ScoreCoralLeft", scoreCoralAuto(LEFT).withTimeout(1.3))
+        .bind("ScoreCoralRight", scoreCoralAuto(RIGHT).withTimeout(1.3))
+        .bind("MoveElevatorL4Auto", moveElevatorState(L4))
+        .bind("ScoreL4Auto", variableScore(L4))
+        .bind("scoreLeft", fullScore(LEFT))
+        .bind("scoreRight", fullScore(RIGHT))
         .bind("SetL1", setElevatorState(L1))
         .bind("SetL2", setElevatorState(L2))
         .bind("SetL3", setElevatorState(L3))
         .bind("SetL4", setElevatorState(L4));
+
+    networkChooser = AutoBuilder.buildAutoChooser();
+
+    configureBindings();
 
     //    networkChooser.addDefaultOption("Straight Auto", new PathPlannerAuto("Straight Auto"));
     //    networkChooser.addOption("Straight Auto", new InstantCommand());
@@ -79,13 +81,13 @@ public class RobotContainer {
         // bind(B, () -> align(CENTER).onlyWhile(pad::getAButton)),
         bind(B, Sequences::resetScore),
         // bind(B, () -> createPathfindingCmd(reefs.get(0))),
-        // bind(A, Kommand::setIntakeAlgae),
+        bind(A, Kommand::setIntakeAlgae),
         // bind(A, () -> align(RIGHT)),
         bind(Y, Kommand::startCoralMotors),
         bind(X, () -> reverseIntake().onlyWhile(aacrn::getXButton)),
         bind(RIGHT_BUMPER, () -> fullScore(RIGHT)),
         bind(LEFT_BUMPER, () -> fullScore(LEFT)));
 
-    bindings(calamityCow, bind(A, () -> waitFor(1)));
+    bindings(calamityCow, bind(A, Kommand::toggleVisionKillSwitch));
   }
 }

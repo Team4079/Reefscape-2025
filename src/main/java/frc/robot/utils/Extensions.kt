@@ -3,7 +3,6 @@ package frc.robot.utils
 import com.ctre.phoenix6.configs.TalonFXConfiguration
 import edu.wpi.first.math.geometry.Pose2d
 import frc.robot.subsystems.PhotonModule
-import frc.robot.utils.hasTargets
 import frc.robot.utils.pingu.NetworkPingu
 import frc.robot.utils.pingu.Pingu
 import org.photonvision.EstimatedRobotPose

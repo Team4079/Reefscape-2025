@@ -14,7 +14,8 @@ import edu.wpi.first.wpilibj2.command.WaitUntilCommand
 import frc.robot.subsystems.Coral
 import frc.robot.subsystems.Elevator
 import frc.robot.subsystems.Swerve
-import frc.robot.utils.RobotParameters.CoralManipulatorParameters.hasPiece
+import frc.robot.utils.RobotParameters.CoralManipulatorParameters.coralScoring
+import frc.robot.utils.RobotParameters.LiveRobotValues.visionDead
 import frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.PATH_CONSTRAINTS
 import frc.robot.utils.emu.CoralState
 import frc.robot.utils.emu.Direction
@@ -181,6 +182,10 @@ object Kommand {
     @JvmStatic
     fun startCoralManipulator() = cmd { Coral.getInstance().setHasPiece(false) }
 
+    // TODO FIX THIS
+    @JvmStatic
+    fun coralScoring() = cmd { coralScoring = true }
+
     /**
      * Creates an [InstantCommand] to stop the coral manipulator motors.
      *
@@ -219,6 +224,10 @@ object Kommand {
      */
     @JvmStatic
     fun resetPidgey() = cmd { Swerve.getInstance().resetPidgey() }
+
+    // om add docs pls
+    @JvmStatic
+    fun flipPidgey() = cmd { Swerve.getInstance().flipPidgey() }
 
     /**
      * Creates an [InstantCommand] to set the teleoperation PID.
@@ -273,7 +282,10 @@ object Kommand {
      * @return An [InstantCommand] that sets the coral intaking state to true.
      */
     @JvmStatic
-    fun coralIntaking() = cmd { hasPiece = false }
+    fun hasPieceFalse() = cmd { Coral.getInstance().setHasPiece(false) }
+
+    @JvmStatic
+    fun coralScoreFalse() = cmd { coralScoring = false }
 
     /**
      * Creates a command to move the robot to the closest coral
@@ -300,4 +312,7 @@ object Kommand {
         direction: Direction,
         pose: Pose2d,
     ) = findClosestScoringPositionNotL4(pose, direction)
+
+    @JvmStatic
+    fun toggleVisionKillSwitch() = cmd { visionDead = !visionDead }
 }

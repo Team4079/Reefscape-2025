@@ -2,6 +2,7 @@ package frc.robot;
 
 import static edu.wpi.first.wpilibj.RobotController.*;
 import static edu.wpi.first.wpilibj.Threads.*;
+import static frc.robot.commands.Kommand.flipPidgey;
 import static frc.robot.utils.RobotParameters.LiveRobotValues.*;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.Kommand.*;
 import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.LocalADStarAK;
@@ -134,6 +136,8 @@ public class Robot extends LoggedRobot {
   public void autonomousInit() {
     //    autonomousCommand = robotContainer.networkChooser.getSelected();
     autonomousCommand = new PathPlannerAuto("4l4autoB");
+    // TODO test pidgey.setYaw(180) at the start
+    Swerve.getInstance().flipPidgey();
     autonomousCommand.schedule();
   }
 
@@ -141,6 +145,7 @@ public class Robot extends LoggedRobot {
   @Override
   public void teleopInit() {
     if (autonomousCommand != null) autonomousCommand.cancel();
+    flipPidgey();
   }
 
   /** This function is called once when test mode is initialized. */

@@ -56,20 +56,20 @@ public class Swerve extends SubsystemBase {
   private NetworkPingu networkPinguRotAutoAlign;
 
   private LoggedDashboardChooser reefChooser;
-
-  Thread swerveLoggingThread =
-      new Thread(
-          () -> {
-            while (DriverStation.isEnabled()) {
-              logs("Swerve Module States", getModuleStates());
-              try {
-                Thread.sleep(100);
-              } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                break;
-              }
-            }
-          });
+  //
+  //  Thread swerveLoggingThread =
+  //      new Thread(
+  //          () -> {
+  //            while (DriverStation.isEnabled()) {
+  //              logs("Swerve Module States", getModuleStates());
+  //              try {
+  //                Thread.sleep(100);
+  //              } catch (InterruptedException e) {
+  //                Thread.currentThread().interrupt();
+  //                break;
+  //              }
+  //            }
+  //          });
 
   // from feeder to the goal and align itself
   // The plan is for it to path towards it then we use a set path to align itself
@@ -109,7 +109,7 @@ public class Swerve extends SubsystemBase {
     initializePathPlannerLogging();
     photonVision = PhotonVision.getInstance();
 
-    swerveLoggingThread.start();
+    //    swerveLoggingThread.start();
 
     initializationAlignPing();
   }
@@ -335,6 +335,11 @@ public class Swerve extends SubsystemBase {
     pidgey.reset();
   }
 
+  // om add docs pls
+  public void flipPidgey() {
+    pidgey.setYaw(180.0 + pidgey.getYaw().getValueAsDouble());
+  }
+
   /**
    * Gets the current pose of the robot from the pose estimator.
    *
@@ -357,6 +362,7 @@ public class Swerve extends SubsystemBase {
    */
   public void newPose(Pose2d pose) {
     poseEstimator.resetPosition(getPidgeyRotation(), getModulePositions(), pose);
+    poseEstimator3d.resetPosition(getPidgeyRotation3d(), getModulePositions(), new Pose3d(pose));
   }
 
   /**
@@ -509,5 +515,9 @@ public class Swerve extends SubsystemBase {
             new LoggedNetworkNumber("Tuning/Swerve/Align Rot P", ROTATIONAL_PINGU.getP()),
             new LoggedNetworkNumber("Tuning/Swerve/Align Rot I", ROTATIONAL_PINGU.getI()),
             new LoggedNetworkNumber("Tuning/Swerve/Align Rot D", ROTATIONAL_PINGU.getD()));
+  }
+
+  protected Rotation3d getPidgeyRotation3d() {
+    return pidgey.getRotation3d();
   }
 }

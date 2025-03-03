@@ -155,7 +155,7 @@ public class AlignSwerve extends Command {
    */
   @Override
   public boolean isFinished() {
-    if (timer.get() > 2.0) {
+    if (timer.get() > 1.0) {
       timer.stop();
       return true;
     }

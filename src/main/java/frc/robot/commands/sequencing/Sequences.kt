@@ -1,8 +1,11 @@
 package frc.robot.commands.sequencing
 
 import frc.robot.commands.AlignToPose
+import frc.robot.commands.AlignToPoseTele
 import frc.robot.commands.Kommand.cancel
-import frc.robot.commands.Kommand.coralIntaking
+import frc.robot.commands.Kommand.coralScoreFalse
+import frc.robot.commands.Kommand.coralScoring
+import frc.robot.commands.Kommand.hasPieceFalse
 import frc.robot.commands.Kommand.moveElevatorState
 import frc.robot.commands.Kommand.parallel
 import frc.robot.commands.Kommand.sequential
@@ -16,101 +19,75 @@ import frc.robot.utils.emu.ElevatorState
 import frc.robot.utils.emu.ElevatorState.DEFAULT
 
 object Sequences {
-    /**
-     * Creates a sequential command group to score a variable.
-     *
-     * @param state The target state of the elevator.
-     * @return A SequentialCommandGroup that performs the following actions:
-     * - Moves the elevator to the specified state.
-     * - Sets the coral state to release.
-     * - Waits for 0.3 seconds.
-     * - Resets the elevator state to default.
-     * - Initiates the coral intake process.
-     */
     @JvmStatic
     fun variableScore(state: ElevatorState) =
         sequential {
-            +moveElevatorState(state) // Move the elevator to the specified state
-            +setCoralState(CORAL_RELEASE) // Set the coral state to release
-            +waitFor(0.3) // Wait for 0.3 seconds
-            +setElevatorState(DEFAULT) // Reset the elevator state to default
-            +coralIntaking() // Start the coral intake process
+            +moveElevatorState(state)
+            +setCoralState(CORAL_RELEASE)
+            +waitFor(0.3)
+            +setElevatorState(DEFAULT)
+            +hasPieceFalse()
         }
 
-    /**
-     * Creates a sequential command group to reset the scoring mechanism.
-     *
-     * @return A SequentialCommandGroup that performs the following actions:
-     * - Sets the coral state to release.
-     * - Sets the elevator state to default.
-     * - Cancels any ongoing commands.
-     * - Initiates the coral intake process.
-     */
     @JvmStatic
     fun resetScore() =
         sequential {
-            +setCoralState(CORAL_RELEASE) // Set the coral state to release
-            +setElevatorState(DEFAULT) // Set the elevator state to default
-            +cancel() // Cancel any ongoing commands
-            +coralIntaking() // Start the coral intake process
+            +setCoralState(CORAL_RELEASE)
+            +setElevatorState(DEFAULT)
+            +cancel()
+            +hasPieceFalse()
         }
 
-    /**
-     * Creates a sequential command group to perform a full scoring automation.
-     *
-     * @param offsetSide The direction to offset the swerve drive.
-     * @param state The target state of the elevator.
-     * @return A SequentialCommandGroup that performs the following actions:
-     * - Aligns the swerve drive and moves the elevator to the specified state in parallel.
-     * - Waits for 0.5 seconds.
-     * - Sets the coral state to release.
-     * - Waits for 0.3 seconds.
-     * - Resets the elevator state to default.
-     * - Initiates the coral intake process.
-     */
     @JvmStatic
     fun fullScoreAuto(
         offsetSide: Direction,
         state: ElevatorState,
     ) = sequential {
         +parallel {
-            +moveElevatorState(state) // Move the elevator to the specified state
-            +AlignToPose(offsetSide) // Align the swerve drive
+            +moveElevatorState(state)
+            +AlignToPose(offsetSide).withTimeout(1.5)
         }
-        +waitFor(0.5) // Wait for 0.5 seconds
-        +setCoralState(CORAL_RELEASE) // Set the coral state to release
-        +waitFor(0.3) // Wait for 0.3 seconds
+        +waitFor(0.1)
+        +coralScoring()
+        +setCoralState(CORAL_RELEASE)
+        +waitFor(1.0)
         // TODO MOVE BACK (prob with on the fly move back 0.5 meter path) jayden u should do this
         // cuz shawn's lazy
-        +setElevatorState(DEFAULT) // Reset the elevator state to default
-        +coralIntaking() // Start the coral intake process
+        +setElevatorState(DEFAULT)
+        +coralScoreFalse()
+        +hasPieceFalse()
     }
 
-    /**
-     * Creates a sequential command group to automatically score the coral manipulator.
-     *
-     * @param offsetSide The direction to offset the swerve drive.
-     * @return A SequentialCommandGroup that performs the following actions:
-     * - Aligns the swerve drive and moves the elevator to the correct level in parallel.
-     * - Waits for 0.5 seconds.
-     * - Sets the coral state to release.
-     * - Waits for 0.3 seconds.
-     * - Sets the elevator state to default.
-     * - Initiates the coral intake process.
-     */
     @JvmStatic
     fun fullScore(offsetSide: Direction) =
         sequential {
             +parallel {
-                +moveElevatorState(elevatorToBeSetState) // Move the elevator to the specified state
-                +AlignToPose(offsetSide) // Align the swerve drive
+                +moveElevatorState(elevatorToBeSetState)
+                +AlignToPoseTele(offsetSide).withTimeout(2.0)
             }
-            +waitFor(0.5) // Wait for 0.5 seconds
-            +setCoralState(CORAL_RELEASE) // Set the coral state to release
-            +waitFor(0.3) // Wait for 0.3 seconds
+            +waitFor(0.1)
+            +coralScoring()
+            +setCoralState(CORAL_RELEASE)
+            +waitFor(0.7)
             // TODO: MOVE BACK (prob with on the fly move back 0.5 meter path) jayden u should do this
             // cuz shawn's lazy
-            +setElevatorState(DEFAULT) // Reset the elevator state to default
-            +coralIntaking() // Start the coral intake process
+            +setElevatorState(DEFAULT)
+            +coralScoreFalse()
+            +hasPieceFalse()
+        }
+
+    @JvmStatic
+    fun scoreCoralAuto(offsetSide: Direction) =
+        sequential {
+            +AlignToPose(offsetSide).withTimeout(0.9)
+            +waitFor(0.1)
+            +coralScoring()
+            +setCoralState(CORAL_RELEASE)
+            +waitFor(1.0)
+            // TODO MOVE BACK (prob with on the fly move back 0.5 meter path) jayden u should do this
+            // cus im lazy
+            +setElevatorState(DEFAULT)
+            +coralScoreFalse()
+            +hasPieceFalse()
         }
 }

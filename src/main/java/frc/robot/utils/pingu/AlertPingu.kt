@@ -24,7 +24,7 @@ object AlertPingu : SubsystemBase() {
      * Uses parallel processing for efficient handling of multiple devices.
      */
     override fun periodic() {
-        devicePairs.parallelStream().forEach { (device, alert) ->
+        devicePairs.stream().forEach { (device, alert) ->
             when (device) {
                 is TalonFX -> alert.set(!device.isConnected)
                 is CANcoder -> alert.set(!device.isConnected)
