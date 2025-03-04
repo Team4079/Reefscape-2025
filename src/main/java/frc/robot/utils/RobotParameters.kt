@@ -209,7 +209,7 @@ object RobotParameters {
     /** Class containing constants for the elevator subsystem.  */
     object ElevatorParameters {
         @JvmField
-        val ELEVATOR_PINGU: Pingu = Pingu(5.0, 0.0, 0.0, 0.35, 0.5199, 0.0) // g could be 0.42
+        val ELEVATOR_PINGU: Pingu = Pingu(5.0, 0.0, 0.0, 0.35, 0.5199, 0.42) // g could be 0.42
 
         // MM ↓
 
