@@ -52,7 +52,7 @@ object Sequences {
         +waitFor(0.3)
         // TODO MOVE BACK (prob with on the fly move back 0.5 meter path) jayden u should do this
         // cuz shawn's lazy
-        +setElevatorState(DEFAULT)
+        // +setElevatorState(DEFAULT)
         +coralScoreFalse()
         +hasPieceFalse()
     }
@@ -70,21 +70,6 @@ object Sequences {
             +waitFor(0.1)
             // TODO: MOVE BACK (prob with on the fly move back 0.5 meter path) jayden u should do this
             // cuz shawn's lazy
-            +setElevatorState(DEFAULT)
-            +coralScoreFalse()
-            +hasPieceFalse()
-        }
-
-    @JvmStatic
-    fun scoreCoralAuto(offsetSide: Direction) =
-        sequential {
-            +AlignToPoseAuto(offsetSide).withTimeout(0.9)
-            +waitFor(0.1)
-            +coralScoring()
-            +setCoralState(CORAL_RELEASE)
-            +waitFor(1.0)
-            // TODO MOVE BACK (prob with on the fly move back 0.5 meter path) jayden u should do this
-            // cus im lazy
             +setElevatorState(DEFAULT)
             +coralScoreFalse()
             +hasPieceFalse()

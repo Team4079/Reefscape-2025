@@ -38,21 +38,11 @@ public class RobotContainer {
     Swerve.getInstance().setDefaultCommand(drive(aacrn));
 
     new CommandPingu()
-        .bind("ScoreL1", variableScore(L1))
-        .bind("ScoreL2", variableScore(L2))
-        .bind("ScoreL3", variableScore(L3))
-        .bind("ScoreL4", variableScore(L4))
         .bind("ScoreL4Left", fullScoreAuto(LEFT, L4))
         .bind("ScoreL4Right", fullScoreAuto(RIGHT, L4))
         .bind("HasPieceFalse", hasPieceFalse())
-        .bind("AlignLeft", new AlignToPoseAuto(LEFT).withTimeout(1.3))
-        .bind("AlignRight", new AlignToPoseAuto(RIGHT).withTimeout(1.3))
-        .bind("ScoreCoralLeft", scoreCoralAuto(LEFT).withTimeout(1.3))
-        .bind("ScoreCoralRight", scoreCoralAuto(RIGHT).withTimeout(1.3))
         .bind("MoveElevatorL4Auto", moveElevatorState(L4))
-        .bind("ScoreL4Auto", variableScore(L4))
-        .bind("scoreLeft", fullScore(LEFT))
-        .bind("scoreRight", fullScore(RIGHT))
+
         .bind("SetL1", setElevatorState(L1))
         .bind("SetL2", setElevatorState(L2))
         .bind("SetL3", setElevatorState(L3))
