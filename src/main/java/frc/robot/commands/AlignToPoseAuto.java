@@ -25,8 +25,8 @@ public class AlignToPoseAuto extends AlignToPose {
     Swerve swerve = Swerve.getInstance();
     currentPose = swerve.getPose2Dfrom3D();
     Swerve.getInstance().setDriveSpeeds(
-        -xController.calculate(currentPose.getX()),
-        -yController.calculate(currentPose.getY()),
+        xController.calculate(currentPose.getX()),
+        yController.calculate(currentPose.getY()),
         rotationalController.calculate(currentPose.getRotation().getDegrees()),
         true);
     

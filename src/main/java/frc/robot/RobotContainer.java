@@ -56,7 +56,8 @@ public class RobotContainer {
         .bind("SetL1", setElevatorState(L1))
         .bind("SetL2", setElevatorState(L2))
         .bind("SetL3", setElevatorState(L3))
-        .bind("SetL4", setElevatorState(L4));
+        .bind("SetL4", setElevatorState(L4))
+        .bind("MoveElevatorDown", setElevatorState(DEFAULT));
 
     networkChooser = AutoBuilder.buildAutoChooser();
 

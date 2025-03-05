@@ -44,8 +44,8 @@ object Sequences {
         state: ElevatorState,
     ) = sequential {
         +parallel {
-            +moveElevatorState(state)
-            +AlignToPoseAuto(offsetSide).withTimeout(0.9)
+//            +moveElevatorState(state)
+            +AlignToPoseAuto(offsetSide).withTimeout(0.7157)
         }
         +coralScoring()
         +setCoralState(CORAL_RELEASE)
