@@ -136,8 +136,6 @@ public class Robot extends LoggedRobot {
   public void autonomousInit() {
     //    autonomousCommand = robotContainer.networkChooser.getSelected();
     autonomousCommand = new PathPlannerAuto("4l4autoA");
-    // TODO test pidgey.setYaw(180) at the start
-    Swerve.getInstance().flipPidgey();
     autonomousCommand.schedule();
   }
 
