@@ -36,7 +36,6 @@ public class RobotContainer {
     Elevator.getInstance().setDefaultCommand(padElevator(aacrn, calamityCow));
     Coral.getInstance();
     Swerve.getInstance().setDefaultCommand(drive(aacrn));
-    Algae.getInstance();
 
     new CommandPingu()
         .bind("ScoreL1", variableScore(L1))
@@ -81,7 +80,7 @@ public class RobotContainer {
         // bind(B, () -> align(CENTER).onlyWhile(pad::getAButton)),
         bind(B, Sequences::resetScore),
         // bind(B, () -> createPathfindingCmd(reefs.get(0))),
-        bind(A, Kommand::setIntakeAlgae),
+        // bind(A, Kommand::setIntakeAlgae),
         // bind(A, () -> align(RIGHT)),
         bind(Y, Kommand::startCoralMotors),
         bind(X, () -> reverseIntake().onlyWhile(aacrn::getXButton)),

@@ -226,14 +226,6 @@ object Kommand {
     fun setTelePid() = cmd { Swerve.getInstance().setTelePID() }
 
     /**
-     * Creates an [InstantCommand] to set the intake to algae.
-     *
-     * @return An [InstantCommand] that sets the intake to algae.
-     */
-    @JvmStatic
-    fun setIntakeAlgae() = toggleIntakeAlgae
-
-    /**
      * Creates a pathfinding command to move to a specified pose.
      *
      * @param targetPose The target pose to move to.

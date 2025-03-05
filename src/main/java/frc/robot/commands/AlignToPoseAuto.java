@@ -2,7 +2,6 @@ package frc.robot.commands;
 
 import static edu.wpi.first.wpilibj.DriverStation.Alliance.*;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.emu.Direction;
 
@@ -25,37 +24,42 @@ public class AlignToPoseAuto extends AlignToPose {
   public void execute() {
     Swerve swerve = Swerve.getInstance();
     currentPose = swerve.getPose2Dfrom3D();
+    Swerve.getInstance().setDriveSpeeds(
+        xController.calculate(currentPose.getX()),
+        yController.calculate(currentPose.getY()),
+        rotationalController.calculate(currentPose.getRotation().getDegrees()),
+        true);
     
-    if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(Blue)) {
-      if (targetPose.getX() < 4.5) {
-        swerve.setDriveSpeeds(
-            xController.calculate(currentPose.getX(), targetPose.getX()),
-            yController.calculate(currentPose.getY(), targetPose.getY()),
-            rotationalController.calculate(currentPose.getRotation().getDegrees()),
-            false);
-      } else {
-        swerve.setDriveSpeeds(
-            -xController.calculate(currentPose.getX(), targetPose.getX()),
-            -yController.calculate(currentPose.getY(), targetPose.getY()),
-            rotationalController.calculate(currentPose.getRotation().getDegrees()),
-            false);
-      }
-    } else {
-      // TODO: MAKE A COPY OF ALIGNTOPOSE FOR AUTO WITH FIELD CENTRIC TURE!@!!!!@
-      if (targetPose.getX() < 13) {
-        swerve.setDriveSpeeds(
-            xController.calculate(currentPose.getX()),
-            yController.calculate(currentPose.getY()),
-            rotationalController.calculate(currentPose.getRotation().getDegrees()),
-            false);
-      } else {
-        swerve.setDriveSpeeds(
-            -xController.calculate(currentPose.getX()),
-            -yController.calculate(currentPose.getY()),
-            rotationalController.calculate(currentPose.getRotation().getDegrees()),
-            false);
-      }
-    }
+//    if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get().equals(Blue)) {
+//      if (targetPose.getX() < 4.5) {
+//        swerve.setDriveSpeeds(
+//            xController.calculate(currentPose.getX(), targetPose.getX()),
+//            yController.calculate(currentPose.getY(), targetPose.getY()),
+//            rotationalController.calculate(currentPose.getRotation().getDegrees()),
+//            false);
+//      } else {
+//        swerve.setDriveSpeeds(
+//            -xController.calculate(currentPose.getX(), targetPose.getX()),
+//            -yController.calculate(currentPose.getY(), targetPose.getY()),
+//            rotationalController.calculate(currentPose.getRotation().getDegrees()),
+//            false);
+//      }
+//    } else {
+//      // TODO: MAKE A COPY OF ALIGNTOPOSE FOR AUTO WITH FIELD CENTRIC TURE!@!!!!@
+//      if (targetPose.getX() < 13) {
+//        swerve.setDriveSpeeds(
+//            xController.calculate(currentPose.getX()),
+//            yController.calculate(currentPose.getY()),
+//            rotationalController.calculate(currentPose.getRotation().getDegrees()),
+//            false);
+//      } else {
+//        swerve.setDriveSpeeds(
+//            -xController.calculate(currentPose.getX()),
+//            -yController.calculate(currentPose.getY()),
+//            rotationalController.calculate(currentPose.getRotation().getDegrees()),
+//            false);
+//      }
+//    }
     alignLogs();
   }
 }

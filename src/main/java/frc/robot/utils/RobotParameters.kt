@@ -20,7 +20,6 @@ import edu.wpi.first.units.Units.Feet
 import edu.wpi.first.units.Units.Inches
 import edu.wpi.first.units.measure.Distance
 import edu.wpi.first.wpilibj.DriverStation
-import frc.robot.utils.emu.AlgaeCounter
 import frc.robot.utils.emu.AlgaePivotState
 import frc.robot.utils.emu.CoralState
 import frc.robot.utils.emu.ElevatorState
@@ -162,7 +161,7 @@ object RobotParameters {
 
             // Testing boolean for logging (to not slow down the robot)
 //            val TEST_MODE: Boolean = !DriverStation.isFMSAttached()
-            val TEST_MODE: Boolean = false
+            val TEST_MODE: Boolean = true
         }
     }
 
@@ -247,9 +246,6 @@ object RobotParameters {
 
         @JvmField
         var algaeIntaking: Boolean = false
-
-        @JvmField
-        var algaeCounter: AlgaeCounter = AlgaeCounter.INTAKE
     }
 
     object CoralManipulatorParameters {

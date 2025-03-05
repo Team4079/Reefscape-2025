@@ -45,12 +45,11 @@ object Sequences {
     ) = sequential {
         +parallel {
             +moveElevatorState(state)
-            +AlignToPoseAuto(offsetSide).withTimeout(1.5)
+            +AlignToPoseAuto(offsetSide).withTimeout(0.9)
         }
-        +waitFor(0.1)
         +coralScoring()
         +setCoralState(CORAL_RELEASE)
-        +waitFor(1.0)
+        +waitFor(0.3)
         // TODO MOVE BACK (prob with on the fly move back 0.5 meter path) jayden u should do this
         // cuz shawn's lazy
         +setElevatorState(DEFAULT)
@@ -68,7 +67,7 @@ object Sequences {
             +waitFor(0.1)
             +coralScoring()
             +setCoralState(CORAL_RELEASE)
-            +waitFor(0.7)
+            +waitFor(0.5)
             // TODO: MOVE BACK (prob with on the fly move back 0.5 meter path) jayden u should do this
             // cuz shawn's lazy
             +setElevatorState(DEFAULT)
