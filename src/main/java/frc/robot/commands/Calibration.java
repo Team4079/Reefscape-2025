@@ -1,18 +1,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Algae;
 import frc.robot.subsystems.Elevator;
 
 public class Calibration extends Command {
-
-  private Algae algae = Algae.getInstance();
   private Elevator elevator = Elevator.getInstance();
 
   public Calibration() {
     // each subsystem used by the command must be passed into the
     // addRequirements() method (which takes a vararg of Subsystem)
-    addRequirements(algae, elevator);
+    addRequirements(elevator);
   }
 
   /** The initial subroutine of a command. Called once when the command is initially scheduled. */

@@ -1,31 +1,34 @@
 package frc.robot.utils.emu
 
+import edu.wpi.first.wpilibj.XboxController
+
 /**
  * Enum class representing the buttons on a joystick or game controller.
- *
- * @property buttonNumber The numerical identifier for the button.
  */
 enum class Button(
-    val buttonNumber: Int,
+    val checkPressed: (XboxController) -> Boolean,
 ) {
-    /** Button A with identifier 1. */
-    A(1),
+    A({ it.aButtonPressed }),
 
-    /** Button B with identifier 2. */
-    B(2),
+    B({ it.bButtonPressed }),
 
-    /** Button X with identifier 3. */
-    X(3),
+    X({ it.xButtonPressed }),
 
-    /** Button Y with identifier 4. */
-    Y(4),
+    Y({ it.yButtonPressed }),
 
-    /** Start button with identifier 8. */
-    START(8),
+    START({ it.startButtonPressed }),
 
-    /** Left bumper button with identifier 5. */
-    LEFT_BUMPER(5),
+    LEFT_BUMPER({ it.leftBumperButtonPressed }),
 
-    /** Right bumper button with identifier 6. */
-    RIGHT_BUMPER(6),
+    RIGHT_BUMPER({ it.rightBumperButtonPressed }),
+
+    BACK({ it.backButtonPressed }),
+
+    LEFT_STICK({ it.leftStickButtonPressed }),
+
+    RIGHT_STICK({ it.rightStickButtonPressed }),
+
+    LEFT_TRIGGER({ it.leftTriggerAxis > 0.5 }),
+
+    RIGHT_TRIGGER({ it.rightTriggerAxis > 0.5 }),
 }

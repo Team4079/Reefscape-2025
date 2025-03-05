@@ -56,20 +56,20 @@ public class Swerve extends SubsystemBase {
   private NetworkPingu networkPinguRotAutoAlign;
 
   private LoggedDashboardChooser reefChooser;
-//
-//  Thread swerveLoggingThread =
-//      new Thread(
-//          () -> {
-//            while (DriverStation.isEnabled()) {
-//              logs("Swerve Module States", getModuleStates());
-//              try {
-//                Thread.sleep(100);
-//              } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();
-//                break;
-//              }
-//            }
-//          });
+  //
+  //  Thread swerveLoggingThread =
+  //      new Thread(
+  //          () -> {
+  //            while (DriverStation.isEnabled()) {
+  //              logs("Swerve Module States", getModuleStates());
+  //              try {
+  //                Thread.sleep(100);
+  //              } catch (InterruptedException e) {
+  //                Thread.currentThread().interrupt();
+  //                break;
+  //              }
+  //            }
+  //          });
 
   // from feeder to the goal and align itself
   // The plan is for it to path towards it then we use a set path to align itself
@@ -109,7 +109,7 @@ public class Swerve extends SubsystemBase {
     initializePathPlannerLogging();
     photonVision = PhotonVision.getInstance();
 
-//    swerveLoggingThread.start();
+    //    swerveLoggingThread.start();
 
     initializationAlignPing();
   }

@@ -1,24 +1,21 @@
 package frc.robot;
 
 import static frc.robot.commands.Kommand.*;
+import static frc.robot.commands.sequencing.Sequences.*;
 import static frc.robot.utils.emu.Button.*;
 import static frc.robot.utils.emu.Direction.*;
 import static frc.robot.utils.emu.ElevatorState.*;
+import static frc.robot.utils.pingu.Bingu.*;
 
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.*;
-import frc.robot.commands.AlignToPose;
+import frc.robot.commands.*;
 import frc.robot.commands.sequencing.*;
-import frc.robot.commands.sequencing.AutomaticScoreAuto;
 import frc.robot.subsystems.*;
-import frc.robot.utils.emu.*;
 import frc.robot.utils.pingu.*;
-import java.util.EnumMap;
-import java.util.Map;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -27,9 +24,6 @@ import java.util.Map;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  private final Map<Button, JoystickButton> aacrnButtons = new EnumMap<>(Button.class);
-  private final Map<Button, JoystickButton> calamityCowButtons = new EnumMap<>(Button.class);
-
   public final SendableChooser<Command> networkChooser;
   public final XboxController aacrn;
   public final XboxController calamityCow;
@@ -42,49 +36,31 @@ public class RobotContainer {
     Elevator.getInstance().setDefaultCommand(padElevator(aacrn, calamityCow));
     Coral.getInstance();
     Swerve.getInstance().setDefaultCommand(drive(aacrn));
-    Algae.getInstance();
-    Button.getEntries()
-        .forEach(
-            button ->
-                aacrnButtons.put(button, new JoystickButton(aacrn, button.getButtonNumber())));
-
-    Button.getEntries()
-        .forEach(
-            button ->
-                calamityCowButtons.put(
-                    button, new JoystickButton(calamityCow, button.getButtonNumber())));
-
-    NamedCommands.registerCommand("ScoreL1", new ScoreL1());
-    NamedCommands.registerCommand("ScoreL2", new ScoreL2());
-    NamedCommands.registerCommand("ScoreL3", new ScoreL3());
-    NamedCommands.registerCommand("ScoreL4Left", new AutomaticScoreAuto(LEFT, L4));
-    NamedCommands.registerCommand("ScoreL4Right", new AutomaticScoreAuto(RIGHT, L4));
-    NamedCommands.registerCommand("HasPieceFalse", hasPieceFalse());
-
-    // TODO add autoalign for auto
-
-    NamedCommands.registerCommand("AlignLeft", new AlignToPose(LEFT).withTimeout(1.3));
-    NamedCommands.registerCommand("AlignRight", new AlignToPose(RIGHT).withTimeout(1.3));
-
-    // jayden did this 2/27 not tested
-
-    NamedCommands.registerCommand("ScoreCoralLeft", new ScoreCoralAuto(LEFT).withTimeout(1.3));
-    NamedCommands.registerCommand("ScoreCoralRight", new ScoreCoralAuto(RIGHT).withTimeout(1.3));
-
-    NamedCommands.registerCommand("MoveElevatorL4Auto", moveElevatorState(L4));
-
-
-    networkChooser = AutoBuilder.buildAutoChooser();
-
-    configureBindings();
 
     new CommandPingu()
-        .bind("scoreLeft", score(LEFT))
-        .bind("scoreRight", score(RIGHT))
+        .bind("ScoreL1", variableScore(L1))
+        .bind("ScoreL2", variableScore(L2))
+        .bind("ScoreL3", variableScore(L3))
+        .bind("ScoreL4", variableScore(L4))
+        .bind("ScoreL4Left", fullScoreAuto(LEFT, L4))
+        .bind("ScoreL4Right", fullScoreAuto(RIGHT, L4))
+        .bind("HasPieceFalse", hasPieceFalse())
+        .bind("AlignLeft", new AlignToPoseAuto(LEFT).withTimeout(1.3))
+        .bind("AlignRight", new AlignToPoseAuto(RIGHT).withTimeout(1.3))
+        .bind("ScoreCoralLeft", scoreCoralAuto(LEFT).withTimeout(1.3))
+        .bind("ScoreCoralRight", scoreCoralAuto(RIGHT).withTimeout(1.3))
+        .bind("MoveElevatorL4Auto", moveElevatorState(L4))
+        .bind("ScoreL4Auto", variableScore(L4))
+        .bind("scoreLeft", fullScore(LEFT))
+        .bind("scoreRight", fullScore(RIGHT))
         .bind("SetL1", setElevatorState(L1))
         .bind("SetL2", setElevatorState(L2))
         .bind("SetL3", setElevatorState(L3))
         .bind("SetL4", setElevatorState(L4));
+
+    networkChooser = AutoBuilder.buildAutoChooser();
+
+    configureBindings();
 
     //    networkChooser.addDefaultOption("Straight Auto", new PathPlannerAuto("Straight Auto"));
     //    networkChooser.addOption("Straight Auto", new InstantCommand());
@@ -97,19 +73,20 @@ public class RobotContainer {
    * CommandPS4Controller} controllers or {@link CommandJoystick}.
    */
   private void configureBindings() {
-    new Bingu(aacrnButtons)
-        .bind(START, resetPidgey())
-        //        .bind(B, setElevatorState(DEFAULT))
-        //        .bind(B, align(CENTER).onlyWhile(pad::getAButton))
-        .bind(B, new ResetScore())
-        //        .bind(B, createPathfindingCmd(reefs.get(0)))
-        .bind(A, setIntakeAlgae())
-        //        .bind(A, align(RIGHT))
-        .bind(Y, startCoralMotors())
-//        .bind(LEFT_BUMPER, score(LEFT))
-//        .bind(RIGHT_BUMPER, score(RIGHT))
-        .bind(X, reverseIntake().onlyWhile(aacrn::getXButton));
+    bindings(
+        aacrn,
+        bind(START, Kommand::resetPidgey),
+        // bind(B, () -> setElevatorState(DEFAULT)),
+        // bind(B, () -> align(CENTER).onlyWhile(pad::getAButton)),
+        bind(B, Sequences::resetScore),
+        // bind(B, () -> createPathfindingCmd(reefs.get(0))),
+        // bind(A, Kommand::setIntakeAlgae),
+        // bind(A, () -> align(RIGHT)),
+        bind(Y, Kommand::startCoralMotors),
+        bind(X, () -> reverseIntake().onlyWhile(aacrn::getXButton)),
+        bind(RIGHT_BUMPER, () -> fullScore(RIGHT)),
+        bind(LEFT_BUMPER, () -> fullScore(LEFT)));
 
-    new Bingu(calamityCowButtons).bind(X, toggleVisionKillSwitch());
+    bindings(calamityCow, bind(A, Kommand::toggleVisionKillSwitch));
   }
 }

@@ -8,18 +8,17 @@ import static frc.robot.utils.RobotParameters.LiveRobotValues.*;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.commands.PathfindingCommand;
 import com.pathplanner.lib.pathfinding.Pathfinding;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.Kommand.*;
 import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Swerve;
 import frc.robot.utils.LocalADStarAK;
 import frc.robot.utils.RobotParameters;
 import frc.robot.utils.RobotParameters.FieldParameters.*;
-import frc.robot.commands.Kommand.*;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -136,8 +135,8 @@ public class Robot extends LoggedRobot {
   @Override
   public void autonomousInit() {
     //    autonomousCommand = robotContainer.networkChooser.getSelected();
-    autonomousCommand = new PathPlannerAuto("4l4autoB");
-    //TODO test pidgey.setYaw(180) at the start
+    autonomousCommand = new PathPlannerAuto("4l4autoA");
+    // TODO test pidgey.setYaw(180) at the start
     Swerve.getInstance().flipPidgey();
     autonomousCommand.schedule();
   }
