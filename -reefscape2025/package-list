@@ -315,7 +315,6 @@ $dokka.location:frc.robot.utils.pingu/AlertPingu/add/#com.ctre.phoenix6.hardware
 $dokka.location:frc.robot.utils.pingu/AlertPingu/add/#com.ctre.phoenix6.hardware.TalonFX#kotlin.String/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-alert-pingu/add.html
 $dokka.location:frc.robot.utils.pingu/AlertPingu/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-alert-pingu/periodic.html
 $dokka.location:frc.robot.utils.pingu/Bingu///PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-bingu/index.html
-$dokka.location:frc.robot.utils.pingu/Bingu/bind/#frc.robot.utils.emu.Button#java.lang.Runnable/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-bingu/bind.html
 $dokka.location:frc.robot.utils.pingu/Bingu/bind/#frc.robot.utils.emu.Button#kotlin.Function0[edu.wpi.first.wpilibj2.command.Command]/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-bingu/bind.html
 $dokka.location:frc.robot.utils.pingu/Bingu/bindings/edu.wpi.first.wpilibj.XboxController#kotlin.Array[kotlin.Pair[frc.robot.utils.emu.Button,kotlin.Function0[edu.wpi.first.wpilibj2.command.Command]]]/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-bingu/bindings.html
 $dokka.location:frc.robot.utils.pingu/Bingu/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.pingu/-bingu/periodic.html
