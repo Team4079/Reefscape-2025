@@ -6,11 +6,21 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase
 import frc.robot.utils.emu.Button
 
 /**
+ * Type alias for a Triple consisting of an XboxController, a Button, and a command supplier function.
+ */
+typealias ControllerButtonBinding = Triple<XboxController, Button, () -> Command>
+
+/**
+ * Type alias for a Pair consisting of a Button and a command supplier function.
+ */
+typealias ButtonBinding = Pair<Button, () -> Command>
+
+/**
  * Bingu is a utility object for binding Xbox controller buttons to commands.
  */
 object Bingu : SubsystemBase() {
     /** List to store the mappings of controllers, buttons, and command suppliers */
-    private val buttonMaps: MutableList<Triple<XboxController, Button, () -> Command>> = mutableListOf()
+    private val buttonMaps: MutableList<ControllerButtonBinding> = mutableListOf()
 
     /**
      * Extension function for XboxController to bind multiple button-command pairs.
@@ -19,11 +29,10 @@ object Bingu : SubsystemBase() {
      */
     @JvmStatic
     @SafeVarargs
-    fun XboxController.bindings(vararg pair: Pair<Button, () -> Command>) {
+    fun XboxController.bindings(vararg pair: ButtonBinding) =
         pair.forEach { (button, commandSupplier) ->
             buttonMaps.add(Triple(this, button, commandSupplier))
         }
-    }
 
     /**
      * Creates a pair of a Button and a command supplier function.
@@ -36,7 +45,7 @@ object Bingu : SubsystemBase() {
     fun bind(
         button: Button,
         commandSupplier: () -> Command,
-    ) = button to commandSupplier
+    ): ButtonBinding = button to commandSupplier
 
     /**
      * Periodically checks the state of each button and schedules the corresponding command if the button is pressed.

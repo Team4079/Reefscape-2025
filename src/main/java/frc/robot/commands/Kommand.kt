@@ -15,6 +15,7 @@ import frc.robot.subsystems.Coral
 import frc.robot.subsystems.Elevator
 import frc.robot.subsystems.Swerve
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters.coralScoring
+import frc.robot.utils.RobotParameters.CoralManipulatorParameters.coralState
 import frc.robot.utils.RobotParameters.LiveRobotValues.visionDead
 import frc.robot.utils.RobotParameters.SwerveParameters.PinguParameters.PATH_CONSTRAINTS
 import frc.robot.utils.emu.CoralState
@@ -118,7 +119,7 @@ object Kommand {
     /**
      * Creates a [ParallelCommandGroup] that runs the given commands in parallel.
      *
-     * @param command The commands to run in sequence.
+     * @param block The commands to run in a dsl format.
      * @return A [ParallelCommandGroup] that runs the given commands in parallel.
      */
     fun parallel(block: ParallelBuilder.() -> Unit): ParallelCommandGroup = ParallelBuilder().apply(block).build()
@@ -156,27 +157,15 @@ object Kommand {
      * @return An [InstantCommand] that sets the coral manipulator state.
      */
     @JvmStatic
-    fun setCoralState(state: CoralState) = cmd { Coral.getInstance().setState(state) }
+    fun setCoralState(state: CoralState) = cmd { coralState = state }
 
     /**
-     * Creates an [InstantCommand] to start the coral manipulator motors.
+     * Creates an [InstantCommand] to set the coral scoring state to true, starting the coral scoring process.
      *
-     * @return An [InstantCommand] that starts the coral manipulator motors.
+     * @return An [InstantCommand] that sets the coral scoring state to true.
      */
-    @JvmStatic
-    fun startCoralManipulator() = cmd { Coral.getInstance().setHasPiece(false) }
-
-    // TODO FIX THIS
     @JvmStatic
     fun coralScoring() = cmd { coralScoring = true }
-
-    /**
-     * Creates an [InstantCommand] to stop the coral manipulator motors.
-     *
-     * @return An [InstantCommand] that stops the coral manipulator motors.
-     */
-    @JvmStatic
-    fun stopCoralManipulator() = cmd { Coral.getInstance().stopMotors() }
 
     /**
      * Creates an new [ReverseIntake] command to reverse the intake.
@@ -187,7 +176,9 @@ object Kommand {
     fun reverseIntake() = ReverseIntake()
 
     /**
-     * Creates a new [InstantCommand] to start the coral motors
+     * Creates an [InstantCommand] to start the coral motors.
+     *
+     * @return An [InstantCommand] that starts the coral motors.
      */
     @JvmStatic
     fun startCoralMotors() = cmd { Coral.getInstance().startCoralIntake() }
@@ -293,6 +284,20 @@ object Kommand {
         pose: Pose2d,
     ) = findClosestScoringPositionNotL4(pose, direction)
 
+    /**
+     * Toggles the vision kill switch state.
+     *
+     * @return An [InstantCommand] that toggles the vision kill switch state.
+     */
     @JvmStatic
     fun toggleVisionKillSwitch() = cmd { visionDead = !visionDead }
+
+    /**
+     * Creates an [AlignToPose] command to align the robot to a specified pose.
+     *
+     * @param offsetSide The direction to offset the alignment.
+     * @return An [AlignToPose] command to align the robot to the specified pose.
+     */
+    @JvmStatic
+    fun align(offsetSide: Direction) = AlignToPose(offsetSide)
 }

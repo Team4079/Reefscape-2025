@@ -13,10 +13,8 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utils.RobotParameters.CoralManipulatorParameters;
-import frc.robot.utils.emu.CoralState;
 import frc.robot.utils.pingu.*;
 
 public class Coral extends SubsystemBase {
@@ -29,8 +27,6 @@ public class Coral extends SubsystemBase {
   private final DigitalInput coralSensor;
 
   private boolean motorsRunning = false;
-
-  private Timer coralTimer = new Timer();
 
   /**
    * The Singleton instance of this CoralManipulatorSubsystem. Code should use the {@link
@@ -137,7 +133,6 @@ public class Coral extends SubsystemBase {
 
     logs(
         () -> {
-          //          log("Coral/isCoralIntaking", isCoralIntaking);
           log("Coral/Coral Sensor", getCoralSensor());
           log("Coral/Has Piece", hasPiece);
           log("Coral/Coral Scoring", coralScoring);
@@ -205,18 +200,18 @@ public class Coral extends SubsystemBase {
     CoralManipulatorParameters.hasPiece = hasPiece;
   }
 
-  /** Spins the intake to intake algae */
-  public void spinIntakeAlgae() {
-    voltageOut.Output = 4.0;
-    coralScoreMotor.setControl(voltageOut);
-  }
-
+  /**
+   * Sets the voltage output to -3.0 and controls the coral score motor
+   * to slow down the algae scoring process.
+   */
   public void slowAlgaeScoreMotors() {
     voltageOut.Output = -3.0;
     coralScoreMotor.setControl(voltageOut);
   }
 
-  /** Ejects the algae */
+  /**
+   * Ejects the algae by setting the voltage output to 4.0 and controlling the coral score motor.
+   */
   public void ejectAlgae() {
     voltageOut.Output = 4.0;
     coralScoreMotor.setControl(voltageOut);
@@ -229,14 +224,5 @@ public class Coral extends SubsystemBase {
    */
   public boolean getCoralSensor() {
     return !coralSensor.get();
-  }
-
-  /**
-   * Sets the state of the coral manipulator
-   *
-   * @param state The state to set the coral manipulator to
-   */
-  public void setState(CoralState state) {
-    coralState = state;
   }
 }

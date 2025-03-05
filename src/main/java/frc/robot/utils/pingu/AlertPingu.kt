@@ -7,6 +7,12 @@ import edu.wpi.first.wpilibj.Alert.AlertType.kError
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 
 /**
+ * Type alias for a pair consisting of a device and its corresponding alert.
+ * The device can be any type, and the alert is an instance of WPILib's Alert class.
+ */
+typealias DeviceAlert = Pair<Any, Alert>
+
+/**
  * FRC subsystem that monitors CTRE Phoenix 6 devices and raises alerts for disconnections.
  *
  * This singleton object tracks the connection status of TalonFX motors and CANcoders,
@@ -16,7 +22,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase
  * @property devicePairs Pairs of monitored devices and their corresponding alerts
  */
 object AlertPingu : SubsystemBase() {
-    private val devicePairs = mutableListOf<Pair<Any, Alert>>()
+    private val devicePairs = mutableListOf<DeviceAlert>()
 
     /**
      * Updates connection status for all monitored devices.

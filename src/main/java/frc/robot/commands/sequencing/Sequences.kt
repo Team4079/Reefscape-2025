@@ -1,7 +1,6 @@
 package frc.robot.commands.sequencing
 
-import frc.robot.commands.AlignToPoseAuto
-import frc.robot.commands.AlignToPoseTele
+import frc.robot.commands.Kommand.align
 import frc.robot.commands.Kommand.cancel
 import frc.robot.commands.Kommand.coralScoreFalse
 import frc.robot.commands.Kommand.coralScoring
@@ -15,20 +14,14 @@ import frc.robot.commands.Kommand.waitFor
 import frc.robot.utils.RobotParameters.ElevatorParameters.elevatorToBeSetState
 import frc.robot.utils.emu.CoralState.CORAL_RELEASE
 import frc.robot.utils.emu.Direction
-import frc.robot.utils.emu.ElevatorState
 import frc.robot.utils.emu.ElevatorState.DEFAULT
 
 object Sequences {
-    @JvmStatic
-    fun variableScore(state: ElevatorState) =
-        sequential {
-            +moveElevatorState(state)
-            +setCoralState(CORAL_RELEASE)
-            +waitFor(0.3)
-            +setElevatorState(DEFAULT)
-            +hasPieceFalse()
-        }
-
+    /**
+     * Creates a sequence of commands to reset the scoring mechanism.
+     *
+     * @return A sequential command group.
+     */
     @JvmStatic
     fun resetScore() =
         sequential {
@@ -38,38 +31,42 @@ object Sequences {
             +hasPieceFalse()
         }
 
+    /**
+     * Creates a full scoring sequence for the current eleveator state in autonomous mode.
+     *
+     * Moving the elevator state to L4 and default is already accounted for in event markers.
+     *
+     * @param offsetSide The direction to offset the alignment.
+     * @return A sequential command group.
+     */
     @JvmStatic
-    fun fullScoreAuto(
-        offsetSide: Direction,
-        state: ElevatorState,
-    ) = sequential {
-        +parallel {
-//            +moveElevatorState(state)
-            +AlignToPoseAuto(offsetSide).withTimeout(0.7157)
+    fun fullScoreAuto(offsetSide: Direction) =
+        sequential {
+            +align(offsetSide).withTimeout(0.7157)
+            +coralScoring()
+            +setCoralState(CORAL_RELEASE)
+            +waitFor(0.3)
+            +coralScoreFalse()
+            +hasPieceFalse()
         }
-        +coralScoring()
-        +setCoralState(CORAL_RELEASE)
-        +waitFor(0.3)
-        // TODO MOVE BACK (prob with on the fly move back 0.5 meter path) jayden u should do this
-        // cuz shawn's lazy
-        // +setElevatorState(DEFAULT)
-        +coralScoreFalse()
-        +hasPieceFalse()
-    }
 
+    /**
+     * Creates a full scoring sequence for teleoperated mode.
+     *
+     * @param offsetSide The direction to offset the alignment.
+     * @return A sequential command group.
+     */
     @JvmStatic
     fun fullScore(offsetSide: Direction) =
         sequential {
             +parallel {
                 +moveElevatorState(elevatorToBeSetState)
-                +AlignToPoseTele(offsetSide).withTimeout(1.5)
+                +align(offsetSide).withTimeout(1.5)
             }
             +waitFor(0.1)
             +coralScoring()
             +setCoralState(CORAL_RELEASE)
             +waitFor(0.1)
-            // TODO: MOVE BACK (prob with on the fly move back 0.5 meter path) jayden u should do this
-            // cuz shawn's lazy
             +setElevatorState(DEFAULT)
             +coralScoreFalse()
             +hasPieceFalse()

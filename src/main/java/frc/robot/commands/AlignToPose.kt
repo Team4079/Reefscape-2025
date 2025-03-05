@@ -51,8 +51,6 @@ open class AlignToPose(
     override fun initialize() {
         addRequirements(Swerve.getInstance())
 
-        this.offsetSide = offsetSide
-
         // Update the list of coral scoring positions to the correct side (hopefully)
         currentPose = Swerve.getInstance().pose2Dfrom3D
 
@@ -68,24 +66,50 @@ open class AlignToPose(
                 moveToClosestCoralScoreNotL4(offsetSide, Swerve.getInstance().pose2Dfrom3D)!!
             }
 
-        xController = X_PINGU.profiledPIDController
-        xController.setTolerance(0.015)
-        xController.setConstraints(PROFILE_CONSTRAINTS)
-        xController.setGoal(targetPose.x)
-        xController.reset(currentPose.x)
+        xController =
+            X_PINGU.profiledPIDController.apply {
+                setTolerance(0.015)
+                setConstraints(PROFILE_CONSTRAINTS)
+                setGoal(targetPose.x)
+                reset(currentPose.x)
+            }
 
-        yController = Y_PINGU.profiledPIDController
-        yController.setTolerance(0.015)
-        yController.setConstraints(PROFILE_CONSTRAINTS)
-        yController.setGoal(targetPose.y)
-        yController.reset(currentPose.y)
+        yController =
+            Y_PINGU.profiledPIDController.apply {
+                setTolerance(0.015)
+                setConstraints(PROFILE_CONSTRAINTS)
+                setGoal(targetPose.y)
+                reset(currentPose.y)
+            }
 
-        rotationalController = ROTATIONAL_PINGU.profiledPIDController
-        rotationalController.setTolerance(2.0)
-        rotationalController.setConstraints(TrapezoidProfile.Constraints(5.0, 5.0))
-        rotationalController.setGoal(targetPose.rotation.degrees)
-        rotationalController.reset(currentPose.rotation.degrees)
-        rotationalController.enableContinuousInput(-180.0, 180.0)
+        rotationalController =
+            ROTATIONAL_PINGU.profiledPIDController.apply {
+                setTolerance(2.0)
+                setConstraints(TrapezoidProfile.Constraints(5.0, 5.0))
+                setGoal(targetPose.rotation.degrees)
+                reset(currentPose.rotation.degrees)
+                enableContinuousInput(-180.0, 180.0)
+            }
+    }
+
+    /**
+     * The main body of a command. Called repeatedly while the command is scheduled. (That is, it is
+     * called repeatedly until [.isFinished]) returns true.
+     *
+     *
+     * Refer to commit 9c00e5 for the old method of aligning the robot.
+     */
+    override fun execute() {
+        currentPose = Swerve.getInstance().pose2Dfrom3D
+        Swerve
+            .getInstance()
+            .setDriveSpeeds(
+                xController.calculate(currentPose.x),
+                yController.calculate(currentPose.y),
+                rotationalController.calculate(currentPose.rotation.degrees),
+                true,
+            )
+        alignLogs()
     }
 
     /**

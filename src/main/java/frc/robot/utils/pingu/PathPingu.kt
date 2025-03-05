@@ -8,7 +8,6 @@ import frc.robot.utils.emu.Direction
  * Type alias for a list of scoring positions, each defined by an Translation2d AprilTag location,
  * a reef scoring Pose2d location for the left coral, and a Pose2d location for the right coral.
  * The april tag position is to find the closest pair of reef scoring positions.
- * Sorry Om I barely know how to code in Kotlin :(
  */
 typealias CoralScore = Triple<Translation2d, Pose2d, Pose2d>
 
