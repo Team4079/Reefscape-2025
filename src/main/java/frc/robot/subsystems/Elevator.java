@@ -171,6 +171,11 @@ public class Elevator extends SubsystemBase {
     //    motionMagicVoltage.EnableFOC = true;
     //    motionMagicVoltage.FeedForward = 0;
 
+    //TODO test elevator with FOC, increase accleration, cruise velocity, and graph it all to see how to speed it up
+    //reduce timeouts for automatic scoring, autoalign speed it up even more, test in autonomous with 180 command
+    //algae and intake prob add or remove idkk yet
+
+
     velocityRequest.OverrideCoastDurNeutral = false;
 
     voltageOut.OverrideBrakeDurNeutral = false;
