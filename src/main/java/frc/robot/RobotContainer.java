@@ -42,7 +42,6 @@ public class RobotContainer {
         .bind("ScoreL4Right", fullScoreAuto(RIGHT, L4))
         .bind("HasPieceFalse", hasPieceFalse())
         .bind("MoveElevatorL4Auto", moveElevatorState(L4))
-
         .bind("SetL1", setElevatorState(L1))
         .bind("SetL2", setElevatorState(L2))
         .bind("SetL3", setElevatorState(L3))

@@ -21,11 +21,12 @@ public class AlignToPoseTele extends AlignToPose {
   @Override
   public void execute() {
     currentPose = Swerve.getInstance().getPose2Dfrom3D();
-    Swerve.getInstance().setDriveSpeeds(
-        xController.calculate(currentPose.getX()),
-        yController.calculate(currentPose.getY()),
-        rotationalController.calculate(currentPose.getRotation().getDegrees()),
-        true);
+    Swerve.getInstance()
+        .setDriveSpeeds(
+            xController.calculate(currentPose.getX()),
+            yController.calculate(currentPose.getY()),
+            rotationalController.calculate(currentPose.getRotation().getDegrees()),
+            true);
     alignLogs();
   }
 }
