@@ -62,6 +62,7 @@ $dokka.location:frc.robot.commands/Kommand/reverseIntake/#/PointingToDeclaration
 $dokka.location:frc.robot.commands/Kommand/sequential/#kotlin.Function1[frc.robot.commands.Kommand.SequentialBuilder,kotlin.Unit]/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/sequential.html
 $dokka.location:frc.robot.commands/Kommand/setCoralState/#frc.robot.utils.emu.CoralState/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/set-coral-state.html
 $dokka.location:frc.robot.commands/Kommand/setElevatorState/#frc.robot.utils.emu.ElevatorState/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/set-elevator-state.html
+$dokka.location:frc.robot.commands/Kommand/setIntakeAlgae/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/set-intake-algae.html
 $dokka.location:frc.robot.commands/Kommand/setTelePid/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/set-tele-pid.html
 $dokka.location:frc.robot.commands/Kommand/startCoralMotors/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/start-coral-motors.html
 $dokka.location:frc.robot.commands/Kommand/toggleVisionKillSwitch/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/toggle-vision-kill-switch.html
@@ -84,7 +85,14 @@ $dokka.location:frc.robot.commands/ReverseIntake/end/#boolean/PointingToDeclarat
 $dokka.location:frc.robot.commands/ReverseIntake/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-reverse-intake/execute.html
 $dokka.location:frc.robot.commands/ReverseIntake/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-reverse-intake/initialize.html
 $dokka.location:frc.robot.commands/ReverseIntake/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-reverse-intake/is-finished.html
+$dokka.location:frc.robot.commands/ToggleAlgaeIntakeKt///PointingToDeclaration/-reefscape2025/frc.robot.commands/-toggle-algae-intake-kt/index.html
+$dokka.location:frc.robot.commands/ToggleAlgaeIntakeKt/getToggleIntakeAlgae/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-toggle-algae-intake-kt/get-toggle-intake-algae.html
 $dokka.location:frc.robot.subsystems////PointingToDeclaration/-reefscape2025/frc.robot.subsystems/index.html
+$dokka.location:frc.robot.subsystems/Algae///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-algae/index.html
+$dokka.location:frc.robot.subsystems/Algae/getInstance/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-algae/get-instance.html
+$dokka.location:frc.robot.subsystems/Algae/getPivotPosValue/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-algae/get-pivot-pos-value.html
+$dokka.location:frc.robot.subsystems/Algae/periodic/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-algae/periodic.html
+$dokka.location:frc.robot.subsystems/Algae/setPivotPos/#frc.robot.utils.emu.AlgaePivotState/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-algae/set-pivot-pos.html
 $dokka.location:frc.robot.subsystems/Coral///PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-coral/index.html
 $dokka.location:frc.robot.subsystems/Coral/algaeIntake/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-coral/algae-intake.html
 $dokka.location:frc.robot.subsystems/Coral/ejectAlgae/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-coral/eject-algae.html
@@ -211,6 +219,13 @@ $dokka.location:frc.robot.subsystems/SwerveModule/setTelePID/#/PointingToDeclara
 $dokka.location:frc.robot.subsystems/SwerveModule/stop/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/stop.html
 $dokka.location:frc.robot.subsystems/SwerveModule/updateTelePID/#/PointingToDeclaration/-reefscape2025/frc.robot.subsystems/-swerve-module/update-tele-p-i-d.html
 $dokka.location:frc.robot.utils.emu////PointingToDeclaration/-reefscape2025/frc.robot.utils.emu/index.html
+$dokka.location:frc.robot.utils.emu/AlgaeCounter.DEFAULT///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils.emu/-algae-counter/-d-e-f-a-u-l-t/index.html
+$dokka.location:frc.robot.utils.emu/AlgaeCounter.INTAKE///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils.emu/-algae-counter/-i-n-t-a-k-e/index.html
+$dokka.location:frc.robot.utils.emu/AlgaeCounter///PointingToDeclaration/-reefscape2025/frc.robot.utils.emu/-algae-counter/index.html
+$dokka.location:frc.robot.utils.emu/AlgaeCounter/getEntries/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.emu/-algae-counter/get-entries.html
+$dokka.location:frc.robot.utils.emu/AlgaeCounter/getNext/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.emu/-algae-counter/get-next.html
+$dokka.location:frc.robot.utils.emu/AlgaeCounter/valueOf/#kotlin.String/PointingToDeclaration/-reefscape2025/frc.robot.utils.emu/-algae-counter/value-of.html
+$dokka.location:frc.robot.utils.emu/AlgaeCounter/values/#/PointingToDeclaration/-reefscape2025/frc.robot.utils.emu/-algae-counter/values.html
 $dokka.location:frc.robot.utils.emu/AlgaePivotState.DOWN///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils.emu/-algae-pivot-state/-d-o-w-n/index.html
 $dokka.location:frc.robot.utils.emu/AlgaePivotState.HOLD///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils.emu/-algae-pivot-state/-h-o-l-d/index.html
 $dokka.location:frc.robot.utils.emu/AlgaePivotState.RELEASE///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}-reefscape2025/frc.robot.utils.emu/-algae-pivot-state/-r-e-l-e-a-s-e/index.html
