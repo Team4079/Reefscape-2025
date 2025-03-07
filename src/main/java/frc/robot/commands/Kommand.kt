@@ -236,6 +236,14 @@ object Kommand {
         )
 
     /**
+     * Creates an [InstantCommand] to set the intake to algae.
+     *
+     * @return An [InstantCommand] that sets the intake to algae.
+     */
+    @JvmStatic
+    fun setIntakeAlgae() = toggleIntakeAlgae
+
+    /**
      * Creates a [PadDrive] command to control the elevator.
      *
      * @param controller The gaming controller used to move the elevator.

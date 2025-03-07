@@ -71,7 +71,7 @@ public class RobotContainer {
         // bind(B, () -> align(CENTER).onlyWhile(pad::getAButton)),
         bind(B, Sequences::resetScore),
         // bind(B, () -> createPathfindingCmd(reefs.get(0))),
-        // bind(A, Kommand::setIntakeAlgae),
+         bind(A, Kommand::setIntakeAlgae),
         // bind(A, () -> align(RIGHT)),
         bind(Y, Kommand::startCoralMotors),
         bind(X, () -> reverseIntake().onlyWhile(aacrn::getXButton)),

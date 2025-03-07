@@ -20,6 +20,7 @@ import edu.wpi.first.units.Units.Feet
 import edu.wpi.first.units.Units.Inches
 import edu.wpi.first.units.measure.Distance
 import edu.wpi.first.wpilibj.DriverStation
+import frc.robot.utils.emu.AlgaeCounter
 import frc.robot.utils.emu.AlgaePivotState
 import frc.robot.utils.emu.CoralState
 import frc.robot.utils.emu.ElevatorState
@@ -62,7 +63,9 @@ object RobotParameters {
         const val MAX_ANGULAR_SPEED: Double = (14 * PI) / 3
         const val STEER_MOTOR_GEAR_RATIO: Double = 150.0 / 7
         const val DRIVE_MOTOR_GEAR_RATIO: Double = 6.750000000000000
-        private const val WHEEL_DIAMETER: Double = 0.106
+        private const val WHEEL_DIAMETER: Double = 0.116
+        // new treads so i increased
+
 
         // TODO CALIBRATE WHEELS
         const val METERS_PER_REV: Double = WHEEL_DIAMETER * PI * 0.99
@@ -246,6 +249,9 @@ object RobotParameters {
 
         @JvmField
         var algaeIntaking: Boolean = false
+
+        @JvmField
+        var algaeCounter: AlgaeCounter = AlgaeCounter.INTAKE
     }
 
     object CoralManipulatorParameters {
