@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.629,
-        "y": 7.365
+        "x": 1.729,
+        "y": 7.265
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8620923866013543,
-        "y": 7.118276089441847
+        "x": 1.9620923866013544,
+        "y": 7.018276089441846
       },
       "isLocked": false,
       "linkedName": null
@@ -31,10 +31,22 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "MoveElevatorL4Auto",
+      "waypointRelativePos": 0.3557046979865779,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "MoveElevatorL4Auto"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

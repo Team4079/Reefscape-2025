@@ -22,11 +22,9 @@ enum class ElevatorState(
     L3(37.0),
 
     /** Represents the fourth level of the elevator.  */
-    L4(64.0),
+    L4(64.5),
 
-    ALGAE_LOW(26.0),
+    ALGAE_LOW(40.0),
 
-    ALGAE_HIGH(42.01),
-
-    ALGAE_HOLD(5.0),
+    ALGAE_HIGH(58.01)
 }

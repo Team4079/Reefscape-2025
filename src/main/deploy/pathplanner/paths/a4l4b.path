@@ -20,8 +20,8 @@
         "y": 2.961800986842105
       },
       "prevControl": {
-        "x": 5.097508187513579,
-        "y": 3.2569049033665753
+        "x": 5.166429444029452,
+        "y": 3.19028832374257
       },
       "nextControl": null,
       "isLocked": false,
@@ -34,7 +34,7 @@
   "eventMarkers": [
     {
       "name": "MoveElevatorL4Auto",
-      "waypointRelativePos": 0.45469798657718025,
+      "waypointRelativePos": 0.21308724832214768,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -46,7 +46,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

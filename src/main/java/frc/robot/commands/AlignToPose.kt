@@ -3,6 +3,7 @@ package frc.robot.commands
 import edu.wpi.first.math.controller.ProfiledPIDController
 import edu.wpi.first.math.geometry.Pose2d
 import edu.wpi.first.math.trajectory.TrapezoidProfile
+import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.Timer
 import edu.wpi.first.wpilibj2.command.Command
 import frc.robot.commands.Kommand.moveToClosestCoralScore
@@ -20,6 +21,7 @@ import frc.robot.utils.emu.ElevatorState
 import frc.robot.utils.pingu.LogPingu.log
 import frc.robot.utils.pingu.LogPingu.logs
 import frc.robot.utils.pingu.PathPingu.clearCoralScoringPositions
+import java.sql.Driver
 
 /**
  * Command to align the robot to a specific pose.
@@ -101,14 +103,30 @@ open class AlignToPose(
      */
     override fun execute() {
         currentPose = Swerve.getInstance().pose2Dfrom3D
-        Swerve
-            .getInstance()
-            .setDriveSpeeds(
-                xController.calculate(currentPose.x),
-                yController.calculate(currentPose.y),
-                rotationalController.calculate(currentPose.rotation.degrees),
-                true,
+        if (
+            (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue) && DriverStation.isTeleop())
+            ||
+            (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Red) && DriverStation.isAutonomous())
             )
+        {
+            Swerve
+                .getInstance()
+                .setDriveSpeeds(
+                    xController.calculate(currentPose.x),
+                    yController.calculate(currentPose.y),
+                    rotationalController.calculate(currentPose.rotation.degrees),
+                    true,
+                )
+        } else {
+            Swerve
+                .getInstance()
+                .setDriveSpeeds(
+                    -xController.calculate(currentPose.x),
+                    -yController.calculate(currentPose.y),
+                    rotationalController.calculate(currentPose.rotation.degrees),
+                    true,
+                )
+        }
         alignLogs()
     }
 
@@ -118,12 +136,12 @@ open class AlignToPose(
      * @return True if the command is finished, false otherwise.
      */
     override fun isFinished(): Boolean {
-        if (controllersAtSetpoint || visionDead) {
+        if ((rotationalController.atSetpoint() && yController.atSetpoint() && xController.atSetpoint()) || visionDead) {
             timer.start()
         } else {
             timer.reset()
         }
-        return timer.hasElapsed(0.15)
+        return timer.hasElapsed(0.2)
     }
 
     /**

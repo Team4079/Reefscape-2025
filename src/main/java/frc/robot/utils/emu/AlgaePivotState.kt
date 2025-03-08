@@ -10,14 +10,8 @@ enum class AlgaePivotState(
     @JvmField val intakeSpeed: Double,
 ) {
     /** Represents the pivot when it is ready to intake */
-    DOWN(2.0, 4.0),
+    DOWN(3.5, 4.0),
 
     /** Represents the pivot when it is up and stowed (most of the time) */
-    UP(0.0, 0.0),
-
-    /** Represents the pivot when it is in the process of intaking algae */
-    HOLD(1.78, 2.0),
-
-    /** Represents the pivot when it is in the process of scoring algae */
-    RELEASE(2.0, -4.0),
+    UP(0.0, 0.0)
 }

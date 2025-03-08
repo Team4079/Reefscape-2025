@@ -35,6 +35,7 @@ public class RobotContainer {
 
     Elevator.getInstance().setDefaultCommand(padElevator(aacrn, calamityCow));
     Coral.getInstance();
+    Algae.getInstance();
     Swerve.getInstance().setDefaultCommand(drive(aacrn));
 
     new CommandPingu()

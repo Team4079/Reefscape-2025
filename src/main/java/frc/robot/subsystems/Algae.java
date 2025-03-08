@@ -114,7 +114,7 @@ public class Algae extends SubsystemBase {
                     log("Algae/Algae Pivot Motor Position", getPivotPosValue());
                     log("Algae/Algae State", algaePivotState.toString());
                     log("Algae/IsAlgaeIntaking", algaeIntaking);
-                    log("Algae/Algae counter", algaeCounter);
+                    log("Algae/Algae counter", algaeCounter.toString());
                     log(
                             "Algae/Disconnected algaeManipulatorMotor " + algaePivotMotor.getDeviceID(),
                             algaePivotMotor.isConnected());

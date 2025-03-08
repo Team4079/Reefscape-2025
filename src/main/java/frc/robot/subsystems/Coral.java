@@ -20,6 +20,7 @@ import frc.robot.utils.pingu.*;
 public class Coral extends SubsystemBase {
   private final TalonFX coralFeederMotor;
   private final TalonFX coralScoreMotor;
+  private final TalonFX starFeederMotor;
 
   private final VoltageOut voltageOut;
   private final VoltageOut voltageOutFeeder;
@@ -53,15 +54,17 @@ public class Coral extends SubsystemBase {
   private Coral() {
     coralFeederMotor = new TalonFX(CORAL_FEEDER_ID);
     coralScoreMotor = new TalonFX(CORAL_SCORE_ID);
+    starFeederMotor = new TalonFX(STAR_FEEDER_ID);
 
     coralSensor = new DigitalInput(CoralManipulatorParameters.CORAL_SENSOR_ID);
 
     TalonFXConfiguration coralFeederConfiguration = new TalonFXConfiguration();
     TalonFXConfiguration coralScoreConfiguration = new TalonFXConfiguration();
+    TalonFXConfiguration starFeederConfiguration = new TalonFXConfiguration();
 
     coralFeederConfiguration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-
     coralScoreConfiguration.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    starFeederConfiguration.MotorOutput.NeutralMode = NeutralModeValue.Coast;
 
     coralFeederConfiguration.Slot0.kP = CORAL_FEEDER_PINGU.getP();
     coralFeederConfiguration.Slot0.kI = CORAL_FEEDER_PINGU.getI();
@@ -73,6 +76,7 @@ public class Coral extends SubsystemBase {
 
     CurrentLimitsConfigs upMotorCurrentConfig = new CurrentLimitsConfigs();
     CurrentLimitsConfigs coralScoreCurrentConfig = new CurrentLimitsConfigs();
+    CurrentLimitsConfigs starFeederCurrentConfig = new CurrentLimitsConfigs();
 
     upMotorCurrentConfig.SupplyCurrentLimit = 40;
     upMotorCurrentConfig.SupplyCurrentLimitEnable = true;
@@ -84,21 +88,30 @@ public class Coral extends SubsystemBase {
     coralScoreCurrentConfig.StatorCurrentLimit = 40;
     coralScoreCurrentConfig.StatorCurrentLimitEnable = true;
 
+    starFeederCurrentConfig.SupplyCurrentLimit = 40;
+    starFeederCurrentConfig.SupplyCurrentLimitEnable = true;
+    starFeederCurrentConfig.StatorCurrentLimit = 40;
+    starFeederCurrentConfig.StatorCurrentLimitEnable = true;
+
     coralFeederMotor.getConfigurator().apply(upMotorCurrentConfig);
     coralScoreMotor.getConfigurator().apply(coralScoreCurrentConfig);
+    starFeederMotor.getConfigurator().apply(starFeederCurrentConfig);
 
     // on
     coralFeederConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     coralScoreConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    starFeederConfiguration.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
 
     coralScoreMotor.getConfigurator().apply(coralScoreConfiguration);
     coralFeederMotor.getConfigurator().apply(coralFeederConfiguration);
+    starFeederMotor.getConfigurator().apply(starFeederConfiguration);
 
     voltageOut = new VoltageOut(0);
     voltageOutFeeder = new VoltageOut(0);
 
     AlertPingu.add(coralFeederMotor, "coral feeder");
     AlertPingu.add(coralScoreMotor, "coral score");
+    AlertPingu.add(starFeederMotor, "Star Feeder Motor");
   }
 
   /**
@@ -115,6 +128,7 @@ public class Coral extends SubsystemBase {
   public void periodic() {
     voltageOutFeeder.Output = 5;
     coralFeederMotor.setControl(voltageOutFeeder);
+    starFeederMotor.setControl(voltageOutFeeder);
 
     if (!algaeIntaking && !coralScoring) {
       if (!getCoralSensor() && !hasPiece) {

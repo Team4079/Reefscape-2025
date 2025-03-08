@@ -55,7 +55,7 @@ object RobotParameters {
         const val CORAL_SCORE_ID: Int = 15
         const val PIDGEY_ID: Int = 16
         const val ALGAE_PIVOT_MOTOR_ID: Int = 17
-        const val ALGAE_INTAKE_MOTOR_ID: Int = 18
+        const val STAR_FEEDER_ID: Int = 18
         const val CORAL_FEEDER_ID: Int = 19
 
         // Motor Property Values
@@ -63,7 +63,7 @@ object RobotParameters {
         const val MAX_ANGULAR_SPEED: Double = (14 * PI) / 3
         const val STEER_MOTOR_GEAR_RATIO: Double = 150.0 / 7
         const val DRIVE_MOTOR_GEAR_RATIO: Double = 6.750000000000000
-        private const val WHEEL_DIAMETER: Double = 0.116
+        private const val WHEEL_DIAMETER: Double = 0.106
         // new treads so i increased
 
 
