@@ -28,6 +28,12 @@ $dokka.location:frc.robot.commands/AlignToPose/setTargetPose/#edu.wpi.first.math
 $dokka.location:frc.robot.commands/AlignToPose/setTimer/#edu.wpi.first.wpilibj.Timer/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose/set-timer.html
 $dokka.location:frc.robot.commands/AlignToPose/setXController/#edu.wpi.first.math.controller.ProfiledPIDController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose/set-x-controller.html
 $dokka.location:frc.robot.commands/AlignToPose/setYController/#edu.wpi.first.math.controller.ProfiledPIDController/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose/set-y-controller.html
+$dokka.location:frc.robot.commands/AlignToPoseAuto///PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose-auto/index.html
+$dokka.location:frc.robot.commands/AlignToPoseAuto/AlignToPoseAuto/#frc.robot.utils.emu.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose-auto/-align-to-pose-auto.html
+$dokka.location:frc.robot.commands/AlignToPoseAuto/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose-auto/end.html
+$dokka.location:frc.robot.commands/AlignToPoseAuto/execute/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose-auto/execute.html
+$dokka.location:frc.robot.commands/AlignToPoseAuto/initialize/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose-auto/initialize.html
+$dokka.location:frc.robot.commands/AlignToPoseAuto/isFinished/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-align-to-pose-auto/is-finished.html
 $dokka.location:frc.robot.commands/Calibration///PointingToDeclaration/-reefscape2025/frc.robot.commands/-calibration/index.html
 $dokka.location:frc.robot.commands/Calibration/Calibration/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-calibration/-calibration.html
 $dokka.location:frc.robot.commands/Calibration/end/#boolean/PointingToDeclaration/-reefscape2025/frc.robot.commands/-calibration/end.html
@@ -44,6 +50,7 @@ $dokka.location:frc.robot.commands/Kommand.SequentialBuilder/build/#/PointingToD
 $dokka.location:frc.robot.commands/Kommand.SequentialBuilder/unaryPlus/edu.wpi.first.wpilibj2.command.Command#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/-sequential-builder/unary-plus.html
 $dokka.location:frc.robot.commands/Kommand///PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/index.html
 $dokka.location:frc.robot.commands/Kommand/align/#frc.robot.utils.emu.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/align.html
+$dokka.location:frc.robot.commands/Kommand/alignAuto/#frc.robot.utils.emu.Direction/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/align-auto.html
 $dokka.location:frc.robot.commands/Kommand/cancel/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/cancel.html
 $dokka.location:frc.robot.commands/Kommand/cmd/#kotlin.Array[edu.wpi.first.wpilibj2.command.Subsystem]#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/cmd.html
 $dokka.location:frc.robot.commands/Kommand/coralScoreFalse/#/PointingToDeclaration/-reefscape2025/frc.robot.commands/-kommand/coral-score-false.html
