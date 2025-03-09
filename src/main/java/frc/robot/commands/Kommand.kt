@@ -317,4 +317,7 @@ object Kommand {
      */
     @JvmStatic
     fun align(offsetSide: Direction) = AlignToPose(offsetSide)
+
+    @JvmStatic
+    fun alignAuto(offsetSide: Direction) = AlignToPoseAuto(offsetSide)
 }

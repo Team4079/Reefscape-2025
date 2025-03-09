@@ -1,6 +1,7 @@
 package frc.robot.commands.sequencing
 
 import frc.robot.commands.Kommand.align
+import frc.robot.commands.Kommand.alignAuto
 import frc.robot.commands.Kommand.cancel
 import frc.robot.commands.Kommand.coralScoreFalse
 import frc.robot.commands.Kommand.coralScoring
@@ -42,7 +43,7 @@ object Sequences {
     @JvmStatic
     fun fullScoreAuto(offsetSide: Direction) =
         sequential {
-            +align(offsetSide).withTimeout(1.25)
+            +alignAuto(offsetSide).withTimeout(1.25)
             +coralScoring()
             +setCoralState(CORAL_RELEASE)
             +waitFor(0.5)
