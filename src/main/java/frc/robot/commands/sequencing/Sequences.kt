@@ -43,7 +43,7 @@ object Sequences {
     @JvmStatic
     fun fullScoreAuto(offsetSide: Direction) =
         sequential {
-            +alignAuto(offsetSide).withTimeout(1.25)
+            +align(offsetSide).withTimeout(1.25)
             +coralScoring()
             +setCoralState(CORAL_RELEASE)
             +waitFor(0.5)
