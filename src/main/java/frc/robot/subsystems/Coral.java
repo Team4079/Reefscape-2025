@@ -191,6 +191,7 @@ public class Coral extends SubsystemBase {
   public void reverseMotors() {
     coralFeederMotor.setControl(VoltagePingu.setOutput(-4.5));
     coralScoreMotor.setControl(VoltagePingu.setOutput(-4.5));
+    starFeederMotor.setControl(VoltagePingu.setOutput(-4.5));
     this.motorsRunning = true;
   }
 

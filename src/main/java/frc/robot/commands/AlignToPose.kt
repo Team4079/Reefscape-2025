@@ -86,7 +86,7 @@ open class AlignToPose(
 
         rotationalController =
             ROTATIONAL_PINGU.profiledPIDController.apply {
-                setTolerance(2.0)
+                setTolerance(4.0)
                 setConstraints(TrapezoidProfile.Constraints(5.0, 5.0))
                 setGoal(targetPose.rotation.degrees)
                 reset(currentPose.rotation.degrees)
@@ -104,9 +104,9 @@ open class AlignToPose(
     override fun execute() {
         currentPose = Swerve.getInstance().pose2Dfrom3D
         if (
-            (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Blue) && DriverStation.isTeleop())
+            ((DriverStation.getAlliance().get() == DriverStation.Alliance.Blue) && DriverStation.isTeleop())
             ||
-            (DriverStation.getAlliance().get().equals(DriverStation.Alliance.Red) && DriverStation.isAutonomous())
+            ((DriverStation.getAlliance().get() == DriverStation.Alliance.Red) && DriverStation.isAutonomous())
             )
         {
             Swerve
@@ -164,6 +164,7 @@ open class AlignToPose(
             log("AlignToPose/X Set ", xController.setpoint.position)
             log("AlignToPose/X Goal ", xController.goal.position)
             log("AlignToPose/Rotational Controller Setpoint", rotationalController.atSetpoint())
+            log("AligntoPOse/Heading got from odometry", currentPose.rotation.degrees)
             log("AlignToPose/Y Controller Setpoint", yController.atSetpoint())
             log("AlignToPose/X Controller Setpoint ", xController.atSetpoint())
             log(

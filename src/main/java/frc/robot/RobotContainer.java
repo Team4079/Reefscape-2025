@@ -64,6 +64,7 @@ public class RobotContainer {
    * {@link CommandGenericHID}'s subclasses for {@link CommandXboxController}/{@link
    * CommandPS4Controller} controllers or {@link CommandJoystick}.
    */
+
   private void configureBindings() {
     bindings(
         aacrn,
@@ -79,6 +80,7 @@ public class RobotContainer {
         bind(RIGHT_BUMPER, () -> fullScore(RIGHT)),
         bind(LEFT_BUMPER, () -> fullScore(LEFT)));
 
-    bindings(calamityCow, bind(A, Kommand::toggleVisionKillSwitch));
+    bindings(calamityCow, bind(A, Kommand::offVision));
+    bindings(calamityCow, bind(B, Kommand::onVision));
   }
 }

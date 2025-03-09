@@ -42,10 +42,10 @@ object Sequences {
     @JvmStatic
     fun fullScoreAuto(offsetSide: Direction) =
         sequential {
-            +align(offsetSide).withTimeout(0.7157)
+            +align(offsetSide).withTimeout(1.25)
             +coralScoring()
             +setCoralState(CORAL_RELEASE)
-            +waitFor(0.3)
+            +waitFor(0.5)
             +coralScoreFalse()
             +hasPieceFalse()
         }
@@ -61,12 +61,12 @@ object Sequences {
         sequential {
             +parallel {
                 +moveElevatorState(elevatorToBeSetState)
-                +align(offsetSide).withTimeout(1.5)
+                +align(offsetSide).withTimeout(2.0)
             }
             +waitFor(0.1)
             +coralScoring()
             +setCoralState(CORAL_RELEASE)
-            +waitFor(0.1)
+            +waitFor(0.5)
             +setElevatorState(DEFAULT)
             +coralScoreFalse()
             +hasPieceFalse()

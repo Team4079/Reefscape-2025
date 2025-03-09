@@ -298,7 +298,16 @@ object Kommand {
      * @return An [InstantCommand] that toggles the vision kill switch state.
      */
     @JvmStatic
-    fun toggleVisionKillSwitch() = cmd { visionDead = !visionDead }
+    fun offVision() = cmd { visionDead = false }
+
+
+    /**
+     * Toggles the vision kill switch state.
+     *
+     * @return An [InstantCommand] that toggles the vision kill switch state.
+     */
+    @JvmStatic
+    fun onVision() = cmd { visionDead = true }
 
     /**
      * Creates an [AlignToPose] command to align the robot to a specified pose.

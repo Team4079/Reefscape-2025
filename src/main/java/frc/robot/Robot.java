@@ -131,10 +131,11 @@ public class Robot extends LoggedRobot {
     setCurrentThreadPriority(false, 99);
   }
 
-  /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
+  /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. **/
   @Override
   public void autonomousInit() {
     //    autonomousCommand = robotContainer.networkChooser.getSelected();
+    flipPidgey();
     autonomousCommand = new PathPlannerAuto("4l4autoA");
     autonomousCommand.schedule();
   }
