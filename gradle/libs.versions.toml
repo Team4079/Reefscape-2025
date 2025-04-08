@@ -1,6 +1,6 @@
 [versions]
 dokka = "2.0.0"
-spotless = "7.0.2"
+spotless = "7.0.3"
 gradleRIO = "2025.3.2"
 junit = "5.12.1"
 
