@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>LEDState</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+            <a class="library-name--link" href="../../../index.html">
+                    Reefscape-2025
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active=""
+                        data-filter=":/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":/main"
+                                       data-filter=":/main"/>
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                        data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    Reefscape-2025
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="Reefscape-2025::frc.robot.utils.emu/LEDState///PointingToDeclaration//-251573632">
+  <div class="breadcrumbs"><a href="../../../index.html">Reefscape-2025</a><span class="delimiter">/</span><a href="../index.html">frc.robot.utils.emu</a><span class="delimiter">/</span><span class="current">LEDState</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>LEDState</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">enum </span><a href="index.html">LEDState</a><span class="token keyword"> extends </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Enum.html">Enum</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">LEDState</a><span class="token operator">&gt;</span></div><p class="paragraph">The LEDState enum represents the color scheme of the LEDs. Each constant in this enum corresponds to a different LED color pattern or effect.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="ENTRY">
+        <h2 class="">Entries</h2>
+        <div class="table"><a data-name="1838724281%2FClasslikes%2F-251573632" anchor-label="RAINBOW_FLOW" id="1838724281%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-a-i-n-b-o-w_-f-l-o-w/index.html">RAINBOW_FLOW</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1838724281%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-r-a-i-n-b-o-w_-f-l-o-w/index.html">RAINBOW_FLOW</a></div><div class="brief "><p class="paragraph">Represents a flowing rainbow color pattern.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="893419547%2FClasslikes%2F-251573632" anchor-label="HIGHTIDE_FLOW" id="893419547%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-h-i-g-h-t-i-d-e_-f-l-o-w/index.html">HIGHTIDE_FLOW</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="893419547%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-h-i-g-h-t-i-d-e_-f-l-o-w/index.html">HIGHTIDE_FLOW</a></div><div class="brief "><p class="paragraph">Represents a flowing color pattern themed after Hightide.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="530382679%2FClasslikes%2F-251573632" anchor-label="RED" id="530382679%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-d/index.html">RED</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="530382679%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-r-e-d/index.html">RED</a></div><div class="brief "><p class="paragraph">Represents a solid red color.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1437746114%2FClasslikes%2F-251573632" anchor-label="TWINKLE" id="1437746114%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-t-w-i-n-k-l-e/index.html">TWINKLE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1437746114%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-t-w-i-n-k-l-e/index.html">TWINKLE</a></div><div class="brief "><p class="paragraph">Represents a twinkling light effect.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1803719522%2FClasslikes%2F-251573632" anchor-label="ROBONAUT" id="-1803719522%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-o-b-o-n-a-u-t/index.html">ROBONAUT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1803719522%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-r-o-b-o-n-a-u-t/index.html">ROBONAUT</a></div><div class="brief "><p class="paragraph">Represents a color pattern themed after Robonaut.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1409207149%2FClasslikes%2F-251573632" anchor-label="FUNNY_ROBONAUT" id="-1409207149%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-f-u-n-n-y_-r-o-b-o-n-a-u-t/index.html">FUNNY_ROBONAUT</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1409207149%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-f-u-n-n-y_-r-o-b-o-n-a-u-t/index.html">FUNNY_ROBONAUT</a></div><div class="brief "><p class="paragraph">Represents a funny variation of the Robonaut color pattern.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2134291345%2FClasslikes%2F-251573632" anchor-label="LASER" id="2134291345%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-a-s-e-r/index.html">LASER</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2134291345%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-l-a-s-e-r/index.html">LASER</a></div><div class="brief "><p class="paragraph">Represents a laser-like color effect.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2021238290%2FClasslikes%2F-251573632" anchor-label="QUANTUM_LEAP" id="-2021238290%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-q-u-a-n-t-u-m_-l-e-a-p/index.html">QUANTUM_LEAP</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2021238290%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-q-u-a-n-t-u-m_-l-e-a-p/index.html">QUANTUM_LEAP</a></div><div class="brief "><p class="paragraph">Represents a color pattern themed after Quantum Leap.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1686586487%2FClasslikes%2F-251573632" anchor-label="RED_WAVE" id="-1686586487%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-r-e-d_-w-a-v-e/index.html">RED_WAVE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1686586487%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-r-e-d_-w-a-v-e/index.html">RED_WAVE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1515028393%2FClasslikes%2F-251573632" anchor-label="GREEN_WAVE" id="-1515028393%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-g-r-e-e-n_-w-a-v-e/index.html">GREEN_WAVE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1515028393%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-g-r-e-e-n_-w-a-v-e/index.html">GREEN_WAVE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2111737956%2FClasslikes%2F-251573632" anchor-label="BLUE_WAVE" id="2111737956%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-b-l-u-e_-w-a-v-e/index.html">BLUE_WAVE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2111737956%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-b-l-u-e_-w-a-v-e/index.html">BLUE_WAVE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-354634358%2FClasslikes%2F-251573632" anchor-label="YELLOW_WAVE" id="-354634358%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-y-e-l-l-o-w_-w-a-v-e/index.html">YELLOW_WAVE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-354634358%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-y-e-l-l-o-w_-w-a-v-e/index.html">YELLOW_WAVE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="492465474%2FClasslikes%2F-251573632" anchor-label="PURPLE_WAVE" id="492465474%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-u-r-p-l-e_-w-a-v-e/index.html">PURPLE_WAVE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="492465474%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-p-u-r-p-l-e_-w-a-v-e/index.html">PURPLE_WAVE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1533378960%2FClasslikes%2F-251573632" anchor-label="ORANGE_WAVE" id="1533378960%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-o-r-a-n-g-e_-w-a-v-e/index.html">ORANGE_WAVE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1533378960%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-o-r-a-n-g-e_-w-a-v-e/index.html">ORANGE_WAVE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1107486264%2FClasslikes%2F-251573632" anchor-label="PINK_WAVE" id="-1107486264%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-p-i-n-k_-w-a-v-e/index.html">PINK_WAVE</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1107486264%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-p-i-n-k_-w-a-v-e/index.html">PINK_WAVE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1170332%2FClasslikes%2F-251573632" anchor-label="DARK_GREEN" id="1170332%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-a-r-k_-g-r-e-e-n/index.html">DARK_GREEN</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1170332%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-d-a-r-k_-g-r-e-e-n/index.html">DARK_GREEN</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1357172096%2FClasslikes%2F-251573632" anchor-label="LIGHT_GREEN" id="1357172096%2FClasslikes%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-togglable="ENTRY" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-l-i-g-h-t_-g-r-e-e-n/index.html">LIGHT_GREEN</a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1357172096%2FClasslikes%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><a href="-l-i-g-h-t_-g-r-e-e-n/index.html">LIGHT_GREEN</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="655028188%2FProperties%2F-251573632" anchor-label="entries" id="655028188%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#655028188%2FProperties%2F-251573632"><span><span>entries</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="655028188%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.enums/-enum-entries/index.html">EnumEntries</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">LEDState</a><span class="token operator">&gt;</span> <a href="index.html#655028188%2FProperties%2F-251573632">entries</a></div><div class="brief "><p class="paragraph">Returns a representation of an immutable list of all enum entries, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="103373716%2FFunctions%2F-251573632" anchor-label="getEntries" id="103373716%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-entries.html"><span>get</span><wbr></wbr><span><span>Entries</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="103373716%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.enums/-enum-entries/index.html">EnumEntries</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">LEDState</a><span class="token operator">&gt;</span> <a href="get-entries.html"><span class="token function">getEntries</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">The LEDState enum represents the color scheme of the LEDs. Each constant in this enum corresponds to a different LED color pattern or effect.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1087804224%2FFunctions%2F-251573632" anchor-label="valueOf" id="1087804224%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr></wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1087804224%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="index.html">LEDState</a> <a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html">String</a> value</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2023428172%2FFunctions%2F-251573632" anchor-label="values" id="2023428172%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2023428172%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">LEDState</a><span class="token operator">&gt;</span> <a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

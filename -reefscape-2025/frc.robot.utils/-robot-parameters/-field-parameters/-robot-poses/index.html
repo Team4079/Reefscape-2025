@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>RobotPoses</title>
+    <link href="../../../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+<script type="text/javascript" src="../../../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+            <a class="library-name--link" href="../../../../../index.html">
+                    Reefscape-2025
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active=""
+                        data-filter=":/main">jvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":/main"
+                                       data-filter=":/main"/>
+                                <span class="checkbox--icon"></span>
+                                jvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                        data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    Reefscape-2025
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="Reefscape-2025::frc.robot.utils/RobotParameters.FieldParameters.RobotPoses///PointingToDeclaration//-251573632">
+  <div class="breadcrumbs"><a href="../../../../../index.html">Reefscape-2025</a><span class="delimiter">/</span><a href="../../../index.html">frc.robot.utils</a><span class="delimiter">/</span><a href="../../index.html">RobotParameters</a><span class="delimiter">/</span><a href="../index.html">FieldParameters</a><span class="delimiter">/</span><span class="current">RobotPoses</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Robot</span><wbr></wbr><span><span>Poses</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace"><span class="token keyword">public </span><span class="token keyword">class </span><a href="index.html">RobotPoses</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1304052086%2FProperties%2F-251573632" anchor-label="coralScoreBlueList" id="-1304052086%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1304052086%2FProperties%2F-251573632"><span>coral</span><wbr></wbr><span>Score</span><wbr></wbr><span>Blue</span><wbr></wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1304052086%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-field/index.html"><span class="token annotation builtin">JvmField</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-triple/index.html">Triple</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Translation2d///PointingToDeclaration/">Translation2d</span><span class="token punctuation">, </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span><span class="token punctuation">, </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span> <a href="index.html#-1304052086%2FProperties%2F-251573632">coralScoreBlueList</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2094476779%2FProperties%2F-251573632" anchor-label="coralScoreBlueListNotL4" id="-2094476779%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-2094476779%2FProperties%2F-251573632"><span>coral</span><wbr></wbr><span>Score</span><wbr></wbr><span>Blue</span><wbr></wbr><span>List</span><wbr></wbr><span>Not</span><wbr></wbr><span><span>L4</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2094476779%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-field/index.html"><span class="token annotation builtin">JvmField</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/List.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-triple/index.html">Triple</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Translation2d///PointingToDeclaration/">Translation2d</span><span class="token punctuation">, </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span><span class="token punctuation">, </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span> <a href="index.html#-2094476779%2FProperties%2F-251573632">coralScoreBlueListNotL4</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="665659662%2FProperties%2F-251573632" anchor-label="INSTANCE" id="665659662%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#665659662%2FProperties%2F-251573632"><span><span>INSTANCE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="665659662%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="index.html">RobotParameters.FieldParameters.RobotPoses</a> <a href="index.html#665659662%2FProperties%2F-251573632">INSTANCE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="380633181%2FProperties%2F-251573632" anchor-label="LEFT_CORAL_STATION_FAR" id="380633181%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#380633181%2FProperties%2F-251573632"><span>LEFT_</span><wbr></wbr><span>CORAL_</span><wbr></wbr><span>STATION_</span><wbr></wbr><span>FAR</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="380633181%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-field/index.html"><span class="token annotation builtin">JvmField</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#380633181%2FProperties%2F-251573632">LEFT_CORAL_STATION_FAR</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="520658878%2FProperties%2F-251573632" anchor-label="LEFT_CORAL_STATION_NEAR" id="520658878%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#520658878%2FProperties%2F-251573632"><span>LEFT_</span><wbr></wbr><span>CORAL_</span><wbr></wbr><span>STATION_</span><wbr></wbr><span>NEAR</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="520658878%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-field/index.html"><span class="token annotation builtin">JvmField</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#520658878%2FProperties%2F-251573632">LEFT_CORAL_STATION_NEAR</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1106737517%2FProperties%2F-251573632" anchor-label="REEF_A" id="1106737517%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1106737517%2FProperties%2F-251573632"><span>REEF_</span><wbr></wbr><span>A</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1106737517%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1106737517%2FProperties%2F-251573632">REEF_A</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1137757324%2FProperties%2F-251573632" anchor-label="REEF_B" id="1137757324%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1137757324%2FProperties%2F-251573632"><span>REEF_</span><wbr></wbr><span>B</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1137757324%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1137757324%2FProperties%2F-251573632">REEF_B</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1168777131%2FProperties%2F-251573632" anchor-label="REEF_C" id="1168777131%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1168777131%2FProperties%2F-251573632"><span>REEF_</span><wbr></wbr><span>C</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1168777131%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1168777131%2FProperties%2F-251573632">REEF_C</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1199796938%2FProperties%2F-251573632" anchor-label="REEF_D" id="1199796938%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1199796938%2FProperties%2F-251573632"><span>REEF_</span><wbr></wbr><span>D</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1199796938%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1199796938%2FProperties%2F-251573632">REEF_D</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1230816745%2FProperties%2F-251573632" anchor-label="REEF_E" id="1230816745%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1230816745%2FProperties%2F-251573632"><span>REEF_</span><wbr></wbr><span>E</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1230816745%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1230816745%2FProperties%2F-251573632">REEF_E</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1261836552%2FProperties%2F-251573632" anchor-label="REEF_F" id="1261836552%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1261836552%2FProperties%2F-251573632"><span>REEF_</span><wbr></wbr><span>F</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1261836552%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1261836552%2FProperties%2F-251573632">REEF_F</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1292856359%2FProperties%2F-251573632" anchor-label="REEF_G" id="1292856359%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1292856359%2FProperties%2F-251573632"><span>REEF_</span><wbr></wbr><span>G</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1292856359%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1292856359%2FProperties%2F-251573632">REEF_G</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1323876166%2FProperties%2F-251573632" anchor-label="REEF_H" id="1323876166%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1323876166%2FProperties%2F-251573632"><span>REEF_</span><wbr></wbr><span>H</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1323876166%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1323876166%2FProperties%2F-251573632">REEF_H</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1354895973%2FProperties%2F-251573632" anchor-label="REEF_I" id="1354895973%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1354895973%2FProperties%2F-251573632"><span>REEF_</span><wbr></wbr><span>I</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1354895973%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1354895973%2FProperties%2F-251573632">REEF_I</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1385915780%2FProperties%2F-251573632" anchor-label="REEF_J" id="1385915780%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1385915780%2FProperties%2F-251573632"><span>REEF_</span><wbr></wbr><span>J</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1385915780%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1385915780%2FProperties%2F-251573632">REEF_J</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1416935587%2FProperties%2F-251573632" anchor-label="REEF_K" id="1416935587%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1416935587%2FProperties%2F-251573632"><span>REEF_</span><wbr></wbr><span>K</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1416935587%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1416935587%2FProperties%2F-251573632">REEF_K</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1447955394%2FProperties%2F-251573632" anchor-label="REEF_L" id="1447955394%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1447955394%2FProperties%2F-251573632"><span>REEF_</span><wbr></wbr><span>L</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1447955394%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1447955394%2FProperties%2F-251573632">REEF_L</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-354528132%2FProperties%2F-251573632" anchor-label="RIGHT_CORAL_STATION_FAR" id="-354528132%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-354528132%2FProperties%2F-251573632"><span>RIGHT_</span><wbr></wbr><span>CORAL_</span><wbr></wbr><span>STATION_</span><wbr></wbr><span>FAR</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-354528132%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-field/index.html"><span class="token annotation builtin">JvmField</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#-354528132%2FProperties%2F-251573632">RIGHT_CORAL_STATION_FAR</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-794505345%2FProperties%2F-251573632" anchor-label="RIGHT_CORAL_STATION_NEAR" id="-794505345%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-794505345%2FProperties%2F-251573632"><span>RIGHT_</span><wbr></wbr><span>CORAL_</span><wbr></wbr><span>STATION_</span><wbr></wbr><span>NEAR</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-794505345%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-field/index.html"><span class="token annotation builtin">JvmField</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#-794505345%2FProperties%2F-251573632">RIGHT_CORAL_STATION_NEAR</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1068737701%2FProperties%2F-251573632" anchor-label="SCORING_A_BLUE" id="-1068737701%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1068737701%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>A_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1068737701%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#-1068737701%2FProperties%2F-251573632">SCORING_A_BLUE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="453836332%2FProperties%2F-251573632" anchor-label="SCORING_A_BLUE_NOT_L4" id="453836332%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#453836332%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>A_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="453836332%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#453836332%2FProperties%2F-251573632">SCORING_A_BLUE_NOT_L4</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-717937764%2FProperties%2F-251573632" anchor-label="SCORING_B_BLUE" id="-717937764%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-717937764%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>B_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-717937764%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#-717937764%2FProperties%2F-251573632">SCORING_B_BLUE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2086640331%2FProperties%2F-251573632" anchor-label="SCORING_B_BLUE_NOT_L4" id="2086640331%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2086640331%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>B_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2086640331%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#2086640331%2FProperties%2F-251573632">SCORING_B_BLUE_NOT_L4</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-367137827%2FProperties%2F-251573632" anchor-label="SCORING_C_BLUE" id="-367137827%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-367137827%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>C_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-367137827%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#-367137827%2FProperties%2F-251573632">SCORING_C_BLUE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-575522966%2FProperties%2F-251573632" anchor-label="SCORING_C_BLUE_NOT_L4" id="-575522966%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-575522966%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>C_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-575522966%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#-575522966%2FProperties%2F-251573632">SCORING_C_BLUE_NOT_L4</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-16337890%2FProperties%2F-251573632" anchor-label="SCORING_D_BLUE" id="-16337890%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-16337890%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>D_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-16337890%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#-16337890%2FProperties%2F-251573632">SCORING_D_BLUE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1057281033%2FProperties%2F-251573632" anchor-label="SCORING_D_BLUE_NOT_L4" id="1057281033%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1057281033%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>D_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1057281033%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1057281033%2FProperties%2F-251573632">SCORING_D_BLUE_NOT_L4</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="334462047%2FProperties%2F-251573632" anchor-label="SCORING_E_BLUE" id="334462047%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#334462047%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>E_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="334462047%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#334462047%2FProperties%2F-251573632">SCORING_E_BLUE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1604882264%2FProperties%2F-251573632" anchor-label="SCORING_E_BLUE_NOT_L4" id="-1604882264%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1604882264%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>E_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1604882264%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#-1604882264%2FProperties%2F-251573632">SCORING_E_BLUE_NOT_L4</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="685261984%2FProperties%2F-251573632" anchor-label="SCORING_F_BLUE" id="685261984%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#685261984%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>F_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="685261984%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#685261984%2FProperties%2F-251573632">SCORING_F_BLUE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="27921735%2FProperties%2F-251573632" anchor-label="SCORING_F_BLUE_NOT_L4" id="27921735%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#27921735%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>F_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="27921735%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#27921735%2FProperties%2F-251573632">SCORING_F_BLUE_NOT_L4</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1036061921%2FProperties%2F-251573632" anchor-label="SCORING_G_BLUE" id="1036061921%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1036061921%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>G_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1036061921%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1036061921%2FProperties%2F-251573632">SCORING_G_BLUE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1660725734%2FProperties%2F-251573632" anchor-label="SCORING_G_BLUE_NOT_L4" id="1660725734%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1660725734%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>G_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1660725734%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1660725734%2FProperties%2F-251573632">SCORING_G_BLUE_NOT_L4</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1386861858%2FProperties%2F-251573632" anchor-label="SCORING_H_BLUE" id="1386861858%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1386861858%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>H_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1386861858%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1386861858%2FProperties%2F-251573632">SCORING_H_BLUE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1001437563%2FProperties%2F-251573632" anchor-label="SCORING_H_BLUE_NOT_L4" id="-1001437563%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1001437563%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>H_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1001437563%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#-1001437563%2FProperties%2F-251573632">SCORING_H_BLUE_NOT_L4</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1737661795%2FProperties%2F-251573632" anchor-label="SCORING_I_BLUE" id="1737661795%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1737661795%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>I_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1737661795%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1737661795%2FProperties%2F-251573632">SCORING_I_BLUE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="631366436%2FProperties%2F-251573632" anchor-label="SCORING_I_BLUE_NOT_L4" id="631366436%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#631366436%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>I_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="631366436%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#631366436%2FProperties%2F-251573632">SCORING_I_BLUE_NOT_L4</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2088461732%2FProperties%2F-251573632" anchor-label="SCORING_J_BLUE" id="2088461732%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2088461732%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>J_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2088461732%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#2088461732%2FProperties%2F-251573632">SCORING_J_BLUE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2030796861%2FProperties%2F-251573632" anchor-label="SCORING_J_BLUE_NOT_L4" id="-2030796861%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-2030796861%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>J_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2030796861%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#-2030796861%2FProperties%2F-251573632">SCORING_J_BLUE_NOT_L4</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1855705627%2FProperties%2F-251573632" anchor-label="SCORING_K_BLUE" id="-1855705627%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1855705627%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>K_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1855705627%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#-1855705627%2FProperties%2F-251573632">SCORING_K_BLUE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-397992862%2FProperties%2F-251573632" anchor-label="SCORING_K_BLUE_NOT_L4" id="-397992862%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-397992862%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>K_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-397992862%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#-397992862%2FProperties%2F-251573632">SCORING_K_BLUE_NOT_L4</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1504905690%2FProperties%2F-251573632" anchor-label="SCORING_L_BLUE" id="-1504905690%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1504905690%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>L_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1504905690%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#-1504905690%2FProperties%2F-251573632">SCORING_L_BLUE</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1234811137%2FProperties%2F-251573632" anchor-label="SCORING_L_BLUE_NOT_L4" id="1234811137%2FProperties%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1234811137%2FProperties%2F-251573632"><span>SCORING_</span><wbr></wbr><span>L_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1234811137%2FProperties%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">private </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="index.html#1234811137%2FProperties%2F-251573632">SCORING_L_BLUE_NOT_L4</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="42371093%2FFunctions%2F-251573632" anchor-label="addCoralPosList" id="42371093%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-coral-pos-list.html"><span>add</span><wbr></wbr><span>Coral</span><wbr></wbr><span>Pos</span><wbr></wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="42371093%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a> <a href="add-coral-pos-list.html"><span class="token function">addCoralPosList</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-111108493%2FFunctions%2F-251573632" anchor-label="getRedAlliancePose" id="-111108493%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-red-alliance-pose.html"><span>get</span><wbr></wbr><span>Red</span><wbr></wbr><span>Alliance</span><wbr></wbr><span><span>Pose</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-111108493%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-red-alliance-pose.html"><span class="token function">getRedAlliancePose</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> bluePose</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1142157903%2FFunctions%2F-251573632" anchor-label="getRedAllianceTranslation" id="-1142157903%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-red-alliance-translation.html"><span>get</span><wbr></wbr><span>Red</span><wbr></wbr><span>Alliance</span><wbr></wbr><span><span>Translation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1142157903%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword">static </span><span data-unresolved-link="edu.wpi.first.math.geometry/Translation2d///PointingToDeclaration/">Translation2d</span> <a href="get-red-alliance-translation.html"><span class="token function">getRedAllianceTranslation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Translation2d///PointingToDeclaration/">Translation2d</span> blueTranslation</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-554377717%2FFunctions%2F-251573632" anchor-label="getREEF_A" id="-554377717%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-r-e-e-f_-a.html"><span>getREEF_</span><wbr></wbr><span>A</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-554377717%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-r-e-e-f_-a.html"><span class="token function">getREEF_A</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-523357910%2FFunctions%2F-251573632" anchor-label="getREEF_B" id="-523357910%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-r-e-e-f_-b.html"><span>getREEF_</span><wbr></wbr><span>B</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-523357910%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-r-e-e-f_-b.html"><span class="token function">getREEF_B</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-492338103%2FFunctions%2F-251573632" anchor-label="getREEF_C" id="-492338103%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-r-e-e-f_-c.html"><span>getREEF_</span><wbr></wbr><span>C</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-492338103%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-r-e-e-f_-c.html"><span class="token function">getREEF_C</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-461318296%2FFunctions%2F-251573632" anchor-label="getREEF_D" id="-461318296%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-r-e-e-f_-d.html"><span>getREEF_</span><wbr></wbr><span>D</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-461318296%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-r-e-e-f_-d.html"><span class="token function">getREEF_D</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-430298489%2FFunctions%2F-251573632" anchor-label="getREEF_E" id="-430298489%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-r-e-e-f_-e.html"><span>getREEF_</span><wbr></wbr><span>E</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-430298489%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-r-e-e-f_-e.html"><span class="token function">getREEF_E</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-399278682%2FFunctions%2F-251573632" anchor-label="getREEF_F" id="-399278682%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-r-e-e-f_-f.html"><span>getREEF_</span><wbr></wbr><span>F</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-399278682%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-r-e-e-f_-f.html"><span class="token function">getREEF_F</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-368258875%2FFunctions%2F-251573632" anchor-label="getREEF_G" id="-368258875%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-r-e-e-f_-g.html"><span>getREEF_</span><wbr></wbr><span>G</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-368258875%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-r-e-e-f_-g.html"><span class="token function">getREEF_G</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-337239068%2FFunctions%2F-251573632" anchor-label="getREEF_H" id="-337239068%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-r-e-e-f_-h.html"><span>getREEF_</span><wbr></wbr><span>H</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-337239068%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-r-e-e-f_-h.html"><span class="token function">getREEF_H</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-306219261%2FFunctions%2F-251573632" anchor-label="getREEF_I" id="-306219261%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-r-e-e-f_-i.html"><span>getREEF_</span><wbr></wbr><span>I</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-306219261%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-r-e-e-f_-i.html"><span class="token function">getREEF_I</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-275199454%2FFunctions%2F-251573632" anchor-label="getREEF_J" id="-275199454%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-r-e-e-f_-j.html"><span>getREEF_</span><wbr></wbr><span>J</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-275199454%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-r-e-e-f_-j.html"><span class="token function">getREEF_J</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-244179647%2FFunctions%2F-251573632" anchor-label="getREEF_K" id="-244179647%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-r-e-e-f_-k.html"><span>getREEF_</span><wbr></wbr><span>K</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-244179647%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-r-e-e-f_-k.html"><span class="token function">getREEF_K</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-213159840%2FFunctions%2F-251573632" anchor-label="getREEF_L" id="-213159840%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-r-e-e-f_-l.html"><span>getREEF_</span><wbr></wbr><span>L</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-213159840%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-r-e-e-f_-l.html"><span class="token function">getREEF_L</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1306673657%2FFunctions%2F-251573632" anchor-label="getSCORING_A_BLUE" id="1306673657%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-a_-b-l-u-e.html"><span>getSCORING_</span><wbr></wbr><span>A_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1306673657%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-a_-b-l-u-e.html"><span class="token function">getSCORING_A_BLUE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1998719438%2FFunctions%2F-251573632" anchor-label="getSCORING_A_BLUE_NOT_L4" id="1998719438%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-a_-b-l-u-e_-n-o-t_-l4.html"><span>getSCORING_</span><wbr></wbr><span>A_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1998719438%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-a_-b-l-u-e_-n-o-t_-l4.html"><span class="token function">getSCORING_A_BLUE_NOT_L4</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1657473594%2FFunctions%2F-251573632" anchor-label="getSCORING_B_BLUE" id="1657473594%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-b_-b-l-u-e.html"><span>getSCORING_</span><wbr></wbr><span>B_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1657473594%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-b_-b-l-u-e.html"><span class="token function">getSCORING_B_BLUE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-663443859%2FFunctions%2F-251573632" anchor-label="getSCORING_B_BLUE_NOT_L4" id="-663443859%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-b_-b-l-u-e_-n-o-t_-l4.html"><span>getSCORING_</span><wbr></wbr><span>B_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-663443859%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-b_-b-l-u-e_-n-o-t_-l4.html"><span class="token function">getSCORING_B_BLUE_NOT_L4</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2008273531%2FFunctions%2F-251573632" anchor-label="getSCORING_C_BLUE" id="2008273531%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-c_-b-l-u-e.html"><span>getSCORING_</span><wbr></wbr><span>C_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2008273531%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-c_-b-l-u-e.html"><span class="token function">getSCORING_C_BLUE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="969360140%2FFunctions%2F-251573632" anchor-label="getSCORING_C_BLUE_NOT_L4" id="969360140%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-c_-b-l-u-e_-n-o-t_-l4.html"><span>getSCORING_</span><wbr></wbr><span>C_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="969360140%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-c_-b-l-u-e_-n-o-t_-l4.html"><span class="token function">getSCORING_C_BLUE_NOT_L4</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1935893828%2FFunctions%2F-251573632" anchor-label="getSCORING_D_BLUE" id="-1935893828%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-d_-b-l-u-e.html"><span>getSCORING_</span><wbr></wbr><span>D_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1935893828%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-d_-b-l-u-e.html"><span class="token function">getSCORING_D_BLUE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1692803157%2FFunctions%2F-251573632" anchor-label="getSCORING_D_BLUE_NOT_L4" id="-1692803157%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-d_-b-l-u-e_-n-o-t_-l4.html"><span>getSCORING_</span><wbr></wbr><span>D_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1692803157%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-d_-b-l-u-e_-n-o-t_-l4.html"><span class="token function">getSCORING_D_BLUE_NOT_L4</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1585093891%2FFunctions%2F-251573632" anchor-label="getSCORING_E_BLUE" id="-1585093891%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-e_-b-l-u-e.html"><span>getSCORING_</span><wbr></wbr><span>E_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1585093891%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-e_-b-l-u-e.html"><span class="token function">getSCORING_E_BLUE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-59999158%2FFunctions%2F-251573632" anchor-label="getSCORING_E_BLUE_NOT_L4" id="-59999158%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-e_-b-l-u-e_-n-o-t_-l4.html"><span>getSCORING_</span><wbr></wbr><span>E_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-59999158%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-e_-b-l-u-e_-n-o-t_-l4.html"><span class="token function">getSCORING_E_BLUE_NOT_L4</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1234293954%2FFunctions%2F-251573632" anchor-label="getSCORING_F_BLUE" id="-1234293954%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-f_-b-l-u-e.html"><span>getSCORING_</span><wbr></wbr><span>F_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1234293954%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-f_-b-l-u-e.html"><span class="token function">getSCORING_F_BLUE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1572804841%2FFunctions%2F-251573632" anchor-label="getSCORING_F_BLUE_NOT_L4" id="1572804841%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-f_-b-l-u-e_-n-o-t_-l4.html"><span>getSCORING_</span><wbr></wbr><span>F_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1572804841%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-f_-b-l-u-e_-n-o-t_-l4.html"><span class="token function">getSCORING_F_BLUE_NOT_L4</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-883494017%2FFunctions%2F-251573632" anchor-label="getSCORING_G_BLUE" id="-883494017%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-g_-b-l-u-e.html"><span>getSCORING_</span><wbr></wbr><span>G_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-883494017%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-g_-b-l-u-e.html"><span class="token function">getSCORING_G_BLUE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1089358456%2FFunctions%2F-251573632" anchor-label="getSCORING_G_BLUE_NOT_L4" id="-1089358456%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-g_-b-l-u-e_-n-o-t_-l4.html"><span>getSCORING_</span><wbr></wbr><span>G_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1089358456%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-g_-b-l-u-e_-n-o-t_-l4.html"><span class="token function">getSCORING_G_BLUE_NOT_L4</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-532694080%2FFunctions%2F-251573632" anchor-label="getSCORING_H_BLUE" id="-532694080%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-h_-b-l-u-e.html"><span>getSCORING_</span><wbr></wbr><span>H_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-532694080%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-h_-b-l-u-e.html"><span class="token function">getSCORING_H_BLUE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="543445543%2FFunctions%2F-251573632" anchor-label="getSCORING_H_BLUE_NOT_L4" id="543445543%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-h_-b-l-u-e_-n-o-t_-l4.html"><span>getSCORING_</span><wbr></wbr><span>H_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="543445543%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-h_-b-l-u-e_-n-o-t_-l4.html"><span class="token function">getSCORING_H_BLUE_NOT_L4</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-181894143%2FFunctions%2F-251573632" anchor-label="getSCORING_I_BLUE" id="-181894143%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-i_-b-l-u-e.html"><span>getSCORING_</span><wbr></wbr><span>I_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-181894143%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-i_-b-l-u-e.html"><span class="token function">getSCORING_I_BLUE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2118717754%2FFunctions%2F-251573632" anchor-label="getSCORING_I_BLUE_NOT_L4" id="-2118717754%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-i_-b-l-u-e_-n-o-t_-l4.html"><span>getSCORING_</span><wbr></wbr><span>I_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2118717754%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-i_-b-l-u-e_-n-o-t_-l4.html"><span class="token function">getSCORING_I_BLUE_NOT_L4</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="168905794%2FFunctions%2F-251573632" anchor-label="getSCORING_J_BLUE" id="168905794%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-j_-b-l-u-e.html"><span>getSCORING_</span><wbr></wbr><span>J_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="168905794%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-j_-b-l-u-e.html"><span class="token function">getSCORING_J_BLUE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-485913755%2FFunctions%2F-251573632" anchor-label="getSCORING_J_BLUE_NOT_L4" id="-485913755%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-j_-b-l-u-e_-n-o-t_-l4.html"><span>getSCORING_</span><wbr></wbr><span>J_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-485913755%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-j_-b-l-u-e_-n-o-t_-l4.html"><span class="token function">getSCORING_J_BLUE_NOT_L4</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="519705731%2FFunctions%2F-251573632" anchor-label="getSCORING_K_BLUE" id="519705731%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-k_-b-l-u-e.html"><span>getSCORING_</span><wbr></wbr><span>K_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="519705731%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-k_-b-l-u-e.html"><span class="token function">getSCORING_K_BLUE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1146890244%2FFunctions%2F-251573632" anchor-label="getSCORING_K_BLUE_NOT_L4" id="1146890244%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-k_-b-l-u-e_-n-o-t_-l4.html"><span>getSCORING_</span><wbr></wbr><span>K_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1146890244%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-k_-b-l-u-e_-n-o-t_-l4.html"><span class="token function">getSCORING_K_BLUE_NOT_L4</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="870505668%2FFunctions%2F-251573632" anchor-label="getSCORING_L_BLUE" id="870505668%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-l_-b-l-u-e.html"><span>getSCORING_</span><wbr></wbr><span>L_</span><wbr></wbr><span>BLUE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="870505668%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-l_-b-l-u-e.html"><span class="token function">getSCORING_L_BLUE</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1515273053%2FFunctions%2F-251573632" anchor-label="getSCORING_L_BLUE_NOT_L4" id="-1515273053%2FFunctions%2F-251573632" data-filterable-set=":/main"></a>
+          <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-s-c-o-r-i-n-g_-l_-b-l-u-e_-n-o-t_-l4.html"><span>getSCORING_</span><wbr></wbr><span>L_</span><wbr></wbr><span>BLUE_</span><wbr></wbr><span>NOT_</span><wbr></wbr><span>L4</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1515273053%2FFunctions%2F-251573632"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":/main"><div class="symbol monospace block"><span class="token keyword">public </span><span class="token keyword">final </span><span class="token keyword"></span><span data-unresolved-link="edu.wpi.first.math.geometry/Pose2d///PointingToDeclaration/">Pose2d</span> <a href="get-s-c-o-r-i-n-g_-l_-b-l-u-e_-n-o-t_-l4.html"><span class="token function">getSCORING_L_BLUE_NOT_L4</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
